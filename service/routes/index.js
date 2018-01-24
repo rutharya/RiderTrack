@@ -12,4 +12,8 @@ router.get('/dashboard',function(req,res,next){
   res.render('dashboard');
 })
 
+router.get('/tracking',function(req,res,next){
+  res.render('tracking');
+})
+
 module.exports = router;
