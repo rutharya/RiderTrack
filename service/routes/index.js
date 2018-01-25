@@ -20,4 +20,8 @@ router.get('/profile',function(req,res,next){
   res.render('profile', {title: 'My Profile'});
 })
 
+router.get('/credentials',function(req,res,next){
+    res.render('credentials', {title: 'My Credentials'});
+})
+
 module.exports = router;
