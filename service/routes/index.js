@@ -16,4 +16,8 @@ router.get('/tracking',function(req,res,next){
   res.render('tracking');
 })
 
+router.get('/profile',function(req,res,next){
+  res.render('profile', {title: 'My Profile'});
+})
+
 module.exports = router;
