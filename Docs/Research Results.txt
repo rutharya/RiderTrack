@@ -1,1 +1,2 @@
-Test
+Document to document research findings: Anyone is open to document their findings in this document
+Topics to be researched about: Strava API, Fitbit SDK, Garmin SDK, Wearables (with GPS and without), how is location broadcasted by these devices.
