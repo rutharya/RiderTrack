@@ -196,6 +196,23 @@
                     var marker = L.marker([51.5, -0.09]).addTo(mymap);
                     marker.bindPopup("<b>Rider 1</b><br>I am here.").openPopup();
 
+
+                    //Make API connection using Ajax
+
+                    var request = new XMLHttpRequest();
+                    request.open('GET', "https://savemyloc.herokuapp.com/users/Buffalo", false);
+                    request.send();
+
+                    request.onreadystatechange =
+                        function() { getData(request) };
+
+                    function getData(request) {
+                        if ((request.readyState == 4) && (request.status == 200)) {
+                            var jsonDocument = JSON.parse(request.responseText);
+                            console.log(jsonDocument[0]);
+                        }
+                    }
+
                 </script>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -255,9 +272,6 @@
             <!-- Custom scripts for this page-->
             <script src="js/sb-admin-datatables.min.js"></script>
             <script src="js/sb-admin-charts.min.js"></script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2teV9xtRZN3iEsxjvU0ps9PgU7eYy3wo&callback=initMap">
-            </script>
         </div>
     </div>
 </div>
