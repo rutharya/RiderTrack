@@ -24,4 +24,8 @@ router.get('/credentials',function(req,res,next){
     res.render('credentials', {title: 'My Credentials'});
 })
 
+router.get('/events',function(req,res,next){
+  res.render('events');
+})
+
 module.exports = router;
