@@ -28,8 +28,9 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">	
 	
 	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="../angularJS/events.js"></script>
   </head>
 
   <body>
@@ -107,8 +108,115 @@
 </form>
 <br>
       <div class="row">
-	  
-        <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div ng-app="events" ng-controller="events">
+          <table cellpadding="10">
+            <tr ng-repeat="event in events" ng-switch on="$index % 4">
+              <td ng-switch-when="0">
+                <span ng-show="events[$index]">
+                  <div class="card h-100">
+                <p><img class="card-img-top" ng-src ="{{events[$index].image}}" height="300" width="240"></p>
+                <h4 class="card-title"><a href="#">{{events[$index].name}}</a></h4>
+                <!-- <p>{{events[$index].name}}</p></h4> -->
+                <p class="card-text">{{events[$index].description}}</p>
+              </div>
+              </span>
+              </td> 
+              <td ng-switch-when="0">
+                
+                <span ng-show="events[$index+1]">
+                  <div class="card h-100">
+                  <p><img class="card-img-top" ng-src ="{{events[$index+1].image}}" height="300" width="240"></p>
+                  <h4 class="card-title"><a href="#">{{events[$index+1].name}}</a></h4>
+                  <!-- <p>{{events[$index+1].name}}</p> -->
+                  <p class="card-text">{{events[$index+1].description}}</p>
+                </div>
+                </span>
+              </td>
+              <td ng-switch-when="0">
+                
+                <span ng-show="events[$index+2]">    
+                  <div class="card h-100">
+                  <p><img class="card-img-top" ng-src ="{{events[$index+2].image}}" height="300" width="240"></p>
+                  <h4 class="card-title"><a href="#">{{events[$index+2].name}}</a></h4>
+                  <!-- <p>{{events[$index+2].name}}</p> -->
+                  <p class="card-text">{{events[$index+2].description}}</p>
+                </div>
+                </span>
+              </td>
+              <td ng-switch-when="0">
+                
+                <span ng-show="events[$index+3]">
+                  <div class="card h-100">
+                  <p><img class="card-img-top" ng-src ="{{events[$index+3].image}}" height="300" width="240"></p>
+                  <h4 class="card-title"><a href="#">{{events[$index+3].name}}</a></h4>
+                  <!-- <p>{{events[$index+3].name}}</p> -->
+                  <p class="card-text">{{events[$index+3].description}}</p>
+                  </div>
+                </span>
+              
+              </td>
+            </tr>
+          </table>
+        </div>
+       <!--  <center>
+        <div ng-app="events" ng-controller="events">
+          
+          <table cellspacing="30">
+            <tr ng-repeat="event in events" ng-switch on="$index % 4">
+              <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                  <td ng-switch-when="0">
+                    
+                    <span ng-show="events[$index]">
+                      <div class="card h-100">
+                    <img class="card-img-top" ng-src ="{{events[$index].image}}" height="300" width="240">
+                    <h4 class="card-title"><a href="#">{{events[$index].name}}</a></h4>
+                    <p class="card-text">{{events[$index].description}}</p>
+                    </div>
+                    </span>
+                  
+                  </td>
+                  <td ng-switch-when="0">
+                    
+                    <span ng-show="events[$index+1]">
+                      <div class="card h-100">
+                    <img class="card-img-top" ng-src ="{{events[$index+1].image}}" height="300" width="240">
+                    <h4 class="card-title"><a href="#">{{events[$index+1].name}}</a></h4>
+                    <p class="card-text">{{events[$index+1].description}}</p>
+                    </div>
+                  </span>
+                
+                  </td>
+                  <td ng-switch-when="0">
+                    
+                    <span ng-show="events[$index+2]">
+                      <div class="card h-100">
+                    <img class="card-img-top" ng-src ="{{events[$index+2].image}}" height="300" width="240">
+                    <h4 class="card-title"><a href="#">{{events[$index+2].name}}</a></h4>
+                    <p class="card-text">{{events[$index+2].description}}</p>
+                    </div>
+                  </span>
+                
+                  </td>
+                  <td ng-switch-when="0">
+                   
+                    <span ng-show="events[$index+3]">
+                       <div class="card h-100">
+                    <img class="card-img-top" ng-src ="{{events[$index+3].image}}" height="300" width="240">
+                    <h4 class="card-title"><a href="#">{{events[$index+3].name}}</a></h4>
+                    <p class="card-text">{{events[$index+3].description}}</p>
+                  </div>
+                  </span>
+                
+                  </td>
+              </div>
+            </tr>
+          </table>    
+          
+        </div>
+        </center>   -->
+
+
+        <!-- <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
           <div class="card h-100">
             <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
             <div class="card-body">
@@ -195,12 +303,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- /.row -->
 
       <!-- Pagination -->
-	  <center>
-      <ul class="pagination justify-content-center">
+      <!-- <ul class="pagination justify-content-center">
 	  
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
@@ -223,7 +330,7 @@
             <span class="sr-only">Next</span>
           </a>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <!-- /.container -->
 
