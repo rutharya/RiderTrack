@@ -28,4 +28,8 @@ router.get('/events',function(req,res,next){
   res.render('events');
 })
 
+router.get('/login',function(req,res,next){
+    res.render('login');
+})
+
 module.exports = router;
