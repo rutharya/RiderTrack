@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "node ./service/scripts/startMessage.js",
     "start": "npm-run-all --parallel security-check open:src ",
-    "open:src": "node ./service/app.js",
+    "open:src": "node ./service/bin/www",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel"
