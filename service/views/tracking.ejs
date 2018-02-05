@@ -185,7 +185,7 @@
             <div class="card-body">
                 <div id="map" style="width:100%; height:500px; padding:0%"></div>
                 <script>
-                    var mymap = L.map('map').setView([51.505, -0.09], 13);
+                    var mymap = L.map('map').setView([33.42192543,-111.92350757], 13);
                     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                         maxZoom: 18,
@@ -193,14 +193,14 @@
                         accessToken: 'pk.eyJ1IjoiaGltYW5pMzEzIiwiYSI6ImNqY3V3ZjBvdjBlbjQycW11eDdyem11dnMifQ.yqjbj4rbuYIByGQ9EXn2IA'
                     }).addTo(mymap);
 
-                    var marker = L.marker([51.5, -0.09]).addTo(mymap);
-                    marker.bindPopup("<b>Rider 1</b><br>I am here.").openPopup();
+                    //var marker = L.marker([51.5, -0.09]).addTo(mymap);
+                    //marker.bindPopup("<b>Rider 1</b><br>I am here.").openPopup();
 
 
                     //Make API connection using Ajax
 
                     var request = new XMLHttpRequest();
-                    request.open('GET', "https://savemyloc.herokuapp.com/users/Buffalo", false);
+                    request.open('GET', "https://savemyloc.herokuapp.com/users/Buffalo", true);
                     request.send();
 
                     request.onreadystatechange =
@@ -210,9 +210,22 @@
                         if ((request.readyState == 4) && (request.status == 200)) {
                             var jsonDocument = JSON.parse(request.responseText);
                             console.log(jsonDocument[0]);
+                            console.log(jsonDocument[0].lat);
+                            //var marker = L.marker([jsonDocument[0].lat, jsonDocument[0].lng]).addTo(mymap);
+                            var latlngs = [];
+                            for(var i=0; i<jsonDocument.length; i++){
+                                latlngs.push([jsonDocument[i].lat, jsonDocument[i].lng]);
+                            }
+                            /*var latlngs = [
+                              [jsonDocument[0].lat, jsonDocument[0].lng],
+                              [jsonDocument[1].lat, jsonDocument[1].lng],
+                              [jsonDocument[2].lat, jsonDocument[2].lng]
+                            ];*/
+                            var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+                            // zoom the map to the polyline
+                            mymap.fitBounds(polyline.getBounds());
                         }
                     }
-
                 </script>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
