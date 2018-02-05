@@ -2,32 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RiderTrack - LogIn</title>
     <meta name="description" content="RiderTrack login page" />
     <meta name="keywords" content="RiderTrack Login">
     <link rel="stylesheet" href="css/login.css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 </head>
-<body background="images/bg1.jpg">
-
-<div class="title">
-    <h1>Sign In</h1>
-</div>
-<div class="container">
-    <div class="right">
-        <div class="formBox">
-            <form>
-                <p>Username</p>
-                <input type="email" name="" placeholder="Your email">
-                <p>Password</p>
-                <input type="password" name="" placeholder = "Your password">
-                <input type="submit" name="" value = "Sign In">
-                <a href="#">Forgot Password</a>
-
+<body>
+<div class="container-fluid bg">
+    <div class="row">
+        <div class="col-md4 col-sm-4 col-xs-12"></div>
+        <div class="col-md4 col-sm-4 col-xs-12">
+            <!--form-start-->
+            <form class="form-container">
+                <h2>Login to RiderTrack</h2>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember Me
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Sing In</button>
+                <br>
+                <br>
+                <a href="#" class="forgotpassword">Forgot Password?</a>
             </form>
+            <!--form-end-->
         </div>
     </div>
+
+
+
 </div>
+
+
 </body>
 </html>
