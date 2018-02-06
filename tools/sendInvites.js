@@ -30,7 +30,6 @@ router.post('/send', function(req, res, next) {
             console.log('Email sent: ' + info.response);
         }
     });
-    //res.render('index', { title: 'Rutuja' });
     res.send('Email Sent');
 });
 module.exports = router;
