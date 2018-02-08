@@ -8,7 +8,7 @@ const url = 'mongodb://localhost:27017';
 // Database Name
 const dbName = 'ridertrack';
 
-var UserSchema = require('../models/user');
+var UserSchema = require('../models/rider');
 
 var checkConnection = function() {
   mongoose.connect('mongodb://localhost/ridertrack', function(err) {
