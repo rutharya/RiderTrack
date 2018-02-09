@@ -192,37 +192,48 @@
                         id: 'mapbox.streets',
                         accessToken: 'pk.eyJ1IjoiaGltYW5pMzEzIiwiYSI6ImNqY3V3ZjBvdjBlbjQycW11eDdyem11dnMifQ.yqjbj4rbuYIByGQ9EXn2IA'
                     }).addTo(mymap);
-
                     //var marker = L.marker([51.5, -0.09]).addTo(mymap);
                     //marker.bindPopup("<b>Rider 1</b><br>I am here.").openPopup();
-
-
                     //Make API connection using Ajax
-
                     var request = new XMLHttpRequest();
-                    request.open('GET', "https://savemyloc.herokuapp.com/users/Buffalo", true);
+                    request.open('GET', "https://savemyloc.herokuapp.com/", true);
                     request.send();
-
                     request.onreadystatechange =
                         function() { getData(request) };
-
                     function getData(request) {
                         if ((request.readyState == 4) && (request.status == 200)) {
                             var jsonDocument = JSON.parse(request.responseText);
                             console.log(jsonDocument[0]);
                             console.log(jsonDocument[0].lat);
                             //var marker = L.marker([jsonDocument[0].lat, jsonDocument[0].lng]).addTo(mymap);
-                            var latlngs = [];
+                            var locMap = new Map();
                             for(var i=0; i<jsonDocument.length; i++){
-                                latlngs.push([jsonDocument[i].lat, jsonDocument[i].lng]);
+                                if(locMap.has(jsonDocument[i].user)){
+                                    locMap.get(jsonDocument[i].user).push([jsonDocument[i].lat, jsonDocument[i].lng])
+                                }
+                                else{
+                                    var latlngs = [];
+                                    //locMap[jsonDocument[i].user] =
+                                    latlngs.push([jsonDocument[i].lat, jsonDocument[i].lng]);
+                                    locMap.set(jsonDocument[i].user, latlngs);
+                                }
+//                                latlngs.push([jsonDocument[i].lat, jsonDocument[i].lng]);
                             }
                             /*var latlngs = [
                               [jsonDocument[0].lat, jsonDocument[0].lng],
                               [jsonDocument[1].lat, jsonDocument[1].lng],
                               [jsonDocument[2].lat, jsonDocument[2].lng]
                             ];*/
-                            var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+//                            var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
                             // zoom the map to the polyline
+                            for (var value of locMap.values()) {
+                                var i=0;
+                                console.log(value);
+                                var hue = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+                                var polyline = L.polyline(value, {color: hue}).addTo(mymap);
+                                polyline.bindPopup("User"+i);
+                                ++i;
+                            }
                             mymap.fitBounds(polyline.getBounds());
                         }
                     }
@@ -235,14 +246,11 @@
         <!-- /.container-fluid-->
         <!-- /.content-wrapper-->
         <!--footer class="sticky-footer">
-
             <div class="text-center">
              <div>
               <small>Copyright © RiderTrack 2017</small>
             </div>
-
         <!--/footer>
-
         <!-- Scroll to Top Button-->
         <div class="text-center">
             <div>

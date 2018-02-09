@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var UserSchema = new mongoose.Schema({
+var RiderSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     email: {
         type: String,
         unique: true,
@@ -29,7 +30,23 @@ var UserSchema = new mongoose.Schema({
     repeatPassword: {
         type: String,
         required: true,
+    },
+    height: Number,
+    weight: Number,
+    gender: String,
+    pastevents: [{
+        pasteventdate: Date,
+        pasteventlocation: String,
+        movingtime: Date,
+        activity: String,
+        distance: Number
+    }],
+    statistcs: {
+        avgspeed: Number,
+        wins: Number,
+        mostparticipatedactivity: String
     }
+
 });
-var User = mongoose.model('User', UserSchema);
-module.exports = User;
+var Rider = mongoose.model('Rider', RiderSchema);
+module.exports = Rider;

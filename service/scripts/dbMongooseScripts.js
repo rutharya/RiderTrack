@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 
 var db = require('../config/db');
 
-var UserSchema = require('../models/user');
+var UserSchema = require('../models/rider');
 
 
 //v2 -> mongoose connection through db.js in configs.
