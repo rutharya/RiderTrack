@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var passport = require('passport');
+var User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -7,6 +10,16 @@ router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
   res.render('index');
 });
+
+router.post('/auth',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+router.get('/authsuc',function(req,res,next){
+  res.send('auth successfully completed');
+})
 
 router.post('/', function (req, res, next) {
      // confirm that user typed same password twice
