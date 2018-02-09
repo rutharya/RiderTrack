@@ -10,8 +10,10 @@ var mongoose = require('mongoose');
 
 
 var db = require('../config/db');
+var UsersS =  require('../models/rider');
+// var UserSchema = require('../models/rider');
 
-var UserSchema = require('../models/rider');
+var UserSchema = mongoose.model('Rider');
 
 
 //v2 -> mongoose connection through db.js in configs.
@@ -23,6 +25,24 @@ var check = function(){
   })
 }
 
+var insertUser = function(){
+  // var newUser = new UserSchema({
+  //   email: "admin@ridertrack.com",
+  //   username: "admin",
+  //   firstName: "admin",
+  //   lastName: "admin",
+  //   password: "admin"
+  // })
+  var newUser = new UserSchema();
+  console.log(newUser);
+  newUser.save(function(err) {
+    if (err) throw err;
+    console.log('user successfully saved.');
+  })
+}
+
+check();
+insertUser();
 check();
 
 //v1

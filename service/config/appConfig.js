@@ -12,3 +12,7 @@ if (env === 'development') {
   //TODO: check this...later
    //process.env.MONGODB_URI = 'production URI';
 }
+
+module.exports = {
+  secret: process.env.NODE_ENV === 'production' ? process.env.SECRET : 'secret'
+};
