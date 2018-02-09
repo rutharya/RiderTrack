@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.*;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -11,12 +14,35 @@ import io.restassured.specification.RequestSpecification;
  
 @RunWith(JUnit4.class)
 public class MobileLocApiTests {
+	
+	
+	
  
 	@Test
 	public void GetLocation()
 	{   
+		Properties prop = new Properties();
+		InputStream input = null;
+		try {
+			input = new FileInputStream("config.properties");
+
+			// load a properties file
+			prop.load(input);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		// Base URL to the RESTful web service
-		RestAssured.baseURI = "http://savemyloc.herokuapp.com/";
+		String getLocApi = prop.getProperty("GetLocApi");
+		RestAssured.baseURI = getLocApi;
  
 		// Get the RequestSpecification of the request that you want to sent
 		// to the server. The server is specified by the BaseURI that we have
@@ -46,14 +72,39 @@ public class MobileLocApiTests {
 	@Test
 	public void GetLocationName()
 	{   
-		RestAssured.baseURI = "http://savemyloc.herokuapp.com/users";
+		
+		Properties prop = new Properties();
+		InputStream input = null;
+		try {
+			input = new FileInputStream("config.properties");
+
+			// load a properties file
+			prop.load(input);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		String baseURL = prop.getProperty("UserNameGetApi");
+		String uName = prop.getProperty("UserNameForApi");
+		RestAssured.baseURI = baseURL;
 		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.get("/Umapathi ");
+		Response response = httpRequest.get(uName);
 		String responseBody = response.getBody().asString();
 		System.out.println("Response Body is =>  " + responseBody);
 				int statusCode = response.getStatusCode();
 				Assert.assertEquals(statusCode,200);
-	}
+	
+		}
+			
+			
 	
 	@Ignore("Test ignored")
 	@Test 
