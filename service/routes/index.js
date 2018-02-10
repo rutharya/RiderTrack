@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var events = require('./events');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
@@ -80,7 +80,6 @@ router.get('/dashboard',function(req,res,next){
 router.get('/tracking',function(req,res,next){
   res.render('tracking');
 })
-
 router.get('/profile',function(req,res,next){
   res.render('profile', {title: 'My Profile'});
 })
@@ -111,5 +110,5 @@ router.get('/logout', function (req, res, next) {
     }
 });
 
-
+router.get('/getAllEvents',events.getAllEvents)
 module.exports = router;
