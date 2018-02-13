@@ -97,17 +97,21 @@
 	
 	
       <!-- Page Heading -->
-	  <br>
-	  <br>
-	  <center>
-      <h1 class="my-4"><font color="grey">EVENTS</h1>
-	  	<form action="">
-  <input type="radio" name="Events" value="Upcoming Events"><strong> Upcoming Events  </strong>&emsp;&emsp;     
-  <input type="radio" name="Events" value="Past Events"><strong> Past Events</strong><br></center>
-</font>
-</form>
-<br>
+	  
         <div ng-app= "events" ng-controller="events">
+        	<br>
+	        <br>
+	       <center>
+           <h1 class="my-4"><font color="grey">EVENTS</h1>
+	    	<form action="">
+			  <!-- <input type="radio" ng-model="searchText.date" name="Events" onclick="DateFunc(event.date)" value="December 21 2018"><strong> Upcoming Events  </strong>&emsp;&emsp;     
+			  <input type="radio" ng-model="searchText.date" name="Events" onclick="DateFunc(event.date)" value="October 21 2017"><strong> Past Events</strong><br></center> -->
+			  <input type="radio" name="Events" value="Upcoming Events" ng-click="getUpcomingEvents()" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp; 
+			  <input type="radio" name="Events" value="Past Events" ng-click="getPastEvents()"><strong> Past Events</strong><br></center>
+			</font>
+			</form>
+			<br>
+          <!-- <div ng-repeat="event in events | filter:searchText:strict" style="background-color: white"> -->
           <div ng-repeat="event in events" style="background-color: white">
          <div class="row">
         <div class="col-md-7">
