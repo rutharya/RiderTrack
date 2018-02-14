@@ -2,7 +2,7 @@ var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
     //local env
     process.env.PORT = 3000;
-    process.env.MONGODB_URI = 'mongodb://localhost/ridertrack';
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/ridertrack';
 } else if (env === 'test') {
     //TODO: configure test environment?
     process.env.PORT = 3000;

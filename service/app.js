@@ -15,8 +15,8 @@ var app = express();
 var dbConfig = require('./db/db');
 var mongoose = require('mongoose');
 // Connect to DB
-mongoose.connect(dbConfig.url);
-
+//mongoose.connect(dbConfig.url);
+mongoose.connect('mongodb://localhost/ridertrack');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
