@@ -4,35 +4,38 @@
   "private": true,
   "scripts": {
     "prestart": "node ./service/scripts/startMessage.js",
-    "start": "npm-run-all --parallel security-check open:src ",
+    "start": "npm-run-all --parallel open:src ",
+    "dev": "nodemon ./service/bin/www",
     "open:src": "node ./service/bin/www",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
-    "share": "npm-run-all --parallel open:src localtunnel"
+    "share": "npm-run-all --parallel open:src localtunnel",
+    "test": "snyk test"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "~1.18.2",
+    "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.3",
     "crypto": "^1.0.1",
-    "debug": "~2.6.9",
+    "debug": "^2.6.9",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-jwt": "^5.3.0",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.1",
-    "mongoose": "^5.0.1",
+    "mongoose": "^5.0.6",
     "mongoose-unique-validator": "^2.0.0",
     "morgan": "~1.9.0",
     "npm-run-all": "^4.1.2",
-    "nsp": "*",
+    "nsp": "^3.2.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
-    "chalk": "^2.3.0",
-    "localtunnel": "^1.8.3"
+    "chalk": "^2.3.1",
+    "localtunnel": "^1.8.3",
+    "snyk": "^1.69.7"
   }
 }
