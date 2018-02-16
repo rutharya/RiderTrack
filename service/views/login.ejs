@@ -1,33 +1,224 @@
 <!Doctype html>
-<html lang="en">
+<html lang="en" xmlns:color="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RiderTrack - LogIn</title>
     <meta name="description" content="RiderTrack login page" />
     <meta name="keywords" content="RiderTrack Login">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="css/style.css">-->
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 </head>
-<body background="images/bg1.jpg">
+<body class="bg container-fluid">
 
-<div class="title">
-    <h1>Sign In</h1>
-</div>
-<div class="container">
-    <div class="right">
-        <div class="formBox">
-            <form action="/auth" method="post">
-                <p>Username</p>
-                <input type="user-name" name="" placeholder="Your email">
-                <p>Password</p>
-                <input type="password" name="" placeholder = "Your password">
-                <input type="submit" name="" value = "Sign In">
-                <a href="#">Forgot Password</a>
+<div class="container-fluid">
+    <!-- Nav Bar with sign up button -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand"  id="brandheader" href="#" style="color:orangered;font-family: courier;font-weight: bolder;">
+                    <b>RiderTrack</b>
+                </a>
+                <button type="button" id="signupbtn" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#signUpModal" style="=font-family: courier;margin-left: 1050px">Sign Up</button>
 
+            </div>
+        </div>
+    </nav>
+
+    <div class="row" >
+        <!--<div class="col-md4 col-sm-4 col-xs-12">-->
+        <!--</div>-->
+        <div class="col-md4 col-sm-4 col-xs-12">
+            <!--form-start-->
+
+            <form class="form-container" id="loginform" onsubmit="return validateLogin()">
+                <h2 align="center">RiderTrack LogIn</h2>
+                <div id="wrongpassword" class="alert-danger">
+                    <!--<p>Wrong Username or Password. Please Try Again</p>-->
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
+                        <input type="text" class="form-control" id="userLoginname" placeholder="User Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                        <input type="password" class="form-control" id="userPassword" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="rememberme"> Remember Me
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <button type="submit" id="singinemail"  class="btn btn-success btn-block">Sign In</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5 align="center"  ><b>Or</b></h5>
+                    </div>
+                    <div class="col-sm-5">
+                        <button type="submit" id="signingoogle" class="btn btn-info btn-block">Google Sing in</button>
+                    </div>
+                </div>
+                <br>
+                <a href="#" id="frgtpwd" class="forgotpassword" data-toggle="modal" data-target="#resetPwdModal">Forgot Password?</a>
             </form>
+            <!--form-end-->
         </div>
     </div>
 </div>
+
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="font-family: 'Bookman Old Style';">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Sign Up with RiderTrack</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form id="signupform" onsubmit="return validateSignUp()">
+                <div class="form-group">
+                   <div class="row">
+                       <div class="col-sm-4">
+                           <!-- User First Name Input Text -->
+                           <label for="InputFirstName">First Name</label>
+                           <input type="text" class="form-control" id="userFirstname" placeholder="Mo" required>
+                       </div>
+                       <div class="col-sm-4">
+                           <!-- User Last Name Input Text -->
+                           <label for="InputLastName">Last Name</label>
+                           <input type="text" class="form-control" id="userLastname" placeholder="Farrah" required>
+                       </div>
+                       <div class="col-sm-4">
+                           <!-- User  UserName Input Text -->
+                           <label for="InputUserName">Username</label>
+                           <input type="text" class="form-control" id="userName" placeholder="xyz" required>
+                       </div>
+                   </div>
+                </div>
+                <div class="form-group">
+                    <!-- User Email Input Text -->
+                    <label for="InputSignUpEmail">Email address</label>
+                    <input type="email" class="form-control" id="usersignUpEmail" placeholder="@" required>
+                </div>
+
+                <div class="form-group">
+                    <!-- User Password Input Text -->
+                    <label for="InPutSignUpPassword">Password</label>
+                    <input type="password" class="form-control" id="usersignUpPassword" placeholder="Password" required>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <!-- User Repeat Password Input Text -->
+                    <label for="InputRepeatPassword">Repeat Password</label>
+                    <input type="password" class="form-control" id="userrepeatPassword" placeholder="Password" required>
+                </div>
+                <!-- User Sign Up Button -->
+                <button type="submit" id="userSignUp" class="btn btn-primary btn-success btn-block" style="font-family: courier;font-weight: bolder;align-content: right;alignment: right">Sign Up</button>
+            </form>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Forgot Password Modal -->
+
+
+<div class="modal fade" id="resetPwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content container-fluid" style="background-color: #A9A9A9; opacity: inherit">
+            <div class="modal-header">
+                <h2 class="modal-title">Reset Password</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="resetError">
+
+                </div>
+                <form style="align-content: center" id="resetUserPassword" onsubmit="resetPassword()">
+
+                    <div class="form-group">
+                        <label for="message-text" class="form-control-label">Enter your registered email id</label>
+                        <input type="email" class="form-control" id="resetEmail" required>
+                            <br>
+                       <div style="text-align: center">
+                           <button type="submit"  id="sendResetEmail" class="btn-primary btn-info">Reset</button>
+                       </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function validateLogin() {
+        var username = document.forms["loginform"]["userLoginname"].value
+        var password = document.forms["loginform"]["userPassword"].value
+        var remembermeFlag = document.forms["loginform"]["rememberme"].value
+
+            window.location = '/dashboard';
+
+    return false;
+
+    }
+
+    function validateSignUp(){
+
+        var firstname = document.forms["signupform"]["userFirstname"].value;
+        var lastname = document.forms["signupform"]["userLastname"].value;
+        var email = document.forms["signupform"]["usersignUpEmail"].value;
+        var username = document.forms["signupform"]["userName"].value;
+        var password = document.forms["signupform"]["usersignUpPassword"].value;
+        var repeatedpassword = document.forms["signupform"]["userrepeatPassword"].value;
+
+        window.location = '/dashboard';
+        return false;
+
+
+
+    }
+
+    function  resetPassword() {
+        var email = document.forms["resetUserPassword"]["resetEmail"].value;
+        if(email != "kp@gmail.com") {
+            document.getElementById("resetError").innerHTML = "<p align='center' class='alert-danger' style='font-weight: bolder'> The email is not associated with a valid RiderTrack account. Please retry</p>";
+        }
+        else document.getElementById("resetError").innerHTML = "<p align='center' class='alert-success' style='font-weight: bolder'>Reset Link sent to email</p>";
+        return false;
+    }
+
+
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>

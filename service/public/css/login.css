@@ -1,91 +1,45 @@
-body{
-    margin: 0;
-    padding: 0;
-    background-size: cover ;
-    font-family: sans-serif;
+.bg{
+    background: url("/images/poster.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
 }
 
-.title{
+.form-container{
+    border: 0px solid #fff;
+    padding: 50px 60px;
+    margin-top: 100px;
+    -webkit-box-shadow: 1px 4px 26px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 4px 26px -2px rgba(0,0,0,0.75);
+    box-shadow: 1px 4px 26px -2px rgba(0,0,0,0.75);
+
+}
+
+.forgotpassword{
+
+    color: orangered;
+    text-underline: #FFFFFF;
+    text-underline-style: dash-long-heavy;
+}
+
+#customBtn {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 190px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+}
+
+h2{
     text-align: center;
-    padding: 50px 0 20px;
-}
-
-.title h1{
-     margin: 0;
-    padding: 0;
-    color: #262626;
-    text-transform: uppercase;
-    font-size: 40px;
-}
-
-.container{
-    width: 50%;
-    height: 400px;
-    background: #fff;
-    margin: 0 auto;
-    /*border: 1px solid;*/
-    /*box-shadow:  0 15px 40px rgba(0,0,0,0.5);*/
-}
-
-.container .right{
-
-    box-sizing: border-box;
-    height: 400px;
-}
-
-.formBox{
-    width: 100%;
-    padding: 80px 40px;
-    box-sizing: border-box;
-    height: 400px;
-     background: #fff;
-}
-
-.formBox p{
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-    color: #a6af13;
 
 }
 
-.formBox input{
-    width: 100%;
-    margin-bottom: 20px;
+.inputbox{
 
-}
-
-.formBox input [type="email"],
-.formBox input [type = "password"]{
-    border: none;
-    border-bottom: 2px solid #a6af13;
-    outline: none;
-    height: 40px;
-}
-
-.formBox input [type="email"]:focus,
-.formBox input [type = "password"]:focus{
-    border-bottom: 2px solid #262626;
-}
-
-.formBox input [type="submit"]{
-    border: none;
-    outline: none;
-    height: 40px;
-    color: #fff;
-    background: #262626;
-    cursor: pointer;
-
-}
-
-.formBox input [type="submit"]:hover{
-    background: #a6af13;
-
-}
-
-.formBox a{
-    color: #262626;
-    font-size: 12px;
-    font-weight: bold;
+    position: relative;
 }
 
