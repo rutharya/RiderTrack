@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.2/css/font-awesome.min.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
@@ -22,20 +24,21 @@
 </head>
 
 <body>
-  <div class="navbar navbar-fixed-top" data-activeslide="1">
+  <nav class="navbar navbar-default navbar-fixed-top" data-activeslide="1">
     <div class="container">
-
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+           <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#">RiderTrack</a>
+      </div>
       <!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
 
 
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <ul class="nav row">
-
+      <div class="collapse navbar-collapse" id="myNavbar" role="navigation">
+        <ul class="nav navbar-nav navbar-right">
 
           <li data-slide="1" class="col-12 col-sm-2"><a id="menu-link-1" href="#slide-1" title="Next Section"><span class="icon icon-home"></span> <span class="text">HOME</span></a></li>
           <li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="#slide-2" title="Next Section"><span class="icon icon-briefcase"></span> <span class="text">FEATURES</span></a></li>
@@ -43,15 +46,12 @@
           <li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="#slide-5" title="Next Section"><span class="icon icon-desktop"></span> <span class="text">PROCESS & APIs</span></a></li>
           <li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">CONTACT</span></a></li>
           <li>
-            <button type="button" class="btn btn-info">Login/Sign Up</button>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> LOGIN/SIGNUP</a></li>
           </li>
         </ul>
-        <div class="row">
-          <div class="col-sm-2 active-menu"></div>
-        </div>
       </div>
     </div>
-  </div>
+  </nav>
 
 
   <!-- === MAIN Background === -->

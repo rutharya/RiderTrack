@@ -9,404 +9,242 @@
   <meta name="author" content="">
   <title>RiderTrack - Rider</title>
   <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http:////maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.39/jquery.fancybox.min.css" type="text/css" media="screen">
   <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.2/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">Hello Rider1!</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myProfNavBar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+  </button>
+        <a class="navbar-brand" href="#">RiderTrack</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myProfNavBar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="Prof-link-1" href="#"><span class="icon icon-user"></span><span class="text">My Profile</span></a></li>
+          <li><a id="Prof-link-2" href="#"><span class="icon icon-laptop"></span><span class="text">My Dashboard</span></a></li>
+          <li><a id="Prof-link-3" href="#"><span class="icon icon-lock"></span><span class="text">Manage Credentials</span></a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="Prof-link-4" href="#"><span class="icon icon-tablet"></span><span class="text">My Devices<span class="caret"></span></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Devices</a></li>
+              <li><a href="#">Add Device</a></li>
+              <li><a href="#">Remove Device</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon icon-envelope">
+  </span><span class="label label-success label-as-badge">12</span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            </ul>
+          </li>
+
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon icon-bell">
+</span><span class="label label-warning label-as-badge">5</span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            </ul>
+          </li>
+          <li>
+            <form class="navbar-form">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+      <i class="glyphicon glyphicon-search"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
-          <a class="nav-link" href="index.html">
-            <i class="fa fa-fw fa-user-circle"></i>
-            <span class="nav-link-text">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="#Dashboard">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
-            <i class="fa fa-fw fa-trophy"></i>
-            <span class="nav-link-text">Events</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-mobile-phone"></i>
-            <span class="nav-link-text">My Devices</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="navbar.html">Current Devices</a>
-            </li>
-            <li>
-              <a href="cards.html">Add Device</a>
-            </li>
-			<li>
-              <a href="cards.html">Remove Device</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-envelope"></i>
-            <span class="d-lg-none">Messages
-              <span class="badge badge-pill badge-primary">12 New</span>
-            </span>
-            <span class="indicator text-primary d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-            <h6 class="dropdown-header">New Messages:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>Michal Young</strong>
-              <span class="small float-right text-muted">11:53 AM</span>
-              <div class="dropdown-message small">Hey User. All the best for your race</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>John Edwards</strong>
-              <span class="small float-right text-muted">11:11 PM</span>
-              <div class="dropdown-message small">Looking forward to the race. Rock on!!!</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all messages</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-bell"></i>
-            <span class="d-lg-none">Alerts
-              <span class="badge badge-pill badge-warning">6 New</span>
-            </span>
-            <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">New Alerts:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Event Created</strong>
-              </span>
-              <span class="small float-right text-muted">11:40 AM</span>
-              <div class="dropdown-message small">Admin1 just created the event near you: San Jose Triathalon</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Event Subscription</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">Spectator1 just subscribed to your event: event1</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all alerts</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <form class="form-inline my-2 my-lg-0 mr-lg-2">
-            <div class="input-group">
-              <input class="form-control" type="text" placeholder="Search for events...">
-              <span class="input-group-btn">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          </form>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </li>
+        </ul>
+
+      </div>
     </div>
   </nav>
 
-  <div class="content-wrapper">
-    <div class="container-fluid">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">My Profile</a>
-        </li>
-      </ol>
-      <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-
-
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Rider1</h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="assets/profile1.jpg" class="img-circle img-responsive"> </div>
-
-                <div class=" col-md-10 col-lg-10 ">
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td><b>Name:</b></td>
-                        <td>Rider1</td>
-                      </tr>
-                      <tr>
-                        <td><b>Age:</b></td>
-                        <td>25</td>
-                      </tr>
-                        <tr>
-                        <td><b>Gender</b></td>
-                        <td>Male</td>
-                        </tr>
-                        <tr>
-                        <td><b>Height and Weight</b></td>
-                        <td>5.6ft, 124lbs</td>
-                      </tr>
-                      </tr>
-                        <tr>
-                        <td><b>Location</b></td>
-                        <td>Tempe, Arizona</td>
-                      </tr>
-                      <tr>
-                        <td><b>Email</b></td>
-                        <td><a>rider1@gmail.com</a></td>
-                      </tr>
-                        <td><b>Phone</b></td>
-                        <td>555-4567-890
-                        </td>
-                      </tr>
-
-                    </tbody>
-                  </table>
-
-                  <a href="#" class="btn btn-primary">Edit Details</a>
-                  <a href="#" class="btn btn-primary">Save Changes</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" name="Dashboard">
-          <a href="#Dashboard">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
-      </ol>
-      <!-- Icon Cards-->
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-primary o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-gamepad"></i>
-              </div>
-              <div class="mr-5">My Devices</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-warning o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-address-card"></i>
-              </div>
-              <div class="mr-5">Spectators</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-success o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-trophy"></i>
-              </div>
-              <div class="mr-5">My Events</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- Area Chart Example-->
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-area-chart"></i>Last Run</div>
-        <div class="card-body">
-         <div class="container">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" name="Dashboard">
+      <a href="#Dashboard">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">My Dashboard</li>
+  </ol>
+  <!-- Icon Cards-->
   <div class="row">
-    <div class="col-lg">
-     <img src="assets/track.jpg" height="100%" width="100%"/>
+    <div class="col-xl-3 col-sm-6 mb-3">
+      <div class="card text-white bg-warning o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="fa fa-address-card"></i>
+          </div>
+          <div class="mr-5">Spectators</div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+      </div>
     </div>
-    <div class="col-sm">
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead >
-                <tr >
+    <div class="col-xl-3 col-sm-6 mb-3">
+      <div class="card text-white bg-success o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="fa fa-trophy"></i>
+          </div>
+          <div class="mr-5">My Events</div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+      </div>
+    </div>
+  </div>
+  <!-- Area Chart Example-->
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-area-chart"></i>Last Run</div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg">
+            <img src="assets/track.jpg" height="100%" width="100%" />
+          </div>
+          <div class="col-sm">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
                   <th colspan="5" bgcolor="#FFD700">Ride 1</th>
                 </tr>
               </thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Moving Time</th>
-                  <th>Location</th>
-                  <th>Activity</th>
-                  <th>Distance</th>
-                </tr>
+              <tr>
+                <th>Date</th>
+                <th>Moving Time</th>
+                <th>Location</th>
+                <th>Activity</th>
+                <th>Distance</th>
+              </tr>
               <tbody>
                 <tr>
                   <td>11/27/2017</td>
                   <td>54 mins</td>
                   <td>Launceston</td>
-                  <td>Cycling  <i class="fa fa-bicycle"></i></td>
+                  <td>Cycling <i class="fa fa-bicycle"></i></td>
                   <td>12.29 mi</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Example Bar Chart Card-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-8 my-auto">
+              <canvas id="myBarChart" width="100" height="50"></canvas>
+            </div>
+            <div class="col-sm-4 text-center my-auto">
+              <div class="h4 mb-0 text-primary">Events</div>
+              <div class="small text-muted">Tempe Marathon</div>
+              <hr>
+              <div class="h4 mb-0 text-warning">Run</div>
+              <div class="small text-muted">10.8 Miles</div>
+              <hr>
+            </div>
+          </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
-      <div class="row">
-        <div class="col-lg-8">
-          <!-- Example Bar Chart Card-->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-8 my-auto">
-                  <canvas id="myBarChart" width="100" height="50"></canvas>
-                </div>
-                <div class="col-sm-4 text-center my-auto">
-                  <div class="h4 mb-0 text-primary">Events</div>
-                  <div class="small text-muted">Tempe Marathon</div>
-                  <hr>
-                  <div class="h4 mb-0 text-warning">Run</div>
-                  <div class="small text-muted">10.8 Miles</div>
-                  <hr>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
 
-          <!-- /Card Columns-->
+      <!-- /Card Columns-->
+    </div>
+    <div class="col-lg-4">
+      <!-- Example Pie Chart Card-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-pie-chart"></i> Pie Chart Example</div>
+        <div class="card-body">
+          <canvas id="myPieChart" width="100%" height="100"></canvas>
         </div>
-        <div class="col-lg-4">
-          <!-- Example Pie Chart Card-->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-pie-chart"></i> Pie Chart Example</div>
-            <div class="card-body">
-              <canvas id="myPieChart" width="100%" height="100"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
 
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
-    <!--footer class="sticky-footer">
+      <!-- /.container-fluid
+      </.content-wrapper
+      <footer class="sticky-footer">
 
         <div class="text-center">
 		 <div>
           <small>Copyright © RiderTrack 2017</small>
         </div>
 
-    <!--/footer>
+    </footer>
 
-    <!-- Scroll to Top Button-->
-	<div class="text-center">
-		 <div>
+    < Scroll to Top Button-->
+      <div class="text-center">
+        <div>
           <small>Copyright © RiderTrack 2017</small>
         </div>
-    <a class="scroll-to-top rounded" href="#page-top">
+        <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <!-- Logout Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
-          </div>
-          <div class="modal-body">Do you want to logout of RiderTrack?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Stay Signed In</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+              </div>
+              <div class="modal-body">Do you want to logout of RiderTrack?</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Stay Signed In</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Page level plugin JavaScript-->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+        <script src="vendor/datatables/jquery.dataTables.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin.min.js"></script>
+        <!-- Custom scripts for this page-->
+        <script src="js/sb-admin-datatables.min.js"></script>
+        <script src="js/sb-admin-charts.min.js"></script>
       </div>
-    </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="js/sb-admin-charts.min.js"></script>
-  </div>
 </body>
 
 </html>

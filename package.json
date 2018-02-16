@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prestart": "node ./service/scripts/startMessage.js",
-    "start": "npm-run-all --parallel security-check open:src ",
+    "start": "npm-run-all --parallel open:src ",
     "open:src": "node ./service/app.js",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
