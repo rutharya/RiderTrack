@@ -21,21 +21,30 @@ var router = express.Router();
 // });
 //module.exports = router;
 exports.getAllEvents = function(req,res){
-        console.log('creating new EVENT')
-        var event = new Event({
-          name: 'ASU Tempe Trekking',
-          image: 'https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg',
-          description: 'ASU Trekking at Arizona State University at A Mountain Tempe ASU',
-          date: "02-10-2017",
-          location: "A-Mountain",
-          time : "03:00 pm - 06:00 pm"
-        });
-        event.save(function(err) {
-          if (err) throw err;
+        // console.log('creating new EVENT')
+        // var event = new Event({
+        //   name: 'ASU Tempe Trekking',
+        //   image: 'https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg',
+        //   description: 'ASU Trekking at Arizona State University at A Mountain Tempe ASU',
+        //   date: "02-10-2017",
+        //   location: "A-Mountain",
+        //   time : "03:00 pm - 06:00 pm"
+        // });
+        // event.save(function(err) {
+        //   if (err) throw err;
 
-          console.log('User Event saved successfully!');
-        });
+        //   console.log('User Event saved successfully!');
+        // });
+
+
 	console.log("********In getAllEvents.********");
+
+  var query = Event.find({'_id': '5a87aea8c2fb4804d239b1c0'})
+  query.exec(function(err, events){
+
+    if(err){console.log("ERRORRRRRRR")}
+    console.log(events)
+  });
 	allEvents = [{name : "ASU Tempe Trekking", image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg", description : "ASU Trekking at Arizona State University at A Mountain Tempe ASU", date : "02-10-2017", location : "A-Mountain", time : "03:00 pm - 06:00 pm"},
         {name : "San Jose Marathon", image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg", description : "San Jose Downtown Marathon", date : "10-21-2017", location : "DownTown San Jose", time : "03:00 pm - 06:00 pm"}, {name : "Oregon Rowing", image : "https://fwmdocks.com/wp-content/uploads/2017/01/FWM-Rowing-807x356-1.jpg", description : "San Jose Downtown MarathonSan Jose Downtown Marathon San Jose Downtown Marathon", date : "03-21-2018", location : "DownTown San Jose", time : "03:00 pm - 06:00 pm"},{name : "San Jose Marathon", image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg", description : "San Jose Downtown Marathon", date : "12-21-2018", location : "A-Mountain", time : "03:00 pm - 06:00 pm"},
         {name : "Seattle Marathon", image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg", description : "San Jose Downtown Marathon San Jose Downtown Marathon", date : "03-21-2017", location : "DownTown San Jose", time : "03:00 pm - 06:00 pm"},{name : "San Jose Marathon", image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg", description : "San Jose Downtown Marathon", date : "12-21-2018", location : "A-Mountain", time : "03:00 pm - 06:00 pm"},
