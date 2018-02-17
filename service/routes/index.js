@@ -174,5 +174,6 @@ router.get('/logout', function (req, res, next) {
 
 
 router.get('/getAllEvents',events.getAllEvents)
+router.post('/saveEvent',events.saveEvent)
 
 module.exports = router;

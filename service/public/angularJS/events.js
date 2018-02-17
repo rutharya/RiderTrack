@@ -70,6 +70,8 @@ var events = angular.module('events',[]);
               eventsList[i].date = setDate;
             }
         }
+
+
        
 
         // function formatDate(eventsList){
