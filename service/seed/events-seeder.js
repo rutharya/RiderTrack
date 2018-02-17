@@ -1,4 +1,4 @@
-var Product = require('/Users/pranjali/Desktop/Event_push/RiderTrack/service/models/events.js');
+var Event = require('../models/events.js');
 
 var mongoose = require('mongoose');
 
