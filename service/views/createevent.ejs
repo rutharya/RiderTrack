@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -9,12 +9,11 @@
     <meta name="author" content="">
     <title>RiderTrack - Rider</title>
     <!-- Bootstrap core CSS-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
-    <script src="https://use.fontawesome.com/85412a18c1.js"></script>
-    <!--<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
-    <!--&lt;!&ndash; Page level plugin CSS&ndash;&gt;-->
-    <!--<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 </head>
@@ -22,47 +21,77 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">RiderTrack</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="index.html">Hello Rider1!</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="index.html">
                     <i class="fa fa-fw fa-user-circle"></i>
-                    <span class="nav-link-text">My Profile</span>
+                    <span class="nav-link-text">Profile</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Dashboard">
-                <a class="nav-link" href="tracking.ejs">
-                    <i class="fa fa-tachometer"></i>
-                    <span class="nav-link-text">My Dashboard</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="#Dashboard">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Credentials">
-                <a class="nav-link" href="tracking.ejs">
-                    <i class="fa fa-lock"></i>
-                    <span class="nav-link-text">Manage Credentials</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <a class="nav-link" href="charts.html">
+                    <i class="fa fa-fw fa-trophy"></i>
+                    <span class="nav-link-text">Events</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Devices">
-                <a class="nav-link" href="tracking.ejs">
-                    <i class="fa fa-mobile"></i>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-bookmark-o"></i>
+                    <span class="nav-link-text">Manage Events</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                    <li>
+                        <a href="/createevent">Create Events</a>
+                    </li>
+                    <li>
+                        <a href="cards.html">Edit Events</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-mobile-phone"></i>
                     <span class="nav-link-text">My Devices</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                    <li>
+                        <a href="navbar.html">Current Devices</a>
+                    </li>
+                    <li>
+                        <a href="cards.html">Add Device</a>
+                    </li>
+                    <li>
+                        <a href="cards.html">Remove Device</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
                 </a>
             </li>
         </ul>
-        <!--<ul class="navbar-nav sidenav-toggler">-->
-        <!--<li class="nav-item">-->
-        <!--<a class="nav-link text-center" id="sidenavToggler">-->
-        <!--<i class="fa fa-fw fa-angle-left"></i>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--</ul>-->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-envelope"></i>
                     <span class="d-lg-none">Messages
               <span class="badge badge-pill badge-primary">12 New</span>
@@ -90,7 +119,8 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-bell"></i>
                     <span class="d-lg-none">Alerts
               <span class="badge badge-pill badge-warning">6 New</span>
@@ -108,7 +138,9 @@
                   <i class="fa fa-long-arrow-up fa-fw"></i>Event Created</strong>
               </span>
                         <span class="small float-right text-muted">11:40 AM</span>
-                        <div class="dropdown-message small">Admin1 just created the event near you: San Jose Triathalon</div>
+                        <div class="dropdown-message small">Admin1 just created the event near you: San Jose
+                            Triathalon
+                        </div>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
@@ -148,38 +180,52 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">Update Password</a>
+                <a href="#">Create Event</a>
             </li>
         </ol>
 
         <form class="col-5">
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="eventName">Event Name</label>
+                <input type="text" class="form-control" id="eventName" aria-describedby="emailHelp"
+                       placeholder="Enter Event Name" required>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Current Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Current Password">
+                <label for="eventDescription">Event Description</label>
+                <input type="text" class="form-control" id="eventDescription" placeholder="Enter Event Description" required>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">New Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="New Password">
+                <label for="eventLocation">Event Location</label>
+                <input type="text" class="form-control" id="eventLocation"
+                       placeholder="Enter Event Location" required>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Confirm Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm New Password">
+                <label for="eventDate">Event Date</label>
+                <input type="date" class="form-control" id="eventDate" placeholder="New Password" required>
+            </div>
+            <div class="form-group">
+                <label for="eventStartTime">Event Start Time</label>
+                <input type="time" class="form-control" id="eventStartTime"
+                       placeholder="Enter Event Start Time" required>
+            </div>
+            <div class="form-group">
+                <label for="eventEndTime">Event End Time</label>
+                <input type="time" class="form-control" id="eventEndTime"
+                       placeholder="Enter Event End Time" required>
+            </div>
+            <div class="form-group">
+                <label for="eventImage">Event Image</label>
+                <input type="file" class="form-control" id="eventImage"
+                       placeholder="Drag Event Image" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
 
-<br>
-<br>
+    <br>
+    <br>
 </fieldset>
-
-
-
 </body>
 
 </html>

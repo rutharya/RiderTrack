@@ -172,6 +172,10 @@ router.get('/logout', function (req, res, next) {
     }
 });
 
+router.get('/createevent',function(req,res,next){
+    res.render('createevent', {title: 'Create Event'});
+})
+
 
 router.get('/getAllEvents',events.getAllEvents)
 
