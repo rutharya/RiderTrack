@@ -27,3 +27,26 @@ exports.saveEvent = function(req,res){
     });
 }
 
+exports.getEventById = function(req,res){
+
+console.log("In getEventById");
+  query = Event.find({"_id": req.headers._id})
+  query.exec(function (err, events) {
+  if (err) return handleError(err);
+  console.log(events)
+  res.send(events)
+})
+};
+
+exports.deleteEventById = function(req,res){
+  
+console.log("In deleteEventById");
+  query = Event.find({"_id": req.headers._id}).deleteMany()
+  query.exec(function (err, events) {
+  if (err) return handleError(err);
+  console.log(events)
+  res.send(events)
+})
+};
+
+
