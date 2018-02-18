@@ -46,6 +46,25 @@ $(document).ready(function(e) {
 	var j_images = [];
 
 	/*************************
+	* password check
+	*************************/
+
+	function checkPasswordMatch() {
+    var password = $("#exampleInputPassword2").val();
+    var confirmPassword = $("#exampleInputPassword3").val();
+
+    if (password != confirmPassword)
+        $("#divCheckPasswordMatch").html("Passwords do not match!");
+    else
+        $("#divCheckPasswordMatch").html("Passwords match.");
+}
+
+$(document).ready(function () {
+   $("#exampleInputPassword3").keyup(checkPasswordMatch);
+});
+
+
+	/*************************
 	* = Controls active menu *
 	* Hover text for the last slide
 	*************************/
@@ -156,20 +175,6 @@ function menu_focus( element, i ) {
 	);
 }
 
-function enable_arrows( dataslide ) {
-	$('#arrows div').addClass('disabled');
-	if ( dataslide != 1 ) {
-		$('#arrow-up').removeClass('disabled');
-	}
-	if ( dataslide != 6 ) {
-		$('#arrow-down').removeClass('disabled');
-	}
-	if ( dataslide == 3 ) {
-		$('#arrow-left').removeClass('disabled');
-		$('#arrow-right').removeClass('disabled');
-	}
-}
-
 /*************
 * = Parallax *
 *************/
@@ -277,60 +282,4 @@ jQuery(document).ready(function ($) {
 			$('.zoom').remove();
 		}
 	);
-});
-
-/******************
-* = Arrows click  *
-******************/
-jQuery(document).ready(function ($) {
-	//Cache some variables
-	var arrows = $('#arrows div');
-
-	arrows.click(function(e) {
-		e.preventDefault();
-
-		if ( $(this).hasClass('disabled') )
-			return;
-
-		var slide = null;
-		var datasheet = $('.nav > li.active').data('slide');
-		var offset_top = false;
-		var offset_left = false;
-
-
-		switch( $(this).attr('id') ) {
-			case 'arrow-up':
-				offset_top = ( datasheet - 1 == 1 ) ? '0px' : $('.slide[data-slide="' + (datasheet-1) + '"]').offset().top;
-				break;
-			case 'arrow-down':
-				offset_top = $('.slide[data-slide="' + (datasheet+1) + '"]').offset().top;
-				break;
-			case 'arrow-left':
-				offset_left = $('#slide-3 .row').offset().left + 452;
-				if ( offset_left > 0 ) {
-					offset_left = '0px';
-				}
-				break;
-			case 'arrow-right':
-				offset_left = $('#slide-3 .row').offset().left - 452;
-				if ( offset_left < $('body').width() - $('#slide-3 .row').width() ) {
-					offset_left = $('body').width() - $('#slide-3 .row').width();
-				}
-				break;
-		}
-
-		if ( offset_top != false ) {
-			htmlbody.stop(false, false).animate({
-				scrollTop: offset_top
-			}, 1500, 'easeInOutQuart');
-		}
-
-		if ( offset_left != false ) {
-			if ( $('#slide-3 .row').width() != $('body').width() ) {
-				$('#slide-3 .row').stop(false, false).animate({
-					left: offset_left
-				}, 1500, 'easeInOutQuart');
-			}
-		}
-	});
 });
