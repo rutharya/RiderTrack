@@ -172,6 +172,13 @@ router.get('/logout', function (req, res, next) {
     }
 });
 
+router.get('/createevent',function(req,res,next){
+    res.render('createevent', {title: 'Create Event'});
+})
+
+router.get('/manageevent',function(req,res,next){
+    res.render('manageevent', {title: 'Manage Event'});
+})
 
 router.get('/getAllEvents',events.getAllEvents)
 router.post('/saveEvent',events.saveEvent)
