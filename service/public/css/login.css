@@ -15,9 +15,16 @@
 
 }
 
+.singup:hover{
+    color: green;
+    cursor: pointer;
+    text-underline:none;
+
+}
+
 .forgotpassword{
 
-    color: orangered;
+    color: orange;
     text-underline: #FFFFFF;
     text-underline-style: dash-long-heavy;
 }
@@ -42,4 +49,13 @@ h2{
 
     position: relative;
 }
+.inputerror{
+    color: #f32c1e;
+    font-weight: normal;
+    font-size: 12px;
 
+}
+
+.form-gap {
+    padding-top: 70px;
+}
