@@ -1,8 +1,10 @@
+var config = require('./appConfig');
 // Bring Mongoose into the app
 var mongoose = require( 'mongoose' );
 
-// Build the connection string
-var dbURI = 'mongodb://localhost/ridertrack';
+// Create the database connection
+var dbURI = process.env.MONGODB_URI;
+console.log('connecting to mongo - ', dbURI);
 
 // Create the database connection
 mongoose.connect(dbURI);
@@ -30,5 +32,5 @@ process.on('SIGINT', function() {
   mongoose.connection.close(function () {
     console.log('Mongoose default connection disconnected through app termination');
     process.exit(0);
-  }); 
+  });
 });
