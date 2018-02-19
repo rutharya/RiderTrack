@@ -18,14 +18,16 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+//ruthar: route working - gets a user given the jwt token in header
 router.get('/user', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
-  
+
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
 
+//ruthar: route to login a user is working.
 router.post('/users/login', function(req, res, next){
   if(!req.body.email){
     return res.status(422).json({errors: {email: "can't be blank"}});
@@ -36,8 +38,7 @@ router.post('/users/login', function(req, res, next){
   }
   passport.authenticate('local', {session: false}, function(err, user, info){
     if(err){ return next(err); }
-    console.log('here22');
-    console.log(user);
+
     if(user){
       user.token = user.generateJWT();
       return res.json({user: user.toAuthJSON()});
@@ -47,15 +48,13 @@ router.post('/users/login', function(req, res, next){
   })(req, res, next);
 });
 
+//ruthar: route working - creates a new user.
 router.post('/users', function(req, res, next){
-  console.log('here we are');
   var user = new User();
   user.username = req.body.username;
   user.email = req.body.email;
   user.setPassword(req.body.password);
-  console.log(user);
   user.save().then(function(){
-    console.log('here');
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
