@@ -1,8 +1,8 @@
-var Event = require('../models/events.js');
+var Event = require('../models/events');
 
 var mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/ridertrack');
+mongoose.connect('mongodb://localhost:27017/ridertrack');
 console.log("Connected to MongoDb database");
 
 var events = [
@@ -27,7 +27,7 @@ var events = [
 new Event({
         name : "Oregon Rowing", 
         image : "https://fwmdocks.com/wp-content/uploads/2017/01/FWM-Rowing-807x356-1.jpg", 
-        description : "San Jose Downtown MarathonSan Jose Downtown Marathon San Jose Downtown Marathon", 
+        description : "Rowing event in Oregon from 5:00 PM", 
         date : "03-21-2018", 
         location : "DownTown San Jose", 
         time : "05:00 pm - 07:00 pm"
@@ -62,15 +62,15 @@ new Event({
         name : "San Jose Trekking", 
         image : "https://alhujjattravels.com/wp-content/uploads/2017/04/treking-1.jpg", 
         description : "San Jose Downtown Marathon", 
-        date : "12-21-2018", 
+        date : "12-15-2018", 
         location : "A-Mountain", 
         time : "03:00 pm - 06:00 pm"
     }),
 
 new Event({
-        name : "San Jose Marathon", 
+        name : "San Francico Marathon", 
         image : "http://thehotzoneusa.com/wp-content/uploads/2014/11/14803118587_20f2a571fc_o.jpg", 
-        description : "California Trekking at California State University at abcd Mountain San Jose California Trekking at California State University at abcd Mountain San Jose", 
+        description : "California Trekking at California State University at abcd Mountain San Francisco California Trekking at California State University at abcd Mountain San Jose", 
         date : "12-21-2018", 
         location : "DownTown San Jose", 
         time : "07:00 am - 11:00 am"
@@ -106,9 +106,9 @@ new Event({
 new Event({
        name : "Sacramento Marathon", 
        image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg", 
-       description : "San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon", 
-       date : "12-21-2018", 
-       location : "DownTown San Jose", 
+       description : "Sacramento Mountains California Sacramento Mountains California at 3:00 PM", 
+       date : "07-04-2018", 
+       location : "Sacramento Mountains California", 
        time : "03:00 pm - 06:00 pm" 
     }),
 
@@ -123,7 +123,7 @@ new Event({
 new Event({
         name : "Phoenix Rowing", 
         image : "https://fwmdocks.com/wp-content/uploads/2017/01/FWM-Rowing-807x356-1.jpg", 
-        description : "San Jose Downtown Marathon", 
+        description : "Phoenix Rowing at Lake Pleasant this December", 
         date : "12-21-2017", 
         location : "A-Mountain", 
         time : "03:00 pm - 06:00 pm"
@@ -132,7 +132,7 @@ new Event({
 new Event({
         name : "Arizona Trekking",
         image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg", 
-        description : "San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon", 
+        description : "Arizona Trekking at Downtown Phoenix", 
         date : "12-21-2017", 
         location : "DownTown San Jose", 
         time : "03:00 pm - 06:00 pm"
@@ -168,8 +168,8 @@ new Event({
 new Event({
         name : "ASU Tempe Trekking", 
         image : "https://alhujjattravels.com/wp-content/uploads/2017/04/treking-1.jpg", 
-        description : "San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon", 
-        date : "12-21-2017", 
+        description : "ASU Tempe Trekking at A Mountain ASU Downtown", 
+        date : "01-23-2018", 
         location : "DownTown San Jose", 
         time : "03:00 pm - 06:00 pm"
     }),
@@ -203,7 +203,7 @@ new Event({
 new Event({
        name : "Seattle Marathon", 
        image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg", 
-       description : "San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon San Jose Downtown Marathon ", 
+       description : "Seattle Marathon Downtown Marathon Seattle Marathon Downtown Marathon Seattle Marathon Downtown Marathon Seattle Marathon Downtown Marathon ", 
        date : "12-21-2017", 
        location : "DownTown San Jose", 
        time : "03:00 pm - 06:00 pm"
