@@ -25,11 +25,11 @@ body {
     padding: 10px;
 }
 
-.left {
+.left1 {
     width: 25%;
 }
 
-.right {
+.right1 {
     width: 75%;
 }
 
@@ -98,5 +98,18 @@ input[type=text]:focus {
 @media (max-width: 600px) {
     .column {
         width: 100%;
+    }
+}
+
+.carousel-inner img {
+    -webkit-filter: grayscale(90%);
+    width: 100%; /* Set width to 100% */
+    margin: auto;
+}
+
+
+@media (max-width: 600px) {
+    .carousel-caption {
+        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
     }
 }
