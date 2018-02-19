@@ -3,7 +3,7 @@ var db = require('../config/db');
 var uniqueValidator = require('mongoose-unique-validator');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
-var secret = require('../config/appconfig').secret;
+var secret = require('../config/appConfig').secret;
 
 var RiderSchema = new mongoose.Schema({
     email: {
