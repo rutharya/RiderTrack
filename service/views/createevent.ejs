@@ -188,20 +188,20 @@
             <div class="form-group">
                 <label for="eventName">Event Name</label>
                 <input type="text" class="form-control" id="eventName" aria-describedby="emailHelp"
-                       placeholder=<%= name %> required>
+                       placeholder= "<%- name %>" required>
             </div>
             <div class="form-group">
                 <label for="eventDescription">Event Description</label>
-                <input type="text" class="form-control" id="eventDescription" placeholder="Enter Event Description" required>
+                <input type="text" class="form-control" id="eventDescription" placeholder= "<%- description %>" required>
             </div>
             <div class="form-group">
                 <label for="eventLocation">Event Location</label>
                 <input type="text" class="form-control" id="eventLocation"
-                       placeholder="Enter Event Location" required>
+                       placeholder="<%- location %>" required>
             </div>
             <div class="form-group">
                 <label for="eventDate">Event Date</label>
-                <input type="date" class="form-control" id="eventDate" placeholder="New Password" required>
+                <input type="date" class="form-control" id="eventDate" value="<%- date %>" required>
             </div>
             <div class="form-group">
                 <label for="eventStartTime">Event Start Time</label>
