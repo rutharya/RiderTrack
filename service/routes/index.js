@@ -173,7 +173,43 @@ router.get('/logout', function (req, res, next) {
 });
 
 router.get('/createevent',function(req,res,next){
-    res.render('createevent', {title: 'Create Event'});
+
+    var id = req.query.id;
+    var name,description, location;
+    if(id === undefined){
+        console.log("vfbfdbfbgnfnfgn");
+        name = 'Enter Event Name';
+        description = 'Enter Event Description';
+        location = 'Enter Event Location';
+        // res.render('createevent', {title: 'Create Event', name: 'Enter Event Name', description: 'Enter Event Description', location: 'Enter Event Location'});
+        console.log("hdgg  "+name);
+        res.render('createevent', {title: 'Create Event', name: name, description: description, location: location});
+    }
+    else {
+        console.log(id);
+        var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+        var request = new XMLHttpRequest();
+        request.open('GET', "http://localhost:3000/getEventById", true);
+        request.setRequestHeader('_id', id);
+        request.send();
+        request.onreadystatechange = function () {
+            getData(request)
+        };
+
+        function getData(request) {
+            if ((request.readyState == 4) && (request.status == 200)) {
+                var jsonDocument = JSON.parse(request.responseText);
+                console.log(jsonDocument[0].name);
+                name = jsonDocument[0].name;
+                description = jsonDocument[0].description;
+                location = jsonDocument[0].location;
+            }
+        }
+        console.log("hdgg  "+name);
+        res.render('createevent', {title: 'Create Event', name: name, description: description, location: location});
+    }
+
+
 })
 
 router.get('/manageevent',function(req,res,next){

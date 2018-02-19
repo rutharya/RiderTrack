@@ -187,6 +187,9 @@
             <ul class="list-group row" id="eventList"></ul>
         </div>
         <script>
+            function invoke(data){
+                console.log(data);
+            }
             var request = new XMLHttpRequest();
             request.open('GET', "http://localhost:3000/getAllEvents", true);
             request.send();
@@ -200,23 +203,34 @@
                     for(var i=0; i<jsonDocument.length; i++){
                         var ul = document.getElementById("eventList");
                         var li = document.createElement("li");
-                        li.setAttribute('class', 'list-group-item row d-flex');
+                        li.setAttribute('class', 'list-group-item container d-flex');
                         var divName = document.createElement("div");
                         divName.setAttribute('class', 'col-3');
                         divName.appendChild(document.createTextNode(jsonDocument[i].name ));
 
                         var divDesc = document.createElement("div");
-                        divDesc.setAttribute('class', 'col-4');
+                        divDesc.setAttribute('class', 'col-5');
                         divDesc.appendChild(document.createTextNode(jsonDocument[i].description ));
 
                         var divDate = document.createElement("div");
-                        divDate.setAttribute('class', 'col-2');
+                        divDate.setAttribute('class', 'col-3');
                         divDate.appendChild(document.createTextNode(jsonDocument[i].date ));
+
 
                         var divButton = document.createElement("div");
                         divButton.setAttribute('class', 'col-3');
                         var button = document.createElement("button");
+                        button.setAttribute('class', 'btn btn-primary');
+                        button.setAttribute('type', 'submit');
+                        button.setAttribute('id', jsonDocument[i].id);
+                        //button.setAttribute('href',`/createevent&${jsonDocument[i].date}`, () => { console.log(jsonDocument[i].id)});
                         button.innerHTML = "EDIT";
+//                        button.onclick = function (jsonDocument[i],err) {
+//                            console.log(jsonDocument[i].date);
+//                            window.open(`/createevent&${jsonDocument[i].date}`)
+//                        };
+//                        button.onclick = window.open('/createevent');
+                        button.setAttribute('onclick', `window.location = '/createevent?id=${jsonDocument[i]._id}'`);
                         divButton.appendChild(button);
 
                         li.appendChild(divName);
