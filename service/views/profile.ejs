@@ -89,7 +89,7 @@
         <form class="col-5">
           <div class="form-group">
             <label for="exampleInputName">Name</label>
-            <input type="name" class="form-control" id="exampleInputName" placeholder="BlahBlah">
+            <input type="name" pattern="[a-zA-Z0-9]+" class="form-control" id="exampleInputName" placeholder="BlahBlah">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail">Email</label>
@@ -97,7 +97,8 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPhone">Telephone</label>
-            <input type="number" class="form-control" id="exampleInputPhone" placeholder="00000000000">
+            <input type="text" pattern="\d{3}[\-]\d{3}[\-]\d{4}" class="form-control" id="exampleInputPhone" placeholder="00000000000"
+            title = "number must match 000-000-0000 format">
           </div>
           <div class="form-group">
             <label for="exampleInputAddress">Address</label>
@@ -105,15 +106,18 @@
           </div>
           <div class="form-group">
             <label for="exampleInputAge">Age</label>
-            <input type="number" class="form-control" id="exampleInputAge" placeholder="18">
+            <input type="text" pattern="\d{3}" class="form-control" id="exampleInputAge" placeholder="18"
+            title="too high!">
           </div>
           <div class="form-group">
             <label for="exampleInputHeight">Height in cms</label>
-            <input type="number" class="form-control" id="exampleInputHeight" placeholder="183">
+            <input type="text" pattern="\d{3}" class="form-control" id="exampleInputHeight" placeholder="183"
+            title="too high!">
           </div>
           <div class="form-group">
             <label for="exampleInputWeight">Weight in Kilograms</label>
-            <input type="number" class="form-control" id="exampleInputWeight" placeholder="0">
+            <input type="text" pattern="\d{3}" class="form-control" id="exampleInputWeight" placeholder="0"
+            title="too high!">
           </div>
           <div class="form-group">
             <label for="exampleInputGender">Gender</label>
@@ -124,17 +128,17 @@
               <option value="N/A">N/A</option>
             </select>
           </div>
-    </fieldset>
-    </form>
-    <div class="form-group row">
-      <div>
-        <button type="submit" class="btn btn-info">Edit</button>
-      </div>
-    </div>
 
-    <fieldset disabled>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="reset" class="btn btn-primary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-primary">Cancel</button>
+
+    </form>
+
+      </div>
+      </fieldset>
+    </br>
+      <div>
+          <button type="submit" class="btn btn-info">Edit</button>
       </div>
     </fieldset>
     <br>
