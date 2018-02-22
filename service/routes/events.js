@@ -19,8 +19,9 @@ exports.saveEvent = function(req,res){
 
   console.log('In saveEvent')
   var event = new Event(req.body)
+
   event.save(function(err) {
-    if (err) throw err;
+      if (err) return handleError(err);
     console.log('User Event saved successfully!');
       res.send({"Saved Event ID" : event._id })
 
