@@ -8,23 +8,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>RiderTrack - Rider</title>
-    <!-- Bootstrap core CSS-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom fonts for this template-->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Page level plugin CSS-->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="css/style.css">-->
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js" type="text/javascript"></script>
+
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 </head>
-
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.html">Hello Rider1!</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -47,24 +53,8 @@
                     <span class="nav-link-text">Events</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
-                   data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-bookmark-o"></i>
-                    <span class="nav-link-text">Manage Events</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
-                    <li>
-                        <a href="/createevent">Create Events</a>
-                    </li>
-                    <li>
-                        <a href="cards.html">Edit Events</a>
-                    </li>
-                </ul>
-            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
-                   data-parent="#exampleAccordion">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-mobile-phone"></i>
                     <span class="nav-link-text">My Devices</span>
                 </a>
@@ -90,8 +80,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-envelope"></i>
                     <span class="d-lg-none">Messages
               <span class="badge badge-pill badge-primary">12 New</span>
@@ -119,8 +108,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-bell"></i>
                     <span class="d-lg-none">Alerts
               <span class="badge badge-pill badge-warning">6 New</span>
@@ -138,9 +126,7 @@
                   <i class="fa fa-long-arrow-up fa-fw"></i>Event Created</strong>
               </span>
                         <span class="small float-right text-muted">11:40 AM</span>
-                        <div class="dropdown-message small">Admin1 just created the event near you: San Jose
-                            Triathalon
-                        </div>
+                        <div class="dropdown-message small">Admin1 just created the event near you: San Jose Triathalon</div>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
@@ -170,6 +156,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                     <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+
             </li>
         </ul>
     </div>
@@ -183,131 +170,36 @@
                 <a href="#">My Profile</a>
             </li>
         </ol>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Rider1</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
-                                                                                    src="assets/profile1.jpg"
-                                                                                    class="img-circle img-responsive">
-                                </div>
-
-                                <div class=" col-md-10 col-lg-10 ">
-                                    <table class="table table-user-information">
-                                        <tbody>
-                                        <tr>
-                                            <td><b>Name:</b></td>
-                                            <td>Rider1</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Age:</b></td>
-                                            <td>25</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Gender</b></td>
-                                            <td>Male</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Height and Weight</b></td>
-                                            <td>5.6ft, 124lbs</td>
-                                        </tr>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Location</b></td>
-                                            <td>Tempe, Arizona</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Email</b></td>
-                                            <td><a>rider1@gmail.com</a></td>
-                                        </tr>
-                                        <td><b>Phone</b></td>
-                                        <td>555-4567-890
-                                        </td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                    <a href="#" class="btn btn-primary">Edit Details</a>
-                                    <a href="#" class="btn btn-primary">Save Changes</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item" name="Dashboard">
-                <a href="#Dashboard">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">My Dashboard</li>
-        </ol>
-        <!-- Icon Cards-->
         <div class="row">
-            <div class="col-xl-3 col-sm-6 mb-3">
-                <div class="card text-white bg-primary o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fa fa-fw fa-gamepad"></i>
-                        </div>
-                        <div class="mr-5">My Devices</div>
+            <div class="col-sm-4">
+            <div class="container">
+                <div class="card" style="width:50%">
+                    <img src="/assets/profile1.jpg" alt="Person" style="width:100%">
+                    <div class="container">
+                        <h4><b>Rider 1</b></h4>
+                        <a>rider@gmail.com</a>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-                    </a>
                 </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-                <div class="card text-white bg-warning o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fa fa-address-card"></i>
-                        </div>
-                        <div class="mr-5">Spectators</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-                <div class="card text-white bg-success o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fa fa-trophy"></i>
-                        </div>
-                        <div class="mr-5">My Events</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-                    </a>
-                </div>
+                <a class="nav-link"> Edit Profile</a>
+                <br>
+        </div>
             </div>
         </div>
-        <!-- Area Chart Example-->
+        <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Events</a>
+                </li>
+        </ol>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Recent Activities</a>
+            </li>
+        </ol>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i>Last Run
-            </div>
+                <i class="fa fa-area-chart"></i>Last Run</div>
             <div class="card-body">
                 <div class="container">
                     <div class="row">
@@ -316,8 +208,8 @@
                         </div>
                         <div class="col-sm">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
+                                <thead >
+                                <tr >
                                     <th colspan="5" bgcolor="#FFD700">Ride 1</th>
                                 </tr>
                                 </thead>
@@ -333,7 +225,7 @@
                                     <td>11/27/2017</td>
                                     <td>54 mins</td>
                                     <td>Launceston</td>
-                                    <td>Cycling <i class="fa fa-bicycle"></i></td>
+                                    <td>Cycling  <i class="fa fa-bicycle"></i></td>
                                     <td>12.29 mi</td>
                                 </tr>
                                 </tbody>
@@ -342,29 +234,33 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted"><a style="text-underline: #1b1e21;color: #0c7fda">View All Activity</a></div>
         </div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">My Stats</a>
+            </li>
+        </ol>
         <div class="row">
             <div class="col-lg-8">
                 <!-- Example Bar Chart Card-->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-bar-chart"></i> Bar Chart Example
-                    </div>
+                        <i class="fa fa-bar-chart"></i>Activities Summary</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-8 my-auto">
-                                <canvas id="myBarChart" width="100" height="50"></canvas>
-                            </div>
-                            <div class="col-sm-4 text-center my-auto">
-                                <div class="h4 mb-0 text-primary">Events</div>
-                                <div class="small text-muted">Tempe Marathon</div>
-                                <hr>
-                                <div class="h4 mb-0 text-warning">Run</div>
-                                <div class="small text-muted">10.8 Miles</div>
-                                <hr>
+                                <canvas id="myStat" width="100" height="50"></canvas>
                             </div>
                         </div>
+                    </div>
+                    <div class="custom-select" style="width:200px;">
+                        <select>
+                            <option value="0">Select Stat:</option>
+                            <option value="1">Elevation</option>
+                            <option value="2">Distance</option>
+                            <option value="2">Time</option>
+                        </select>
                     </div>
                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
@@ -375,73 +271,17 @@
                 <!-- Example Pie Chart Card-->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-pie-chart"></i> Pie Chart Example
-                    </div>
+                        <i class="fa fa-pie-chart"></i> Races Completed</div>
                     <div class="card-body">
-                        <canvas id="myPieChart" width="100%" height="100"></canvas>
+                        <canvas id="raceStats" width="100%" height="100"></canvas>
                     </div>
                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                </div>
-
-                <!-- /.container-fluid-->
-                <!-- /.content-wrapper-->
-                <!--footer class="sticky-footer">
-
-                    <div class="text-center">
-                     <div>
-                      <small>Copyright © RiderTrack 2017</small>
-                    </div>
-
-                <!--/footer>
-
-                <!-- Scroll to Top Button-->
-                <div class="text-center">
-                    <div>
-                        <small>Copyright © RiderTrack 2017</small>
-                    </div>
-                    <a class="scroll-to-top rounded" href="#page-top">
-                        <i class="fa fa-angle-up"></i>
-                    </a>
-                    <!-- Logout Modal-->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">Do you want to logout of RiderTrack?</div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Stay Signed
-                                        In
-                                    </button>
-                                    <a class="btn btn-primary" href="login.html">Logout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Bootstrap core JavaScript-->
-                    <script src="vendor/jquery/jquery.min.js"></script>
-                    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                    <!-- Core plugin JavaScript-->
-                    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-                    <!-- Page level plugin JavaScript-->
-                    <script src="vendor/chart.js/Chart.min.js"></script>
-                    <script src="vendor/datatables/jquery.dataTables.js"></script>
-                    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-                    <!-- Custom scripts for all pages-->
-                    <script src="js/sb-admin.min.js"></script>
-                    <!-- Custom scripts for this page-->
-                    <script src="js/sb-admin-datatables.min.js"></script>
-                    <script src="js/sb-admin-charts.min.js"></script>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
-
+<script src="/js/dashboardchart.js" type="text/javascript"></script>
 </html>
