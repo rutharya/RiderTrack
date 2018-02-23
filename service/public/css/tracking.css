@@ -5,13 +5,17 @@
 div.container {
     width: 100%;
     min-height: 400px;
-    background:white;
+    background: white;
     margin: auto;
     padding: 10px;
 }
 
 body {
     margin: 2;
+}
+
+h1, h4{
+    color: white;
 }
 
 .header {
@@ -74,6 +78,7 @@ li a:hover {
     font-size: 20px;
     background: #f6f6f6;
 }
+
 
 input[type=text] {
     width: 130px;
