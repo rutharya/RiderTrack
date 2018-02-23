@@ -31,7 +31,8 @@
     "nsp": "^3.2.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "twilio": "^3.11.3"
   },
   "devDependencies": {
     "chalk": "^2.3.1",
