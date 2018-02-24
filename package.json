@@ -11,11 +11,14 @@
     "share": "npm-run-all --parallel open:src localtunnel"
   },
   "dependencies": {
+    "@material/card": "^0.31.0",
     "body-parser": "~1.18.2",
+    "bootstrap-material-design": "^4.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "material-components-web": "^0.31.0",
     "morgan": "~1.9.0",
     "npm-run-all": "^4.1.2",
     "nsp": "*",
