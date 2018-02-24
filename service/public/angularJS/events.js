@@ -31,6 +31,7 @@ var events = angular.module('events',[]);
             }
           }
           formatDate(upcomingEvents);
+          upcomingEvents.reverse();
           $scope.events = upcomingEvents;
         }
 
@@ -63,6 +64,10 @@ var events = angular.module('events',[]);
             console.log("Formatting dates, list length: " + eventsList.length);
             var monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
+            eventsList.sort(function(a,b){
+            return new Date(b.date) - new Date(a.date);
+            });
+
             for(i = 0; i<eventsList.length; i++){
               var eventDate = new Date(eventsList[i].date);
               eventDate.setHours(0,0,0,0)
@@ -70,6 +75,8 @@ var events = angular.module('events',[]);
               eventsList[i].date = setDate;
             }
         }
+
+
        
 
         // function formatDate(eventsList){
