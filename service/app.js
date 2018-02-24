@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var test = require('./routes/test')
 var events = require('./routes/events');
 var passport = require('passport');
+require('./config/passport');
 var app = express();
 
 

@@ -17,20 +17,17 @@
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
 </head>
 <body class="bg container-fluid">
 
 <div class="container-fluid">
     <!-- Nav Bar with sign up button -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand"  id="brandheader" href="#" style="color:orangered;font-family: courier;font-weight: bolder;">
                     <b>RiderTrack</b>
                 </a>
-                <button type="button" id="signupbtn" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#signUpModal" style="=font-family: courier;margin-left: 1050px">Sign Up</button>
-
             </div>
         </div>
     </nav>
@@ -41,7 +38,7 @@
         <div class="col-md4 col-sm-4 col-xs-12">
             <!--form-start-->
 
-            <form class="form-container" id="loginform" onsubmit="return validateLogin()">
+            <form class="form-container" id="loginform"  method="post" action="/users/login" onsubmit="return validateLogin()">
                 <h2 align="center">RiderTrack LogIn</h2>
                 <div id="wrongpassword" class="alert-danger">
                     <!--<p>Wrong Username or Password. Please Try Again</p>-->
@@ -50,36 +47,38 @@
                     <label for="InputEmail">Username</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
-                        <input type="text" class="form-control" id="userLoginname" placeholder="User Name" required>
+                        <input type="text" class="form-control" id="loginUserEmail" name="email" placeholder="User Name" >
                     </div>
+                    <div class="inputerror" id="loginemailerror"></div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
-                        <input type="password" class="form-control" id="userPassword" placeholder="Password" required>
+                        <input type="password" class="form-control" id="loginUserPassword" name="password" placeholder="Password" >
                     </div>
+                    <div class="inputerror" id="loginpassworderror"></div>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="rememberme"> Remember Me
-                    </label>
-                </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="rememberme"> Remember Me
+                            </label>
+                        </div>
+
                 <div class="row">
-                    <div class="col-sm-5">
-                        <button type="submit" id="singinemail"  class="btn btn-success btn-block">Sign In</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <h5 align="center"  ><b>Or</b></h5>
-                    </div>
-                    <div class="col-sm-5">
-                        <button type="submit" id="signingoogle" class="btn btn-info btn-block">Google Sing in</button>
+                    <div class="col-sm-12">
+                        <button type="submit" id="loginUserButton"  class="btn btn-success btn-block" style="text-align: center"><b>Sign In</b></button>
                     </div>
                 </div>
                 <br>
-                <a href="#" id="frgtpwd" class="forgotpassword" data-toggle="modal" data-target="#resetPwdModal">Forgot Password?</a>
+                <a href="#" id="frgtpwd"  class="forgotpassword" data-toggle="modal" data-target="#resetPwdModal" style="text-align: center"><b>Forgot Password?</b></a>
+                <hr style="height:1px;border:none;color:#333;background-color:#333;">
+                <div class="container-fluid" style="text-align: center">
+                    <i style="font-weight: bolder;">New to RiderTrack?</i><a id="signupbtn"  data-toggle="modal" data-target="#signUpModal" style="=font-family: courier"><b class="singup"> Sign Up</b></a>
+                </div>
             </form>
             <!--form-end-->
+
         </div>
     </div>
 </div>
@@ -95,45 +94,48 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div id="signuperror" class="alert-danger" style="text-align: center; font-weight: bolder">
+            </div></dib>
             <div class="modal-body">
-            <form id="signupform" onsubmit="return validateSignUp()">
+            <form id="signupform" method="post" action="/users" onsubmit="return validateForm()">
                 <div class="form-group">
                    <div class="row">
                        <div class="col-sm-4">
                            <!-- User First Name Input Text -->
                            <label for="InputFirstName">First Name</label>
-                           <input type="text" class="form-control" id="userFirstname" placeholder="Mo" required>
+                           <input type="text" class="form-control" name="firstname" id="signUpUserFirstName" placeholder="Mo" >
                        </div>
                        <div class="col-sm-4">
                            <!-- User Last Name Input Text -->
                            <label for="InputLastName">Last Name</label>
-                           <input type="text" class="form-control" id="userLastname" placeholder="Farrah" required>
+                           <input type="text" class="form-control" name="lastname" id="signUpUserLastName" placeholder="Farrah" >
                        </div>
                        <div class="col-sm-4">
                            <!-- User  UserName Input Text -->
-                           <label for="InputUserName">Username</label>
-                           <input type="text" class="form-control" id="userName" placeholder="xyz" required>
+                           <label for="InputUserName">Username *</label>
+                           <input type="text" class="form-control"  name="username" id="signUpUserName" placeholder="xyz">
+                            <div class="inputerror" id="usernameerror"></div>
                        </div>
                    </div>
                 </div>
                 <div class="form-group">
                     <!-- User Email Input Text -->
-                    <label for="InputSignUpEmail">Email address</label>
-                    <input type="email" class="form-control" id="usersignUpEmail" placeholder="@" required>
+                    <label for="InputSignUpEmail">Email address *</label>
+                    <input type="email" class="form-control" id="signUpUserEmail"  name="email" placeholder="someone@example.com">
+                    <div class="inputerror" id="emailerror"></div>
                 </div>
 
                 <div class="form-group">
                     <!-- User Password Input Text -->
-                    <label for="InPutSignUpPassword">Password</label>
-                    <input type="password" class="form-control" id="usersignUpPassword" placeholder="Password" required>
-                    <small id="passwordHelpBlock" class="form-text text-muted">
-                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                    </small>
+                    <label for="InPutSignUpPassword">Password *</label>
+                    <input type="password" class="form-control" id="signUpUserPassword"  name="password" placeholder="Password" >
+                    <div class="inputerror" id="passworderror"></div>
                 </div>
                 <div class="form-group">
                     <!-- User Repeat Password Input Text -->
-                    <label for="InputRepeatPassword">Repeat Password</label>
-                    <input type="password" class="form-control" id="userrepeatPassword" placeholder="Password" required>
+                    <label for="InputRepeatPassword">Repeat Password *</label>
+                    <input type="password" class="form-control" id="signUpUserRepeatPassword" placeholder="Password" >
+                    <div class="inputerror" id="repeatpassworderror"></div>
                 </div>
                 <!-- User Sign Up Button -->
                 <button type="submit" id="userSignUp" class="btn btn-primary btn-success btn-block" style="font-family: courier;font-weight: bolder;align-content: right;alignment: right">Sign Up</button>
@@ -146,9 +148,8 @@
     </div>
 </div>
 
+
 <!-- Forgot Password Modal -->
-
-
 <div class="modal fade" id="resetPwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" >
         <div class="modal-content container-fluid" style="background-color: #A9A9A9; opacity: inherit">
@@ -162,60 +163,212 @@
                 <div id="resetError">
 
                 </div>
-                <form style="align-content: center" id="resetUserPassword" onsubmit="resetPassword()">
-
+                <form id="register-form" role="form" class="form"  onsubmit="return validateResetLink()">
+                    <div class="inputerror" id="resetEmailerror" style="font-weight: bolder"></div>
                     <div class="form-group">
-                        <label for="message-text" class="form-control-label">Enter your registered email id</label>
-                        <input type="email" class="form-control" id="resetEmail" required>
-                            <br>
-                       <div style="text-align: center">
-                           <button type="submit"  id="sendResetEmail" class="btn-primary btn-info">Reset</button>
-                       </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                            <input type="email" class="form-control" id="resetEmail" name="resetemail">
+                        </div>
                     </div>
 
+                    <div class="form-group">
+                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
 
-    function validateLogin() {
-        var username = document.forms["loginform"]["userLoginname"].value
-        var password = document.forms["loginform"]["userPassword"].value
-        var remembermeFlag = document.forms["loginform"]["rememberme"].value
+    var usernameerr = document.getElementById("usernameerror");
+    var passworderror = document.getElementById("passworderror");
+    var rpassworderror = document.getElementById("repeatpassworderror");
+    var emailerror = document.getElementById("emailerror");
+    var loginpwderror = document.getElementById("loginpassworderror");
+    var loginemailerror  = document.getElementById("loginemailerror");
+    var resetemailerror = document.getElementById("resetEmailerror");
 
-            window.location = '/dashboard';
+    var resetEmail = document.getElementById("resetEmail");
 
-    return false;
-
-    }
-
-    function validateSignUp(){
-
-        var firstname = document.forms["signupform"]["userFirstname"].value;
-        var lastname = document.forms["signupform"]["userLastname"].value;
-        var email = document.forms["signupform"]["usersignUpEmail"].value;
-        var username = document.forms["signupform"]["userName"].value;
-        var password = document.forms["signupform"]["usersignUpPassword"].value;
-        var repeatedpassword = document.forms["signupform"]["userrepeatPassword"].value;
-
-        window.location = '/dashboard';
-        return false;
+    var loginuserpwd = document.getElementById("loginUserPassword");
+    var loginuseremail = document.getElementById("loginUserEmail");
 
 
+    var regemail = document.getElementById("signUpUserEmail");
+    var regpwd = document.getElementById("signUpUserPassword");
+    var reregpwd = document.getElementById("signUpUserRepeatPassword");
+    var username = document.getElementById("signUpUserName");
 
-    }
+     regemail.addEventListener("blur",emailVerify, true);
+     username.addEventListener("blur", usernameVerify, true);
+     regpwd.addEventListener("blur", passwordVerify, true);
+     reregpwd.addEventListener("blur", repeatPasswordVerify, true);
+     loginuserpwd.addEventListener("blur", loginpaswordVerify, true);
+     loginuseremail.addEventListener("blur", loginusernameVerify, true);
 
-    function  resetPassword() {
-        var email = document.forms["resetUserPassword"]["resetEmail"].value;
-        if(email != "kp@gmail.com") {
-            document.getElementById("resetError").innerHTML = "<p align='center' class='alert-danger' style='font-weight: bolder'> The email is not associated with a valid RiderTrack account. Please retry</p>";
+    function validateResetLink(){
+        if(resetEmail.validity.typeMismatch || resetEmail.value == ""){
+            console.log("ereser");
+            resetEmail.style.border = "1px solid red";
+            resetemailerror.innerText = "Please Enter a valid email address";
+            return false;
         }
-        else document.getElementById("resetError").innerHTML = "<p align='center' class='alert-success' style='font-weight: bolder'>Reset Link sent to email</p>";
-        return false;
+        {
+            resetEmail.style.border = "1px solid #ccc";
+            resetemailerror.innerText = "";
+        }
+            return true;
     }
+
+    function validateLogin(){
+        var flag = 0;
+        if(loginuseremail.value === ""){
+            loginuseremail.style.border = "1px solid red";
+            loginemailerror.innerText = "Please fill out the username";
+          flag = 1;
+        }
+        if(loginuserpwd.value === ""){
+            loginuserpwd.style.border = "1px solid red";
+            loginpwderror.innerText = "Please enter your password";
+            flag = 1;
+
+        }
+        if(flag == 0) {
+            return true;}
+            else return false;
+
+    }
+    function validateForm(){
+        var flag = 0;
+        // Check for Username field
+        if(username.value == ""){
+            username.style.border = "1px solid red";
+            usernameerr.innerText = "Username is required";
+            username.focus();
+            flag = 1;
+        }
+
+        // Check for Email field
+        if(regemail.value == ""){
+            regemail.style.border = "1px solid red";
+            emailerror.innerText = "Email is required";
+            regemail.focus();
+            flag = 1;
+        }
+
+        // Check for Password field
+        if(regpwd.value == ""){
+            regpwd.style.border = "1px solid red";
+            passworderror.innerText = "Password is required";
+            regpwd.focus();
+            flag = 1;
+
+        }
+
+        if(flag == 0){
+            return true;
+        }
+        else return false;
+
+    }
+
+
+    function usernameVerify(){
+        if(username.value != ""){
+            username.style.border = "1px solid #ccc";
+            usernameerr.innerText = "";
+        }
+        else if(username.value === ""){
+            username.style.border = "1px solid red";
+            usernameerr.innerText = "Username is required";
+
+        }
+    }
+
+    function loginpaswordVerify(){
+        if(loginuserpwd.value != ""){
+            loginuserpwd.style.border = "1px solid #ccc";
+            loginpwderror.innerText = "";
+        }
+        else if(loginuserpwd.value === ""){
+            loginuserpwd.style.border = "1px solid red";
+            loginpwderror.innerText = "Please enter your password";
+
+        }
+    }
+
+    function loginusernameVerify(){
+        if(loginuseremail.value != ""){
+            loginuseremail.style.border = "1px solid #ccc";
+            loginemailerror.innerText = "";
+        }
+        else if(loginuseremail.value === ""){
+            loginuseremail.style.border = "1px solid red";
+            loginemailerror.innerText = "Username is required";
+
+        }
+    }
+
+    function emailVerify(){
+        if(regemail.value != ""){
+
+            if (regemail.validity.typeMismatch) {
+                regemail.style.border = "1px solid red";
+                emailerror.innerText = "Email should be of the format someone@example.com";
+            } else {
+                regemail.style.border = "1px solid #ccc";
+                emailerror.innerText = "";
+            }
+
+
+        }
+        else if(regemail.value === ""){
+            console.log("here");
+            regemail.style.border = "1px solid red";
+            emailerror.innerText = "Email is required";
+
+        }
+
+    }
+
+    function passwordVerify(){
+
+        if(regpwd.value != ""){
+
+            if (!regpwd.value.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+                regpwd.style.border = "1px solid red";
+                passworderror.innerText = "Passwords must have at least 8 characters and contain at least one of the following: uppercase letters, lowercase letters, numbers, and symbols.";
+            } else {
+                console.log("herepwd")
+                regpwd.style.border = "1px solid #ccc";
+                passworderror.innerText = "";
+            }
+
+
+        }
+        else if(regpwd.value === ""){
+
+            regpwd.style.border = "1px solid red";
+            passworderror.innerText = "Password is required";
+
+        }
+    }
+
+    function repeatPasswordVerify(){
+        if(reregpwd.value != regpwd.value){
+            reregpwd.style.border = "1px solid red";
+            rpassworderror.innerText = "Password does not match with original";
+        }
+        else{
+            reregpwd.style.border = "1px solid #ccc";
+            rpassworderror.innerText = "";
+        }
+
+    }
+
 
 
 </script>
