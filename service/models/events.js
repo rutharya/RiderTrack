@@ -26,7 +26,15 @@ var eventsSchema = new Schema({
         }
     ],
     totalDist: Number,
-    statusOfRace: String
+    statusOfRace: String,
+    startLocation: {
+	    lat: Number,
+        long: Number
+    },
+    endLocation: {
+        lat: Number,
+        long: Number
+    }
 });
 var Event = mongoose.model('Event', eventsSchema);
 module.exports = Event;
