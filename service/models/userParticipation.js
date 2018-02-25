@@ -30,7 +30,7 @@ var userParticipationSchema = new Schema({
       }
       lat : Number,
       long : Number,
-      timestamp: Date,
+      timestamp: Date
     }]
 });
 
