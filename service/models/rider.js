@@ -45,14 +45,18 @@ var RiderSchema = new mongoose.Schema({
     height: Number,
     weight: Number,
     gender: String,
+    phoneNo: String,
+    address: String,
     pastevents: [{
-        pasteventdate: Date,
-        pasteventlocation: String,
-        movingtime: Date,
-        activity: String,
-        distance: Number
-        //TODO: add a reference to event -> with event id.
-        //ref:'events'
+        // pasteventdate: Date,
+        // pasteventlocation: String,
+        // movingtime: Date,
+        // activity: String,
+        // distance: Number
+        // //TODO: add a reference to event -> with event id.
+        // //ref:'events'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
     }],
     statistcs: {
         avgspeed: Number,

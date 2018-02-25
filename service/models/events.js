@@ -5,7 +5,7 @@ var eventsSchema = new Schema({
 	name: {type:String, required:true},
     image: {type:String, required:true},
     description: {type:String,required:true},
-    date: {type:String,required:true},
+    date: {type:Date,required:true},
     location: {type:String, required:true},
     time:{type:String, required:true},
     track: {
@@ -18,7 +18,15 @@ var eventsSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Rider'
         }
-    ]
+    ],
+    raceWinners: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rider'
+        }
+    ],
+    totalDist: Number,
+    statusOfRace: String
 });
 var Event = mongoose.model('Event', eventsSchema);
 module.exports = Event;
