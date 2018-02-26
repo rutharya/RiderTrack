@@ -10,6 +10,7 @@ var User = mongoose.model('Rider');
 
 
 var events = require('./events');
+var eventTracking = require('./eventTracking');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -254,5 +255,7 @@ router.get('/getAllEvents',events.getAllEvents)
 router.post('/saveEvent',events.saveEvent)
 router.get('/getEventById',events.getEventById)
 router.delete('/deleteEventById',events.deleteEventById)
+
+router.get('/getLastLocation', eventTracking.getLastLocation )
 
 module.exports = router;
