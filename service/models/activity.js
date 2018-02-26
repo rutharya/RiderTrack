@@ -12,12 +12,12 @@ var activitySchema = new Schema({
     },
     latestcoordinates:{
         lat : Number,
-        long : Number
+        lng : Number
     },
     gps_stats:[{
       timestamp: Date,
       lat : Number,
-      long : Number,
+      lng : Number,
       speed: Number,
       distLeft: Number,
       altitude: Number
