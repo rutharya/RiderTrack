@@ -41,34 +41,43 @@
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" href="charts.html">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Events">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1"
+                   data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-trophy"></i>
                     <span class="nav-link-text">Events</span>
                 </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents1">
+                    <li>
+                        <a href="/registerevent">Register Upcoming Events</a>
+                    </li>
+                    <li>
+                        <a href="/userpastevent">Past Events</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2"
                    data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-bookmark-o"></i>
                     <span class="nav-link-text">Manage Events</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                <ul class="sidenav-second-level collapse" id="collapseComponents2">
                     <li>
                         <a href="/createevent">Create Events</a>
                     </li>
                     <li>
-                        <a href="cards.html">Edit Events</a>
+                        <a href="/manageevent">Edit Events</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents3"
                    data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-mobile-phone"></i>
                     <span class="nav-link-text">My Devices</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                <ul class="sidenav-second-level collapse" id="collapseComponents3">
                     <li>
                         <a href="navbar.html">Current Devices</a>
                     </li>
@@ -271,6 +280,55 @@
     <br>
     <br>
 </fieldset>
+
+
+      <div class="text-center">
+                    <div>
+                        <small>Copyright © RiderTrack 2017</small>
+                    </div>
+                    <a class="scroll-to-top rounded" href="#page-top">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                    <!-- Logout Modal-->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Do you want to logout of RiderTrack?</div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Stay Signed
+                                        In
+                                    </button>
+                                    <a class="btn btn-primary" href="login.html">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bootstrap core JavaScript-->
+                    <script src="vendor/jquery/jquery.min.js"></script>
+                    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    <!-- Core plugin JavaScript-->
+                    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                    <!-- Page level plugin JavaScript-->
+                    <script src="vendor/chart.js/Chart.min.js"></script>
+                    <script src="vendor/datatables/jquery.dataTables.js"></script>
+                    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+                    <!-- Custom scripts for all pages-->
+                    <script src="js/sb-admin.min.js"></script>
+                    <!-- Custom scripts for this page-->
+                    <script src="js/sb-admin-datatables.min.js"></script>
+                    <script src="js/sb-admin-charts.min.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 
