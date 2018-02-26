@@ -11,6 +11,7 @@ var User = mongoose.model('Rider');
 
 var events = require('./events');
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
@@ -153,6 +154,11 @@ router.get('/events',function(req,res,next){
   res.render('events');
 })
 
+router.get('/registerevent',function(req,res,next){
+  res.render('registerevent');
+})
+
+
 router.get('/login',function(req,res,next){
     res.render('login');
 })
@@ -239,6 +245,8 @@ router.get('/createevent',function(req,res,next){
 
 
 })
+
+
 
 
 router.get('/manageevent',function(req,res,next){

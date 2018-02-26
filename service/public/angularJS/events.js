@@ -1,20 +1,20 @@
 console.log("I am in AngularController")
 var events = angular.module('events',[]);
-    events.controller('events', function($scope, $http){
+events.controller('events', function($scope, $http){
       //START: As soon as events page loads
-        $http.get('/getAllEvents').then(successCallback, errorCallback);
+      $http.get('/getAllEvents').then(successCallback, errorCallback);
 
-        function successCallback(response){
+      function successCallback(response){
             //success code
             console.log("Successfully returning to frontend JS after loading all events")
             console.log(response.data)
             getFutureEvents(response.data)
             $scope.allEvents = response.data;
-        }
+          }
         //while error from backend
         function errorCallback(error){
-            console.log("Error loading all events")
-            console.log("In error")
+          console.log("Error loading all events")
+          console.log("In error")
         }
         
         function getFutureEvents(allEvents){
@@ -34,6 +34,8 @@ var events = angular.module('events',[]);
           upcomingEvents.reverse();
           $scope.events = upcomingEvents;
         }
+
+
 
         //Upcoming events
         $scope.getUpcomingEvents = function() {
@@ -65,7 +67,7 @@ var events = angular.module('events',[]);
             var monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
             eventsList.sort(function(a,b){
-            return new Date(b.date) - new Date(a.date);
+              return new Date(b.date) - new Date(a.date);
             });
 
             for(i = 0; i<eventsList.length; i++){
@@ -74,10 +76,26 @@ var events = angular.module('events',[]);
               var setDate = monthNames[eventDate.getMonth()] + ' ' + eventDate.getDate() + ' ' + eventDate.getFullYear();
               eventsList[i].date = setDate;
             }
+          }
+
+
+          $scope.addRider = function(id){
+            console.log("TEST  "+ id)
+            $http({
+              method : "POST",
+        url : '/RiderAddToEvent',
+        data : {
+          "Event_Id" : id,
+          "Rider_Id" : "Test123"
         }
+      }).then(successCallback, errorCallback);
+
+    }
 
 
-       
+
+
+
 
         // function formatDate(eventsList){
         //     //error code
@@ -94,4 +112,4 @@ var events = angular.module('events',[]);
         // if(d.getTime() == e.getTime()){
         //   console.log("Same dates");
         // }else{console.log("Different dates");}
-    });
+      });
