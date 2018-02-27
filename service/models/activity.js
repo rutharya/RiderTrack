@@ -4,11 +4,13 @@ var Schema = mongoose.Schema;
 var activitySchema = new Schema({
     riderid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rider'
+        ref: 'Rider',
+        required:true
     },
     eventid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
+        ref: 'Event',
+        required:true
     },
     latestcoordinates:{
         lat : Number,
