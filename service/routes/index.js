@@ -257,5 +257,5 @@ router.get('/getEventById',events.getEventById)
 router.delete('/deleteEventById',events.deleteEventById)
 
 router.get('/getLastLocation', eventTracking.getLastLocation )
-
+router.get('/getRiderLocation', eventTracking.getRiderLocation )
 module.exports = router;

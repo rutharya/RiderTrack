@@ -21,13 +21,12 @@ exports.getLastLocation = function(req,res){
 
             query = activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())})
             eventId = events[0].eventRiders[i];
+            console.log(eventId);
             query.exec(function (err, activity) {
                 if (err) return handleError(err);
-                //console.log(activity[0].latestcoordinates);
-                arrayLastLocation.push({"rider": eventId, "coordinates": activity[0].latestcoordinates});
+                arrayLastLocation.push({"rider": activity[0].riderid, "coordinates": activity[0].latestcoordinates});
                 console.log(arrayLastLocation);
-                console.log(eventLength);
-                console.log(i);
+
                 if(arrayLastLocation.length === eventLength){
                     res.send(arrayLastLocation);
                 }
@@ -35,4 +34,25 @@ exports.getLastLocation = function(req,res){
         }
     });
 
+}
+
+exports.getRiderLocation =function(req,res){
+    console.log("In getRiderLocation");
+    var i;
+    var arrayRiderLocation = [];
+
+    query = activity.find({"eventid": req.headers.eventid, "riderid": req.headers.riderid})
+    query.exec(function (err, activity) {
+        if (err) return handleError(err);
+        console.log(activity);
+        console.log(activity[0].gps_stats)
+        for(i=0; i<activity[0].gps_stats.length; ++i){
+
+            arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng});
+            if(arrayRiderLocation.length === activity[0].gps_stats.length){
+                res.send(arrayRiderLocation);
+            }
+        }
+
+    });
 }
