@@ -16,6 +16,8 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Axios CDN for Http request -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 <body class="bg container-fluid">
@@ -38,7 +40,7 @@
         <div class="col-md4 col-sm-4 col-xs-12">
             <!--form-start-->
 
-            <form class="form-container" id="loginform"  method="post" action="/users/login" onsubmit="return validateLogin()">
+            <form class="form-container" id="loginform">
                 <h2 align="center">RiderTrack LogIn</h2>
                 <div id="wrongpassword" class="alert-danger">
                     <!--<p>Wrong Username or Password. Please Try Again</p>-->
@@ -67,7 +69,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <button type="submit" id="loginUserButton"  class="btn btn-success btn-block" style="text-align: center"><b>Sign In</b></button>
+                        <button type="submit" id="loginUserButton"  class="btn btn-success btn-block" onclick="return validateLogin()" style="text-align: center"><b>Sign In</b></button>
                     </div>
                 </div>
                 <br>
@@ -97,7 +99,7 @@
             <div id="signuperror" class="alert-danger" style="text-align: center; font-weight: bolder">
             </div></dib>
             <div class="modal-body">
-            <form id="signupform" method="post" action="/users" onsubmit="return validateForm()">
+            <form id="signupform">
                 <div class="form-group">
                    <div class="row">
                        <div class="col-sm-4">
@@ -138,7 +140,7 @@
                     <div class="inputerror" id="repeatpassworderror"></div>
                 </div>
                 <!-- User Sign Up Button -->
-                <button type="submit" id="userSignUp" class="btn btn-primary btn-success btn-block" style="font-family: courier;font-weight: bolder;align-content: right;alignment: right">Sign Up</button>
+                <button type="submit" id="userSignUp" class="btn btn-primary btn-success btn-block" onclick="return validateForm()" style="font-family: courier;font-weight: bolder;align-content: right;alignment: right">Sign Up</button>
             </form>
 
             </div>
