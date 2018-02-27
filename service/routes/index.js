@@ -158,6 +158,10 @@ router.get('/login',function(req,res,next){
     res.render('login');
 })
 
+router.get('/ridertracking',function(req,res,next){
+    res.render('ridertracking');
+})
+
 
 router.get('/logout', function (req, res, next) {
     if (req.session) {
