@@ -1,25 +1,38 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var Event = require('../models/events');
-var Activity = require('../models/activity');
+var activity = require('../models/activity');
+
 var ObjectId = require('mongodb').ObjectId;
 var router = express.Router();
 
 exports.getLastLocation = function(req,res){
     console.log("In getLastLocation");
+    var arrayLastLocation = [];
+    var eventId;
+    var eventLength;
+    var i;
     query = Event.find({"_id": req.headers._id})
     query.exec(function (err, events) {
         if (err) return handleError(err);
-        // console.log(events);
-        // console.log(events[0].eventRiders[0]);
-        for(var i=0; i<events[0].eventRiders.length; ++i){
-            console.log(new ObjectId(events[0].eventRiders[i]));
-            console.log(events[0]._id);
-            query = Activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())})
-            //query = Activity.find({"eventid": "5a935ad85790cf3c536a2fb6"});
+
+        for(i=0; i<events[0].eventRiders.length; ++i){
+            eventLength = events[0].eventRiders.length;
+
+            query = activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())})
+            eventId = events[0].eventRiders[i];
             query.exec(function (err, activity) {
                 if (err) return handleError(err);
-                console.log(activity);
-            })
+                //console.log(activity[0].latestcoordinates);
+                arrayLastLocation.push({"rider": eventId, "coordinates": activity[0].latestcoordinates});
+                console.log(arrayLastLocation);
+                console.log(eventLength);
+                console.log(i);
+                if(arrayLastLocation.length === eventLength){
+                    res.send(arrayLastLocation);
+                }
+            });
         }
-    })
+    });
+
 }
