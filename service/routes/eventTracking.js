@@ -56,3 +56,29 @@ exports.getRiderLocation =function(req,res){
 
     });
 }
+
+exports.clientGpsStats = function(req,res) {
+
+    console.log('In client Gps Stats')
+    var arrayGPS = [];
+    var coordinate = req.body;
+    var eventid = req.headers.eventid;
+    var riderid = req.headers.riderid;
+    //console.log(coordinate);
+    query = activity.find({"eventid": eventid, "riderid": riderid})
+    query.exec(function (err, activity1) {
+        if (err) return handleError(err);
+        arrayGPS = activity1[0].gps_stats;
+
+        console.log(coordinate);
+        arrayGPS.push(coordinate);
+        console.log(arrayGPS);
+        
+        query = activity.update({"eventid": eventid, "riderid": riderid}, {$set:{"gps_stats": arrayGPS}})
+        query.exec(function (err, activities) {
+            if (err) return handleError(err);
+            res.send("Location coordinates pushed");
+        })
+
+    });
+}
