@@ -12,6 +12,8 @@ var auth = require('../config/auth');
 var Activity = require('../models/activity');
 var Events = require('../models/events');
 
+var seeder = require('../seed/events-seeder');
+
 router.get('/',auth.required,function(req,res,next){
   res.send("hello from a protected route");
 });
@@ -54,6 +56,13 @@ router.get('/cache',auth.required,function(req,res,next){
   })
 
 });
+
+router.get('/seedevents',function(req,res,next){
+  seeder.seed_events(function(err,done){
+    if(err){ res.render('error',{message:err});}
+    res.json({'msg':done})
+  })
+})
 
 
 module.exports = router;
