@@ -71,7 +71,10 @@
                     crossorigin="">
             </script>
             <div id="map" style="width:100%; height:500px; padding:0%"></div>
-            <script>
+            <script type='text/javascript'>
+
+                var locArray = JSON.parse('<%-JSON.stringify(locArray)%>');
+                console.log("ridertracking.ejs");
                 var mymap = L.map('map').setView([33.42192543,-111.92350757], 13);
                 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -79,8 +82,14 @@
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoiaGltYW5pMzEzIiwiYSI6ImNqY3V3ZjBvdjBlbjQycW11eDdyem11dnMifQ.yqjbj4rbuYIByGQ9EXn2IA'
                 }).addTo(mymap);
-                var marker = L.marker([51.5, -0.09]).addTo(mymap);
-                marker.bindPopup("<b>Rider 1</b><br>I am here.").openPopup();
+//                var marker = L.marker([51.5, -0.09]).addTo(mymap);
+//                marker.bindPopup("<b>Rider 1</b><br>I am here.").openPopup();
+
+                for(var i=0; i<locArray.length; i++){
+                    console.log(locArray[i].timestamp);
+                    var marker = L.marker([locArray[i].lat, locArray[i].lng]).addTo(mymap);
+                    marker.bindPopup("<b>Timestamp</b><br>"+locArray[i].timestamp).openPopup();
+                }
             </script>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

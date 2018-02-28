@@ -189,7 +189,40 @@ router.get('/login', function (req, res, next) {
 })
 
 router.get('/ridertracking', function (req, res, next) {
-    res.render('ridertracking');
+    function rendercall(jsonDoc) {
+        res.render('ridertracking', {
+            locArray: jsonDoc
+        });
+    }
+    var eventid = req.query.eventid;
+    var riderid = req.query.riderid;
+    if (eventid === undefined) {
+        console.log("vfbfdbfbgnfnfgn");
+    }
+    else{
+        console.log("In rider tracking")
+        console.log(eventid);
+        console.log(riderid);
+        var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+        var request = new XMLHttpRequest();
+        request.open('GET', "http://localhost:3000/getRiderLocation", true);
+        request.setRequestHeader('eventid', eventid);
+        request.setRequestHeader('riderid',riderid);
+        request.send();
+        request.onreadystatechange = function () {
+            getData(request)
+        };
+
+        function getData(request) {
+            if ((request.readyState == 4) && (request.status == 200)) {
+                var jsonDocument = JSON.parse(request.responseText);
+                console.log(jsonDocument);
+
+                rendercall(jsonDocument);
+            }
+        }
+    }
+
 })
 
 

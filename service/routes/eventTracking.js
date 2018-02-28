@@ -21,7 +21,7 @@ exports.getLastLocation = function(req,res){
 
             query = activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())})
             eventId = events[0].eventRiders[i];
-            //console.log(eventId);
+            // console.log(eventId);
             query.exec(function (err, activity) {
                 if (err) return handleError(err);
                 arrayLastLocation.push({"rider": activity[0].riderid, "coordinates": activity[0].latestcoordinates});
@@ -44,11 +44,11 @@ exports.getRiderLocation =function(req,res){
     query = activity.find({"eventid": req.headers.eventid, "riderid": req.headers.riderid})
     query.exec(function (err, activity) {
         if (err) return handleError(err);
-        console.log(activity);
+        // console.log(activity);
         console.log(activity[0].gps_stats)
         for(i=0; i<activity[0].gps_stats.length; ++i){
 
-            arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng});
+            arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng, "timestamp":activity[0].gps_stats[i].timestamp});
             if(arrayRiderLocation.length === activity[0].gps_stats.length){
                 res.send(arrayRiderLocation);
             }
