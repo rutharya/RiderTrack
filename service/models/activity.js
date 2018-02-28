@@ -16,14 +16,14 @@ var activitySchema = new Schema({
         lat : Number,
         long : Number
     },
-    gps_stats:[{
+    gps_stats:[new Schema({
       timestamp: Date,
       lat : Number,
       long : Number,
       speed: Number,
       distLeft: Number,
       altitude: Number
-    }],
+    },{_id:false})],
     currentRace: [{
         type: String
         //TODO: extract the GPS co-ordinates from GPS_Stats in the middleware
