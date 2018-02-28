@@ -21,11 +21,11 @@ exports.getLastLocation = function(req,res){
 
             query = activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())})
             eventId = events[0].eventRiders[i];
-            console.log(eventId);
+            //console.log(eventId);
             query.exec(function (err, activity) {
                 if (err) return handleError(err);
                 arrayLastLocation.push({"rider": activity[0].riderid, "coordinates": activity[0].latestcoordinates});
-                console.log(arrayLastLocation);
+                //console.log(arrayLastLocation);
 
                 if(arrayLastLocation.length === eventLength){
                     res.send(arrayLastLocation);
@@ -73,7 +73,7 @@ exports.clientGpsStats = function(req,res) {
         console.log(coordinate);
         arrayGPS.push(coordinate);
         console.log(arrayGPS);
-        
+
         query = activity.update({"eventid": eventid, "riderid": riderid}, {$set:{"gps_stats": arrayGPS}})
         query.exec(function (err, activities) {
             if (err) return handleError(err);
