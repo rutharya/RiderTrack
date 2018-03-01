@@ -1,3 +1,8 @@
+// dbConnection variable
+var dbConnection = "mongo \"mongodb://cluster0-shard-00-00-tjizg.mongodb.net:27017,cluster0-shard-00-01-tjizg.mongodb.net:27017,cluster0-shard-00-02-tjizg.mongodb.net:27017/test?replicaSet=Cluster0-shard-0\" --ssl --authenticationDatabase admin --username admin --password adminpwd"
+
+
+// Error elements, to display error messages when UI field error occur
 var usernameerr = document.getElementById("usernameerror");
 var passworderror = document.getElementById("passworderror");
 var rpassworderror = document.getElementById("repeatpassworderror");
@@ -6,17 +11,20 @@ var loginpwderror = document.getElementById("loginpassworderror");
 var loginemailerror  = document.getElementById("loginemailerror");
 var resetemailerror = document.getElementById("resetEmailerror");
 
+// Element of the UI forms: Reset Form
 var resetEmail = document.getElementById("resetEmail");
 
+// Element of the UI forms: Login form
 var loginuserpwd = document.getElementById("loginUserPassword");
 var loginuseremail = document.getElementById("loginUserEmail");
 
-
+// Element of the UI forms: Sign Form
 var regemail = document.getElementById("signUpUserEmail");
 var regpwd = document.getElementById("signUpUserPassword");
 var reregpwd = document.getElementById("signUpUserRepeatPassword");
 var username = document.getElementById("signUpUserName");
 
+// Adding event listeners to UI fields of Sign up and Login form
 regemail.addEventListener("blur",emailVerify, true);
 username.addEventListener("blur", usernameVerify, true);
 regpwd.addEventListener("blur", passwordVerify, true);
@@ -24,6 +32,8 @@ reregpwd.addEventListener("blur", repeatPasswordVerify, true);
 loginuserpwd.addEventListener("blur", loginpaswordVerify, true);
 loginuseremail.addEventListener("blur", loginusernameVerify, true);
 
+
+// UI field validation for reset password form
 function validateResetLink(){
     if(resetEmail.validity.typeMismatch || resetEmail.value == ""){
         console.log("ereser");
@@ -38,6 +48,8 @@ function validateResetLink(){
     return true;
 }
 
+
+// UI field validations for login form on button click.
 function validateLogin(){
     var flag = 0;
     if(loginuseremail.value === ""){
@@ -56,6 +68,9 @@ function validateLogin(){
     else return false;
 
 }
+
+
+// UI field validations for Sign Up form on button click.
 function validateForm(){
     var flag = 0;
     // Check for Username field
@@ -83,14 +98,13 @@ function validateForm(){
 
     }
 
-    if(flag == 0){
-        return true;
-    }
-    else return false;
+    if(flag) return false;
+
+    return true;
 
 }
 
-
+// Event listeners for UI fields
 function usernameVerify(){
     if(username.value != ""){
         username.style.border = "1px solid #ccc";
@@ -149,6 +163,8 @@ function emailVerify(){
 
 }
 
+
+
 function passwordVerify(){
 
     if(regpwd.value != ""){
@@ -181,5 +197,81 @@ function repeatPasswordVerify(){
         reregpwd.style.border = "1px solid #ccc";
         rpassworderror.innerText = "";
     }
+
+}
+
+
+// Listener to Sign up form with id: signupform, for event on Submit.
+document.getElementById('signupform').addEventListener('submit', signUpRequest);
+
+function signUpRequest(e) {
+
+
+    var signUpqueryPath = '/users';
+    var path = dbConnection+signUpqueryPath;
+   console.log('here in axios for sign up');
+   // Assign proper values to dbConnection variable with the uri for prod db
+    axios.post('http://localhost:3000/users', {
+        email: regemail.value,
+        password: regpwd.value,
+        username: username.value
+    })
+        .then(function (response) {
+           // Code in case of successful sign up
+            console.log('sign up success');
+        })
+        .catch(function (error) {
+
+            // Code in case of sign up error
+            //setSignUpWarning(error);
+            console.log(error.response.body);
+        });
+
+    e.preventDefault();
+}
+
+
+
+// Listener to log in form with id: login form, for event on Submit.
+document.getElementById('loginform').addEventListener('submit', loginRequest);
+
+function loginRequest(e) {
+
+
+    var loginqueryPath = '/users/login';
+    var path = dbConnection+loginqueryPath;
+    console.log('here in axios for log in');
+    // Assign proper values to dbConnection variable with the uri for prod db
+    axios.post('http://localhost:3000/users/login', {
+        email: loginuseremail.value,
+        password: loginuserpwd.value
+
+    })
+        .then(function (response) {
+            // Code in case of successful log in -> route to dashboard
+            // localstorage setting
+            console.log('Login Success');
+        })
+        .catch(function (error) {
+
+            // Code in case of sign up error
+            // Set Up Error messages in error fields
+            //setLoginWarning(error);
+            console.log('Login Failed');
+        });
+
+    e.preventDefault();
+}
+
+
+// Function to set error fields in case of login failure displaying appropriate warning
+function setLoginWarning(message){
+
+
+}
+
+
+// Function to set error fields in case of sign up failure displaying appropriate warning
+function setSignUpWarning(message){
 
 }
