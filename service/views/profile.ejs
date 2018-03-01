@@ -2,283 +2,161 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>RiderTrack - Rider</title>
-    <!-- Bootstrap core CSS-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom fonts for this template-->
-    <script src="https://use.fontawesome.com/85412a18c1.js"></script>
-    <!--<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
-    <!--&lt;!&ndash; Page level plugin CSS&ndash;&gt;-->
-    <!--<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">-->
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>RiderTrack - Profile</title>
+  <!-- Bootstrap core CSS-->
+  <link rel="stylesheet" type="text/css" href="http:////maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.39/jquery.fancybox.min.css" type="text/css" media="screen">
+  <!-- Custom fonts for this template-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.2/css/font-awesome.min.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">-->
+
+    <!-- Material Design for Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous"> -->
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">RiderTrack</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<body class="fixed-nav bg-dark" id="page-top">
+  <!-- Navigation-->
+  <!--                                               -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myProfNavBar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+  </button>
+        <a class="navbar-brand" href="#">RiderTrack</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myProfNavBar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="Prof-link-1" href="#"><span class="icon icon-user"></span><span class="text">My Profile</span></a></li>
+          <li><a id="Prof-link-2" href="#"><span class="icon icon-laptop"></span><span class="text">My Dashboard</span></a></li>
+          <li><a id="Prof-link-3" href="#"><span class="icon icon-lock"></span><span class="text">Manage Credentials</span></a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="Prof-link-4" href="#"><span class="icon icon-tablet"></span><span class="text">My Devices<span class="caret"></span></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Devices</a></li>
+              <li><a href="#">Add Device</a></li>
+              <li><a href="#">Remove Device</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon icon-envelope">
+  </span><span class="label label-success label-as-badge">12</span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            </ul>
+          </li>
+
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon icon-bell">
+</span><span class="label label-warning label-as-badge">5</span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            </ul>
+          </li>
+          <li>
+            <form class="navbar-form">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+      <i class="glyphicon glyphicon-search"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-fw fa-user-circle"></i>
-                    <span class="nav-link-text">My Profile</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Dashboard">
-                <a class="nav-link" href="tracking.ejs">
-                    <i class="fa fa-tachometer"></i>
-                    <span class="nav-link-text">My Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Credentials">
-                <a class="nav-link" href="tracking.ejs">
-                    <i class="fa fa-lock"></i>
-                    <span class="nav-link-text">Manage Credentials</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Devices">
-                <a class="nav-link" href="tracking.ejs">
-                    <i class="fa fa-mobile"></i>
-                    <span class="nav-link-text">My Devices</span>
-                </a>
-            </li>
-        </ul>
-        <!--<ul class="navbar-nav sidenav-toggler">-->
-            <!--<li class="nav-item">-->
-                <!--<a class="nav-link text-center" id="sidenavToggler">-->
-                    <!--<i class="fa fa-fw fa-angle-left"></i>-->
-                <!--</a>-->
-            <!--</li>-->
-        <!--</ul>-->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-envelope"></i>
-                    <span class="d-lg-none">Messages
-              <span class="badge badge-pill badge-primary">12 New</span>
-            </span>
-                    <span class="indicator text-primary d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-                    <h6 class="dropdown-header">New Messages:</h6>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <strong>Michal Young</strong>
-                        <span class="small float-right text-muted">11:53 AM</span>
-                        <div class="dropdown-message small">Hey User. All the best for your race</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <strong>John Edwards</strong>
-                        <span class="small float-right text-muted">11:11 PM</span>
-                        <div class="dropdown-message small">Looking forward to the race. Rock on!!!</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item small" href="#">View all messages</a>
                 </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-bell"></i>
-                    <span class="d-lg-none">Alerts
-              <span class="badge badge-pill badge-warning">6 New</span>
-            </span>
-                    <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">New Alerts:</h6>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Event Created</strong>
-              </span>
-                        <span class="small float-right text-muted">11:40 AM</span>
-                        <div class="dropdown-message small">Admin1 just created the event near you: San Jose Triathalon</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Event Subscription</strong>
-              </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">Spectator1 just subscribed to your event: event1</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item small" href="#">View all alerts</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0 mr-lg-2">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Search for events...">
-                        <span class="input-group-btn">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-                    </div>
-                </form>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-            </li>
+              </div>
+            </form>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         </ul>
+
+      </div>
     </div>
-</nav>
+  </nav>
 
-<fieldset class="content-wrapper">
-    <div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-4">
+        <a href="#demo">
+          <img src="https://www.w3schools.com/w3images/avatar_g2.jpg" class="img-square person" alt="Random Name" width="200px" height="200px">
+        </a>
+      </div>
+    </div>
+
+
+
+
+  <fieldset class="content-wrapper">
+
+
+
+    <fieldset disabled>
+      <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="#">My Profile</a>
-            </li>
-        </ol>
-        <!--<div class="container">-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >-->
 
+        <form class="col-5">
 
-                    <!--<div class="panel panel-info">-->
-                        <!--<div class="panel-body">-->
-                            <!--<div class="row">-->
+          <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input type="name" pattern="[a-zA-Z0-9]+" class="form-control" id="exampleInputName" placeholder="BlahBlah">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail">Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail" placeholder="****">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPhone">Telephone</label>
+            <input type="text" pattern="\d{3}[\-]\d{3}[\-]\d{4}" class="form-control" id="exampleInputPhone" placeholder="00000000000"
+            title = "number must match 000-000-0000 format">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputAddress">Address</label>
+            <input type="text" class="form-control" id="exampleInputAddress" placeholder="###############">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputAge">Age</label>
+            <input type="text" pattern="\d{3}" class="form-control" id="exampleInputAge" placeholder="18"
+            title="too high!">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputHeight">Height in cms</label>
+            <input type="text" pattern="\d{3}" class="form-control" id="exampleInputHeight" placeholder="183"
+            title="too high!">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputWeight">Weight in Kilograms</label>
+            <input type="text" pattern="\d{3}" class="form-control" id="exampleInputWeight" placeholder="0"
+            title="too high!">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputGender">Gender</label>
+          </br>
+            <select name="mydropdown">
+              <option value="Male">Male</option>
+              <option value="Femal">Female</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
 
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-primary">Cancel</button>
 
-                                <!--<div class=" col-md-10 col-lg-10 ">-->
-                                    <!--<table class="table table-user-information">-->
-                                        <!--<tbody>-->
-                                        <!--<tr>-->
-                                            <!--<td><b>Name:</b></td>-->
-                                            <!--<td>Rider1</td>-->
-                                        <!--</tr>-->
-                                        <!--<tr>-->
-                                            <!--<td><b>Age:</b></td>-->
-                                            <!--<td>25</td>-->
-                                        <!--</tr>-->
-                                        <!--<tr>-->
-                                            <!--<td><b>Gender</b></td>-->
-                                            <!--<td>Male</td>-->
-                                        <!--</tr>-->
-                                        <!--<tr>-->
-                                            <!--<td><b>Height</b></td>-->
-                                            <!--<td>5.6ft</td>-->
-                                        <!--</tr>-->
-                                        <!--<tr>-->
-                                            <!--<td><b>Weight</b></td>-->
-                                            <!--<td>124lbs</td>-->
-                                        <!--</tr>-->
-                                        <!--</tr>-->
-                                        <!--<tr>-->
-                                            <!--<td><b>Location</b></td>-->
-                                            <!--<td>Tempe, Arizona</td>-->
-                                        <!--</tr>-->
+    </form>
 
-                                        <!--</tbody>-->
-                                    <!--</table>-->
-
-                                    <!--<a href="#" class="btn btn-primary">Edit Details</a>-->
-                                    <!--<a href="#" class="btn btn-primary">Save Changes</a>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <form >
-            <fieldset disabled>
-        <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Name</label>
-            <div class="col-5">
-                <input class="form-control" type="text" value="Armstrong" id="example-text-input">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="example-email-input" class="col-2 col-form-label">Email</label>
-            <div class="col-5">
-                <input class="form-control" type="email" value="kp@ridertrack.com" id="example-email-input">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
-            <div class="col-5">
-                <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Gender</label>
-            <div class="col-3">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Male" checked> Male
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female"> Female
-                </label>
-            </div>
-            <div class="form-check form-check-inline disabled">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Other" > Other
-                </label>
-            </div>
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            <label for="example-number-input" class="col-2 col-form-label">Age</label>
-            <div class="col-5">
-                <input class="form-control" type="number" value="42" id="example-number-input">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="example-number-input" class="col-2 col-form-label">Height in ft.</label>
-            <div class="col-5">
-                <input class="form-control" type="number" value="5.2" id="example-number-input">
-            </div>
-        </div>
-            </fieldset>
-        </form>
-        <div class="form-group row">
-            <div class="col-3">
-       <button type="submit" class="btn btn-info">Edit</button>
-            </div>
-        </div>
-
-        <fieldset disabled>
-        <button type="submit" class="btn btn-primary" >Submit</button>
-        <button type="reset" class="btn btn-primary">Cancel</button>
-        </div>
-</fieldset>
-
+      </div>
+      </fieldset>
+    </br>
+      <div>
+          <button type="submit" class="btn btn-info">Edit</button>
+      </div>
+    </fieldset>
     <br>
     <br>
-
-
-
 
 </body>
 
