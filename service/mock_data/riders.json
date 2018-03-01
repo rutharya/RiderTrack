@@ -1,0 +1,36 @@
+{
+  "users": [{
+    "username": "admin",
+    "email": "admin@admin.com",
+    "firstName": "admin",
+    "lastName": "admin",
+    "height": 5.1,
+    "weight": 60,
+    "gender": "female",
+    "phoneNo": "4805558267",
+    "address": "fvgfdvbfnfngvnbm nbm nh",
+    "pastEvent": [],
+    "statistics": {
+      "avgspeed": 0,
+      "wins": 0,
+      "mostparticipatedactivity": null
+    }
+  },
+  {
+  "username": "Himani",
+  "email": "abc@xyz.com",
+  "firstName": "Himani",
+  "lastName": "Shah",
+  "height": 5.1,
+  "weight": 60,
+  "gender": "female",
+  "phoneNo": "4805558267",
+  "address": "fvgfdvbfnfngvnbm nbm nh",
+  "pastEvent": [],
+  "statistics": {
+    "avgspeed": 0,
+    "wins": 0,
+    "mostparticipatedactivity": null
+  }
+  }]
+}

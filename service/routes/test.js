@@ -16,6 +16,7 @@ var seeder = require('../seed/events-seeder');
 
 router.get('/',auth.required,function(req,res,next){
   res.send("hello from a protected route");
+
 });
 
 var cache = require('../config/cache');

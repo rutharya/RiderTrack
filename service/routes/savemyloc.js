@@ -10,7 +10,7 @@ var Activity = require('../models/activity');
 var Events = require('../models/events');
 
 var cache = require('../config/cache');
-var CACHE_MAX = 50;
+var CACHE_MAX = 3;
 
 router.get('/', auth.required, function(req, res, next) {
   User.findById(req.payload.id).then(function(user) {
