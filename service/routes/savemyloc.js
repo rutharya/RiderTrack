@@ -12,16 +12,18 @@ var Events = require('../models/events');
 var cache = require('../config/cache');
 var CACHE_MAX = 3;
 
-router.get('/', auth.required, function(req, res, next) {
-  User.findById(req.payload.id).then(function(user) {
-    if (!user) {
-      return res.sendStatus(401);
-    }
-    //user.id -> user id
-    //next query the userEvents and return all the past gps data for a run.
-    res.send({id: user.id});
-
-  });
+router.get('/test', auth.required, function(req, res, next) {
+  // User.findById(req.payload.id).then(function(user) {
+  //   if (!user) {
+  //     return res.sendStatus(401);
+  //   }
+  //   //user.id -> user id
+  //   //next query the userEvents and return all the past gps data for a run.
+  //   //res.send({id: user.id});
+  //   res.json(req.payload);
+  //
+  // });
+    res.json(req.payload);
 })
 
 

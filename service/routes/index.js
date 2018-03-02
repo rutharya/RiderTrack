@@ -24,7 +24,7 @@ router.get('/user', auth.required, function(req, res, next){
 });
 
 //ruthar: route to login a user is working.
-router.post('/users/login', function(req, res, next){
+router.post('/users/loginapi', function(req, res, next){
   if(!req.body.email){
     return res.status(422).json({errors: {email: "can't be blank"}});
   }
@@ -44,6 +44,57 @@ router.post('/users/login', function(req, res, next){
   })(req, res, next);
 });
 
+router.post('/users/login', function(req, res, next){
+  console.log('LOGIN: /user/login');
+  if(!req.body.email){
+    return res.status(422).json({errors: {email: "can't be blank"}});
+  }
+
+  if(!req.body.password){
+    return res.status(422).son({errors: {password: "can't be blank"}});
+  }
+  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
+    //onSuccessRedirect:'/dashboard',
+    if(err){ return next(err); }
+
+    if(user){
+      user.token = user.generateJWT();
+      res.set('Authorization','Bearer '+user.token);
+      //return res.redirect('/dashboard2')
+
+      return res.json({user: user.toAuthJSON()});
+    }else {
+      return res.status(422).json(info);
+    }
+  })(req, res, next);
+});
+router.post('/users/login2', function(req, res, next){
+  console.log('LOGIN: /user/login2');
+  if(!req.body.email){
+    return res.status(422).json({errors: {email: "can't be blank"}});
+  }
+
+  if(!req.body.password){
+    return res.status(422).son({errors: {password: "can't be blank"}});
+  }
+  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
+    //onSuccessRedirect:'/dashboard',
+    if(err){ return next(err); }
+
+    if(user){
+      user.token = user.generateJWT();
+      res.set('Authorization','Bearer '+user.token);
+      //return res.redirect('/dashboard2')
+
+      return res.redirect('/dashboard/'+user.id);
+    }else {
+      return res.status(422).json(info);
+    }
+  })(req, res, next);
+});
+
+
+
 //ruthar: route working - creates a new user.
 router.post('/users', function(req, res, next){
   var user = new User();
@@ -60,6 +111,7 @@ router.post('/auth',
   function(req, res) {
     res.redirect('/');
   });
+
 
 
 router.get('/dashboard',function(req,res,next){
@@ -79,6 +131,15 @@ router.get('/dashboard',function(req,res,next){
      //         }
      //    });
   })
+
+
+router.get('/dashboard2',auth.required,function(req,res,next){
+  res.redirect('/dashboard/'+req.payload.id);
+});
+
+router.get('/dashboard/{id}',auth.required,function(req,res,next){
+  res.render('dashboard');
+})
 
 router.get('/tracking',function(req,res,next){
   res.render('tracking');
