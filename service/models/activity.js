@@ -4,24 +4,26 @@ var Schema = mongoose.Schema;
 var activitySchema = new Schema({
     riderid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rider'
+        ref: 'Rider',
+        required:true
     },
     eventid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
+        ref: 'Event',
+        required:true
     },
     latestcoordinates:{
         lat : Number,
         long : Number
     },
-    gps_stats:[{
+    gps_stats:[new Schema({
       timestamp: Date,
       lat : Number,
       long : Number,
       speed: Number,
       distLeft: Number,
       altitude: Number
-    }],
+    },{_id:false})],
     currentRace: [{
         type: String
         //TODO: extract the GPS co-ordinates from GPS_Stats in the middleware

@@ -263,4 +263,5 @@ router.post('/saveEvent',events.saveEvent)
 router.get('/getEventById',events.getEventById)
 router.delete('/deleteEventById',events.deleteEventById)
 
+router.post('/addRiderToEvent',events.addRiderToEvent)
 module.exports = router;
