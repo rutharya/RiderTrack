@@ -200,7 +200,7 @@ function repeatPasswordVerify(){
 
 
 // Listener to Sign up form with id: signupform, for event on Submit.
-document.getElementById('signupform').addEventListener('submit', signUpRequest);
+//document.getElementById('signupform').addEventListener('submit', signUpRequest);
 console.log('hereagain');
 
 function signUpRequest(e) {
@@ -238,7 +238,7 @@ function signUpRequest(e) {
 
 
 // Listener to log in form with id: login form, for event on Submit.
-document.getElementById('loginform').addEventListener('submit', loginRequest);
+//document.getElementById('loginform').addEventListener('submit', loginRequest);
 
 function loginRequest(e) {
 
@@ -276,7 +276,7 @@ function loginRequest(e) {
 function setLoginWarning(){
     loginerror.innerText = "Email or Password is incorrect. Please try again";
 
-}Error handling for login/sign up failures
+}//Error handling for login/sign up failures
 
 
 // Function to set error fields in case of sign up failure displaying appropriate warning
