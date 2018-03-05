@@ -10,7 +10,7 @@
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
-    "test": "mocha ./service"
+    "test": "mocha ./service/test"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
