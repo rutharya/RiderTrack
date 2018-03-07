@@ -4,65 +4,70 @@
   <head>
 
     <meta charset="utf-8">
-  
+
     <meta name="description" content="">
 
     <title>RiderTrack - Events</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/1-col-portfolio.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="../css/1-col-portfolio.css" rel="stylesheet"> -->
     <!-- Custom styles for this template -->
   <!-- <link href="../css/4-col-portfolio.css" rel="stylesheet"> -->
 	<head lang="en">
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	
-	<meta name="description" content="RiderTrack Events Page" />	    
+
+	<meta name="description" content="RiderTrack Events Page" />
 	<meta name="keywords" content="RiderTrack ">
 
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../fancybox/jquery.fancybox-v=2.1.5.css" type="text/css" media="screen">
-  <link rel="stylesheet" href="../css/font-awesome.min.css" rel="stylesheet">
-	
-	<link rel="stylesheet" type="text/css" href="../css/style.css">	
-	
-	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" type="text/css" media="screen">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> -->
+	<!-- <link rel="stylesheet" href="../fancybox/jquery.fancybox-v=2.1.5.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="../css/font-awesome.min.css" rel="stylesheet"> -->
+
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="../angularJS/events.js"></script>
   </head>
 
   <body style="background-color: white">
-	<div class="navbar navbar-fixed-top" data-activeslide="1">
-		<div class="container">
-		
-			<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			
-			
-			<div class="nav-collapse collapse navbar-responsive-collapse">
-				<ul class="nav row">
-					<li data-slide="1" class="col-12 col-sm-2"><a id="menu-link-1" href="" title="Next Section"><span class="icon icon-home"></span> <span class="text">HOME</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="" title="Next Section"><span class="icon icon-briefcase"></span> <span class="text">FEATURES</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="" title="Next Section"><span class="icon icon-user"></span> <span class="text">LOGIN / SIGN UP</span></a></li>
-					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="" title="Next Section"><span class="icon icon-gears"></span> <span class="text">PROCESS & APIs</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="" title="Next Section"><span class="icon icon-heart"></span> <span class="text">EVENTS</span></a></li>
-					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">CONTACT</span></a></li>
-				</ul>
-				<div class="row">
-					<div class="col-sm-2 active-menu"></div>
-				</div>
-			</div><!-- /.nav-collapse -->
-		</div><!-- /.container -->
-	</div><!-- /.navbar -->
-	
+    <nav class="navbar navbar-default navbar-fixed-top" data-activeslide="1">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbarEvents">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+        </button>
+        </div>
 
-	
+        <div class="collapse navbar-collapse" id="myNavbarEvents">
+          <ul class="nav navbar-nav">
+
+            <li data-slide="1" class="col-12 col-sm-2"><a id="menu-link-1" href="#slide-1" title="Next Section"><span class="icon icon-home"></span> <span class="text">HOME</span></a></li>
+            <li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="#slide-2" title="Next Section"><span class="icon icon-briefcase"></span> <span class="text">FEATURES</span></a></li>
+            <li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="#slide-3" title="Next Section"><span class="icon icon-heart"></span> <span class="text">EVENTS</span></a></li>
+            <li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="#slide-4" title="Next Section"><span class="icon icon-desktop"></span> <span class="text">PROCESS & APIs</span></a></li>
+            <li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="#slide-5" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">CONTACT</span></a></li>
+            <li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6"><span class="glyphicon glyphicon-log-in"></span><span class="text">&nbsp;LOGIN/SIGNUP</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
 </body>
 
 	<!-- SCRIPTS -->
@@ -73,13 +78,13 @@
 	<script src="../js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="../fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
 	<script src="../js/script.js"></script>
-	
+
 	<!-- fancybox init -->
 	<script>
 	$(document).ready(function(e) {
 		var lis = $('.nav > li');
 		menu_focus( lis[0], 1 );
-		
+
 		$(".fancybox").fancybox({
 			padding: 10,
 			helpers: {
@@ -88,25 +93,26 @@
 				}
 			}
 		});
-	
+
 	});
 	</script>
 
     <!-- Page Content -->
     <div class="container">
-	
-	
+
+
       <!-- Page Heading -->
-	  
+        <br>
+        <br>
         <div ng-app= "events" ng-controller="events">
         	<br>
 	        <br>
 	       <center>
-           <h1 class="my-4"><font color="grey">EVENTS</h1>
+           <h1 class="my-4"><font color="grey"><span class="font-semibold">EVENTS</span></h1>
 	    	<form action="">
-			  <!-- <input type="radio" ng-model="searchText.date" name="Events" onclick="DateFunc(event.date)" value="December 21 2018"><strong> Upcoming Events  </strong>&emsp;&emsp;     
+			  <!-- <input type="radio" ng-model="searchText.date" name="Events" onclick="DateFunc(event.date)" value="December 21 2018"><strong> Upcoming Events  </strong>&emsp;&emsp;
 			  <input type="radio" ng-model="searchText.date" name="Events" onclick="DateFunc(event.date)" value="October 21 2017"><strong> Past Events</strong><br></center> -->
-			  <input type="radio" name="Events" value="Upcoming Events" ng-click="getUpcomingEvents()" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp; 
+			  <input type="radio" name="Events" value="Upcoming Events" ng-click="getUpcomingEvents()" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp;
 			  <input type="radio" name="Events" value="Past Events" ng-click="getPastEvents()"><strong> Past Events</strong><br></center>
 			</font>
 			</form>
@@ -116,11 +122,11 @@
          <div class="row">
         <div class="col-md-7">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" ng-src="{{event.image}}" style="width:700px;height:300px;">
+            <img class="img-fluid rounded mb-3 mb-md-0" ng-src="{{event.image}}" style="width:650px;height:300px;">
           </a>
         </div>
         <div class="col-md-5">
-          <h3><a href="#">{{event.name}}</a></h3>
+          <h3><a href="#"><span class="font-semibold">{{event.name}}</span></a></h3>
           <p>{{event.description}}</p>
           <p><strong>{{event.date}}</strong></p>
           <a class="btn btn-primary" href="/tracking">View Event</a>
@@ -143,10 +149,6 @@
       <!-- /.container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-  	<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 
