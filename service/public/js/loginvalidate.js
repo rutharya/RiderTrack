@@ -1,11 +1,9 @@
-// dbConnection variable
-var dbConnection = "mongo \"mongodb://cluster0-shard-00-00-tjizg.mongodb.net:27017,cluster0-shard-00-01-tjizg.mongodb.net:27017,cluster0-shard-00-02-tjizg.mongodb.net:27017/test?replicaSet=Cluster0-shard-0\" --ssl --authenticationDatabase admin --username admin --password adminpwd"
-
-
 // Error elements, to display error messages when UI field error occur
 var usernameerr = document.getElementById("usernameerror");
 var passworderror = document.getElementById("passworderror");
 var rpassworderror = document.getElementById("repeatpassworderror");
+var loginerror = document.getElementById("wrongpassword");
+var signuperror  = document.getElementById("signuperror");
 var emailerror = document.getElementById("emailerror");
 var loginpwderror = document.getElementById("loginpassworderror");
 var loginemailerror  = document.getElementById("loginemailerror");
@@ -169,18 +167,18 @@ function passwordVerify(){
 
     if(regpwd.value != ""){
 
-        if (!regpwd.value.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-            regpwd.style.border = "1px solid red";
-            passworderror.innerText = "Passwords must have at least 8 characters and contain at least one of the following: uppercase letters, lowercase letters, numbers, and symbols.";
-        } else {
-            console.log("herepwd")
+        // if (!regpwd.value.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+        //     regpwd.style.border = "1px solid red";
+        //     passworderror.innerText = "Passwords must have at least 8 characters and contain at least one of the following: uppercase letters, lowercase letters, numbers, and symbols.";
+        // } else {
+        //     console.log("herepwd")
             regpwd.style.border = "1px solid #ccc";
-            passworderror.innerText = "";
-        }
+          passworderror.innerText = "";
+        // }
 
 
     }
-    else if(regpwd.value === ""){
+     if(regpwd.value === ""){
 
         regpwd.style.border = "1px solid red";
         passworderror.innerText = "Password is required";
@@ -203,28 +201,35 @@ function repeatPasswordVerify(){
 
 // Listener to Sign up form with id: signupform, for event on Submit.
 document.getElementById('signupform').addEventListener('submit', signUpRequest);
+console.log('hereagain');
 
 function signUpRequest(e) {
-
-
-    var signUpqueryPath = '/users';
-    var path = dbConnection+signUpqueryPath;
    console.log('here in axios for sign up');
    // Assign proper values to dbConnection variable with the uri for prod db
-    axios.post('http://localhost:3000/users', {
+    axios.post('/users', {
         email: regemail.value,
         password: regpwd.value,
         username: username.value
     })
         .then(function (response) {
            // Code in case of successful sign up
+            //localStorage['username'] = regemail.value;
+            alert('hi ');
+            //localStorage['username'] = '';
             console.log('sign up success');
         })
         .catch(function (error) {
 
             // Code in case of sign up error
             //setSignUpWarning(error);
-            console.log(error.response.body);
+
+                console.log(error.response.body);
+                if(error.response.status == 500){
+                    setSignUpWarning();
+
+                }
+
+
         });
 
     e.preventDefault();
@@ -238,18 +243,17 @@ document.getElementById('loginform').addEventListener('submit', loginRequest);
 function loginRequest(e) {
 
 
-    var loginqueryPath = '/users/login';
-    var path = dbConnection+loginqueryPath;
+
     console.log('here in axios for log in');
     // Assign proper values to dbConnection variable with the uri for prod db
-    axios.post('http://localhost:3000/users/login', {
+    axios.post('/users/login', {
         email: loginuseremail.value,
         password: loginuserpwd.value
 
     })
         .then(function (response) {
-            // Code in case of successful log in -> route to dashboard
-            // localstorage setting
+
+            alert('success');
             console.log('Login Success');
         })
         .catch(function (error) {
@@ -257,7 +261,11 @@ function loginRequest(e) {
             // Code in case of sign up error
             // Set Up Error messages in error fields
             //setLoginWarning(error);
-            console.log('Login Failed');
+
+            if(error.response.status === 422){
+                setLoginWarning();
+            }
+
         });
 
     e.preventDefault();
@@ -265,13 +273,13 @@ function loginRequest(e) {
 
 
 // Function to set error fields in case of login failure displaying appropriate warning
-function setLoginWarning(message){
+function setLoginWarning(){
+    loginerror.innerText = "Email or Password is incorrect. Please try again";
 
-
-}
+}Error handling for login/sign up failures
 
 
 // Function to set error fields in case of sign up failure displaying appropriate warning
-function setSignUpWarning(message){
-
+function setSignUpWarning(){
+    signuperror.innerText = "Rider validation failed: email or username is already taken";
 }
