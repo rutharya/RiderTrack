@@ -1,39 +1,47 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {LoginModule} from "./login/login.module";
+import { HomeModule } from './home/home.module';
 
-const rootRouting: ModuleWithProviders = RouterModule.forRoot([{
-  path:'',
-  component:HomeComponent
-},{
-  path:'dashboard',
-  component:DashboardComponent
-},{
-  path: 'login',
-  component: LoginComponent
-}]);
+
+
+import{
+  ApiService,
+  UserService,
+  JwtService,
+  AuthGuardService,
+  SharedModule,
+  FooterComponent,
+  HeaderComponent,
+  HttpTokenInterceptor
+} from './shared/';
+
+
+
+
+const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
-    LoginComponent,
-    FooterComponent,
-    DashboardComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
-    rootRouting
+    LoginModule,
+    HomeModule,
+    rootRouting,
+    SharedModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
+    ApiService,
+    AuthGuardService,
+    JwtService,
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
