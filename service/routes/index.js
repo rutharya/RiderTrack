@@ -120,7 +120,22 @@ router.post('/auth',
     res.redirect('/');
   });
 
-
+router.get('/statistics',auth.required,function(req,res,next){
+  var data = {};
+  data.temp_max = 24;
+  data.temp_min = 5;
+  var main = {};
+  main.dt = 1520538960;
+  main.main = data;
+  res.send(main);
+  // res.json({
+  //   'main':{
+  //     'temp_max':24,
+  //     'temp_min':5
+  //   },
+  //   'dt':1520538960
+  // })
+});
 
 router.get('/dashboard',function(req,res,next){
  res.render('dashboard');

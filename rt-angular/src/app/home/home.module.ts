@@ -6,6 +6,9 @@ import { HomeAuthResolver } from './home-auth-resolver.service';
 import { SharedModule, SidebarComponent } from '../shared/';
 import {LandingComponent} from "../landing/landing.component";
 import {NoAuthGuard} from "../login/no-auth-guard.service";
+import {DashboardComponent} from "../dashboard/dashboard.component";
+import {ChartComponent} from "../chart/chart.component";
+import {HttpClientModule} from "@angular/common/http";
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -25,11 +28,14 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
 @NgModule({
   imports: [
     homeRouting,
+    HttpClientModule,
     SharedModule
   ],
   declarations: [
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    DashboardComponent,
+    ChartComponent
   ],
   providers: [
     HomeAuthResolver

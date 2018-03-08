@@ -12,6 +12,7 @@ import{
   ApiService,
   UserService,
   JwtService,
+  StatisticsService,
   AuthGuardService,
   SharedModule,
   FooterComponent,
@@ -19,6 +20,7 @@ import{
   HttpTokenInterceptor
 } from './shared/';
 import { LandingComponent } from './landing/landing.component';
+import { ChartComponent } from './chart/chart.component';
 
 
 
@@ -30,7 +32,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LandingComponent
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
     ApiService,
     AuthGuardService,
     JwtService,
-    UserService],
+    UserService,
+    StatisticsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
