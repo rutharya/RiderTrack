@@ -7,7 +7,7 @@ import {UserService} from "./shared/services";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'app';
+  title = 'riderTrack';
   constructor (
     private userService: UserService
   ) {}

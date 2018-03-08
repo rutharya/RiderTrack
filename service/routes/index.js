@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var auth = require('../config/auth');
+var bodyParser = require('body-parser');
 
 var User = require('../models/rider');
 
@@ -23,8 +24,12 @@ router.get('/user', auth.required, function(req, res, next){
   }).catch(next);
 });
 
+router.use(bodyParser.json());
 //ruthar: route to login a user is working.
-router.post('/users/loginapi', function(req, res, next){
+router.post('/users/login', function(req, res, next){
+  console.log('login attempted: by app');
+  console.log(req.body);
+
   if(!req.body.email){
     return res.status(422).json({errors: {email: "can't be blank"}});
   }
@@ -44,30 +49,32 @@ router.post('/users/loginapi', function(req, res, next){
   })(req, res, next);
 });
 
-router.post('/users/login', function(req, res, next){
-  console.log('LOGIN: /user/login');
-  if(!req.body.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
-  }
-
-  if(!req.body.password){
-    return res.status(422).son({errors: {password: "can't be blank"}});
-  }
-  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
-    //onSuccessRedirect:'/dashboard',
-    if(err){ return next(err); }
-
-    if(user){
-      user.token = user.generateJWT();
-      res.set('Authorization','Bearer '+user.token);
-      //return res.redirect('/dashboard2')
-
-      return res.json({user: user.toAuthJSON()});
-    }else {
-      return res.status(422).json(info);
-    }
-  })(req, res, next);
-});
+// router.post('/users/login', function(req, res, next){
+//   console.log('LOGIN: /user/login');
+//   console.log(req.body);
+//   console.log(req.user);
+//   if(!req.body.email){
+//     return res.status(422).json({errors: {email: "can't be blank"}});
+//   }
+//
+//   if(!req.body.password){
+//     return res.status(422).son({errors: {password: "can't be blank"}});
+//   }
+//   passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
+//     //onSuccessRedirect:'/dashboard',
+//     if(err){ return next(err); }
+//
+//     if(user){
+//       user.token = user.generateJWT();
+//       res.set('Authorization','Bearer '+user.token);
+//       //return res.redirect('/dashboard2')
+//
+//       return res.json({user: user.toAuthJSON()});
+//     }else {
+//       return res.status(422).json(info);
+//     }
+//   })(req, res, next);
+// });
 router.post('/users/login2', function(req, res, next){
   console.log('LOGIN: /user/login2');
   if(!req.body.email){
@@ -97,6 +104,7 @@ router.post('/users/login2', function(req, res, next){
 
 //ruthar: route working - creates a new user.
 router.post('/users', function(req, res, next){
+  console.log(req.body);
   var user = new User();
   user.username = req.body.username;
   user.email = req.body.email;

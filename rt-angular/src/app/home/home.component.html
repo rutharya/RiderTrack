@@ -1,23 +1,61 @@
-<div class="homepage">
-  <div class="slide story" id="slide-1" data-slide="1">
-    <div class="container">
-      <div id="home-row-1" class="row clearfix">
-        <div class="col-12">
-          <h1 class="font-semibold">RIDERTRACK</h1>
-          <div class="row line-row">
-            <div class="hr"></div>
-          </div>
-          <h4 class="font-thin">Accurate and reliable <span class="font-semibold">Rider Tracking</span> that supports numerous wearable devices.</h4>
-        </div>
-      </div>
-      <div id="home-row-2" class="row clearfix">
-        <div class="col-12 col-sm-4">
-          <div class="home-hover navigation-slide"><img src="https://athlete-tracker-preprod.herokuapp.com/images/s02.png"></div><span>PROFESSIONAL AND RELIABLE</span></div>
-        <div class="col-12 col-sm-4">
-          <div class="home-hover navigation-slide"><img src="https://athlete-tracker-preprod.herokuapp.com/images/s01.png"></div><span>FRIENDLY</span></div>
-        <div class="col-12 col-sm-4">
-          <div class="home-hover navigation-slide"><img src="https://athlete-tracker-preprod.herokuapp.com/images/s03.png"></div><span>SUPPORTS MANY WEARABLES</span></div>
-      </div>
-    </div>
+<!--<nav class="navbar navbar-expand navbar-dark bg-dark">-->
+  <!--<a class="sidebar-toggle text-light mr-3"><i class="fa fa-bars"></i></a>-->
+
+  <!--<a class="navbar-brand" href="#"><i class="fa fa-code-branch"></i> Navbar</a>-->
+
+  <!--<div class="navbar-collapse collapse">-->
+    <!--<ul class="navbar-nav ml-auto">-->
+      <!--<li class="nav-item dropdown">-->
+        <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">-->
+          <!--<i class="fa fa-user"></i> Username-->
+        <!--</a>-->
+        <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">-->
+          <!--<a class="dropdown-item" href="#">Action</a>-->
+          <!--<a class="dropdown-item" href="#">Another</a>-->
+        <!--</div>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</div>-->
+<!--</nav>-->
+<!--flexbox based -> sidebar -->
+<!--TODO: Move sidebar to shared module-->
+<div class="d-flex align-items-stretch">
+<div class="sidebar bg-dark">
+  <ul class="list-unstyled">
+    <li><a href="#"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>
+    <li><a href="#"><i class="fa fa-fw fa-link"></i>Create Event</a></li>
+    <li>
+      <a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>
+      <ul id="submenu1" class="list-unstyled collapse">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Last Run</a></li>
+        <li><a href="#">Summary</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#submenu2" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i> Dashboard</a>
+      <ul id="submenu2" class="list-unstyled collapse">
+        <li><a href="#">Item1</a></li>
+        <li><a href="#">Last Run</a></li>
+        <li><a href="#">Summary</a></li>
+      </ul>
+    </li>
+    <li><a href="#"><i class="fa fa-fw fa-angle-right"></i>Manage Events</a></li>
+    <li><a href="#"><i class="fa fa-fw fa-link"></i>Profile</a></li>
+  </ul>
+</div>
+  <!--TODO: Design dashboard page and include it in home container.-->
+  <div class="content p-4">
+    <h1 class="display-5 mb-4">Hello, world!</h1>
+
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+      ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
+      condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.
+      Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+      ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
+      condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.
+      Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
   </div>
 </div>

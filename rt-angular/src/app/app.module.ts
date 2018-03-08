@@ -18,6 +18,7 @@ import{
   HeaderComponent,
   HttpTokenInterceptor
 } from './shared/';
+import { LandingComponent } from './landing/landing.component';
 
 
 
@@ -28,7 +29,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
