@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { HomeAuthResolver } from './home-auth-resolver.service';
-import { SharedModule } from '../shared';
+import { SharedModule, SidebarComponent } from '../shared/';
 import {LandingComponent} from "../landing/landing.component";
 import {NoAuthGuard} from "../login/no-auth-guard.service";
 
@@ -28,7 +28,8 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     SharedModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    SidebarComponent
   ],
   providers: [
     HomeAuthResolver

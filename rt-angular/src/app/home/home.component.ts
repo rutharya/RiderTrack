@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   isAuthenticated: boolean;
+
   // listConfig: ArticleListConfig = {
   //   type: 'all',
   //   filters: {}

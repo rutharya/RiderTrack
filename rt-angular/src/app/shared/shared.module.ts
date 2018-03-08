@@ -5,6 +5,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
