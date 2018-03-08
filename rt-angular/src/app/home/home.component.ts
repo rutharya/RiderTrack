@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
       }
     );
 
+
     // this.tagsService.getAll()
     //   .subscribe(tags => {
     //     this.tags = tags;
