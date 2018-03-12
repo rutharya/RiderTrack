@@ -20,12 +20,25 @@ import{
   HttpTokenInterceptor
 } from './shared/';
 import { LandingComponent } from './landing/landing.component';
-import { ChartComponent } from './chart/chart.component';
+import { ChartComponent } from './home/dashboard/chart/chart.component';
+import {NoAuthGuard} from "./login/no-auth-guard.service";
+import {EventsModule} from "./events/events.module";
+import { ApiComponent } from './api/api.component';
 
 
 
 
-const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
+const rootRouting: ModuleWithProviders = RouterModule.forRoot([
+  // {
+  //   path: '',
+  //   component: LandingComponent,
+  //   canActivate: [NoAuthGuard]
+  // },
+  // {
+  //   path:'home',
+  //
+  // }
+]);
 
 @NgModule({
   declarations: [
@@ -33,11 +46,13 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
     HeaderComponent,
     FooterComponent,
     LandingComponent,
+    ApiComponent,
   ],
   imports: [
     BrowserModule,
     LoginModule,
     HomeModule,
+    EventsModule,
     rootRouting,
     SharedModule
   ],

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import "rxjs/add/operator/map";
-import {StatisticsService} from "../shared/services";
+import {StatisticsService} from "../../../shared/services/index";
 
 @Component({
   selector: 'app-chart',

@@ -12,13 +12,9 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
-
+  componentType = 'dashboard';
   isAuthenticated: boolean;
 
-  // listConfig: ArticleListConfig = {
-  //   type: 'all',
-  //   filters: {}
-  // };
   tags: Array<string> = [];
   tagsLoaded = false;
 
@@ -27,32 +23,26 @@ export class HomeComponent implements OnInit {
       (authenticated) => {
         this.isAuthenticated = authenticated;
 
-        // // set the article list accordingly
-        // if (authenticated) {
-        //   this.setListTo('feed');
-        // } else {
-        //   this.setListTo('all');
-        // }
       }
     );
 
-
-    // this.tagsService.getAll()
-    //   .subscribe(tags => {
-    //     this.tags = tags;
-    //     this.tagsLoaded = true;
-    //   });
   }
 
-  // setListTo(type: string = '', filters: Object = {}) {
-  //   // If feed is requested but user is not authenticated, redirect to login
-  //   if (type === 'feed' && !this.isAuthenticated) {
-  //     this.router.navigateByUrl('/login');
-  //     return;
-  //   }
-  //
-  //   // Otherwise, set the list object
-  //   this.listConfig = {type: type, filters: filters};
-  // }
+  onNotify(message: boolean) {
+    console.log('received event in home component');
+    // switch(message){
+    //   case 'events_clicked':
+    //     console.log('to events');
+    //     this.componentType = 'events';
+    //     this.router.navigateByUrl('/events');
+    //     break;
+    //   case 'dashboard_clicked':
+    //     this.componentType = 'dashboard';
+    //     console.log('swithc to dashboard');
+    //     this.router.navigateByUrl('/home');
+    //     break;
+    //   default: break;
+    // }
+  }
 
 }

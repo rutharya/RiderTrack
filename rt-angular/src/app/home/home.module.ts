@@ -4,24 +4,37 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { HomeAuthResolver } from './home-auth-resolver.service';
 import { SharedModule, SidebarComponent } from '../shared/';
+// import {LandingComponent} from "../landing/landing.component";
+// import {NoAuthGuard} from "../login/no-auth-guard.service";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {ChartComponent} from "./dashboard/chart/chart.component";
+import {HttpClientModule} from "@angular/common/http";
+import {AuthGuardService} from "../shared/services";
 import {LandingComponent} from "../landing/landing.component";
 import {NoAuthGuard} from "../login/no-auth-guard.service";
-import {DashboardComponent} from "../dashboard/dashboard.component";
-import {ChartComponent} from "../chart/chart.component";
-import {HttpClientModule} from "@angular/common/http";
+import {ApiComponent} from "../api/api.component";
+import { ProfileComponent } from './profile/profile.component';
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: '',
-    component: LandingComponent,
-    canActivate: [NoAuthGuard]
+    path:'',
+    component: LandingComponent
+  },
+  {
+    path:'api',
+    component:ApiComponent
   },
   {
     path: 'home',
     component: HomeComponent,
+    canActivate:[AuthGuardService],
     resolve: {
       isAuthenticated: HomeAuthResolver
-    }
+    },
+    children:[
+      {path:'',redirectTo:'dashboard',pathMatch:'full'},
+      { path:'dashboard' , component: DashboardComponent},
+      {path: 'profile',component: ProfileComponent}]
   }
 ]);
 
@@ -35,7 +48,8 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     HomeComponent,
     SidebarComponent,
     DashboardComponent,
-    ChartComponent
+    ChartComponent,
+    ProfileComponent
   ],
   providers: [
     HomeAuthResolver

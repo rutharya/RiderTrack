@@ -1,8 +1,9 @@
 <div class="d-flex align-items-stretch">
   <div class="sidebar bg-dark">
     <ul class="list-unstyled">
-      <li><a  (click)="onClick()" [class.selected]="wasClicked"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>
-      <li><a href="#"><i class="fa fa-fw fa-link"></i>Create Event</a></li>
+      <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
+      <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>
+      <li><a (click)="toEvents($event)"><i class="fa fa-fw fa-link"></i>Events</a></li>
       <li>
         <a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>
         <!--TOOD: implement submenu system?-->
@@ -16,6 +17,7 @@
         <a (click)="onToggleSubmenu($event)" [class.selected]="wasClicked">Last Run</a>
       </li>
       <li><a href="#"><i class="fa fa-fw fa-angle-right"></i>Manage Events</a></li>
-      <li><a href="#"><i class="fa fa-fw fa-link"></i>Profile</a></li>
+      <li><a [routerLink]="['./profile']"><i class="fa fa-fw fa-link"></i>Profile</a></li>
     </ul>
+  </div>
   </div>
