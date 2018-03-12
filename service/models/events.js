@@ -7,7 +7,8 @@ var eventsSchema = new Schema({
     description: {type:String,required:true},
     date: {type:Date,required:true},
     location: {type:String, required:true},
-    time:{type:String, required:true},
+    startTime:{type:String, required:true},
+    endTime:{type:String, required:true},
     track: {
         elevation: Number,
         length: Number,
@@ -25,7 +26,6 @@ var eventsSchema = new Schema({
             ref: 'Rider'
         }
     ],
-    totalDist: Number,
     statusOfRace: String,
     startLocation: {
 	    lat: Number,

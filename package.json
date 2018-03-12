@@ -13,6 +13,7 @@
     "test": "snyk test"
   },
   "dependencies": {
+    "@mapbox/leaflet-omnivore": "^0.3.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
@@ -25,6 +26,8 @@
     "express-session": "^1.15.6",
     "ionic-datepicker": "^1.2.1",
     "jsonwebtoken": "^8.1.1",
+    "leaflet-omnivore": "^0.3.4",
+    "mongodb": "^3.0.3",
     "mongoose": "^5.0.6",
     "mongoose-unique-validator": "^2.0.0",
     "morgan": "~1.9.0",
@@ -32,9 +35,12 @@
     "nsp": "^3.2.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "popper.js": "^1.12.9",
+    "rxjs": "^5.5.6",
     "serve-favicon": "~2.4.5",
     "twilio": "^3.11.3",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest": "^1.8.0",
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
     "chalk": "^2.3.1",
