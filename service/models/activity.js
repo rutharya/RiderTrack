@@ -30,10 +30,5 @@ var activitySchema = new Schema({
     }]
 }, {collection : 'activity'});
 
-<<<<<<< HEAD
 var activity = mongoose.model('activity', activitySchema);
 module.exports = activity;
-=======
-var UserParticipation = mongoose.model('Activity', activitySchema);
-module.exports = UserParticipation;
->>>>>>> caching
