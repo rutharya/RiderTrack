@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '8'
+before_script:
+- sleep 10
+services:
+- mongodb
+- redis-server
+deploy:
+  provider: heroku
+  api_key:
+    secure: SxJvzC4ekx+WW7PAgbiimIl+XxCAUnoNLFDIOstS/m+Ua1ahuf0TnXTMqxKfHUoVz+aXqveNgZKtkBwEMm3TqvIQ8fbn9PtyDUJfFilxfFqLwpren7yLTkx+LrGZFgJTNYy/Eu/Da90LaHfRVpmexrvRv+dTsLLFktn2atdI/q+B+lynMkhlQt4JY/C37PJSrq4hrybwMh+rGIEnqQqTrstseNewT1rX8o7QcQ9G1sXkILRMAHBgbxsHuUAerVRuuIcoiWhadAzrYmAb81E3DZyDzEsD3mpG9YZTJYk5Xv6lv3COE6ybN4NL0jTOMYW2hbiXS3Q2vTTRQKDlrIspQ1mJQwKS1oXvFEAiAsTya/sYQpLuWrtIT/E6mwVJEcnvK8/gHEeV9+4Unt4lKwg6jpp5IiCkitxDwCVUOVvuwyHo9CYhj5Wn7dFsycpK/n8+hMIsyDBk5J3gRjWq8WZbuAyBD1y7xcKQ41eU171ORenGvCV7Qz3PVgLvum270gKQIkQKDymwzn7sICR1rw66XozriQmL+7iHjtvGCFDNOrMeNiiaVkFjvlnjsTB41tFbLomkVEwUMGRLbrupHbpQ8Wk9Obho7TARL/J/LTkqa9QRD6GmzJBIDTBxT/FLmxRdm1BEs4cFk8dCNDrNuoZudqGUiUHVj3z2RVi/LaU4akI=
+  app: ridertrack-caching
+  on:
+    repo: rmarya-asu/RiderTrack
+    branch: caching

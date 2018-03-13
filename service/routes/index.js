@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
 var passport = require('passport');
 var auth = require('../config/auth');
 
-var SUser = require('../models/rider');
-var User = mongoose.model('Rider');
-
+var User = require('../models/rider');
 
 var events = require('./events');
 var eventTracking = require('./eventTracking');
@@ -51,6 +48,57 @@ router.post('/users/login', function (req, res, next) {
         }
     })(req, res, next);
 });
+
+router.post('/users/login', function(req, res, next){
+  console.log('LOGIN: /user/login');
+  if(!req.body.email){
+    return res.status(422).json({errors: {email: "can't be blank"}});
+  }
+
+  if(!req.body.password){
+    return res.status(422).son({errors: {password: "can't be blank"}});
+  }
+  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
+    //onSuccessRedirect:'/dashboard',
+    if(err){ return next(err); }
+
+    if(user){
+      user.token = user.generateJWT();
+      res.set('Authorization','Bearer '+user.token);
+      //return res.redirect('/dashboard2')
+
+      return res.json({user: user.toAuthJSON()});
+    }else {
+      return res.status(422).json(info);
+    }
+  })(req, res, next);
+});
+router.post('/users/login2', function(req, res, next){
+  console.log('LOGIN: /user/login2');
+  if(!req.body.email){
+    return res.status(422).json({errors: {email: "can't be blank"}});
+  }
+
+  if(!req.body.password){
+    return res.status(422).son({errors: {password: "can't be blank"}});
+  }
+  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
+    //onSuccessRedirect:'/dashboard',
+    if(err){ return next(err); }
+
+    if(user){
+      user.token = user.generateJWT();
+      res.set('Authorization','Bearer '+user.token);
+      //return res.redirect('/dashboard2')
+
+      return res.redirect('/dashboard/'+user.id);
+    }else {
+      return res.status(422).json(info);
+    }
+  })(req, res, next);
+});
+
+
 
 //ruthar: route working - creates a new user.
 router.post('/users', function (req, res, next) {

@@ -4,21 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var http = require('http')
+var http = require('http');
+
 var routes = require('./routes')
 var index = require('./routes/index');
-var test = require('./routes/test')
+var test = require('./routes/test'); //test route -> testing protected resources
+var savemyloc = require('./routes/savemyloc');
 var events = require('./routes/events');
+
 var passport = require('passport');
 require('./config/passport');
+require('./db/db');
 var app = express();
-
-
-var dbConfig = require('./db/db');
-var mongoose = require('mongoose');
-// Connect to DB
-//mongoose.connect(dbConfig.url);
-mongoose.connect('mongodb://localhost/ridertrack');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 //bug fix for issue 14
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -44,6 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', index);
 app.use('/test',test);
+app.use('/savemyloc',savemyloc);
 // app.use('/users', users);
 
 // catch 404 and forward to error handler

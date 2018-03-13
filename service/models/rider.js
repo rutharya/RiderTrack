@@ -101,6 +101,10 @@ RiderSchema.methods.toAuthJSON = function(){
   };
 };
 
+RiderSchema.methods.getid = function(){
+  return user._id;
+}
+
 var Rider = mongoose.model('Rider', RiderSchema);
 
 module.exports = Rider;

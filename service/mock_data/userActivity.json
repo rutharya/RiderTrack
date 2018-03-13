@@ -1,0 +1,28 @@
+{
+  "rider_id": 1234124312,
+  "event_id": "",
+  "latestcoordinates": {
+    "lat": 1234,
+    "lng": 2323
+  },
+  "gps_stats": [{
+      "timestamp": 31453151,
+      "lat": 3413,
+      "lng": 31531245,
+      "speed": 134513,
+      "distLeft": 124134,
+      "altitude": 234
+    },
+    {
+      "timestamp": 31453151,
+      "lat": 3413,
+      "lng": 31531245,
+      "speed": 134513,
+      "distLeft": 124134,
+      "altitude": 234
+    }
+  ],
+  "currentRace":[{
+    "currentrace going on  - asu trekking"
+    }]
+}
