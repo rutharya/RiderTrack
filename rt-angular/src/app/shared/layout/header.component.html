@@ -15,6 +15,7 @@
       <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login/Signup</button>-->
     <!--</form>-->
     <button class="btn btn-outline-success my-2 my-sm-0" *showAuthed="false"><a class="nav-link" [routerLink]="['/login']">Login/Signup</a></button>
+    <button class="btn btn-danger my-2 my-sm-0" *showAuthed="true"><a class="nav-link" (click)="logout()">Logout</a></button>
   </div>
 </nav>
 

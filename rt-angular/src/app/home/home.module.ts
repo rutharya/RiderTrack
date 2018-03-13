@@ -32,9 +32,9 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
       isAuthenticated: HomeAuthResolver
     },
     children:[
-      {path:'',redirectTo:'dashboard',pathMatch:'full'},
-      { path:'dashboard' , component: DashboardComponent},
-      {path: 'profile',component: ProfileComponent}]
+      {path:'',redirectTo:'dashboard',canActivate: [AuthGuardService],pathMatch:'full'},
+      { path:'dashboard' , canActivate: [AuthGuardService],component: DashboardComponent},
+      {path: 'profile',canActivate: [AuthGuardService],component: ProfileComponent}]
   }
 ]);
 
