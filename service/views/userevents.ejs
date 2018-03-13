@@ -55,7 +55,7 @@
                     <a href="/registerevent">Register Upcoming Events</a>
                 </li>
                 <li>
-                    <a href="/userevents">User Registered Events</a>
+                    <a href="/userpastevent">User Registered Events</a>
                 </li>
             </ul>
         </li>
@@ -186,7 +186,10 @@
 </ul>
 </nav>
 
-<center><h3><font color="White">Upcoming Events</h3></center></font>
+<center><h3><font color="White">Your Registered Events</h3>
+    <br>
+<input type="radio" name="Events" value="Upcoming Events" onclick="javascript:yesnoCheck();" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp; 
+<input type="radio" name="Events" id="yesCheck" value="Past Events" onclick="javascript:yesnoCheck();"><strong> Past Events</strong><br></center></font>
 <br>
 
 
@@ -211,7 +214,7 @@
                   <p>{{event.description}}</p>
                   <p><strong>{{event.date}}</strong></p>
                   <a class="btn btn-primary" href="/tracking">View Event</a>
-                  <a class="btn btn-primary" href="" ng-click="addRider(event._id)">Register Event</a>
+                  <a class="btn btn-primary" href="" id="stat_btn" style="visibility:hidden">Event Statistics</a>
      
     </div>
 
@@ -227,18 +230,16 @@
         </script> -->
 
    
-    <!-- <script>
-        function addRider(){
-            console.log("TEST  "+ $scope.event._id)
-         db.events.update(
+   <script>
+  function yesnoCheck() {
 
-        {"_id": ObjectId(Event_id)},
-        { $set: { "eventRiders": [ObjectId("5a9351dd5790cf3c536a2fb1")]  }}    
-        
-)
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('stat_btn').style.visibility = 'visible';
+    }
+    else document.getElementById('stat_btn').style.visibility = 'hidden';
 
-        }
-    </script> -->
+}
+    </script>
     
 
 </a>

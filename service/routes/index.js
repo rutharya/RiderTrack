@@ -158,6 +158,9 @@ router.get('/registerevent',function(req,res,next){
   res.render('registerevent');
 })
 
+router.get('/userevents',function(req,res,next){
+  res.render('userevents');
+})
 
 router.get('/login',function(req,res,next){
     res.render('login');
