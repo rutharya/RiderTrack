@@ -47,6 +47,7 @@ var RiderSchema = new mongoose.Schema({
     gender: String,
     phoneNo: String,
     address: String,
+    following:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}],//adding ability for users to follow each-other
     pastevents: [{
         // pasteventdate: Date,
         // pasteventlocation: String,
@@ -84,7 +85,7 @@ RiderSchema.methods.setPassword = function(password){
 RiderSchema.methods.generateJWT = function() {
   var today = new Date();
   var exp = new Date(today);
-  exp.setDate(today.getDate() + 60);
+  exp.setDate(today.getDate() + 1); //expiry set to 1 day for now-> to test if expiry works
 
   return jwt.sign({
     id: this._id,
@@ -100,6 +101,18 @@ RiderSchema.methods.toAuthJSON = function(){
     token: this.generateJWT(),
   };
 };
+
+RiderSchema.methods.follow = function(id){
+ if(this.following.indexOf(id)===-1){
+  this.following.push(id);
+ }
+ return this.save();
+}
+
+RiderSchema.methods.unfollow=function(id){
+  this.following.remove(id);
+  return this.sace();
+}
 
 RiderSchema.methods.getid = function(){
   return user._id;
