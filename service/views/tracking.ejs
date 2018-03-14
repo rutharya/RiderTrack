@@ -148,7 +148,7 @@
                             style: myStyle
                         });
 
-                        const gpxLayer = omnivore.gpx('../assets/gpx/1.gpx', null, customLayer)
+                        const gpxLayer = omnivore.gpx('../assets1/gpx/1.gpx', null, customLayer)
                         .on('ready', function() {
                             mymap.fitBounds(gpxLayer.getBounds());
                         }).addTo(mymap);
