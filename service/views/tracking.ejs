@@ -115,7 +115,6 @@
             <!--<script-->
                     <!--src="http://makinacorpus.github.io/Leaflet.FileLayer/togeojson/togeojson.js">-->
             <!--</script>-->
-            <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 
 
             <div class="card mb-3">
@@ -144,24 +143,16 @@
                             accessToken: 'pk.eyJ1IjoiaGltYW5pMzEzIiwiYSI6ImNqY3V3ZjBvdjBlbjQycW11eDdyem11dnMifQ.yqjbj4rbuYIByGQ9EXn2IA'
                         }).addTo(mymap);
 
+                        var omnivore = JSON.parse('<%-JSON.stringify(omnivore)%>');
                         const customLayer = L.geoJson(null, {
                             style: myStyle
                         });
 
-                        const gpxLayer = omnivore.gpx('../assets1/gpx/1.gpx', null, customLayer)
+                        const gpxLayer = omnivore.gpx('../assets1/gpx/1.gpx', null, L.mapbox.featureLayer())
                         .on('ready', function() {
                             mymap.fitBounds(gpxLayer.getBounds());
                         }).addTo(mymap);
 
-//                        var style = {color:'red', opacity: 1.0, fillOpacity: 1.0, weight: 2, clickable: false};
-//                        L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';
-//                        L.Control.fileLayerLoad({
-//                            fitBounds: true,
-//                            layerOptions: {style: style,
-//                                pointToLayer: function (data, latlng) {
-//                                    return L.circleMarker(latlng, {style: style});
-//                                }},
-//                        }).addTo(mymap);
 
                         for(var i=0; i<locArray.length; i++){
                             console.log(locArray[i].coordinates);

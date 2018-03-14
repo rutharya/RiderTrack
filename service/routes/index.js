@@ -142,10 +142,12 @@ router.get('/dashboard', function (req, res, next) {
         });
 })
 
+var omnivore = require('leaflet-omnivore');
 router.get('/tracking', function (req, res, next) {
     function rendercall(jsonDoc) {
         res.render('tracking', {
-            locArray: jsonDoc
+            locArray: jsonDoc,
+            omnivore: omnivore
         });
     }
     var id = req.query.id;
