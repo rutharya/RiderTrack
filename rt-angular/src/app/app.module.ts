@@ -13,6 +13,7 @@ import{
   UserService,
   JwtService,
   StatisticsService,
+  EventsService,
   AuthGuardService,
   SharedModule,
   FooterComponent,
@@ -61,7 +62,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     AuthGuardService,
     JwtService,
     UserService,
-    StatisticsService
+    StatisticsService,
+    EventsService
   ],
   bootstrap: [AppComponent]
 })

@@ -120,6 +120,13 @@ router.post('/auth',
     res.redirect('/');
   });
 
+
+router.get('/asdf',auth.required,function(req,res,next){
+    var result = {};
+    result.asfd = "asdfaasdfa";
+    res.send(result);
+});
+
 router.get('/statistics',auth.required,function(req,res,next){
   var data = {};
   data.temp_max = 24;
