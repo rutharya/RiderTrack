@@ -1,14 +1,13 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppComponent } from './app.component';
-import {LoginModule} from "./login/login.module";
+import {LoginModule} from './login/login.module';
 import { HomeModule } from './home/home.module';
 
 
-
-import{
+import {
   ApiService,
   UserService,
   JwtService,
@@ -23,10 +22,9 @@ import{
 import { LandingComponent } from './landing/landing.component';
 import { ChartComponent } from './home/dashboard/chart/chart.component';
 import {NoAuthGuard} from "./login/no-auth-guard.service";
-import {EventsModule} from "./events/events.module";
+import {EventsModule} from './events/events.module';
 import { ApiComponent } from './api/api.component';
-
-
+import {TrackingModule} from './tracking/tracking.module';
 
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
@@ -47,7 +45,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     HeaderComponent,
     FooterComponent,
     LandingComponent,
-    ApiComponent,
+    ApiComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +53,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     HomeModule,
     EventsModule,
     rootRouting,
-    SharedModule
+    SharedModule,
+    TrackingModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,
