@@ -14,6 +14,7 @@ import {LandingComponent} from "../landing/landing.component";
 import {NoAuthGuard} from "../login/no-auth-guard.service";
 import {ApiComponent} from "../api/api.component";
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileSummaryComponent } from './dashboard/profile-summary/profile-summary.component';
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -49,7 +50,8 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     SidebarComponent,
     DashboardComponent,
     ChartComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileSummaryComponent
   ],
   providers: [
     HomeAuthResolver
