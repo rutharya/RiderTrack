@@ -144,6 +144,16 @@ router.get('/statistics',auth.required,function(req,res,next){
   // })
 });
 
+
+// To be used in the dashboard page depicting user overall statistics
+router.get('/userstatistics', auth.required, function(req,res,next){
+    User.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        return res.json({statistics: user.statistics});
+    }).catch(next);
+});
+
+
 router.get('/dashboard',function(req,res,next){
  res.render('dashboard');
      // User.findById(req.session.userId)

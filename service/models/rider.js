@@ -58,10 +58,19 @@ var RiderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
     }],
-    statistcs: {
+    statistics: {
+
         avgspeed: Number,
-        wins: Number,
-        mostparticipatedactivity: String
+        mosrtparticipatedactivity: String,
+        participationcount: Number,
+        maxspeed: Number,
+        totaldistance: Number,
+        longestdistance: Number,
+        elevationgain: Number,
+        wincount: Number,
+        movingtime: Number,
+        longestmovingtime: Number
+
     },
     hash: String,
     salt: String
@@ -100,6 +109,8 @@ RiderSchema.methods.toAuthJSON = function(){
     token: this.generateJWT(),
   };
 };
+
+
 
 RiderSchema.methods.getid = function(){
   return user._id;
