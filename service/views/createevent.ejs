@@ -185,44 +185,44 @@
             </li>
         </ol>
 
-        <form class="col-5">
+        <form class="col-5" method="POST" action="/submitevent">
             <div class="form-group">
                 <label for="eventName">Event Name</label>
-                <input type="text" class="form-control" id="eventName" aria-describedby="emailHelp" placeholder= "<%- name %>" required>
+                <input type="text" class="form-control" id="eventName" name="eventname" aria-describedby="emailHelp" placeholder= "<%- name %>" required>
             </div>
-            <div class="form-group"  action="/submit-event"  method="POST">
+            <div class="form-group">
                 <label for="eventDescription">Event Description</label>
-                <input type="text" class="form-control" id="eventDescription" placeholder= "<%- description %>" required>
+                <input type="text" class="form-control" id="eventDescription" name="eventDescription" placeholder= "<%- description %>" required>
             </div>
             <div class="form-group">
                 <label for="eventLocation">Event Location</label>
-                <input type="text" class="form-control" id="eventLocation"
+                <input type="text" class="form-control" id="eventLocation" name="eventLocation"
                        placeholder="<%- location %>" required>
             </div>
-            <div class="form-group">
-                <label for="eventDate">Event Date</label>
-                <input type="date" asp-format="{0:yyyy-MM-dd}" class="form-control" id="eventDate" value="<%- date %>" required>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label for="eventDate">Event Date</label>-->
+                <!--<input type="date" asp-format="{0:yyyy-MM-dd}" class="form-control" id="eventDate" value="<%- date %>" required>-->
+            <!--</div>-->
             <div class="form-group">
                 <label for="eventStartTime">Event Start Time</label>
-                <input type="time" class="form-control" id="eventStartTime"
+                <input type="time" class="form-control" id="eventStartTime" name="eventStartTime"
                        placeholder="Enter Event Start Time" required>
             </div>
             <div class="form-group">
                 <label for="eventEndTime">Event End Time</label>
-                <input type="time" class="form-control" id="eventEndTime"
+                <input type="time" class="form-control" id="eventEndTime" name="eventEndTime"
                        placeholder="Enter Event End Time" required>
             </div>
             <div class="form-group">
                 <label for="eventImage">Event Image</label>
-                <input type="file" class="form-control" id="eventImage"
-                       placeholder="Drag Event Image" required>
+                <input type="file" class="form-control" id="eventImage" name="eventImage"
+                       accept="image/*" placeholder="Drag Event Image" required>
             </div>
 
             <div class="form-group">
                 <label for="eventImage">Event Track (Upload a .gpx file)</label>
-                <input type="file" class="form-control" id="eventGpx"
-                       accept=".gpx" placeholder="Drag Event Image" required>
+                <input type="file" class="form-control" id="eventGpx" name ="eventGpx"
+                       accept=".gpx" placeholder="Drag .gpx file" required>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>

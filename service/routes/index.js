@@ -7,7 +7,7 @@ var auth = require('../config/auth');
 var SUser = require('../models/rider');
 var User = mongoose.model('Rider');
 
-
+var Event = require('../models/events');
 var events = require('./events');
 var eventTracking = require('./eventTracking');
 
@@ -241,29 +241,39 @@ router.get('/logout', function (req, res, next) {
     }
 });
 
-router.post('/submit-event', function (req, res, next) {
+router.post('/submitevent', function (req, res, next) {
     console.log(req.body);
-    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    var request = new XMLHttpRequest();
-    request.open('POST', "http://localhost:3000/saveEvent", true);
-    request.setRequestHeader('_id', id);
-    request.send();
-    request.onreadystatechange = function () {
-        getData(request)
-    };
+    console.log('In saveEvent')
+    var event = new Event(req.body)
 
-    function getData(request) {
-        if ((request.readyState == 4) && (request.status == 200)) {
-            var jsonDocument = JSON.parse(request.responseText);
-            console.log(jsonDocument[0].name);
-            name = jsonDocument[0].name;
-            description = jsonDocument[0].description;
-            location = jsonDocument[0].location;
-            date = jsonDocument[0].date;
-            rendercall(name, description, location, date);
-        }
-    }
+    event.save(function(err) {
+        if (err) return handleError(err);
+        console.log('User Event saved successfully!');
+        res.send({"Saved Event ID" : event._id })
 
+    });
+
+    // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+    // var request = new XMLHttpRequest();
+    // request.open('POST', "http://localhost:3000/saveEvent", true);
+    // request.setRequestHeader('_id', id);
+    // request.send();
+    // request.onreadystatechange = function () {
+    //     getData(request)
+    // };
+    //
+    // function getData(request) {
+    //     if ((request.readyState == 4) && (request.status == 200)) {
+    //         var jsonDocument = JSON.parse(request.responseText);
+    //         console.log(jsonDocument[0].name);
+    //         name = jsonDocument[0].name;
+    //         description = jsonDocument[0].description;
+    //         location = jsonDocument[0].location;
+    //         date = jsonDocument[0].date;
+    //         rendercall(name, description, location, date);
+    //     }
+    // }
+    //
     res.redirect("/");
 });
 
