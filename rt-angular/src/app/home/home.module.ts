@@ -6,36 +6,36 @@ import { HomeAuthResolver } from './home-auth-resolver.service';
 import { SharedModule, SidebarComponent } from '../shared/';
 // import {LandingComponent} from "../landing/landing.component";
 // import {NoAuthGuard} from "../login/no-auth-guard.service";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {ChartComponent} from "./dashboard/chart/chart.component";
-import {HttpClientModule} from "@angular/common/http";
-import {AuthGuardService} from "../shared/services";
-import {LandingComponent} from "../landing/landing.component";
-import {NoAuthGuard} from "../login/no-auth-guard.service";
-import {ApiComponent} from "../api/api.component";
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {ChartComponent} from './dashboard/chart/chart.component';
+import {HttpClientModule} from '@angular/common/http';
+import {AuthGuardService} from '../shared/services';
+import {LandingComponent} from '../landing/landing.component';
+import {NoAuthGuard} from '../login/no-auth-guard.service';
+import {ApiComponent} from '../api/api.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileSummaryComponent } from './dashboard/profile-summary/profile-summary.component';
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path:'',
+    path: '',
     component: LandingComponent
   },
   {
-    path:'api',
-    component:ApiComponent
+    path: 'api',
+    component: ApiComponent
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate:[AuthGuardService],
+    canActivate: [AuthGuardService],
     resolve: {
       isAuthenticated: HomeAuthResolver
     },
-    children:[
-      {path:'',redirectTo:'dashboard',canActivate: [AuthGuardService],pathMatch:'full'},
-      { path:'dashboard' , canActivate: [AuthGuardService],component: DashboardComponent},
-      {path: 'profile',canActivate: [AuthGuardService],component: ProfileComponent}]
+    children: [
+      {path: '', redirectTo: 'dashboard', canActivate: [AuthGuardService], pathMatch: 'full'},
+      { path: 'dashboard' , canActivate: [AuthGuardService], component: DashboardComponent},
+      {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent}]
   }
 ]);
 
