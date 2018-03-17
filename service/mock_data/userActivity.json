@@ -26,3 +26,7 @@
     "currentrace going on  - asu trekking"
     }]
 }
+
+
+{"_id":{"$oid":"5a997a770af19f11a392b668"},"riderid":{"$oid":"5a9973e10af19f11a392b666"},"eventid":{"$oid":"5a99736c0af19f11a392b665"},"latestcoordinates":{"lat":78.4,"lng":90.6},"gps_stats":[],"currentRace":[]}
+{"_id":{"$oid":"5aa5e1700af19f11a392b669"},"riderid":{"$oid":"5a9978cd0af19f11a392b667"},"eventid":{"$oid":"5a99736c0af19f11a392b665"},"latestcoordinates":{"lat":79.0,"lng":90.8},"gps_stats":[],"currentRace":[]}
