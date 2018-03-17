@@ -5,10 +5,10 @@
 
         <h1 class="text-xs-center">Your Settings</h1>
 
-        <app-list-errors [errors]="errors"></app-list-errors>
+        <!--<app-list-errors [errors]="errors"></app-list-errors>-->
 
-        <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
-          <fieldset [disabled]="isSubmitting">
+        <form [formGroup]="" (ngSubmit)="submitForm()">
+          <fieldset [disabled]=[isSubmitting]>
 
             <fieldset class="form-group">
               <input class="form-control"
@@ -46,6 +46,8 @@
                      formControlName="password" />
             </fieldset>
 
+
+
             <button class="btn btn-lg btn-primary pull-xs-right"
                     type="submit">
               Update Settings
@@ -54,14 +56,13 @@
           </fieldset>
         </form>
 
+
         <!-- Line break for logout button -->
-        <hr />
-
+      <hr>
         <button class="btn btn-outline-danger"
-                (click)="logout()">
-          Or click here to logout.
+                (click)="enableEdit()">
+          {{isSubmitting? "Edit Detail" : "Lock Details"}}
         </button>
-
       </div>
     </div>
   </div>
