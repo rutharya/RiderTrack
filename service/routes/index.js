@@ -15,39 +15,42 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-//ruthar: route working - gets a user given the jwt token in header
-router.get('/user', auth.required, function(req, res, next){
-  User.findById(req.payload.id).then(function(user){
-    if(!user){ return res.sendStatus(401); }
+router.use('/users', require('./users'));
 
-    return res.json({user: user.toAuthJSON()});
-  }).catch(next);
-});
 
-router.use(bodyParser.json());
+// //ruthar: route working - gets a user given the jwt token in header
+// router.get('/user', auth.required, function(req, res, next){
+//   User.findById(req.payload.id).then(function(user){
+//     if(!user){ return res.sendStatus(401); }
+//
+//     return res.json({user: user.toAuthJSON()});
+//   }).catch(next);
+// });
+//
+// router.use(bodyParser.json());
 //ruthar: route to login a user is working.
-router.post('/users/login', function(req, res, next){
-  console.log('login attempted: by app');
-  console.log(req.body);
-
-  if(!req.body.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
-  }
-
-  if(!req.body.password){
-    return res.status(422).json({errors: {password: "can't be blank"}});
-  }
-  passport.authenticate('local', {session: false}, function(err, user, info){
-    if(err){ return next(err); }
-
-    if(user){
-      user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
-    } else {
-      return res.status(422).json(info);
-    }
-  })(req, res, next);
-});
+// router.post('/users/login', function(req, res, next){
+//   console.log('login attempted: by app');
+//   console.log(req.body);
+//
+//   if(!req.body.email){
+//     return res.status(422).json({errors: {email: "can't be blank"}});
+//   }
+//
+//   if(!req.body.password){
+//     return res.status(422).json({errors: {password: "can't be blank"}});
+//   }
+//   passport.authenticate('local', {session: false}, function(err, user, info){
+//     if(err){ return next(err); }
+//     if (!user) return done(null, false, { message: 'Incorrect username.' });
+//     if(user){
+//       user.token = user.generateJWT();
+//       return res.json({user: user.toAuthJSON()});
+//     } else {
+//       return res.status(422).json(info);
+//     }
+//   })(req, res, next);
+// });
 
 // router.post('/users/login', function(req, res, next){
 //   console.log('LOGIN: /user/login');
@@ -103,16 +106,16 @@ router.post('/users/login2', function(req, res, next){
 
 
 //ruthar: route working - creates a new user.
-router.post('/users', function(req, res, next){
-  console.log(req.body);
-  var user = new User();
-  user.username = req.body.username;
-  user.email = req.body.email;
-  user.setPassword(req.body.password);
-  user.save().then(function(){
-    return res.json({user: user.toAuthJSON()});
-  }).catch(next);
-});
+// router.post('/users', function(req, res, next){
+//   console.log(req.body);
+//   var user = new User();
+//   user.username = req.body.username;
+//   user.email = req.body.email;
+//   user.setPassword(req.body.password);
+//   user.save().then(function(){
+//     return res.json({user: user.toAuthJSON()});
+//   }).catch(next);
+// });
 
 router.post('/auth',
   passport.authenticate('local', { failureRedirect: '/login' }),
@@ -292,6 +295,15 @@ router.get('/createevent',function(req,res,next){
     res.render('createevent', {title: 'Create Event'});
 })
 
+
+router.get('users/forgotpwd', function(req,res,next){
+  res.render('forgotpwd');
+});
+
+router.post('/users/forgotpwd',function(req,res,next){
+  //
+
+})
 
 router.get('/getAllEvents',events.getAllEvents)
 router.post('/saveEvent',events.saveEvent)

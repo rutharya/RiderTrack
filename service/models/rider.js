@@ -73,7 +73,9 @@ var RiderSchema = new mongoose.Schema({
 
     },
     hash: String,
-    salt: String
+    salt: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 
 });
 
@@ -101,6 +103,7 @@ RiderSchema.methods.generateJWT = function() {
     exp: parseInt(exp.getTime() / 1000),
   }, secret);
 };
+
 
 RiderSchema.methods.toAuthJSON = function(){
   return {
