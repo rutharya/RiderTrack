@@ -89,7 +89,7 @@ query = Rider.update({
     "_id": req.body.riderid
 }, {
     $push: {
-    "registeredEvents":  req.body.eventid
+        "registeredEvents":  req.body.eventid
 
     }
 })

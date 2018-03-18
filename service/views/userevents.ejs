@@ -188,8 +188,8 @@
 
 <center><h3><font color="White">Your Registered Events</h3>
     <br>
-<input type="radio" name="Events" value="Upcoming Events" onclick="javascript:yesnoCheck();" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp; 
-<input type="radio" name="Events" id="yesCheck" value="Past Events" onclick="javascript:yesnoCheck();"><strong> Past Events</strong><br></center></font>
+<input type="radio" name="Events" value="Upcoming Events" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp;
+<input type="radio" name="Events" id="yesCheck" value="Past Events"><strong> Past Events</strong><br></center></font>
 <br>
 
 
@@ -214,7 +214,7 @@
                   <p>{{event.description}}</p>
                   <p><strong>{{event.date}}</strong></p>
                   <a class="btn btn-primary" href="/tracking">View Event</a>
-                  <a class="btn btn-primary" href="" id="stat_btn" style="visibility:hidden">Event Statistics</a>
+
      
     </div>
 
@@ -229,17 +229,7 @@
             
         </script> -->
 
-   
-   <script>
-  function yesnoCheck() {
 
-    if (document.getElementById('yesCheck').checked) {
-        document.getElementById('stat_btn').style.visibility = 'visible';
-    }
-    else document.getElementById('stat_btn').style.visibility = 'hidden';
-
-}
-    </script>
     
 
 </a>
