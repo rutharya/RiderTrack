@@ -111,7 +111,19 @@ RiderSchema.methods.toAuthJSON = function(){
     email: this.email,
     token: this.generateJWT(),
   };
-};
+}
+
+RiderSchema.methods.userProfile = function(){
+  return {
+    username: this.username,
+    email: this.email,
+    height: this.height,
+    weight: this.weight,
+    gender: this.gender,
+    phoneNo: this.phoneNo,
+    address: this.address,
+  }
+}
 
 
 

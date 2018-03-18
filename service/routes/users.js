@@ -6,10 +6,50 @@ var auth = require('../config/auth');
 var bodyParser = require('body-parser');
 var mailer = require('../../tools/sendInvites');
 
-router.get('/', function(req, res, next) {
-  res.end('users page');
+//get the information about the current logged-in user.
+router.get('/me', auth.required, function(req, res, next){
+  User.findById(req.payload.id).then(function(user){
+    if(!user){ return res.sendStatus(401); }
+
+    return res.json({user: user.userProfile()});
+  }).catch(next);
 });
 
+//update profile information of the user.
+router.put('/profile', auth.required, function(req, res, next){
+  User.findById(req.payload.id).then(function(user){
+    if(!user){ return res.sendStatus(401); }
+
+    // only update fields that were actually passed...
+    if(typeof req.body.username !== 'undefined'){
+      user.username = req.body.username;
+    }
+    if(typeof req.body.email !== 'undefined'){
+      user.email = req.body.email;
+    }
+    if(typeof req.body.height !== 'undefined'){
+      user.height = req.body.height;
+    }
+    if(typeof req.body.weight !== 'undefined'){
+      user.weight = req.body.weight;
+    }
+    if(typeof req.body.gender !== 'undefined'){
+      user.gender = req.body.gender;
+    }
+    if(typeof req.body.phoneNo !== 'undefined'){
+      user.phoneNo = req.body.phoneNo;
+    }
+    if(typeof req.body.address !== 'undefined'){
+      user.address = req.body.address;
+    }
+
+    return user.save().then(function(){
+      return res.json({user: user.toAuthJSON()});
+    });
+  }).catch(next);
+});
+
+//create a new user.
 router.post('/', function(req, res, next) {
   console.log('POST: /users: ');
   console.log('req body: ', req.body);
@@ -58,9 +98,7 @@ router.post('/login', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    if (!user) return done(null, false, {
-      message: 'Incorrect username.'
-    });
+    if (!user) return res.status(422).json({errors: {user: "user not found"}});
     if (user) {
       user.token = user.generateJWT();
       return res.json({user: user.toAuthJSON()});
@@ -93,6 +131,7 @@ router.post('/forgotpwd', function(req, res, next) {
     user.save(function(err) {
       return res.json({result: "OK", status:{msg:"user password resent token written to db", token: user.resetPasswordToken}});
     });
+    mailer('rmarya@asu.edu','GO TO : http://localhost:3000/users/'+user.resetPasswordToken);
     console.log('go to :localhost:3000/users/',user.resetPasswordToken);
   });
 })
@@ -100,18 +139,19 @@ router.post('/forgotpwd', function(req, res, next) {
 router.get('/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
-      return res.status(422).son({errors: {user: "user not found"}});
+      return res.status(422).json({errors: {user: "user not found"}});
     }
     //found --
     console.log('user successfully found -> render the proper form to reset password');
-    return res.json({result: "OK", status:{msg:"can post to this route to change password."}});
+    // return res.json({result: "OK", status:{msg:"can post to this route to change password."}});
+    return res.render('reset_pwd',{user: user});
   });
 });
 
 router.post('/:token',function(req,res){
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-          return res.status(422).son({errors: {user: "user not found"}});
+          return res.status(422).json({errors: {user: "user not found"}});
         }
         user.setPassword(req.body.password);
         user.resetPasswordToken = undefined;
