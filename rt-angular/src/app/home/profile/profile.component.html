@@ -1,14 +1,16 @@
 <div class="settings-page">
   <div class="container page">
     <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-12">
 
         <h1 class="text-xs-center">Your Settings</h1>
 
         <!--<app-list-errors [errors]="errors"></app-list-errors>-->
 
-        <form [formGroup]="" (ngSubmit)="submitForm()">
-          <fieldset [disabled]=[isSubmitting]>
+        <form [formGroup]="details" (ngSubmit)="submitForm()">
+          <fieldset>
 
             <fieldset class="form-group">
               <input class="form-control"
@@ -46,6 +48,12 @@
                      formControlName="password" />
             </fieldset>
 
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                     type="password"
+                     placeholder="Confirm Password"
+                     formControlName="passwordconf" />
+            </fieldset>
 
 
             <button class="btn btn-lg btn-primary pull-xs-right"
@@ -61,7 +69,7 @@
       <hr>
         <button class="btn btn-outline-danger"
                 (click)="enableEdit()">
-          {{isSubmitting? "Edit Detail" : "Lock Details"}}
+          {{this.details.disabled? "Edit Detail" : "Lock Details"}}
         </button>
       </div>
     </div>
