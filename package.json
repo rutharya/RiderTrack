@@ -42,6 +42,7 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
+    "@angular/cli": "^1.7.3",
     "chalk": "^2.3.1",
     "localtunnel": "^1.8.3",
     "snyk": "^1.69.7"
