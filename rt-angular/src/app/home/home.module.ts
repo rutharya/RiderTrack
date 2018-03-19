@@ -15,6 +15,7 @@ import {NoAuthGuard} from '../login/no-auth-guard.service';
 import {ApiComponent} from '../api/api.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileSummaryComponent } from './dashboard/profile-summary/profile-summary.component';
+import { RiderEventsComponent } from './rider-events/rider-events.component';
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -35,6 +36,7 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     children: [
       {path: '', redirectTo: 'dashboard', canActivate: [AuthGuardService], pathMatch: 'full'},
       { path: 'dashboard' , canActivate: [AuthGuardService], component: DashboardComponent},
+      {path: 'riderEvents' ,canActivate: [AuthGuardService],component:RiderEventsComponent},
       {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent}]
   }
 ]);
@@ -51,7 +53,8 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     DashboardComponent,
     ChartComponent,
     ProfileComponent,
-    ProfileSummaryComponent
+    ProfileSummaryComponent,
+    RiderEventsComponent
   ],
   providers: [
     HomeAuthResolver
