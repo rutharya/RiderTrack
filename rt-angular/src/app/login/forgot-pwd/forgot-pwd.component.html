@@ -2,7 +2,7 @@
   <div class="container page">
     <div class="banner" *showAuthed="false">
       <div class="container">
-        <h1 class="logo-font">RiderTrack</h1>
+        <h1 class="logo-font">Forgot Password?</h1>
       </div>
     </div>
     <div class="row">
@@ -15,15 +15,6 @@
         </p>
         <app-list-errors [errors]="errors"></app-list-errors>
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-          <fieldset [disabled]="isSubmitting">
-            <fieldset class="form-group">
-              <input
-                formControlName="username"
-                placeholder="Username"
-                class="form-control form-control-lg"
-                type="text"
-                *ngIf="authType == 'register'" />
-            </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="email"
@@ -31,20 +22,9 @@
                 class="form-control form-control-lg"
                 type="text" />
             </fieldset>
-            <fieldset class="form-group">
-              <input
-                formControlName="password"
-                placeholder="Password"
-                class="form-control form-control-lg"
-                type="password" />
-            </fieldset>
-            <fieldset>
-              <a routerLink="/forgotpwd">forgot your password?</a>
-            </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
-              {{ title }}
+              retrive password
             </button>
-          </fieldset>
         </form>
       </div>
 

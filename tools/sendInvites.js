@@ -10,26 +10,20 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+var riderTrackMailer = function(email,text){
+  var mailOptions = {
+      from: 'ridertrackproject@gmail.com',
+      to: email,
+      subject: 'Sending Email using Node.js',
+      text: text
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+          console.log(error);
+      } else {
+          console.log('Email sent: ' + info.response);
+      }
+  });
+}
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.post('/send', function(req, res, next) {
-    var mailOptions = {
-        from: 'ridertrackproject@gmail.com',
-        to: req.body.email,
-        subject: 'Sending Email using Node.js',
-        text: 'Welcome to Rider Track Event'
-    };
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-    res.send('Email Sent');
-});
-module.exports = router;
+module.exports = riderTrackMailer;

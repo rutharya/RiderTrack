@@ -200,11 +200,7 @@ function repeatPasswordVerify(){
 
 
 // Listener to Sign up form with id: signupform, for event on Submit.
-<<<<<<< HEAD
 document.getElementById('signupform').addEventListener('submit', signUpRequest);
-=======
-//document.getElementById('signupform').addEventListener('submit', signUpRequest);
->>>>>>> angular-app
 console.log('hereagain');
 
 function signUpRequest(e) {
@@ -284,11 +280,7 @@ function loginRequest(e) {
 function setLoginWarning(){
     loginerror.innerText = "Email or Password is incorrect. Please try again";
 
-<<<<<<< HEAD
 }Error handling for login/sign up failures
-=======
-}//Error handling for login/sign up failures
->>>>>>> angular-app
 
 
 // Function to set error fields in case of sign up failure displaying appropriate warning

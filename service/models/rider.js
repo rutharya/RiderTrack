@@ -73,7 +73,9 @@ var RiderSchema = new mongoose.Schema({
 
     },
     hash: String,
-    salt: String
+    salt: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 
 });
 
@@ -102,13 +104,26 @@ RiderSchema.methods.generateJWT = function() {
   }, secret);
 };
 
+
 RiderSchema.methods.toAuthJSON = function(){
   return {
     username: this.username,
     email: this.email,
     token: this.generateJWT(),
   };
-};
+}
+
+RiderSchema.methods.userProfile = function(){
+  return {
+    username: this.username,
+    email: this.email,
+    height: this.height,
+    weight: this.weight,
+    gender: this.gender,
+    phoneNo: this.phoneNo,
+    address: this.address,
+  }
+}
 
 
 

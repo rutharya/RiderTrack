@@ -70,6 +70,12 @@ export class UserService {
       ));
   }
 
+
+  resetPwd(): boolean{
+    const route= 'forgotpwd';
+    return this.apiService.post('/')
+
+  }
   getCurrentUser(): User {
     return this.currentUserSubject.value;
   }
