@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LatestLocationService} from './latest-location.service';
 
 @Component({
   selector: 'app-tracking',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrackingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private latestLocationService: LatestLocationService) { }
 
   ngOnInit() {
+    this.latestLocationService.getLatestLocation();
   }
 
 }
