@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all --parallel open:src ",
+    "start": "node ./service/bin/www",
     "dev": "nodemon ./service/bin/www",
     "open:src": "node ./service/bin/www",
     "security-check": "nsp check",
