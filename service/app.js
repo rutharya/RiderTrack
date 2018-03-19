@@ -30,7 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public0')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public0')));
 app.use(require('express-session')({ secret: 'ridertrackapp', resave: true, saveUninitialized: true }));
 
 // bug fix for issue 14
