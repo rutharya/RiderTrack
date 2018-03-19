@@ -8,7 +8,7 @@ export class EventsService {
   constructor(private _http: HttpClient) { }
 
   getEvents() {
-    return this._http.get("http://localhost:3000/asdf")
+    return this._http.get("http://localhost:3000/getAllEvents")
       .map(result => result);
   }
 
