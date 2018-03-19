@@ -13,7 +13,7 @@ export class UserService {
 
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
-
+  response:'String';
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
@@ -71,11 +71,19 @@ export class UserService {
   }
 
 
-  resetPwd(): boolean{
+  resetPwd(): Observable<boolean>{
     const route= 'forgotpwd';
-    return this.apiService.post('/')
-
+    console.log('inside reset pwd');
+    return this.apiService.post('/');
   }
+
+  generate_new_pwd(credentials):Observable<boolean>{
+    const route = 'forgotpwd';
+    //make post request with email to /users/forgotpwd
+    return this.apiService.post('/users/forgotpwd',credentials)
+  }
+
+
   getCurrentUser(): User {
     return this.currentUserSubject.value;
   }

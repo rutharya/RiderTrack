@@ -31,18 +31,22 @@ export class ForgotPwdComponent implements OnInit {
   submitForm() {
     this.isSubmitting = true;
     this.errors = {errors: {}};
-
+    console.log("SUBMITTING FORM");
     const credentials = this.authForm.value;
-    this.userService
-      .attemptAuth(this.authType, credentials)
-      .subscribe(
-        data => this.router.navigateByUrl('/home'),//redirecting user to their home page.
-        err => {
-          this.errors = err;
-          this.isSubmitting = false;
-        }
-      );
+    console.log(credentials);
+    //TODO: (ruthar) BUG - not sure why this is not submitting the form.
+    this.userService.generate_new_pwd(credentials);
   }
+  //   this.userService
+  //     .attemptAuth(this.authType, credentials)
+  //     .subscribe(
+  //       data => this.router.navigateByUrl('/home'),//redirecting user to their home page.
+  //       err => {
+  //         this.errors = err;
+  //         this.isSubmitting = false;
+  //       }
+  //     );
+  // }
 
 
 }
