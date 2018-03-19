@@ -16,6 +16,7 @@ import {ApiComponent} from '../api/api.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileSummaryComponent } from './dashboard/profile-summary/profile-summary.component';
 import { RiderEventsComponent } from './rider-events/rider-events.component';
+// import {Validators} from "@angular/forms";
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {

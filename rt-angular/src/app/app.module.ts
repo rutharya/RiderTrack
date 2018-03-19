@@ -5,7 +5,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {LoginModule} from './login/login.module';
 import { HomeModule } from './home/home.module';
-import {Validators,ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 import {
@@ -56,8 +56,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     rootRouting,
     SharedModule,
     TrackingModule,
-    ReactiveFormsModule,
-    Validators
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,

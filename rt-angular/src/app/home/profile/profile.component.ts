@@ -3,7 +3,7 @@ import {UserService} from '../../shared/services';
 import {User} from '../../shared/models';
 import {HeaderComponent} from '../../shared/layout';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -21,15 +21,15 @@ export class ProfileComponent implements OnInit {
     this.currentUser = this.userService.getCurrentUser();
     this.EDL = 'Edit';
     this.details = new FormGroup({
-      image: new FormControl(), bio: new FormControl(),
-      email: new FormControl(this.details.get('email'), [Validators.required, Validators.email]),
-      password: new FormControl(this.details.get('password'), [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}))]')]),
-      passwordconf: new FormControl(this.details.get('passwordconf'), [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,}))]')]),
+      // image: new FormControl(), bio: new FormControl(),
+      // email: new FormControl(this.details.get('email'), [Validators.required, Validators.email]),
+      // password: new FormControl(this.details.get('password'), [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}))]')]),
+      // passwordconf: new FormControl(this.details.get('passwordconf'), [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,}))]')]),
       firstname: new FormControl(),
       lastname: new FormControl(),
       height: new FormControl(),
       weight: new FormControl(),
-      phonenumber: new FormControl(this.details.get('phonenumber'), [Validators.required, Validators.pattern('[0-9]{10}$')]),
+      // phonenumber: new FormControl(this.details.get('phonenumber'), [Validators.required, Validators.pattern('[0-9]{10}$')]),
       address: new FormControl()
     });
     this.details.disable();
