@@ -1,15 +1,13 @@
 <div class="settings-page">
   <div class="container page">
     <div class="row">
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-12">
 
-        <h1 class="text-xs-center">Your Settings</h1>
+
+        <!--<h1 class="text-xs-center">Your Settings</h1>-->
 
         <!--<app-list-errors [errors]="errors"></app-list-errors>-->
 
-        <form [formGroup]="details" (ngSubmit)="submitForm()">
+        <form class="form-horizontal" [formGroup]="details" (ngSubmit)="submitForm()">
           <fieldset>
 
             <fieldset class="form-group">
@@ -19,41 +17,101 @@
                      formControlName="image" />
             </fieldset>
 
+
+
+            <div class="">
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                      type="text"
-                     placeholder="Username"
-                     formControlName="username" />
+                     placeholder="First Name"
+                     formControlName="firstname" />
             </fieldset>
+            </div>
 
+
+            <div class="">
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                     type="text"
+                     placeholder="Last Name"
+                     formControlName="lastname" />
+            </fieldset>
+            </div>
+
+            <div class="">
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                     type="number"
+                     placeholder="Height"
+                     formControlName="height" />
+            </fieldset>
+            </div>
+
+            <div class="">
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                     type="number"
+                     placeholder="Weight"
+                     formControlName="weight" />
+            </fieldset>
+            </div>
+
+            <div>
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                     type="text"
+                     placeholder="Phone Number"
+                     formControlName="phonenumber"
+                      />
+            </fieldset>
+            </div>
+
+            <div class="">
             <fieldset class="form-group">
               <textarea class="form-control form-control-lg"
-                        rows="8"
+                        rows="3"
+                        placeholder="Address"
+                        formControlName="address">
+              </textarea>
+            </fieldset>
+            </div>
+
+            <div>
+            <fieldset class="form-group">
+              <textarea class="form-control form-control-lg"
+                        rows="3"
                         placeholder="Short bio about you"
                         formControlName="bio">
               </textarea>
             </fieldset>
+            </div>
 
+            <div>
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                      type="email"
                      placeholder="Email"
                      formControlName="email" />
             </fieldset>
+            </div>
 
+            <div>
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                      type="password"
                      placeholder="New Password"
                      formControlName="password" />
             </fieldset>
+            </div>
 
+            <div>
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                      type="password"
                      placeholder="Confirm Password"
                      formControlName="passwordconf" />
             </fieldset>
+            </div>
 
 
             <button class="btn btn-lg btn-primary pull-xs-right"
@@ -74,4 +132,3 @@
       </div>
     </div>
   </div>
-</div>
