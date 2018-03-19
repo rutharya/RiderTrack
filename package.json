@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "prestart": "ng build ./rt-angular",
     "start": "npm-run-all --parallel open:src ",
     "dev": "nodemon ./service/bin/www",
     "open:src": "node ./service/bin/www",
@@ -13,7 +12,12 @@
     "share": "npm-run-all --parallel open:src localtunnel",
     "test": "mocha ./service/test",
     "ng_build": "ng build --prod",
-    "ng_test": "ng serve ./rt-angular"
+    "ng_test": "ng serve ./rt-angular",
+    "postinstall": "ng build ./rt-angular"
+  },
+  "engines": {
+    "node": "9.1.0",
+    "npm": "5.7.1"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
