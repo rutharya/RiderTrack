@@ -27,6 +27,8 @@ import {NoAuthGuard} from "./login/no-auth-guard.service";
 import {EventsModule} from './events/events.module';
 import { ApiComponent } from './api/api.component';
 import {TrackingModule} from './tracking/tracking.module';
+import {LatestLocationService} from './tracking/latest-location.service';
+
 
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
@@ -66,7 +68,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     JwtService,
     UserService,
     StatisticsService,
-    EventsService
+    EventsService,
+    LatestLocationService
   ],
   bootstrap: [AppComponent]
 })

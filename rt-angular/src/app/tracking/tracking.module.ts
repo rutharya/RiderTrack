@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 import {NoAuthGuard} from "../login/no-auth-guard.service";
 import {ModuleWithProviders} from "@angular/compiler/src/core";
 import {TrackingComponent} from "./tracking.component";
+import {LatestLocationService} from "./latest-location.service";
 
 const trackingRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -28,7 +29,8 @@ const trackingRouting: ModuleWithProviders = RouterModule.forChild([
   ],
 
   providers: [
-    NoAuthGuard
+    NoAuthGuard,
+    LatestLocationService
   ]
 })
 export class TrackingModule {}
