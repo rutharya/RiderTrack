@@ -5,7 +5,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {LoginModule} from './login/login.module';
 import { HomeModule } from './home/home.module';
-import {Validators,ReactiveFormsModule} from '@angular/forms';
+import {Validators, ReactiveFormsModule} from '@angular/forms';
 
 
 import {
@@ -22,7 +22,7 @@ import {
 } from './shared/';
 import { LandingComponent } from './landing/landing.component';
 import { ChartComponent } from './home/dashboard/chart/chart.component';
-import {NoAuthGuard} from "./login/no-auth-guard.service";
+import {NoAuthGuard} from './login/no-auth-guard.service';
 import {EventsModule} from './events/events.module';
 import { ApiComponent } from './api/api.component';
 import {TrackingModule} from './tracking/tracking.module';
@@ -56,8 +56,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     rootRouting,
     SharedModule,
     TrackingModule,
-    ReactiveFormsModule,
-    Validators
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,
