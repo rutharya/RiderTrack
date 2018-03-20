@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {User} from "../models";
+import {User} from '../models';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {ApiService} from './api.service';
 import {HttpClient} from '@angular/common/http';
 import {JwtService} from './jwt.service';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
 
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
-
+  response: 'String';
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
@@ -60,7 +60,7 @@ export class UserService {
 
   attemptAuth(type, credentials): Observable<User> {
     const route = (type === 'login') ? '/login' : '';
-    //return this.apiService.post('/users' + route, {email: credentials.email, password:credentials.password})
+    // return this.apiService.post('/users' + route, {email: credentials.email, password:credentials.password})
     return this.apiService.post('/users' + route, credentials)
       .pipe(map(
         data => {
@@ -69,6 +69,20 @@ export class UserService {
         }
       ));
   }
+
+
+  resetPwd(): Observable<boolean> {
+    const route = 'forgotpwd';
+    console.log('inside reset pwd');
+    return this.apiService.post('/');
+  }
+
+  generate_new_pwd(credentials): Observable<boolean> {
+    const route = 'forgotpwd';
+    //make post request with email to /users/forgotpwd
+    return this.apiService.post('/users/forgotpwd', credentials);
+  }
+
 
   getCurrentUser(): User {
     return this.currentUserSubject.value;

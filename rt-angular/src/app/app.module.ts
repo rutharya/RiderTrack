@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {LoginModule} from './login/login.module';
 import { HomeModule } from './home/home.module';
 import {Validators, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import {
@@ -26,6 +27,8 @@ import {NoAuthGuard} from './login/no-auth-guard.service';
 import {EventsModule} from './events/events.module';
 import { ApiComponent } from './api/api.component';
 import {TrackingModule} from './tracking/tracking.module';
+import {LatestLocationService} from './tracking/latest-location.service';
+
 
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
@@ -56,7 +59,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     rootRouting,
     SharedModule,
     TrackingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,
@@ -64,7 +68,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     JwtService,
     UserService,
     StatisticsService,
-    EventsService
+    EventsService,
+    LatestLocationService
   ],
   bootstrap: [AppComponent]
 })
