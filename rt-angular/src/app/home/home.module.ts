@@ -18,6 +18,7 @@ import { ProfileSummaryComponent } from './dashboard/profile-summary/profile-sum
 import { RiderEventsComponent } from './rider-events/rider-events.component';
 import { LastrunSummaryComponent } from './dashboard/lastrun-summary/lastrun-summary.component';
 import { MystatsSummaryComponent } from './dashboard/mystats-summary/mystats-summary.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
 // import {Validators} from "@angular/forms";
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
@@ -40,6 +41,7 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
       {path: '', redirectTo: 'dashboard', canActivate: [AuthGuardService], pathMatch: 'full'},
       { path: 'dashboard' , canActivate: [AuthGuardService], component: DashboardComponent},
       {path: 'riderEvents' ,canActivate: [AuthGuardService],component:RiderEventsComponent},
+      {path: 'adminEvents' ,canActivate: [AuthGuardService],component:AdminEventsComponent},
       {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent}]
   }
 ]);
@@ -59,7 +61,8 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     ProfileSummaryComponent,
     RiderEventsComponent,
     LastrunSummaryComponent,
-    MystatsSummaryComponent
+    MystatsSummaryComponent,
+    AdminEventsComponent
   ],
   providers: [
     HomeAuthResolver
