@@ -27,7 +27,29 @@ var activitySchema = new Schema({
     currentRace: [{
         type: String
         //TODO: extract the GPS co-ordinates from GPS_Stats in the middleware
-    }]
+    }],
+     // Flag indicating the race completion status
+    completed:{
+        type:Boolean,
+        default: false
+    },
+
+    // Race Statistics compiled after race completion
+    racestats:{
+        averagespeed: {
+            type: Number,
+            min:0,
+            max: 100
+        },
+        maxspeed: {
+            type: Number,
+            min: 0,
+            max: 100
+        },
+        totaldistance: Number,
+        elevationgain: Number,
+        maxelevationgain: Number,
+    }
 });
 
 var UserParticipation = mongoose.model('Activity', activitySchema);
