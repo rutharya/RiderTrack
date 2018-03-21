@@ -62,7 +62,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
           if(typeof req.body.alt !== 'undefined'){
             user_gps_data.altitude = req.body.alt;
           }if(typeof req.body.distLeft !== 'undefined'){
-            user_gps_data.speed = req.body.distLeft;
+            user_gps_data.distLeft = req.body.distLeft;
           }
           if(activity === null){ //db returns null when it doesnt find any data.
             console.log('activity is null');
