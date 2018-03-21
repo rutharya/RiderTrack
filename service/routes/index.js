@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.use('/users', require('./users'));
+router.use('/tracking/',require('./savemyloc'));
 
 
 // //ruthar: route working - gets a user given the jwt token in header

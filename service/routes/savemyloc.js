@@ -27,7 +27,7 @@ router.get('/test', auth.required, function(req, res, next) {
 })
 
 
-router.post('/',auth.required,function(req,res,next){
+router.post('/saveloc',auth.required,function(req,res,next){
     var appuser;
     var now = Date.now();
     var event_id = new mongoose.Types.ObjectId(req.body.eventid);
@@ -52,9 +52,18 @@ router.post('/',auth.required,function(req,res,next){
             lat: req.body.lat,
             lng: req.body.lng,
             speed: 0,
-            distLeft: 123,
-            altitude: 234
+            distLeft: 0,
+            altitude: 0
           };
+          //adding capability to for task #95          
+          if(typeof req.body.speed !== 'undefined'){
+            user_gps_data.speed = req.body.speed;
+          }
+          if(typeof req.body.alt !== 'undefined'){
+            user_gps_data.altitude = req.body.alt;
+          }if(typeof req.body.distLeft !== 'undefined'){
+            user_gps_data.speed = req.body.distLeft;
+          }
           if(activity === null){ //db returns null when it doesnt find any data.
             console.log('activity is null');
             //1.1create a new activity and store the data.
