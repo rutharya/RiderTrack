@@ -27,10 +27,6 @@ var activitySchema = new Schema({
     currentRace: [{
         type: String
         //TODO: extract the GPS co-ordinates from GPS_Stats in the middleware
-<<<<<<< HEAD
-    }]
-}, {collection : 'activity'});
-=======
     }],
      // Flag indicating the race completion status
     completed:{
@@ -55,7 +51,6 @@ var activitySchema = new Schema({
         maxelevationgain: Number,
     }
 });
->>>>>>> PPE
 
 var activity = mongoose.model('activity', activitySchema);
 module.exports = activity;

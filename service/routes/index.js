@@ -16,21 +16,8 @@ router.get('/', function (req, res, next) {
     res.render('index');
 });
 
-<<<<<<< HEAD
-//ruthar: route working - gets a user given the jwt token in header
-router.get('/user', auth.required, function (req, res, next) {
-    User.findById(req.payload.id).then(function (user) {
-        if (!user) {
-            return res.sendStatus(401);
-        }
-
-        return res.json({user: user.toAuthJSON()});
-    }).catch(next);
-});
-=======
 router.use('/users', require('./users'));
 
->>>>>>> PPE
 
 // //ruthar: route working - gets a user given the jwt token in header
 // router.get('/user', auth.required, function(req, res, next){
@@ -43,54 +30,6 @@ router.use('/users', require('./users'));
 //
 // router.use(bodyParser.json());
 //ruthar: route to login a user is working.
-<<<<<<< HEAD
-router.post('/users/login', function (req, res, next) {
-    if (!req.body.email) {
-        return res.status(422).json({errors: {email: "can't be blank"}});
-    }
-
-    if (!req.body.password) {
-        return res.status(422).json({errors: {password: "can't be blank"}});
-    }
-    passport.authenticate('local', {session: false}, function (err, user, info) {
-        if (err) {
-            return next(err);
-        }
-
-        if (user) {
-            user.token = user.generateJWT();
-            return res.json({user: user.toAuthJSON()});
-        } else {
-            return res.status(422).json(info);
-        }
-    })(req, res, next);
-});
-
-router.post('/users/login', function(req, res, next){
-  console.log('LOGIN: /user/login');
-  if(!req.body.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
-  }
-
-  if(!req.body.password){
-    return res.status(422).son({errors: {password: "can't be blank"}});
-  }
-  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
-    //onSuccessRedirect:'/dashboard',
-    if(err){ return next(err); }
-
-    if(user){
-      user.token = user.generateJWT();
-      res.set('Authorization','Bearer '+user.token);
-      //return res.redirect('/dashboard2')
-
-      return res.json({user: user.toAuthJSON()});
-    }else {
-      return res.status(422).json(info);
-    }
-  })(req, res, next);
-});
-=======
 // router.post('/users/login', function(req, res, next){
 //   console.log('login attempted: by app');
 //   console.log(req.body);
@@ -140,7 +79,6 @@ router.post('/users/login', function(req, res, next){
 //     }
 //   })(req, res, next);
 // });
->>>>>>> PPE
 router.post('/users/login2', function(req, res, next){
   console.log('LOGIN: /user/login2');
   if(!req.body.email){
@@ -169,23 +107,6 @@ router.post('/users/login2', function(req, res, next){
 
 
 //ruthar: route working - creates a new user.
-<<<<<<< HEAD
-router.post('/users', function (req, res, next) {
-    var user = new User();
-    user.username = req.body.username;
-    user.email = req.body.email;
-    user.setPassword(req.body.password);
-    user.save().then(function () {
-        return res.json({user: user.toAuthJSON()});
-    }).catch(next);
-});
-
-router.post('/auth',
-    passport.authenticate('local', {failureRedirect: '/login'}),
-    function (req, res) {
-        res.redirect('/');
-    });
-=======
 // router.post('/users', function(req, res, next){
 //   console.log(req.body);
 //   var user = new User();
@@ -259,7 +180,6 @@ router.get('/dashboard',function(req,res,next){
 router.get('/dashboard2',auth.required,function(req,res,next){
   res.redirect('/dashboard/'+req.payload.id);
 });
->>>>>>> PPE
 
 router.get('/authsuc', function (req, res, next) {
     res.send('auth successfully completed');
@@ -518,12 +438,6 @@ router.get('/createevent', function (req, res, next) {
 })
 
 
-<<<<<<< HEAD
-router.get('/getAllEvents', events.getAllEvents)
-router.post('/saveEvent', events.saveEvent)
-router.get('/getEventById', events.getEventById)
-router.delete('/deleteEventById', events.deleteEventById)
-=======
 router.get('users/forgotpwd', function(req,res,next){
   res.render('forgotpwd');
 });
@@ -537,7 +451,6 @@ router.get('/getAllEvents',events.getAllEvents)
 router.post('/saveEvent',events.saveEvent)
 router.get('/getEventById',events.getEventById)
 router.delete('/deleteEventById',events.deleteEventById)
->>>>>>> PPE
 
 router.get('/getLastLocation', eventTracking.getLastLocation)
 router.get('/getRiderLocation', eventTracking.getRiderLocation)
