@@ -58,18 +58,45 @@ var RiderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
     }],
-    statistics: {
+      statistics: {
 
-        avgspeed: Number,
         mosrtparticipatedactivity: String,
         participationcount: Number,
-        maxspeed: Number,
-        totaldistance: Number,
-        longestdistance: Number,
-        elevationgain: Number,
-        wincount: Number,
-        movingtime: Number,
-        longestmovingtime: Number
+        avgspeed: {
+            type: Number,
+            min:0,
+            max: 100
+        },
+        maxspeed: {
+            type: Number,
+            min: 0,
+            max: 100
+        },
+        totaldistance: {
+            type: Number,
+            min:0
+        },
+        longestdistance: {
+            type: Number,
+            min:0
+        },
+        elevationgain: {
+            type: Number
+        },
+        maxelevationgain: {
+            type: Number
+        },
+        wincount: {
+            type: Number,
+        },
+        movingtime: {
+            type: Number,
+            min: 0
+        },
+        longestmovingtime: {
+            type: Number,
+            min:0
+        }
 
     },
     hash: String,
