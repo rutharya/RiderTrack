@@ -200,11 +200,8 @@ function repeatPasswordVerify(){
 
 
 // Listener to Sign up form with id: signupform, for event on Submit.
-<<<<<<< HEAD
+
 document.getElementById('signupform').addEventListener('submit', signUpRequest);
-=======
-//document.getElementById('signupform').addEventListener('submit', signUpRequest);
->>>>>>> caching
 console.log('hereagain');
 
 function signUpRequest(e) {
@@ -242,11 +239,8 @@ function signUpRequest(e) {
 
 
 // Listener to log in form with id: login form, for event on Submit.
-<<<<<<< HEAD
 document.getElementById('loginform').addEventListener('submit', loginRequest);
-=======
-//document.getElementById('loginform').addEventListener('submit', loginRequest);
->>>>>>> caching
+
 
 function loginRequest(e) {
 
@@ -283,14 +277,7 @@ function loginRequest(e) {
 // Function to set error fields in case of login failure displaying appropriate warning
 function setLoginWarning(){
     loginerror.innerText = "Email or Password is incorrect. Please try again";
-
-<<<<<<< HEAD
-}Error handling for login/sign up failures
-=======
-}//Error handling for login/sign up failures
->>>>>>> caching
-
-
+}
 // Function to set error fields in case of sign up failure displaying appropriate warning
 function setSignUpWarning(){
     signuperror.innerText = "Rider validation failed: email or username is already taken";

@@ -59,13 +59,51 @@ var RiderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
     }],
-    statistcs: {
-        avgspeed: Number,
-        wins: Number,
-        mostparticipatedactivity: String
+      statistics: {
+
+        mosrtparticipatedactivity: String,
+        participationcount: Number,
+        avgspeed: {
+            type: Number,
+            min:0,
+            max: 100
+        },
+        maxspeed: {
+            type: Number,
+            min: 0,
+            max: 100
+        },
+        totaldistance: {
+            type: Number,
+            min:0
+        },
+        longestdistance: {
+            type: Number,
+            min:0
+        },
+        elevationgain: {
+            type: Number
+        },
+        maxelevationgain: {
+            type: Number
+        },
+        wincount: {
+            type: Number,
+        },
+        movingtime: {
+            type: Number,
+            min: 0
+        },
+        longestmovingtime: {
+            type: Number,
+            min:0
+        }
+
     },
     hash: String,
-    salt: String
+    salt: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 
 });
 
@@ -94,13 +132,28 @@ RiderSchema.methods.generateJWT = function() {
   }, secret);
 };
 
+
 RiderSchema.methods.toAuthJSON = function(){
   return {
     username: this.username,
     email: this.email,
     token: this.generateJWT(),
   };
-};
+}
+
+RiderSchema.methods.userProfile = function(){
+  return {
+    username: this.username,
+    email: this.email,
+    height: this.height,
+    weight: this.weight,
+    gender: this.gender,
+    phoneNo: this.phoneNo,
+    address: this.address,
+  }
+}
+
+
 
 RiderSchema.methods.follow = function(id){
  if(this.following.indexOf(id)===-1){

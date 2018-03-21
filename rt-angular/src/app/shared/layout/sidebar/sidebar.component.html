@@ -1,0 +1,24 @@
+<div class="d-flex align-items-stretch">
+  <div class="sidebar bg-dark">
+    <ul class="list-unstyled">
+      <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
+      <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>
+      <li><a [routerLink]="['./riderEvents']"><i class="fa fa-fw fa-link"></i>Events</a></li>
+      <li><a [routerLink]="['./adminEvents']"><i class="fa fa-fw fa-link"></i>admin-events</a></li>
+      <li>
+        <!--<a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>-->
+        <!--TOOD: implement submenu system?-->
+        <!--<ul id="submenu1" class="list-unstyled collapse">-->
+          <!--<li><a href="#">Dashboard</a></li>-->
+          <!--<li><a href="#">Last Run</a></li>-->
+          <!--<li><a href="#">Summary</a></li>-->
+        <!--</ul>-->
+      </li>
+      <li>
+        <a (click)="onToggleSubmenu($event)" [class.selected]="wasClicked">Last Run</a>
+      </li>
+      <li><a href="#"><i class="fa fa-fw fa-angle-right"></i>Manage Events</a></li>
+      <li><a [routerLink]="['./profile']"><i class="fa fa-fw fa-link"></i>Profile</a></li>
+    </ul>
+  </div>
+  </div>
