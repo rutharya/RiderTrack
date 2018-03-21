@@ -6,13 +6,12 @@ import {TrackingData} from '../shared/models/trackingData';
 
 @Injectable()
 export class LatestLocationService {
+  apiAddress: string;
+  constructor(private http: HttpClient) {
+    this.apiAddress = 'http://localhost:3000/getLastLocation?_id=5a99736c0af19f11a392b665'; //Change the url as required
+  }
 
-  constructor(private http: HttpClient) { }
-
-  getLatestLocation() {
-    //return this._http.get('http://localhost:3000/tracking?id=5a99736c0af19f11a392b665').map((response: Response) => response.json());
-    this.http.get<TrackingData[]>('http://localhost:3000/getLastLocation?_id=5a99736c0af19f11a392b665').subscribe(data => {
-      console.log(data[0].riderid);
-    });
+  getLatestLocation(): Observable<Array<TrackingData>> {
+    return this.http.get<Array<TrackingData>>(this.apiAddress);
   }
 }
