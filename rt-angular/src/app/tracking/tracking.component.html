@@ -54,7 +54,18 @@
           <i class="fa fa-area-chart"></i> Track Location
         </div>
         <div class="card-body">
-          <div id="map" style="width:100%; height:500px; padding:0%"></div>
+          <div id="map" style="width:100%; height:500px; padding:0%">
+            <tr>
+              <td>RiderID</td>
+              <td>Latitude</td>
+              <td>Longitude</td>
+            </tr>
+            <tr *ngFor="let data of locationData$|async">
+              <td>{{data.rider}}</td>
+              <td>{{data.coordinates.lat}}</td>
+              <td>{{data.coordinates.lng}}</td>
+            </tr>
+          </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>

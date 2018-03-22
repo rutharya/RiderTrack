@@ -1,3 +1,24 @@
-<p>
-  rider-events works!
-</p>
+
+  <h3 style="color: dimgrey; text-align: center" >
+  Upcoming Events
+  </h3>
+  <br>
+<div  *ngFor="let event of events" style="background-color: white">
+  <div class="row">
+
+    <div class="col-md-7">
+
+          <img class="img-fluid rounded mb-3 mb-md-0" src="{{event.image}}" style="width:480px;height:220px; margin-left: 200px; align-self: center">
+
+    </div>
+    <div class="col-md-5">
+      <h3><a href="#">{{event.name}}</a></h3>
+      <p>{{event.description}}</p>
+      <p><strong>{{event.date}}</strong></p>
+      <a class="btn btn-primary" href="/tracking">View Event</a>
+      <a class="btn btn-primary" href="" click="addRider(event._id)">Register Event</a>
+
+    </div>
+  </div>
+  <br style="margin: 6px">
+</div>

@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
+import {TrackingData} from '../shared/models/trackingData';
 
 @Injectable()
 export class LatestLocationService {
+  apiAddress: string;
+  constructor(private http: HttpClient) {
+    this.apiAddress = 'http://localhost:3000/getLastLocation?_id=5a99736c0af19f11a392b665'; //Change the url as required
+  }
 
-  constructor(private _http: HttpClient) { }
-
-  getLatestLocation(): Observable<any> {
-    return this._http.get('http://localhost:3000/tracking?id=5a99736c0af19f11a392b665').map(result => result);
+  getLatestLocation(): Observable<Array<TrackingData>> {
+    return this.http.get<Array<TrackingData>>(this.apiAddress);
   }
 }
