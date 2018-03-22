@@ -46,6 +46,8 @@ export class ProfileComponent implements OnInit {
       zipcode: new FormControl()
     });
 
+
+
     this.details.disable();
   }
 
