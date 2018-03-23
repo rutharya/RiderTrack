@@ -4,13 +4,18 @@
   "private": true,
   "scripts": {
     "prestart": "node ./service/scripts/startMessage.js",
-    "start": "npm-run-all --parallel open:src ",
+    "start": "node ./service/bin/www ",
     "dev": "nodemon ./service/bin/www",
     "open:src": "node ./service/bin/www",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
-    "test": "mocha ./service/test"
+    "test": "mocha ./service/test",
+    "postinstall": "ng build ./rt-angular"
+  },
+  "engines": {
+    "node": "9.1.0",
+    "npm": "5.7.1"
   },
   "dependencies": {
     "ajv": "^6.3.0",
@@ -46,6 +51,7 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.7.3",
+    "@angular/compiler-cli": "^5.2.9",
     "chalk": "^2.3.1",
     "localtunnel": "^1.8.3",
     "snyk": "^1.69.7"
