@@ -11,7 +11,7 @@
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
     "test": "mocha ./service/test",
-    "postinstall": "ng build ./rt-angular"
+    "postinstall": "ng build ./rt-angular --env=prod"
   },
   "engines": {
     "node": "9.1.0",

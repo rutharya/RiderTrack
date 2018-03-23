@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "./rt-angular/src",
-      "outDir": "dist",
+      "outDir": "./service/dist",
       "assets": [
         "assets",
         "favicon.ico"
