@@ -18,6 +18,14 @@
     "npm": "5.7.1"
   },
   "dependencies": {
+    "@angular/animations": "^5.2.0",
+    "@angular/common": "^5.2.0",
+    "@angular/compiler": "^5.2.0",
+    "@angular/core": "^5.2.0",
+    "@angular/forms": "^5.2.0",
+    "@angular/http": "^5.2.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/router": "^5.2.0",
     "ajv": "^6.3.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
