@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //app.use(cookieParser());
+app.use(express.static(__dirname + '/dist'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('express-session')({ secret: 'ridertrackapp', resave: true, saveUninitialized: true }));
 
