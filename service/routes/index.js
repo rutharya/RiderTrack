@@ -7,13 +7,13 @@ var bodyParser = require('body-parser');
 var User = require('../models/rider');
 
 //var events = require('./events');
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-
-  // res.render('index', { title: 'Express' });
-  res.render('index');
-});
+//
+// /* GET home page. */
+// router.get('/', function(req, res, next) {
+//
+//   // res.render('index', { title: 'Express' });
+//   res.render('index');
+// });
 
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));

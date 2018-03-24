@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
-import { ListErrorsComponent } from './list-errors.component';
+// import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
@@ -15,12 +15,12 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     HttpClientModule,
     RouterModule
   ],
-  declarations: [ListErrorsComponent,ShowAuthedDirective],
+  declarations: [ShowAuthedDirective],
   exports:[FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    ListErrorsComponent,
+
     RouterModule,
     ShowAuthedDirective]
 })
