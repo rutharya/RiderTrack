@@ -451,7 +451,7 @@ router.post('/users/forgotpwd',function(req,res,next){
 // router.get('/getEventById',events.getEventById)
 // router.delete('/deleteEventById',events.deleteEventById)
 
-router.get('/getLastLocation', eventTracking.getLastLocation)
-router.get('/getRiderLocation', eventTracking.getRiderLocation)
-router.post('/clientGpsStats', eventTracking.clientGpsStats)
+// router.get('/getLastLocation', eventTracking.getLastLocation)
+// router.get('/getRiderLocation', eventTracking.getRiderLocation)
+// router.post('/clientGpsStats', eventTracking.clientGpsStats)
 module.exports = router;
