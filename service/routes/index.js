@@ -6,21 +6,6 @@ var bodyParser = require('body-parser');
 
 var User = require('../models/rider');
 
-<<<<<<< HEAD
-var events = require('./events');
-var eventTracking = require('./eventTracking');
-
-/* GET home page. */
-router.get('/', function (req, res, next) {
-
-    // res.render('index', { title: 'Express' });
-    res.render('index');
-});
-
-router.use('/users', require('./users'));
-router.use('/tracking/',require('./savemyloc'));
-
-=======
 //var events = require('./events');
 //
 // /* GET home page. */
@@ -32,7 +17,6 @@ router.use('/tracking/',require('./savemyloc'));
 
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));
->>>>>>> PPE
 
 // //ruthar: route working - gets a user given the jwt token in header
 // router.get('/user', auth.required, function(req, res, next){
