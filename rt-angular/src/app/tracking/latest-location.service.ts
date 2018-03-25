@@ -21,7 +21,7 @@ export class LatestLocationService {
     return this.http.get<Array<TrackingData>>(this.apiAddress);
   }
 
-  plot(locationData: Observable<Array<TrackingData>>): void {
+  plot(locationData: any): void {
     const myStyle = {
       'color': '#3949AB',
       'weight': 5,
@@ -37,9 +37,9 @@ export class LatestLocationService {
       accessToken: this.apiToken
     }).addTo(map);
 
-    for (const data in locationData) {
-      var marker = L.marker([data.coordinates.lat, data.coordinates.lng], {title:"Rider"}).addTo(map);
-      //marker.bindPopup("<b>Rider "+i+"</b><br>"+locArray[i].rider).openPopup();
+    for (const data of locationData) {
+      const marker = L.marker([data.coordinates.lat, data.coordinates.lng], {title: 'Rider'}).addTo(map);
+      marker.bindPopup('<b>Rider: </b><br>' + data.rider).openPopup();
     }
   }
 }
