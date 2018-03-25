@@ -27,7 +27,7 @@ router.get('/test', auth.required, function(req, res, next) {
 })
 
 
-router.post('/',auth.required,function(req,res,next){
+router.post('/saveloc',auth.required,function(req,res,next){
     var appuser;
     var now = Date.now();
     var event_id = new mongoose.Types.ObjectId(req.body.eventid);
