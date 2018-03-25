@@ -5,8 +5,8 @@
   },
   "apps": [
     {
-      "root": "src",
-      "outDir": "dist",
+      "root": "./rt-angular/src",
+      "outDir": "./service/dist",
       "assets": [
         "assets",
         "favicon.ico"
@@ -36,26 +36,26 @@
   ],
   "e2e": {
     "protractor": {
-      "config": "./protractor.conf.js"
+      "config": "./rt-angular/protractor.conf.js"
     }
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
+      "project": "rt-angular/src/tsconfig.app.json",
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "src/tsconfig.spec.json",
+      "project": "rt-angular/src/tsconfig.spec.json",
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "e2e/tsconfig.e2e.json",
+      "project": "rt-angular/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
     }
   ],
   "test": {
     "karma": {
-      "config": "./karma.conf.js"
+      "config": "./rt-angular/karma.conf.js"
     }
   },
   "defaults": {

@@ -6,17 +6,17 @@ var bodyParser = require('body-parser');
 
 var User = require('../models/rider');
 
-var events = require('./events');
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-
-  // res.render('index', { title: 'Express' });
-  res.render('index');
-});
+//var events = require('./events');
+//
+// /* GET home page. */
+// router.get('/', function(req, res, next) {
+//
+//   // res.render('index', { title: 'Express' });
+//   res.render('index');
+// });
 
 router.use('/users', require('./users'));
-
+router.use('/events', require('./events'));
 
 // //ruthar: route working - gets a user given the jwt token in header
 // router.get('/user', auth.required, function(req, res, next){
@@ -305,9 +305,9 @@ router.post('/users/forgotpwd',function(req,res,next){
 
 })
 
-router.get('/getAllEvents',events.getAllEvents)
-router.post('/saveEvent',events.saveEvent)
-router.get('/getEventById',events.getEventById)
-router.delete('/deleteEventById',events.deleteEventById)
+// router.get('/getAllEvents',events.getAllEvents)
+// router.post('/saveEvent',events.saveEvent)
+// router.get('/getEventById',events.getEventById)
+// router.delete('/deleteEventById',events.deleteEventById)
 
 module.exports = router;
