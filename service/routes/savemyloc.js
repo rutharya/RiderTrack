@@ -55,7 +55,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
             distLeft: 0,
             altitude: 0
           };
-          //adding capability to for task #95          
+          //adding capability to for task #95
           if(typeof req.body.speed !== 'undefined'){
             user_gps_data.speed = req.body.speed;
           }
