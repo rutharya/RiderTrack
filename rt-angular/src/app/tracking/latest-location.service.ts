@@ -8,10 +8,11 @@ import {TrackingData} from '../shared/models/trackingData';
 export class LatestLocationService {
   apiAddress: string;
   constructor(private http: HttpClient) {
-    this.apiAddress = 'http://localhost:3000/getLastLocation?_id=5a99736c0af19f11a392b665'; //Change the url as required
+    this.apiAddress = 'http://localhost:3000/test/getLastLocation?_id=5a99736c0af19f11a392b665'; //Change the url as required
   }
 
   getLatestLocation(): Observable<Array<TrackingData>> {
     return this.http.get<Array<TrackingData>>(this.apiAddress);
   }
+
 }
