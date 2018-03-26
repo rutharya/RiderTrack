@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 var auth = require('../config/auth');
 var Activity = require('../models/activity');
 var Events = require('../models/events');
+var ObjectId = require('mongodb').ObjectId;
 
 var seeder = require('../seed/events-seeder');
 
@@ -64,6 +65,61 @@ router.get('/seedevents',function(req,res,next){
     res.json({'msg':done})
   })
 })
+
+
+
+router.get('/getLastLocation',function(req,res){
+    console.log("In getLastLocation");
+    var arrayLastLocation = [];
+    /*var eventId;
+    var eventLength;
+    var i;
+    console.log(req.query._id);
+    query = Events.find({"_id": req.query._id});
+    //console.log(query);
+    query.exec(function (err, events) {
+        if (err) return handleError(err);
+        console.log("AAA"+events);
+        for(i=0; i<events[0].eventRiders.length; ++i){
+            eventLength = events[0].eventRiders.length;
+            console.log()
+            query2 = Activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())});
+            query2.exec(function (err, activity) {
+                console.log("executing 2nd query");
+                console.log(activity);
+                if (err) return handleError(err);
+                arrayLastLocation.push({"rider": activity[0].riderid, "coordinates": activity[0].latestcoordinates});
+                if(arrayLastLocation.length === eventLength){
+                    res.send(arrayLastLocation);
+                }
+            });
+        }
+    });*/
+    var latestcoordinates = {"lat": 90.8, "lng": 70.8};
+    arrayLastLocation.push({"rider": "5a9973e10af19f11a392b666", "coordinates": latestcoordinates});
+    res.send(arrayLastLocation);
+});
+
+router.get('/getRiderLocation',function(req,res){
+    console.log("In getRiderLocation");
+    var i;
+    var arrayRiderLocation = [];
+
+    query = Activity.find({"eventid": req.headers.eventid, "riderid": req.headers.riderid})
+    query.exec(function (err, activity) {
+        if (err) return handleError(err);
+        // console.log(activity);
+        console.log(activity[0].gps_stats)
+        for(i=0; i<activity[0].gps_stats.length; ++i){
+
+            arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng, "timestamp":activity[0].gps_stats[i].timestamp});
+            if(arrayRiderLocation.length === activity[0].gps_stats.length){
+                res.send(arrayRiderLocation);
+            }
+        }
+
+    });
+});
 
 
 module.exports = router;
