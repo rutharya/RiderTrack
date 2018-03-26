@@ -17,6 +17,7 @@ var User = require('../models/rider');
 
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));
+router.use('/activities', require('./activity'));
 
 // //ruthar: route working - gets a user given the jwt token in header
 // router.get('/user', auth.required, function(req, res, next){
