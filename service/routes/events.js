@@ -1,4 +1,5 @@
 var Event = require('../models/events'); //mongoose data model.
+var Rider = require('../models/rider');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -69,6 +70,36 @@ router.get('/getEventById', function (req, res) {
         res.send(events)
     })
 })
+
+
+router.get('/getRegisteredEvents', auth.required, function (req, res) {
+    console.log("In functions")
+   // query = Rider.find({"_id":  "5ab81ebc4dc05739f18791e3" }) //userId:      "5ab81ebc4dc05739f18791e3"
+    query = Rider.find({"_id":  req.payload.id })
+    console.log( req.payload.id)
+    query.exec(function (err, rider) {
+        if (err) return handleError(err);
+        var result = {}
+        var key = "events"
+        result[key] = []
+        var regEvents = rider[0].registeredEvents
+        var len = 0
+        for(var i = 0; i< regEvents.length; i++){
+            query = Event.find({"_id": regEvents[i]})
+            query.exec(function(err, events){
+                if(err) return handleError(err);
+                len++;
+                result[key].push(events[0])  // pushing the values to an object
+                if(len === regEvents.length){
+                    res.send(result)
+                }
+            })
+        }
+    })
+})
+
+
+
 
 
 // exports.saveEvent = function(req,res){
