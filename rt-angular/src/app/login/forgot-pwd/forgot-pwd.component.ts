@@ -11,13 +11,13 @@ import {UserService} from "../../shared/services";
 export class ForgotPwdComponent implements OnInit {
 
   page_title: String = '';
-  authForm: FormGroup;
+  forgotPwdForm: FormGroup;
   isSubmitting = false;
   errors: Errors = {errors: {}};
 
   constructor(private userService: UserService,
               private fb: FormBuilder) {
-    this.authForm = this.fb.group({
+    this.forgotPwdForm = this.fb.group({
       'email': ['', Validators.required],
     });
   }
@@ -32,7 +32,7 @@ export class ForgotPwdComponent implements OnInit {
     this.isSubmitting = true;
     this.errors = {errors: {}};
     console.log("SUBMITTING FORM");
-    const credentials = this.authForm.value;
+    const credentials = this.forgotPwdForm.value;
     console.log(credentials);
     //TODO: (ruthar) BUG - not sure why this is not submitting the form.
     this.userService.generate_new_pwd(credentials);
