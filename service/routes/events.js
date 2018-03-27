@@ -1,11 +1,13 @@
 var Event = require('../models/events'); //mongoose data model.
 var Rider = require('../models/rider');
+var Activity = require('../models/activity');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var passport = require('passport');
 var auth = require('../config/auth');
 var bodyParser = require('body-parser');
+
 
 
 router.get('/getAllEvents', function (req, res) {
@@ -97,6 +99,71 @@ router.get('/getRegisteredEvents', auth.required, function (req, res) {
         }
     })
 })
+
+router.post('/addRiderToEvent', auth.required, function(req,res){
+    console.log("In addRiderToEvent");
+    var status = 200
+    var registered = "alreadyRegistered"; //Not required to register ,, already registered
+    var obj = new Activity({eventid : req.body.eventid, riderid : req.payload.id})
+    query = Event.find({"_id":req.body.eventid},{"eventRiders":1})
+    query.exec(function (err, res1) {
+        if (err) return handleError(err);
+        if(res1[0].eventRiders.indexOf(req.payload.id)<0){
+
+            var user_activity = new Activity({
+                eventid: req.body.eventid,
+                riderid: req.payload.id
+            });
+            user_activity.save(function(err,result){
+                if(err){res.render('error',{message:err});}
+
+            });
+            query = Event.update({
+                "_id": req.body.eventid
+            }, {
+                $push: {
+                    "eventRiders":  req.payload.id
+
+                }
+            })
+            query.exec(function(err,result){
+                if (err) return handleError(err);
+
+
+            })
+
+            query = Rider.update({
+                "_id": req.payload.id
+            }, {
+                $push: {
+                    "registeredEvents":  req.body.eventid
+
+                }
+            })
+
+            query.exec(function(err,result){
+                if (err) return handleError(err);
+
+            })
+
+            query = Rider.update(
+                { _id : req.payload.id },
+                { $inc: { "statistics.participationcount" : 1} }
+            )
+
+            query.exec(function(err,result){
+                if (err) return handleError(err);
+
+            })
+
+            registered = "newRegistration"
+            status = 201 //Now registered
+        }
+        res.status(status).json({result: registered});
+    });
+
+
+});
 
 
 
