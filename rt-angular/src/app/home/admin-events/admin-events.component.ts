@@ -9,16 +9,17 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class AdminEventsComponent implements OnInit {
 
   createEventForm: FormGroup;
+
   constructor(private fb: FormBuilder) {
     this.createEventForm = this.fb.group({
-      'name': ['', Validators.required],
-      'description': ['', Validators.required],
-      'image': ['', Validators.required],
-      'location': ['', Validators.required],
-      'eventDate': ['', Validators.required],
-      'startTime': ['', Validators.required],
-      'endTime': ['', Validators.required],
-      'fileTrack': ['', Validators.required]
+      'event_name': ['', Validators.required],
+      'event_description': ['', Validators.required],
+      'event_img': ['', Validators.required],
+      'event_location': ['', Validators.required],
+      'event_date': ['', Validators.required],
+      'event_start_time': ['', Validators.required],
+      'event_end_time': ['', Validators.required],
+      'event_track': ['']
     });
   }
 
