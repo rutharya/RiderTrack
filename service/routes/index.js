@@ -6,11 +6,9 @@ var bodyParser = require('body-parser');
 
 var User = require('../models/rider');
 
-//var events = require('./events');
-//
 // /* GET home page. */
+//HOME ROUTE COMMENTED OUT because We are serving Angular code from /dist.
 // router.get('/', function(req, res, next) {
-//
 //   // res.render('index', { title: 'Express' });
 //   res.render('index');
 // });
@@ -18,136 +16,6 @@ var User = require('../models/rider');
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));
 router.use('/activities', require('./activity'));
-
-// //ruthar: route working - gets a user given the jwt token in header
-// router.get('/user', auth.required, function(req, res, next){
-//   User.findById(req.payload.id).then(function(user){
-//     if(!user){ return res.sendStatus(401); }
-//
-//     return res.json({user: user.toAuthJSON()});
-//   }).catch(next);
-// });
-//
-// router.use(bodyParser.json());
-//ruthar: route to login a user is working.
-// router.post('/users/login', function(req, res, next){
-//   console.log('login attempted: by app');
-//   console.log(req.body);
-//
-//   if(!req.body.email){
-//     return res.status(422).json({errors: {email: "can't be blank"}});
-//   }
-//
-//   if(!req.body.password){
-//     return res.status(422).json({errors: {password: "can't be blank"}});
-//   }
-//   passport.authenticate('local', {session: false}, function(err, user, info){
-//     if(err){ return next(err); }
-//     if (!user) return done(null, false, { message: 'Incorrect username.' });
-//     if(user){
-//       user.token = user.generateJWT();
-//       return res.json({user: user.toAuthJSON()});
-//     } else {
-//       return res.status(422).json(info);
-//     }
-//   })(req, res, next);
-// });
-
-// router.post('/users/login', function(req, res, next){
-//   console.log('LOGIN: /user/login');
-//   console.log(req.body);
-//   console.log(req.user);
-//   if(!req.body.email){
-//     return res.status(422).json({errors: {email: "can't be blank"}});
-//   }
-//
-//   if(!req.body.password){
-//     return res.status(422).son({errors: {password: "can't be blank"}});
-//   }
-//   passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
-//     //onSuccessRedirect:'/dashboard',
-//     if(err){ return next(err); }
-//
-//     if(user){
-//       user.token = user.generateJWT();
-//       res.set('Authorization','Bearer '+user.token);
-//       //return res.redirect('/dashboard2')
-//
-//       return res.json({user: user.toAuthJSON()});
-//     }else {
-//       return res.status(422).json(info);
-//     }
-//   })(req, res, next);
-// });
-router.post('/users/login2', function(req, res, next){
-  console.log('LOGIN: /user/login2');
-  if(!req.body.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
-  }
-
-  if(!req.body.password){
-    return res.status(422).son({errors: {password: "can't be blank"}});
-  }
-  passport.authenticate('local', {failureRedirect:'/login',session: false}, function(err, user, info){
-    //onSuccessRedirect:'/dashboard',
-    if(err){ return next(err); }
-
-    if(user){
-      user.token = user.generateJWT();
-      res.set('Authorization','Bearer '+user.token);
-      //return res.redirect('/dashboard2')
-
-      return res.redirect('/dashboard/'+user.id);
-    }else {
-      return res.status(422).json(info);
-    }
-  })(req, res, next);
-});
-
-
-
-//ruthar: route working - creates a new user.
-// router.post('/users', function(req, res, next){
-//   console.log(req.body);
-//   var user = new User();
-//   user.username = req.body.username;
-//   user.email = req.body.email;
-//   user.setPassword(req.body.password);
-//   user.save().then(function(){
-//     return res.json({user: user.toAuthJSON()});
-//   }).catch(next);
-// });
-
-router.post('/auth',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
-
-router.get('/asdf',auth.required,function(req,res,next){
-    var result = {};
-    result.asfd = "asdfaasdfa";
-    res.send(result);
-});
-
-router.get('/statistics',auth.required,function(req,res,next){
-  var data = {};
-  data.temp_max = 24;
-  data.temp_min = 5;
-  var main = {};
-  main.dt = 1520538960;
-  main.main = data;
-  res.send(main);
-  // res.json({
-  //   'main':{
-  //     'temp_max':24,
-  //     'temp_min':5
-  //   },
-  //   'dt':1520538960
-  // })
-});
-
 
 // To be used in the dashboard page depicting user overall statistics
 router.get('/userstatistics', auth.required, function(req,res,next){
@@ -160,21 +28,7 @@ router.get('/userstatistics', auth.required, function(req,res,next){
 
 router.get('/dashboard',function(req,res,next){
  res.render('dashboard');
-     // User.findById(req.session.userId)
-     //     .exec(function (error, user) {
-     //         if (error) {
-     //             return next(error);
-     //         } else {
-     //             if (user === null) {
-     //                 var err = new Error('Not authorized! Go back!');
-     //                 err.status = 400;
-     //                 return next(err);
-     //             } else {
-     //                 return res.send('<h1>Name: </h1>' + user.firstName + user.lastName + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
-     //             }
-     //         }
-     //    });
-  })
+})
 
 
 router.get('/dashboard2',auth.required,function(req,res,next){
@@ -296,15 +150,6 @@ router.get('/createevent',function(req,res,next){
     res.render('createevent', {title: 'Create Event'});
 })
 
-
-router.get('users/forgotpwd', function(req,res,next){
-  res.render('forgotpwd');
-});
-
-router.post('/users/forgotpwd',function(req,res,next){
-  //
-
-})
 
 // router.get('/getAllEvents',events.getAllEvents)
 // router.post('/saveEvent',events.saveEvent)

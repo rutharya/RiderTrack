@@ -47,7 +47,7 @@ var RiderSchema = new mongoose.Schema({
     gender: String,
     phoneNo: String,
     address: String,
-    pastevents: [{
+    registeredEvents: [{
         // pasteventdate: Date,
         // pasteventlocation: String,
         // movingtime: Date,
