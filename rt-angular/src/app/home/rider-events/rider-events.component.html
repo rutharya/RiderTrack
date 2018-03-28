@@ -15,7 +15,7 @@
       <h3><a href="#">{{event.name}}</a></h3>
       <p>{{event.description}}</p>
       <p><strong>{{event.date}}</strong></p>
-      <a class="btn btn-primary" href="/tracking">View Event</a>
+      <a class="btn btn-primary" [routerLink]="['../detail']">View Event</a>
       <a class="btn btn-primary" href="" click="addRider(event._id)">Register Event</a>
 
     </div>
