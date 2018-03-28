@@ -93,7 +93,9 @@ router.get('/getLastLocation',function(req,res){
             });
         }
     });*/
-    var latestcoordinates = {"lat": 90.8, "lng": 70.8};
+    var latestcoordinates = {"lat": 33.43, "lng": -111.92};
+    arrayLastLocation.push({"rider": "5a9973e10af19f11a392b666", "coordinates": latestcoordinates});
+    latestcoordinates = {"lat": 33.23, "lng": -111.78};
     arrayLastLocation.push({"rider": "5a9973e10af19f11a392b666", "coordinates": latestcoordinates});
     res.send(arrayLastLocation);
 });
