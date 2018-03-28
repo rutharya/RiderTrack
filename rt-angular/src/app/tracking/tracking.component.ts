@@ -13,20 +13,21 @@ import {environment} from '../../environments/environment';
 
 
 export class TrackingComponent implements OnInit {
-  locationData$: Observable<Array<TrackingData>>;
-  apiToken: any;
+
+  locationData$: TrackingData[];
 
   constructor(private latestLocationService: LatestLocationService) {}
 
   ngOnInit() {
-    this.apiToken = environment.MAPBOX_API_KEY;
     this.getLatestLocation();
-    this.latestLocationService.plot(this.locationData$);
-
   }
 
   getLatestLocation(): void {
-    this.locationData$ = this.latestLocationService.getLatestLocation();
+    //this.locationData$ = this.latestLocationService.getLatestLocation();
+    this.latestLocationService.getLatestLocation().subscribe(locationData => {
+      this.locationData$ = locationData;
+      this.latestLocationService.plot(this.locationData$);
+    });
   }
 
 }
