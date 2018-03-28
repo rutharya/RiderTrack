@@ -25,7 +25,7 @@
       </fieldset>
       <fieldset class="form-group">
         <label for="eventDate">Event Date</label>
-        <input formControlName="event_date" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control" id="eventDate" value="Enter the event Date" required>
+        <input formControlName="event_date" type="date" class="form-control" id="eventDate" value="Enter the event Date" required>
       </fieldset>
       <fieldset class="form-group">
         <label for="startTime">Event Start Time</label>
@@ -40,12 +40,12 @@
       <fieldset class="form-group">
         <label for="image">Event Image</label>
         <input formControlName="event_img" type="file" class="form-control" id="image"
-               accept="image/*" placeholder="Drag Event Image" required>
+               accept="image/*" #EventImg required>
       </fieldset>
       <fieldset class="form-group">
         <label for="fileTrack">Event Track (Upload a .gpx file)</label>
         <input formControlName="event_track" type="file" class="form-control" id="fileTrack"
-               accept=".gpx" placeholder="Drag Event Image" required>
+               accept=".gpx" #EventTrc required>
       </fieldset>
 
       <button type="submit" class="btn btn-primary" >Create</button>
