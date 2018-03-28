@@ -34,19 +34,8 @@ export class ForgotPwdComponent implements OnInit {
     console.log("SUBMITTING FORM");
     const credentials = this.forgotPwdForm.value;
     console.log(credentials);
-    //TODO: (ruthar) BUG - not sure why this is not submitting the form.
-    this.userService.generate_new_pwd(credentials);
+    //TODO: add success message on angular front end to show that password reset email has been sent.
+    this.userService.generate_new_pwd(credentials).subscribe();
   }
-  //   this.userService
-  //     .attemptAuth(this.authType, credentials)
-  //     .subscribe(
-  //       data => this.router.navigateByUrl('/home'),//redirecting user to their home page.
-  //       err => {
-  //         this.errors = err;
-  //         this.isSubmitting = false;
-  //       }
-  //     );
-  // }
-
 
 }
