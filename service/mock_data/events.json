@@ -13,7 +13,16 @@
         "difficulty": "Beginner"
       },
       "eventRiders": [],
-      "raceWinners": []
+      "raceWinners": [],
+      "statusOfRace":"",
+      "startLocation":{
+        "lat":12.239,
+        "lng":23.244
+      },
+      "endLocation":{
+        "lat":23.344,
+        "lng":11.324
+      }
     },
     {
         "name": "ASU Tempe Trekking",
@@ -29,7 +38,15 @@
           "difficulty": "Beginner"
         },
         "eventRiders": [],
-        "raceWinners": []
+        "raceWinners": [],
+        "startLocation":{
+        "lat":12.239,
+        "lng":23.244
+      },
+      "endLocation":{
+        "lat":23.344,
+        "lng":11.324
+      }
       }
   ]
 }
