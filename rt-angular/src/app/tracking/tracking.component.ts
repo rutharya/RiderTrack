@@ -16,13 +16,10 @@ export class TrackingComponent implements OnInit {
 
   locationData$: TrackingData[];
 
-  apiToken: any;
   constructor(private latestLocationService: LatestLocationService) {}
 
   ngOnInit() {
-    this.apiToken = environment.MAPBOX_API_KEY;
     this.getLatestLocation();
-
   }
 
   getLatestLocation(): void {

@@ -9,6 +9,7 @@ import {HttpClient} from '@angular/common/http';
 import {JwtService} from './jwt.service';
 import {Observable} from 'rxjs/Observable';
 
+
 @Injectable()
 export class UserService {
 
@@ -65,6 +66,7 @@ export class UserService {
     return this.apiService.post('/users' + route, credentials)
       .pipe(map(
         data => {
+
           this.setAuth(data.user);
           return data;
         }

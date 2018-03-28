@@ -2,7 +2,7 @@
 dump.rdb
 .DS_Store
 # compiled output
-/dist
+/service/dist
 /dist-server
 /tmp
 /out-tsc
