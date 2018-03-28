@@ -3,13 +3,13 @@ var Schema = mongoose.Schema;
 
 var eventsSchema = new Schema({
 	name: {type:String, required:true},
-    image: {type:String, required:true},
+    image: {type:String},
     description: {type:String,required:true},
     date: {type:Date,required:true},
     location: {type:String, required:true},
     startTime:{type:Date, required:true},
     endTime:{type:Date, required:true},
-    trackFile: {type:String, required:true},
+    trackFile: {type:String},
     track: {
         elevation: Number,
         length: Number,

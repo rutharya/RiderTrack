@@ -54,6 +54,7 @@ export class AdminEventsComponent implements OnInit {
     formData.append('date', createEventValues.event_date);
     formData.append('startTime', createEventValues.event_start_time);
     formData.append('endTime', createEventValues.event_end_time);
+    console.log(formData);
     // formData.append('trackFile', TrackFile, TrackFile.name);
 
     this.eventsService.saveEvent(formData).subscribe(
@@ -61,6 +62,8 @@ export class AdminEventsComponent implements OnInit {
         console.log(data);
       }
     );
+
+
   }
 
 }
