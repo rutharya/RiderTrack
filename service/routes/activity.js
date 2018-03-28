@@ -31,23 +31,31 @@ router.get('/getEventStats',auth.required, function(req, res, next){
                 }
                 selectedactivity = activity;
                 console.log(activity);
-                var gps_data = calculateStats();
 
+                // Check if statistics is already calculated. If the user is clicking the button for the first time or not.
+                if(activity.racestats.totaldistance != null){
 
-                Activity.update(
-                    { "_id": activity._id },
-                    { "$set": { "completed": true , "racestats": gps_data} },
-                    { "multi": false },
-                    function(err,numAffected) {
-                        if (err) {console.log("update failed:"+err); throw err;}
-                        console.log("Inserted succesfully to activity with id:"+activity._id );
-                        res.send(activity);
-                    }
-                );
+                    console.log("Stats already calculated");
+                    return res.json({statistics: activity.racestats});
 
+                }
 
-
-
+                // Event stats are not calculated, hence calculate them.
+                else{
+                    console.log("calculating statistics");
+                    var stats = calculateStats();
+                    activity.racestats = stats;
+                    Activity.update(
+                        { "_id": activity._id },
+                        { "$set": { "completed": true , "racestats": stats} },
+                        { "multi": false },
+                        function(err,numAffected) {
+                            if (err) {console.log("update failed:"+err); throw err;}
+                            console.log("Inserted succesfully to activity with id:"+activity._id );
+                            return res.json({statistics: activity.racestats});
+                        }
+                    );
+                }
 
             });
 
@@ -66,12 +74,17 @@ router.get('/getEventStats',auth.required, function(req, res, next){
 function calculateStats(){
 return{
     averagespeed: 12,
-        maxspeed: 13,
-        totaldistance: 34,
-        elevationgain: 10,
-        maxelevationgain: 100,
-
+    maxspeed: 13,
+    totaldistance: 34,
+    elevationgain: 10,
+    maxelevationgain: 100,
+    eventduration: {
+        timehours: 1,
+        timeminutes: 25,
+        timeseconds: 22
+    }
 }
+
 }
 
 
