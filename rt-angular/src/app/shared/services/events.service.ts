@@ -12,7 +12,11 @@ export class EventsService {
       .map(result => result);
   }
 
-
+  saveEvent (formGroup) {
+    const URL = 'events/save';
+    const res = this._http.post(URL, formGroup).map(result => result);
+    return res;
+  }
   // saveEvent() {
   //   return this._http.post('http://localhost:3000/saveEvent', {})
   // }

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import {RouterModule} from "@angular/router";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
 // import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
@@ -16,7 +16,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     RouterModule
   ],
   declarations: [ShowAuthedDirective],
-  exports:[FormsModule,
+  exports: [FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
