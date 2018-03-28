@@ -22,6 +22,7 @@ export class TrackingComponent implements OnInit {
     this.apiToken = environment.MAPBOX_API_KEY;
     this.getLatestLocation();
     this.latestLocationService.plot(this.locationData$);
+
   }
 
   getLatestLocation(): void {

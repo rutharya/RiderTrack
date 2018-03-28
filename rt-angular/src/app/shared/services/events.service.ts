@@ -8,9 +8,10 @@ export class EventsService {
   constructor(private _http: HttpClient) { }
 
   getEvents() {
-    return this._http.get('http://localhost:3000/getAllEvents')
+    return this._http.get('events/getAllEvents')
       .map(result => result);
   }
+
 
   // saveEvent() {
   //   return this._http.post('http://localhost:3000/saveEvent', {})

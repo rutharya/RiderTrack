@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
 
+
 @Component({
   selector: 'app-rider-events',
   templateUrl: './rider-events.component.html',
@@ -9,7 +10,9 @@ import {EventsService} from '../../shared/services/events.service';
 export class RiderEventsComponent implements OnInit {
   events = null;
   getAllFutEvents = null;
-  constructor(private eventsService: EventsService) { }
+
+  constructor(private eventsService: EventsService) {
+  }
 
   ngOnInit() {
     this.eventsService.getEvents()
@@ -19,7 +22,8 @@ export class RiderEventsComponent implements OnInit {
         this.getFutureEvents(this.getAllFutEvents);
       });
   }
-  getFutureEvents(AllEvents){
+
+  getFutureEvents(AllEvents) {
     const upcomingEvents = [];
     let k = 0;
     const currentDate = new Date();
@@ -41,7 +45,7 @@ export class RiderEventsComponent implements OnInit {
     console.log('Formatting dates, list length: ' + eventsList.length);
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'];
-    eventsList.sort(function(a, b) {
+    eventsList.sort(function (a, b) {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
 
@@ -53,6 +57,24 @@ export class RiderEventsComponent implements OnInit {
     }
   }
 
+
+// addRider (id){
+//
+//   const req = this.http.post('/events/addRiderToEvent', {
+//     body: {
+//       "eventid" : id,
+//     }
+//   })
+//     .subscribe(
+//       res => {
+//         console.log("SUCCESS RESPONSE")
+//         console.log(res);
+//       },
+//       err => {
+//         console.log("Error occured");
+//       }
+//     );
+//   }
 
 
 }

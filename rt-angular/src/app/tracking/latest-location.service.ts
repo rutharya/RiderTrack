@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {TrackingData} from '../shared/models/trackingData';
+
 import {environment} from '../../environments/environment';
 
 declare var omnivore: any;
@@ -21,6 +22,7 @@ export class LatestLocationService {
     return this.http.get<Array<TrackingData>>(this.apiAddress);
   }
 
+
   plot(locationData: any): void {
     const myStyle = {
       'color': '#3949AB',
@@ -36,6 +38,7 @@ export class LatestLocationService {
       id: 'mapbox.streets',
       accessToken: this.apiToken
     }).addTo(map);
+
 
     for (const data of locationData) {
       const marker = L.marker([data.coordinates.lat, data.coordinates.lng], {title: 'Rider'}).addTo(map);

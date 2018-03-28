@@ -131,7 +131,7 @@ router.post('/forgotpwd', function(req, res, next) {
     user.save(function(err) {
       return res.json({result: "OK", status:{msg:"user password resent token written to db", token: user.resetPasswordToken}});
     });
-    mailer('rmarya@asu.edu','GO TO : http://localhost:3000/users/'+user.resetPasswordToken);
+    mailer(user.email,'GO TO : http://localhost:3000/users/'+user.resetPasswordToken);
     console.log('go to :localhost:3000/users/',user.resetPasswordToken);
   });
 })

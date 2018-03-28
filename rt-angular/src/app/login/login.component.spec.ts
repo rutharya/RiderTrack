@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+const {describe, it} = require('mocha')
+const {expect} = require('chai')
+const loginComp = require('login.component');
+
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {

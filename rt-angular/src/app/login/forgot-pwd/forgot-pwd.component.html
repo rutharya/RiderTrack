@@ -12,7 +12,7 @@
         <p class="text-xs-center">
         </p>
         <!--<app-list-errors [errors]="errors"></app-list-errors>-->
-        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+        <form [formGroup]="forgotPwdForm" (ngSubmit)="submitForm()">
             <fieldset class="form-group">
               <input
                 formControlName="email"
@@ -20,7 +20,7 @@
                 class="form-control form-control-lg"
                 type="text" />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
+            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!forgotPwdForm.valid" type="submit">
               retrive password
             </button>
         </form>

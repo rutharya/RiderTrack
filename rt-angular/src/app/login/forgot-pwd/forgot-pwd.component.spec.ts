@@ -19,7 +19,10 @@ describe('ForgotPwdComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should show the page_title', () => {
+    fixture.componentInstance.page_title = 'Hello World' ;
+    fixture.detectChanges();
+    expect(fixture.nativeElement.fname).toEqual('Hello World');
   });
+
 });

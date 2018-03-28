@@ -50,11 +50,20 @@ router.post('/saveloc',auth.required,function(req,res,next){
           var user_gps_data = {
             timestamp: Date.now(),
             lat: req.body.lat,
-            long: req.body.lng,
+            lng: req.body.lng,
             speed: 0,
-            distLeft: 123,
-            altitude: 234
+            distLeft: 0,
+            altitude: 0
           };
+          //adding capability to for task #95
+          if(typeof req.body.speed !== 'undefined'){
+            user_gps_data.speed = req.body.speed;
+          }
+          if(typeof req.body.alt !== 'undefined'){
+            user_gps_data.altitude = req.body.alt;
+          }if(typeof req.body.distLeft !== 'undefined'){
+            user_gps_data.distLeft = req.body.distLeft;
+          }
           if(activity === null){ //db returns null when it doesnt find any data.
             console.log('activity is null');
             //1.1create a new activity and store the data.
@@ -65,7 +74,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                   riderid: req.payload.id,
                   lastestcoordinates:{
                     lat: req.body.lat,
-                    long: req.body.lng
+                    lng: req.body.lng
                   },
                   gps_stats:[user_gps_data],
                   currentRace:null
