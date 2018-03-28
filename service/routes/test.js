@@ -94,45 +94,19 @@ router.get('/getLastLocation',function(req,res){
         }
     });*/
     var latestcoordinates = {"lat": 33.43, "lng": -111.92};
-    arrayLastLocation.push({"rider": "5a9973e10af19f11a392b666", "coordinates": latestcoordinates});
+    arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Rutuja Faldu", "coordinates": latestcoordinates});
     latestcoordinates = {"lat": 33.23, "lng": -111.78};
-    arrayLastLocation.push({"rider": "5a9973e10af19f11a392b666", "coordinates": latestcoordinates});
+    arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Himani Shah", "coordinates": latestcoordinates});
+    latestcoordinates = {"lat": 33.41, "lng": -111.82};
+    arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Tom", "coordinates": latestcoordinates});
+    latestcoordinates = {"lat": 33.21, "lng": -111.87};
+    arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Charlie", "coordinates": latestcoordinates});
     res.send(arrayLastLocation);
 });
 
 
 
-router.get('/getLastLocation',function(req,res){
-    console.log("In getLastLocation");
-    var arrayLastLocation = [];
-    /*var eventId;
-    var eventLength;
-    var i;
-    console.log(req.query._id);
-    query = Events.find({"_id": req.query._id});
-    //console.log(query);
-    query.exec(function (err, events) {
-        if (err) return handleError(err);
-        console.log("AAA"+events);
-        for(i=0; i<events[0].eventRiders.length; ++i){
-            eventLength = events[0].eventRiders.length;
-            console.log()
-            query2 = Activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())});
-            query2.exec(function (err, activity) {
-                console.log("executing 2nd query");
-                console.log(activity);
-                if (err) return handleError(err);
-                arrayLastLocation.push({"rider": activity[0].riderid, "coordinates": activity[0].latestcoordinates});
-                if(arrayLastLocation.length === eventLength){
-                    res.send(arrayLastLocation);
-                }
-            });
-        }
-    });*/
-    var latestcoordinates = {"lat": 90.8, "lng": 70.8};
-    arrayLastLocation.push({"rider": "5a9973e10af19f11a392b666", "coordinates": latestcoordinates});
-    res.send(arrayLastLocation);
-});
+
 
 router.get('/getRiderLocation',function(req,res){
     console.log("In getRiderLocation");

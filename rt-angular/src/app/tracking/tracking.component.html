@@ -40,10 +40,7 @@
           </form>
           <br/>
           <ul>
-            <li><a href="#">Rider 1</a></li>
-            <li><a href="#">Rider 2</a></li>
-            <li><a href="#">Rider 3</a></li>
-            <li><a href="#">Rider 4</a></li>
+            <li *ngFor="let data of locationData$"><a href="#">{{data.riderName}}</a></li>
           </ul>
         </div>
       </div>

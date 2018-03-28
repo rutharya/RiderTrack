@@ -40,7 +40,7 @@ export class LatestLocationService {
 
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
-      iconSize: [38, 65],
+      iconSize: [30, 55],
       iconAnchor: [22, 94],
       popupAnchor: [-3, -76],
       shadowSize: [68, 95],
@@ -50,7 +50,7 @@ export class LatestLocationService {
     for (var data of locationData) {
       console.log(data.coordinates.lat);
       var marker = L.marker([data.coordinates.lat, data.coordinates.lng],{icon: myIcon}).addTo(map);
-      marker.bindPopup('<b>Rider: </b><br>' + data.rider).openPopup();
+      marker.bindPopup('<b>'+ data.riderName +'</b><br>' + 'Lat: '+ data.coordinates.lat + 'Lng: '+ data.coordinates.lng).openPopup();
     }
   }
 }

@@ -1,5 +1,6 @@
 export class TrackingData {
-  rider: string;
+  riderId: string;
+  riderName: string;
   coordinates: Coordinates;
 }
 
