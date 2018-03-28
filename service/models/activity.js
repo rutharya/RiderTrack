@@ -14,12 +14,12 @@ var activitySchema = new Schema({
     },
     latestcoordinates:{
         lat : Number,
-        long : Number
+        lng : Number
     },
     gps_stats:[new Schema({
       timestamp: Date,
       lat : Number,
-      long : Number,
+      lng : Number,
       speed: Number,
       distLeft: Number,
       altitude: Number
@@ -52,5 +52,5 @@ var activitySchema = new Schema({
     }
 });
 
-var UserParticipation = mongoose.model('Activity', activitySchema);
-module.exports = UserParticipation;
+var activity = mongoose.model('activity', activitySchema);
+module.exports = activity;

@@ -27,7 +27,6 @@ var eventsSchema = new Schema({
             ref: 'Rider'
         }
     ],
-
     statusOfRace: String,
     startLocation: {
 	    lat: Number,

@@ -20,6 +20,7 @@ export class TrackingComponent implements OnInit {
      // trackingData => this.trackingDataArray = trackingData);
     //this.latestLocationService.getLatestLocation();
     this.getLatestLocation();
+    this.latestLocationService.plot();
   }
 
   getLatestLocation(): void {
