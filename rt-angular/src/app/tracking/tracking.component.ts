@@ -10,7 +10,7 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./tracking.component.css']
 })
 export class TrackingComponent implements OnInit {
-  locationData$: Observable<Array<TrackingData>>;
+  locationData$: TrackingData[];
 
   constructor(private latestLocationService: LatestLocationService) { }
   //constructor(private http: HttpClient) { }
@@ -20,11 +20,15 @@ export class TrackingComponent implements OnInit {
      // trackingData => this.trackingDataArray = trackingData);
     //this.latestLocationService.getLatestLocation();
     this.getLatestLocation();
-    this.latestLocationService.plot();
+
   }
 
   getLatestLocation(): void {
-    this.locationData$ = this.latestLocationService.getLatestLocation();
+    //this.locationData$ = this.latestLocationService.getLatestLocation();
+    this.latestLocationService.getLatestLocation().subscribe(locationData => {
+      this.locationData$ = locationData;
+      this.latestLocationService.plot(this.locationData$);
+    });
   }
 
 }
