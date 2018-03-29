@@ -75,17 +75,18 @@ router.get('/getEventById', function (req, res) {
 
 
 router.get('/getRegisteredEvents', auth.required, function (req, res) {
-    console.log("In functions")
-   // query = Rider.find({"_id":  "5ab81ebc4dc05739f18791e3" }) //userId:      "5ab81ebc4dc05739f18791e3"
+    console.log("In getRegisteredEvents")
     query = Rider.find({"_id":  req.payload.id })
-    console.log( req.payload.id)
     query.exec(function (err, rider) {
         if (err) return handleError(err);
         var result = {}
-        var key = "events"
+        var key = "registeredEvents"
         result[key] = []
         var regEvents = rider[0].registeredEvents
         var len = 0
+        if(regEvents.length == 0){
+            res.send(result);
+        }
         for(var i = 0; i< regEvents.length; i++){
             query = Event.find({"_id": regEvents[i]})
             query.exec(function(err, events){
@@ -99,6 +100,7 @@ router.get('/getRegisteredEvents', auth.required, function (req, res) {
         }
     })
 })
+
 
 router.post('/addRiderToEvent', auth.required, function(req,res){
     console.log("In addRiderToEvent");
