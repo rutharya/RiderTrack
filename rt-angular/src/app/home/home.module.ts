@@ -20,6 +20,7 @@ import { LastrunSummaryComponent } from './dashboard/lastrun-summary/lastrun-sum
 import { MystatsSummaryComponent } from './dashboard/mystats-summary/mystats-summary.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import {EventDetailComponent} from "./rider-events/event-detail/event-detail.component";
+import { MyEventsComponent } from './my-events/my-events.component';
 // import {Validators} from "@angular/forms";
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
@@ -44,6 +45,7 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
       {path: 'riderEvents' ,canActivate: [AuthGuardService],component:RiderEventsComponent},
       {path: 'adminEvents' ,canActivate: [AuthGuardService],component:AdminEventsComponent},
       {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
+      {path: 'myEvents' ,canActivate: [AuthGuardService],component:MyEventsComponent},
       {path: 'detail', canActivate: [AuthGuardService], component: EventDetailComponent}]
   }
 ]);
@@ -65,6 +67,7 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     LastrunSummaryComponent,
     MystatsSummaryComponent,
     AdminEventsComponent,
+    MyEventsComponent,
     EventDetailComponent
   ],
   providers: [

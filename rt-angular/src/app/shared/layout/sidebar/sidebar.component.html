@@ -17,7 +17,7 @@
       <li>
         <a (click)="onToggleSubmenu($event)" [class.selected]="wasClicked">Last Run</a>
       </li>
-      <li><a href="#"><i class="fa fa-fw fa-angle-right"></i>Manage Events</a></li>
+      <li><a [routerLink]="['./myEvents']"><i class="fa fa-fw fa-angle-right"></i>My Events</a></li>
       <li><a [routerLink]="['./profile']"><i class="fa fa-fw fa-link"></i>Profile</a></li>
     </ul>
   </div>

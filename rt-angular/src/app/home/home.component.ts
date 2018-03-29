@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     //     break;
     //   case 'dashboard_clicked':
     //     this.componentType = 'dashboard';
-    //     console.log('swithc to dashboard');
+    //     console.log('switch to dashboard');
     //     this.router.navigateByUrl('/home');
     //     break;
     //   default: break;
