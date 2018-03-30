@@ -74,10 +74,8 @@ router.get('/getEventStats',auth.required, function(req, res, next){
 function calculateStats(){
 return{
     averagespeed: 12,
-    maxspeed: 13,
     totaldistance: 34,
     elevationgain: 10,
-    maxelevationgain: 100,
     eventduration: {
         timehours: 1,
         timeminutes: 25,
