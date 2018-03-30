@@ -16,13 +16,19 @@ router.get('/me', auth.required, function(req, res, next){
 });
 
 //update profile information of the user.
-router.put('/profile', auth.required, function(req, res, next){
+router.put('/me', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
     // only update fields that were actually passed...
     if(typeof req.body.username !== 'undefined'){
       user.username = req.body.username;
+    }
+    if(typeof req.body.firstName !== 'undefined'){
+      user.firstName = req.body.firstName;
+    }
+    if(typeof req.body.lastName !== 'undefined'){
+      user.lastName = req.body.lastName;
     }
     if(typeof req.body.email !== 'undefined'){
       user.email = req.body.email;
@@ -35,6 +41,9 @@ router.put('/profile', auth.required, function(req, res, next){
     }
     if(typeof req.body.gender !== 'undefined'){
       user.gender = req.body.gender;
+    }
+    if(typeof req.body.bio !== 'undefined'){
+      user.bio = req.body.bio;
     }
     if(typeof req.body.phoneNo !== 'undefined'){
       user.phoneNo = req.body.phoneNo;

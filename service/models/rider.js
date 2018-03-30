@@ -45,6 +45,7 @@ var RiderSchema = new mongoose.Schema({
     height: Number,
     weight: Number,
     gender: String,
+    bio: String,
     phoneNo: String,
     address: String,
     following:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}],
@@ -139,6 +140,14 @@ RiderSchema.methods.toAuthJSON = function(){
   return {
     username: this.username,
     email: this.email,
+    firstName: this.firstName,
+      lastName: this.lastName,
+      height: this.height,
+    weight: this.weight,
+    gender: this.gender,
+    bio: this.bio,
+    phoneNo: this.phoneNo,
+    address: this.address,
     token: this.generateJWT(),
   };
 }
