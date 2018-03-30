@@ -25,7 +25,8 @@
       ],
       "scripts": [
         "../../node_modules/leaflet/dist/leaflet.js",
-        "../../node_modules/leaflet-omnivore/leaflet-omnivore.js"
+        "../../node_modules/leaflet-omnivore/leaflet-omnivore.js",
+        "../../node_modules/toastr/build/toastr.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
