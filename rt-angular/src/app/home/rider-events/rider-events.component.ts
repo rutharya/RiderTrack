@@ -10,6 +10,7 @@ import {EventsService} from '../../shared/services/events.service';
 export class RiderEventsComponent implements OnInit {
   events = null;
   getAllFutEvents = null;
+  regResp = null
 
   constructor(private eventsService: EventsService) {
   }
@@ -58,23 +59,15 @@ export class RiderEventsComponent implements OnInit {
   }
 
 
-// addRider (id){
-//
-//   const req = this.http.post('/events/addRiderToEvent', {
-//     body: {
-//       "eventid" : id,
-//     }
-//   })
-//     .subscribe(
-//       res => {
-//         console.log("SUCCESS RESPONSE")
-//         console.log(res);
-//       },
-//       err => {
-//         console.log("Error occured");
-//       }
-//     );
-//   }
+addRider (id){
+    console.log(id)
+
+  this.eventsService.register(id)
+    .subscribe(res => {
+      this.regResp = res;
+    });
+  console.log(this.regResp)
+  }
 
 
 }
