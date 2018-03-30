@@ -91,12 +91,14 @@ var RiderSchema = new mongoose.Schema({
             type: Number,
         },
         movingtime: {
-            type: Number,
-            min: 0
+            timehours: Number,
+            timeminutes: Number,
+            timeseconds: Number
         },
         longestmovingtime: {
-            type: Number,
-            min:0
+            timehours: Number,
+            timeminutes: Number,
+            timeseconds: Number
         }
 
     },
