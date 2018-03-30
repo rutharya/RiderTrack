@@ -16,24 +16,12 @@ var User = require('../models/rider');
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));
 router.use('/activities', require('./activity'));
+router.use('/profiles',require('./profiles'));
 
 // To be used in the dashboard page depicting user overall statistics
 router.get('/userstatistics', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
-        user.statistics = {
-            mosrtparticipatedactivity: "Marathon",
-            participationcount: 3,
-            avgspeed: 12,
-            maxspeed:13,
-            totaldistance:323,
-            longestdistance: 76,
-            elevationgain: 23,
-            maxelevationgain: 12,
-            wincount:1,
-            movingtime:439,
-            longestmovingtime:180
-        };
         return res.json({statistics: user.statistics});
     }).catch(next);
 });
