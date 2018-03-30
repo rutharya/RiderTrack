@@ -75,7 +75,7 @@ router.get('/getEventById', function (req, res) {
 
 
 router.get('/getRegisteredEvents', auth.required, function (req, res) {
-    console.log("In getRegisteredEvents")
+    console.log("In getRegisteredEvents for: " + req.payload.id)
     query = Rider.find({"_id":  req.payload.id })
     query.exec(function (err, rider) {
         if (err) return handleError(err);
