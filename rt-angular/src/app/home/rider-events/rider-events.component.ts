@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
-
+import {Router, NavigationExtras} from "@angular/router";
 
 @Component({
   selector: 'app-rider-events',
@@ -11,7 +11,7 @@ export class RiderEventsComponent implements OnInit {
   events = null;
   getAllFutEvents = null;
 
-  constructor(private eventsService: EventsService) {
+  constructor(private eventsService: EventsService, private router: Router) {
   }
 
   ngOnInit() {
@@ -55,6 +55,16 @@ export class RiderEventsComponent implements OnInit {
       const setDate = monthNames[eventDate.getMonth()] + ' ' + eventDate.getDate() + ' ' + eventDate.getFullYear();
       eventsList[i].date = setDate;
     }
+  }
+
+  getEventInfo(eventObj: any){
+    console.log(eventObj);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "eventName": eventObj.name
+      }
+    };
+    this.router.navigate(['detail']);
   }
 
 

@@ -3,19 +3,19 @@
   Upcoming Events
   </h3>
   <br>
-<div  *ngFor="let event of events" style="background-color: white">
+<div  *ngFor="let event1 of events" style="background-color: white">
   <div class="row">
 
     <div class="col-md-7">
 
-          <img class="img-fluid rounded mb-3 mb-md-0" src="{{event.image}}" style="width:480px;height:220px; margin-left: 200px; align-self: center">
+          <img class="img-fluid rounded mb-3 mb-md-0" src="{{event1.image}}" style="width:480px;height:220px; margin-left: 200px; align-self: center">
 
     </div>
     <div class="col-md-5">
-      <h3><a href="#">{{event.name}}</a></h3>
-      <p>{{event.description}}</p>
-      <p><strong>{{event.date}}</strong></p>
-      <a class="btn btn-primary" [routerLink]="['../detail']">View Event</a>
+      <h3><a href="#">{{event1.name}}</a></h3>
+      <p>{{event1.description}}</p>
+      <p><strong>{{event1.date}}</strong></p>
+      <a class="btn btn-primary" [routerLink]="['../detail',{eventName: event1.name, eventDescription: event1.description}]">View Event</a>
       <a class="btn btn-primary" href="" click="addRider(event._id)">Register Event</a>
 
     </div>
