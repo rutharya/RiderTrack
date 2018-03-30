@@ -44,6 +44,7 @@ router.get('/getEventStats',auth.required, function(req, res, next){
                 else{
                     console.log("calculating statistics");
                     var stats = calculateStats();
+
                     activity.racestats = stats;
                     Activity.update(
                         { "_id": activity._id },
@@ -72,6 +73,16 @@ router.get('/getEventStats',auth.required, function(req, res, next){
 
 
 function calculateStats(){
+
+    // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
+    Activity.aggregate([ { $match: { _id:activity._id }}, {$unwind: "$gps_stats"},
+        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },elevationgain: { $avg: "$gps_stats.altitude" }}} ], function (err,result)                  {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result);
+        //return result.average;
+    });
 return{
     averagespeed: 12,
     totaldistance: 34,
