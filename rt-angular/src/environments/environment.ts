@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  api_url:'http://localhost:3000',
+  api_url: 'http://localhost:3000',
   MAPBOX_API_KEY: 'pk.eyJ1IjoicnV0dWphZmFsZHUiLCJhIjoiY2pmMWo0ZWpsMDBhNTJ3cGRxYW5meXgyaCJ9.xBm2FFUhUjaEUtCVwLJKAw'
 };

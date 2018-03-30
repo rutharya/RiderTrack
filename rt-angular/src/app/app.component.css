@@ -4801,3 +4801,15 @@ td.visible-print {
     display: none !important;
   }
 }
+
+.wrapperFooter {
+  min-height: calc(100vh - 50px);
+}
+/*.pushFooter {*/
+  /*padding: 20px;*/
+  /*padding-bottom: 50px;*/
+/*}*/
+/*.footer {*/
+  /*height: 50px;*/
+  /*margin-top: -50px;*/
+/*}*/

@@ -19,7 +19,7 @@ import { RiderEventsComponent } from './rider-events/rider-events.component';
 import { LastrunSummaryComponent } from './dashboard/lastrun-summary/lastrun-summary.component';
 import { MystatsSummaryComponent } from './dashboard/mystats-summary/mystats-summary.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
-import {EventDetailComponent} from "./rider-events/event-detail/event-detail.component";
+import {EventDetailComponent} from './rider-events/event-detail/event-detail.component';
 import { MyEventsComponent } from './my-events/my-events.component';
 // import {Validators} from "@angular/forms";
 
@@ -42,10 +42,10 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     children: [
       {path: '', redirectTo: 'dashboard', canActivate: [AuthGuardService], pathMatch: 'full'},
       { path: 'dashboard' , canActivate: [AuthGuardService], component: DashboardComponent},
-      {path: 'riderEvents' ,canActivate: [AuthGuardService],component:RiderEventsComponent},
-      {path: 'adminEvents' ,canActivate: [AuthGuardService],component:AdminEventsComponent},
+      {path: 'riderEvents' , canActivate: [AuthGuardService], component: RiderEventsComponent},
+      {path: 'adminEvents' , canActivate: [AuthGuardService], component: AdminEventsComponent},
       {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
-      {path: 'myEvents' ,canActivate: [AuthGuardService],component:MyEventsComponent},
+      {path: 'myEvents' , canActivate: [AuthGuardService], component: MyEventsComponent},
       {path: 'detail', canActivate: [AuthGuardService], component: EventDetailComponent}]
   }
 ]);
