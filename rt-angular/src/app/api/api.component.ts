@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MapService} from '../shared/services/maps.service';
 
 @Component({
   selector: 'app-api',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApiComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _mapService: MapService) { }
 
   ngOnInit() {
+    this._mapService.plotActivity();
   }
 
 }
