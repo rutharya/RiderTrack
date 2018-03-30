@@ -143,6 +143,17 @@ RiderSchema.methods.toAuthJSON = function(){
   };
 }
 
+RiderSchema.methods.toProfileJSON = function(user){
+    return {
+      username: this.username,
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      //TODO: is it a privacy concern to return PII (phone number, ht,wt, and address)
+      following: user ? user.isFollowing(this._id) : false
+    };
+  };
+
 RiderSchema.methods.userProfile = function(){
   return {
     username: this.username,
