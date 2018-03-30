@@ -21,6 +21,7 @@ import { MystatsSummaryComponent } from './dashboard/mystats-summary/mystats-sum
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import {EventDetailComponent} from './rider-events/event-detail/event-detail.component';
 import { MyEventsComponent } from './my-events/my-events.component';
+import {ActivityService} from "../shared/services/activity.service";
 // import {Validators} from "@angular/forms";
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
@@ -71,7 +72,8 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
     EventDetailComponent
   ],
   providers: [
-    HomeAuthResolver
+    HomeAuthResolver,
+    ActivityService
   ]
 })
 export class HomeModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivityService} from "../../../shared/services/activity.service";
 
 @Component({
   selector: 'app-mystats-summary',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mystats-summary.component.css']
 })
 export class MystatsSummaryComponent implements OnInit {
-
-  constructor() { }
+  stats: any;
+  constructor(private activityService: ActivityService) { }
 
   ngOnInit() {
+    this.stats = this.activityService.getStats();
   }
 
 }

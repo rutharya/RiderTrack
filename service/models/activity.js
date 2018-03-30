@@ -41,14 +41,8 @@ var activitySchema = new Schema({
             min:0,
             max: 100
         },
-        maxspeed: {
-            type: Number,
-            min: 0,
-            max: 100
-        },
         totaldistance: Number,
         elevationgain: Number,
-        maxelevationgain: Number,
         eventduration: {
             timehours: Number,
             timeminutes: Number,

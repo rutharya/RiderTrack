@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {User} from '../models';
-import {Api_Response} from "../models/api_response.model";
+import {Api_Response} from '../models/api_response.model';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {ApiService} from './api.service';
@@ -78,12 +78,11 @@ export class UserService {
     const route = '/forgotpwd';
     console.log('inside generate_new_pwd');
     //make post request with email to /users/forgotpwd
-    return this.apiService.post('/users'+route, credentials)
-      .pipe(map(data=>{
-        if(data.result){
+    return this.apiService.post('/users' + route, credentials)
+      .pipe(map(data => {
+        if (data.result) {
           return data;
-        }
-        else{
+        } else {
          console.log('failure');
         }
     }));

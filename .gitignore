@@ -1,7 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 dump.rdb
 .DS_Store
-# compiled output
+# compiled
+/dist
 /service/dist
 /dist-server
 /tmp
