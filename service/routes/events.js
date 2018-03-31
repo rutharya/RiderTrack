@@ -10,18 +10,15 @@ var bodyParser = require('body-parser');
 
 
 
-router.get('/getAllEvents', function (req, res) {
-    console.log("In getAllEvents");
-    query = Event.find({})
-    // query.exec()
-    query.exec(function (err, events) {
-        if (err) return res.status(422).json({errors: {event: "Events not found"}});
-        res.send(events)
+router.get('/',function(req,res){
+    console.log('GET: /events/');
+    Event.find({},function(err,events){
+        res.send(events);
     });
-})
+});
 
 router.post('/save', function (req, res) {
-    console.log('In saveEvent');
+    console.log('POST /events/save');
     //console.log(req.body.name);
     if(!req.body){
         res.render('error',{message:'invalid body'});
@@ -49,7 +46,6 @@ router.post('/save', function (req, res) {
         }
     });
     console.log(event);
-    console.log('asdfasdf')
     event.save(function(err,result){
         console.log(err);
         console.log(result);
@@ -63,150 +59,113 @@ router.post('/save', function (req, res) {
     // });
 })
 
-router.get('/getEventById', function (req, res) {
-    console.log("In getEventById");
-    query = Event.find({"_id": req.headers._id})
-    query.exec(function (err, events) {
-        if (err) return handleError(err);
-        console.log(events)
-        res.send(events)
-    })
-})
-
-
-router.get('/getRegisteredEvents', auth.required, function (req, res) {
-    console.log("In getRegisteredEvents for: " + req.payload.id)
-    query = Rider.find({"_id":  req.payload.id })
-    query.exec(function (err, rider) {
-        if (err) return handleError(err);
-        var result = {}
-        var key = "registeredEvents"
-        result[key] = []
-        var regEvents = rider[0].registeredEvents
-        var len = 0
-        if(regEvents.length == 0){
-            res.send(result);
-        }
-        for(var i = 0; i< regEvents.length; i++){
-            query = Event.find({"_id": regEvents[i]})
-            query.exec(function(err, events){
-                if(err) return handleError(err);
-                len++;
-                result[key].push(events[0])  // pushing the values to an object
-                if(len === regEvents.length){
-                    res.send(result)
-                }
-            })
-        }
-    })
-})
-
-
-router.post('/addRiderToEvent', auth.required, function(req,res){
-    console.log("In addRiderToEvent");
-    var status = 200
-    var registered = "alreadyRegistered"; //Not required to register ,, already registered
-    var obj = new Activity({eventid : req.body.eventid, riderid : req.payload.id})
-    query = Event.find({"_id":req.body.eventid},{"eventRiders":1})
-    query.exec(function (err, res1) {
-        if (err) return handleError(err);
-        if(res1[0].eventRiders.indexOf(req.payload.id)<0){
-
-            var user_activity = new Activity({
-                eventid: req.body.eventid,
-                riderid: req.payload.id
-            });
-            user_activity.save(function(err,result){
-                if(err){res.render('error',{message:err});}
-
-            });
-            query = Event.update({
-                "_id": req.body.eventid
-            }, {
-                $push: {
-                    "eventRiders":  req.payload.id
-
-                }
-            })
-            query.exec(function(err,result){
-                if (err) return handleError(err);
-
-
-            })
-
-            query = Rider.update({
-                "_id": req.payload.id
-            }, {
-                $push: {
-                    "registeredEvents":  req.body.eventid
-
-                }
-            })
-
-            query.exec(function(err,result){
-                if (err) return handleError(err);
-
-            })
-
-            query = Rider.update(
-                { _id : req.payload.id },
-                { $inc: { "statistics.participationcount" : 1} }
-            )
-
-            query.exec(function(err,result){
-                if (err) return handleError(err);
-
-            })
-
-            registered = "newRegistration"
-            status = 201 //Now registered
-        }
-        res.status(status).json({result: registered});
-    });
-
-
+router.get('/register', auth.required, function (req, res,next) {
+    Rider.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        return res.json(user.getRegisteredEvents());
+      }).catch(next);
 });
 
+router.delete('/register',auth.required,function(req,res,next){
+    if(!req.body.eventId || req.body.eventId === ""){
+        return res.status(422).json({
+            errors: {
+              eventId: "can't be blank"
+            }
+          });
+    }
+    console.log('DELETE /events/register');
+    Rider.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        if(user.isParticipant(req.body.eventId)){
+            user.registeredEvents.splice(user.registeredEvents.indexOf(req.body.eventId), 1);
+        }
+        else{
+            return res.status(422).json({
+                Result: false,
+                status: {msg: "user not registered to this event"}
+            });
+        }
+        Event.findOne({_id:req.body.eventId}).then(function(event){
+            if(!event){ return res.status(422).json({
+                Result: false,
+                status: { msg: "event not found. please create event"}
+            })}
+            if(event.eventRiders.indexOf(user._id)>=0){
+                event.eventRiders.splice(event.eventRiders.indexOf(user._id),1); 
+            }else{
+                return res.status(422).json({
+                    Result: false,
+                    status: {msg: "user not registered to this event"}
+                });
+            }
+            event.save(function(err){
+                console.log(err);
+                if(err) return res.status(500).json({Result: false, status: {err: err}});
+                user.save(function(err) {
+                    return res.json({result: "OK", status:{msg:"Successfully un-registered from event"}});
+                  });
+            })
+        })
+        // return res.json(user.getRegisteredEvents());
+      }).catch(next);
 
+})
+router.post('/register',auth.required,function(req,res,next){
+    console.log('here');
+    console.log(req.body);
+    console.log(req.body.eventId);    
+    if(!req.body.eventId || req.body.eventId === ""){
+        return res.status(422).json({
+            errors: {
+              eventId: "can't be blank"
+            }
+          });
+    }
+    Rider.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        //1. if already registered
+        console.log('is participant?')
+        console.log(user.isParticipant(req.body.eventId));
+        if(user.isParticipant(req.body.eventId)){
+            return res.status(200).json({Result:false, satus: {msg: "already registered to event!!"}});
+        }
+        Event.findOne({_id: req.body.eventId}).then(function(event){
+            if(!event){ return res.status(422).json({
+                Results: false,
+                status: { msg: "event not found. please create event"}
+            })}
+            if(event.eventRiders.indexOf(user._id)>=0){
+                //already registered...
+                return res.status(200).json({Result:false, status: { msg: "already registered to event!!1"}})
+            }
+            else{
+                event.eventRiders.push(user._id);
+                user.registeredEvents.push(event._id);
+            }
+            //TODO: (ruthar) this next 3 lines of code will be replaced when all events have startTime and endTime values.
+            var time = new Date();
+            event.startTime = time.getTime();
+            event.endTime= time.getTime();
+            //TODO: replace above 3 lines.
+            event.save(function(err){
+                console.log(err);
+                if(err) return res.status(500).json({Result: false, status: {err: err}});
+                user.save(function(err) {
+                    return res.json({result: "OK", status:{msg:"Successfully registered to event2"}});
+                  });
+            })
+        })
+    }).catch(next);
+});
 
+router.get('/:eventId',function(req,res,next){
+    console.log(req.params.eventId);
+    Event.findOne({_id:req.params.eventId}).then(function(event){
+        if(!event) res.status(404).json({Result:false,status: { msg: "event not found"}});
+        res.send(event);
+    }).catch(next);
+})
 
-
-// exports.saveEvent = function(req,res){
-//
-//   console.log('In saveEvent')
-//   var event = new Event(req.body)
-//
-//   event.save(function(err) {
-//       if (err) return handleError(err);
-//     console.log('User Event saved successfully!');
-//       res.send({"Saved Event ID" : event._id })
-//
-//     });
-// }
-//
-// exports.getEventById = function(req,res){
-//
-// console.log("In getEventById");
-//   query = Event.find({"_id": req.headers._id})
-//   query.exec(function (err, events) {
-//   if (err) return handleError(err);
-//   console.log(events)
-//   res.send(events)
-// })
-// };
-//
-// exports.deleteEventById = function(req,res){
-//
-// console.log("In deleteEventById");
-//   query = Event.find({"_id": req.headers._id}).deleteMany()
-//   query.exec(function (err, events) {
-//   if (err) return handleError(err);
-//   console.log(events)
-//   res.send(events)
-// })
-// };
-//
-//
-//
 
 module.exports = router;

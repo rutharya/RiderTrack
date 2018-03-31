@@ -37,5 +37,9 @@ var eventsSchema = new Schema({
         long: Number
     }
 });
+
+eventsSchema.methods.isParticipant = function(riderId){
+  return this.eventRiders.indexOf(riderId);
+}
 var Event = mongoose.model('Event', eventsSchema);
 module.exports = Event;
