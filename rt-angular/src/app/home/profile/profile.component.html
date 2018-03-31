@@ -5,20 +5,18 @@
 
   <!--<app-list-errors [errors]="errors"></app-list-errors>-->
 
-  <form class="form-group" [formGroup]="details" (ngSubmit)="submitForm()">
-    <fieldset>
-
+  <form class="form-group" [formGroup]="profileForm" (ngSubmit)="submitForm()">
+    <fieldset [disabled]="isSubmitting">
       <div class="container">
-
-        <div class="column">
-          <div class="row">
-            <input class="form-control col-sm-4"
-                   src = "https://pickaface.net/assets/images/slides/slide4.png"
-                   type="image"
-                   placeholder="URL of profile picture"
-                   formControlName="image" />
-          </div>
-        </div>
+        <!--<div class="column">-->
+          <!--<div class="row">-->
+            <!--<input class="form-control col-sm-4"-->
+                   <!--src = "https://pickaface.net/assets/images/slides/slide4.png"-->
+                   <!--type="image"-->
+                   <!--placeholder="URL of profile picture"-->
+                   <!--formControlName="image" />-->
+          <!--</div>-->
+        <!--</div>-->
 
         <div class="column">
           <div class="row">
@@ -27,9 +25,8 @@
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
                        type="text"
-                       placeholder="First Name"
-                       [(ngModel)] = "fname"
-                       formControlName="firstname" />
+                       placeholder="{{currentUser.firstName}}"
+                       formControlName="firstName" />
               </fieldset>
             </div>
 
@@ -38,9 +35,8 @@
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
                        type="text"
-                       placeholder="Last Name"
-                       [(ngModel)] = "lname"
-                       formControlName="lastname" />
+                       placeholder="{{currentUser.lastName}}"
+                       formControlName="lastName" />
               </fieldset>
             </div>
 
@@ -52,8 +48,7 @@
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
                        type="number"
-                       placeholder="Height"
-                       [(ngModel)] = "height"
+                       placeholder="{{currentUser.height}}"
                        formControlName="height" />
               </fieldset>
             </div>
@@ -62,8 +57,7 @@
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
                        type="number"
-                       placeholder="Weight"
-                       [(ngModel)] = "weight"
+                       placeholder="{{currentUser.weight}}"
                        formControlName="weight" />
               </fieldset>
             </div>
@@ -77,9 +71,8 @@
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
                        type="text"
-                       placeholder="Phone Number"
-                       [(ngModel)] = "phonenumber"
-                       formControlName="phonenumber"
+                       placeholder="{{currentUser.phoneNo}}"
+                       formControlName="phoneNo"
                 />
               </fieldset>
             </div>
@@ -88,8 +81,7 @@
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
                        type="email"
-                       placeholder="Email"
-                       [(ngModel)] = "email"
+                       placeholder="{{currentUser.email}}"
                        formControlName="email" />
               </fieldset>
             </div>
@@ -100,58 +92,57 @@
             <div class="col">
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
-                       placeholder="Address"
-                       [(ngModel)] = "address"
+                       placeholder="{{currentUser.address}}"
                        formControlName="address"/>
               </fieldset>
             </div>
 
-            <div class="col">
-              <fieldset class="form-group">
-                <input class="form-control form-control-lg"
-                       placeholder="Address 2"
-                       [(ngModel)] = "address2"
-                       formControlName="address2"/>
-              </fieldset>
-            </div>
+            <!--<div class="col">-->
+              <!--<fieldset class="form-group">-->
+                <!--<input class="form-control form-control-lg"-->
+                       <!--placeholder="Address 2"-->
+                       <!--[(ngModel)] = "address2"-->
+                       <!--formControlName="address2"/>-->
+              <!--</fieldset>-->
+            <!--</div>-->
           </div>
 
-          <div class="row">
+          <!--<div class="row">-->
 
-            <div class="col">
-              <fieldset class="form-group">
-                <input class="form-control form-control-lg"
-                       placeholder="city"
-                       [(ngModel)] = "city"
-                       formControlName="city"/>
-              </fieldset>
-            </div>
+            <!--<div class="col">-->
+              <!--<fieldset class="form-group">-->
+                <!--<input class="form-control form-control-lg"-->
+                       <!--placeholder="{{currentUser.phoneNo}}"-->
+                       <!--[(ngModel)] = "city"-->
+                       <!--formControlName="city"/>-->
+              <!--</fieldset>-->
+            <!--</div>-->
 
-            <div class="col">
-              <fieldset class="form-group">
-                <input class="form-control form-control-lg"
-                       placeholder="state"
-                       [(ngModel)] = "state"
-                       formControlName="state"/>
-              </fieldset>
-            </div>
+            <!--<div class="col">-->
+              <!--<fieldset class="form-group">-->
+                <!--<input class="form-control form-control-lg"-->
+                       <!--placeholder="state"-->
+                       <!--[(ngModel)] = "state"-->
+                       <!--formControlName="state"/>-->
+              <!--</fieldset>-->
+            <!--</div>-->
 
-            <div class="col">
-              <fieldset class="form-group">
-                <input class="form-control form-control-lg"
-                       placeholder="Zipcode"
-                       [(ngModel)] = "zipcode"
-                       formControlName="zipcode"/>
-              </fieldset>
-            </div>
-          </div>
+            <!--<div class="col">-->
+              <!--<fieldset class="form-group">-->
+                <!--<input class="form-control form-control-lg"-->
+                       <!--placeholder="Zipcode"-->
+                       <!--[(ngModel)] = "zipcode"-->
+                       <!--formControlName="zipcode"/>-->
+              <!--</fieldset>-->
+            <!--</div>-->
+          <!--</div>-->
 
 
           <div>
             <fieldset class="form-group">
               <textarea class="form-control form-control-lg"
                         rows="3"
-                        placeholder="Short bio about you"
+                        placeholder="{{currentUser.bio}}"
                         formControlName="bio">
               </textarea>
             </fieldset>
@@ -163,7 +154,6 @@
             <div class="col">
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
-                       [(ngModel)] = "password"
                        type="password"
                        placeholder="New Password"
                        formControlName="password" />
@@ -173,7 +163,6 @@
             <div class="col">
               <fieldset class="form-group">
                 <input class="form-control form-control-lg"
-                       [(ngModel)] = "passwordconf"
                        type="password"
                        placeholder="Confirm Password"
                        formControlName="passwordconf"
@@ -197,16 +186,18 @@
     </fieldset>
   </form>
 
-  <p>Form value: {{ details.value | json }}</p>
-  <p>Form status: {{ details.status | json }}</p>
+  <p>Form value: {{ profileForm.value | json }}</p>
+  <p>Form status: {{ profileForm.status | json }}</p>
+  <p> uSER: {{ user | json }}</p>
+  <p> current user: {{ currentUser | json }}</p>
 
 
   <!-- Line break for logout button -->
   <hr>
-  <button class="btn btn-outline-danger"
-          (click)="enableEdit()">
-    {{this.details.disabled? "Edit Detail" : "Lock Details"}}
-  </button>
+  <!--<button class="btn btn-outline-danger"-->
+          <!--(click)="enableEdit()">-->
+    <!--{{this.profileForm.disabled? "Edit Detail" : "Lock Details"}}-->
+  <!--</button>-->
 </div>
 
 <br>

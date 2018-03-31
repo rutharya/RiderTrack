@@ -3,7 +3,7 @@ import {UserService} from '../../shared/services';
 import {User} from '../../shared/models';
 import {HeaderComponent} from '../../shared/layout';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {matchOtherValidator} from './match-other-validator';
 
 @Component({
@@ -12,71 +12,64 @@ import {matchOtherValidator} from './match-other-validator';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  user: User = {} as User;
+  profileForm: FormGroup;
+  isSubmitting = false;
   currentUser: User;
-  EDL: string;
-  details: FormGroup;
-  fname: string;
-  lname: string;
-  height: number;
-  weight: number;
-  phonenumber: string;
-  email: string;
-  address: string;
-  address2: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  password: string;
-  passwordconf: string;
 
-  constructor(private userService: UserService) {
-    this.details = new FormGroup({});
+  constructor(private userService: UserService, private router: Router,private fb:FormBuilder) {
+    this.profileForm = this.fb.group({
+      username: '',
+      bio: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      height: '',
+      weight: '',
+      phoneNo: '',
+      address: '',
+    });
   }
 
   ngOnInit() {
+    Object.assign(this.user, this.userService.getCurrentUser());
     this.currentUser = this.userService.getCurrentUser();
-    this.EDL = 'Edit';
-    this.details = new FormGroup({
-      image: new FormControl(),
-      firstname: new FormControl(this.fname, [Validators.required]),
-      lastname: new FormControl(this.lname, [Validators.required]),
-      height: new FormControl(this.height, [Validators.required]),
-      weight: new FormControl(this.weight, [Validators.required]),
-      phonenumber: new FormControl(this.phonenumber, [Validators.required, Validators.pattern('[0-9]{10}')]),
-      email: new FormControl(this.email, [Validators.required, Validators.email]),
-      address: new FormControl(this.address, [Validators.required]),
-      address2: new FormControl(),
-      city: new FormControl(this.city, [Validators.required]),
-      state: new FormControl(this.state, [Validators.required]),
-      zipcode: new FormControl(this.zipcode, [Validators.required]),
-      bio: new FormControl(),
-      password: new FormControl(this.password, [Validators.required, Validators.pattern(
-        '^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
-      passwordconf: new FormControl(this.passwordconf, [Validators.required, matchOtherValidator('password')])
-    });
-
-    this.details.disable();
+    // this.EDL = 'Edit';
+    console.log('value of this .user');
+    console.log(this.user);
+    this.profileForm.patchValue(this.user);
   }
 
 
   submitForm() {
     console.log('in submit form');
-    console.log(this.details.get('gender'));
-    console.log(this.details.status);
+    console.log(this.profileForm.get('gender'));
+    console.log(this.profileForm.status);
+
+    this.isSubmitting=true;
+    this.userService
+      .update(this.user)
+      .subscribe(
+        updatedUser => this.router.navigateByUrl('/home/profile'),
+        err => {
+          // this.errors = err;
+          this.isSubmitting = false;
+        }
+      );
 
   }
 
-  enableEdit() {
-
-    if (this.details.enabled) {
-      this.details.disable();
-      this.EDL = 'Lock';
-    } else {
-      this.details.enable();
-      this.EDL = 'Edit';
-    }
-
-  }
+  // enableEdit() {
+  //
+  //   if (this.profileForm.enabled) {
+  //     this.profileForm.disable();
+  //     this.EDL = 'Lock';
+  //   } else {
+  //     this.profileForm.enable();
+  //     this.EDL = 'Edit';
+  //   }
+  //
+  // }
 
 
 }
