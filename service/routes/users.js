@@ -5,6 +5,7 @@ var passport = require('passport');
 var auth = require('../config/auth');
 var bodyParser = require('body-parser');
 var mailer = require('../../tools/sendInvites');
+var os = require("os");
 
 //get the information about the current logged-in user.
 router.get('/', auth.required, function(req, res, next){
@@ -142,8 +143,10 @@ router.post('/forgotpwd', function(req, res, next) {
     user.save(function(err) {
       return res.json({result: "OK", status:{msg:"user password resent token written to db", token: user.resetPasswordToken}});
     });
-    mailer(user.email,'GO TO : http://localhost:3000/users/'+user.resetPasswordToken);
-    console.log('go to :localhost:3000/users/',user.resetPasswordToken);
+
+    mailer(user.email,'GO TO : '+process.env.HOST+'/users/'+user.resetPasswordToken);
+    console.log('GO TO : '+process.env.HOST+'/users/'+user.resetPasswordToken);
+    console.log(os.hostname());
   });
 })
 
