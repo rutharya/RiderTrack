@@ -1,32 +1,37 @@
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Injectable} from '@angular/core';
+import {ApiService} from "./api.service";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class EventsService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private apiService: ApiService) { }
 
   getEvents() {
-    return this._http.get('events/getAllEvents')
+    return this.apiService.get('/events')
       .map(result => result);
   }
 
   saveEvent (formGroup) {
-    const URL = 'events/save';
-    const res = this._http.post(URL, formGroup).map(result => result);
+    const URL = './events';
+    const res = this.apiService.post(URL, formGroup).map(result => result);
     return res;
   }
 
-  register (formGroup) {
-    const body = {"eventid" : formGroup};
-    const URL = 'events/addRiderToEvent';
-    const res = this._http.post(URL, body).map(result => result);
-    return res;
+  register (data):any {
+    console.log(data);
+    var body = {
+      eventId: data
+    };
+    console.log(body);
+    const URL = '/events/register';
+    return this.apiService.post('/events/register', body);
   }
 
   getRegisteredEvents(){
-    return this._http.get('events/getRegisteredEvents')
+    return this.apiService.get('/events/register')
       .map(result => result);
 
   }
