@@ -122,7 +122,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                 activity.gps_stats.push(user_gps_data);
                 }
                 else{
-                  activity.gps_stats =[];
+                  // activity.gps_stats =[];
                   activity.gps_stats.push(user_gps_data);
                 }
                 // gps_data.push(user_gps_data);

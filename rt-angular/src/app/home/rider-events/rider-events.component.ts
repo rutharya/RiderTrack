@@ -70,7 +70,8 @@ export class RiderEventsComponent implements OnInit {
 
 
 addRider (id){
-    console.log(id)
+    console.log('rider id ');
+    console.log(id);
 
   this.eventsService.register(id)
     .subscribe(res => {
