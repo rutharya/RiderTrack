@@ -193,6 +193,25 @@ RiderSchema.methods.getid = function(){
   return user._id;
 }
 
+RiderSchema.methods.getRegisteredEvents = function(){
+    return {
+        registeredEvents: this.registeredEvents
+    }
+}
+
+RiderSchema.methods.isParticipant = function(eventId){
+    console.log('in is participant');
+    console.log(this.registeredEvents);
+    console.log(eventId);
+    console.log(this.registeredEvents.indexOf(eventId));
+    if( this.registeredEvents.indexOf(eventId) >=0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 var Rider = mongoose.model('Rider', RiderSchema);
 
 module.exports = Rider;

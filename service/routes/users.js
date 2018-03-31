@@ -7,16 +7,18 @@ var bodyParser = require('body-parser');
 var mailer = require('../../tools/sendInvites');
 
 //get the information about the current logged-in user.
-router.get('/me', auth.required, function(req, res, next){
+router.get('/', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
-    return res.json({user: user.userProfile()});
+    return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
 
 //update profile information of the user.
-router.put('/me', auth.required, function(req, res, next){
+router.put('/', auth.required, function(req, res, next){
+  console.log('req.body: ');
+  console.log(req.body);
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
