@@ -74,7 +74,7 @@
     "toastr": "^2.1.4",
     "twilio": "^3.14.0",
     "xmlhttprequest": "^1.8.0",
-    "zone.js": "^0.8.20"
+    "zone.js": "^0.8.21"
   },
   "devDependencies": {
     "@angular/cli": "1.7.3",

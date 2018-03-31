@@ -9,7 +9,8 @@ import {EventsService} from '../../shared/services/events.service';
 export class MyEventsComponent implements OnInit {
   regEvents = null;
   formattedEvents = null;
-
+  currentDate = new Date().toISOString();
+  //formatDate = moment(this.currentDate).format('YYYYMMDD');
 
   constructor(private eventsService: EventsService) {
 
@@ -24,17 +25,19 @@ export class MyEventsComponent implements OnInit {
   }
 
   formatEvents(eventsList) {
+    console.log("Current date is " + this.currentDate)
     console.log('Formatting dates, list length: ' + eventsList.length);
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'];
+
     eventsList.sort(function (a, b) {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
 
+
     for (let i = 0; i < eventsList.length; i++) {
       const eventDate = new Date(eventsList[i].date);
-      eventDate.setHours(0, 0, 0, 0);
-      const setDate = monthNames[eventDate.getMonth()] + ' ' + eventDate.getDate() + ' ' + eventDate.getFullYear();
+      const setDate = eventDate.toISOString();
       eventsList[i].date = setDate;
     }
 }
