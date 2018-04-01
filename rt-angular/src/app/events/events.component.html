@@ -22,6 +22,7 @@
 					<p>{{event.description}}</p>
 					<p><strong>{{event.date}}</strong></p>
 					<a class="btn btn-primary" href="/tracking">View Event</a>
+          <a class="btn btn-primary"  (click)="addRider(event._id)" *showAuthed="true">Register Event</a>
 
 				</div>
 

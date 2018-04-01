@@ -142,7 +142,7 @@ router.post('/register',auth.required,function(req,res,next){
         console.log('is participant?')
         console.log(user.isParticipant(req.body.eventId));
         if(user.isParticipant(req.body.eventId)){
-            return res.status(200).json({Result:false, satus: {msg: "already registered to event!!"}});
+            return res.status(200).json({Result:false, status: {msg: "already registered to event!!"}});
         }
         Event.findOne({_id: req.body.eventId}).then(function(event){
             if(!event){ return res.status(422).json({

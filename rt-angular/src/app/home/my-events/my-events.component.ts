@@ -20,7 +20,7 @@ export class MyEventsComponent implements OnInit {
     this.eventsService.getRegisteredEvents()
       .subscribe(res => {
         this.regEvents = res;
-        this.formatEvents(this.regEvents.registeredEvents);
+        this.formatEvents(this.regEvents);
       });
   }
 

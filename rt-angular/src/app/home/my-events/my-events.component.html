@@ -22,7 +22,7 @@ My Registered Events
           <th>Action</th>
         </tr>
         </thead>
-        <tbody *ngFor="let event1 of regEvents.registeredEvents">
+        <tbody *ngFor="let event1 of regEvents">
         <tr>
           <td>{{event1.name}}&nbsp;</td>
           <td>{{event1.date.substring(0, 10)}}</td>
@@ -34,7 +34,6 @@ My Registered Events
         </tbody>
       </table>
     </div>
-
   </div>
 </div>
 <br>

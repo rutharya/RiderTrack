@@ -31,7 +31,7 @@ export class EventsService {
   }
 
   getRegisteredEvents(){
-    return this.apiService.get('/events/register')
+    return this.apiService.get('/events/registered_events')
       .map(result => result);
 
   }
