@@ -66,6 +66,20 @@ router.get('/register', auth.required, function (req, res,next) {
       }).catch(next);
 });
 
+router.get('/registered_events',auth.required,function(req,res,next){
+    Rider.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        var response = [];
+        Event.find({_id: {$in: user.registeredEvents}}, function (err, events) {
+            if (err) {
+              // do error handling
+              return;
+            }
+            return res.send(events);
+        }); 
+      }).catch(next);
+})
+
 router.delete('/register',auth.required,function(req,res,next){
     if(!req.body.eventId || req.body.eventId === ""){
         return res.status(422).json({
