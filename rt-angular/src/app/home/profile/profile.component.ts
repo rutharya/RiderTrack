@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   isSubmitting = false;
   currentUser: User;
 
-  constructor(private userService: UserService, private router: Router,private fb:FormBuilder) {
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
     this.profileForm = this.fb.group({
       username: '',
       bio: '',
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.profileForm.get('gender'));
     console.log(this.profileForm.status);
 
-    this.isSubmitting=true;
+    this.isSubmitting = true;
     this.userService
       .update(this.user)
       .subscribe(

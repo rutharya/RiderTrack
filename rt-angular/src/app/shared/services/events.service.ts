@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Injectable} from '@angular/core';
-import {ApiService} from "./api.service";
+import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
@@ -15,14 +15,15 @@ export class EventsService {
   }
 
   saveEvent (formGroup) {
-    const URL = './events';
+    console.log(formGroup);
+    const URL = '/events/save';
     const res = this.apiService.post(URL, formGroup).map(result => result);
     return res;
   }
 
-  register (data):any {
+  register (data): any {
     console.log(data);
-    var body = {
+    let body = {
       eventId: data
     };
     console.log(body);
@@ -30,7 +31,7 @@ export class EventsService {
     return this.apiService.post('/events/register', body);
   }
 
-  getRegisteredEvents(){
+  getRegisteredEvents() {
     return this.apiService.get('/events/registered_events')
       .map(result => result);
 
