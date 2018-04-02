@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../shared/services/events.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-events',
@@ -14,7 +15,7 @@ export class EventsComponent implements OnInit {
    getAllPastEvents = null;
 
 
-  constructor(private eventsService: EventsService) {
+  constructor(private eventsService: EventsService, private router: Router) {
 
   }
 
@@ -66,6 +67,7 @@ export class EventsComponent implements OnInit {
     this.formatDate(pastEvents);
     this.events = pastEvents;
   }
+
   formatDate(eventsList) {
     // success code
     console.log('Formatting dates, list length: ' + eventsList.length);
@@ -81,6 +83,15 @@ export class EventsComponent implements OnInit {
       const setDate = monthNames[eventDate.getMonth()] + ' ' + eventDate.getDate() + ' ' + eventDate.getFullYear();
       eventsList[i].date = setDate;
     }
+  }
+
+  viewRider(){
+    console.log("Button clicked....");
+    this.router.navigateByUrl('./events/eventTracking').then(nav => {
+      console.log(nav); // true if navigation is successful
+    }, err => {
+      console.log(err) // when there'pps an error
+    });
   }
 
 }

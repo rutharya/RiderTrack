@@ -5,11 +5,17 @@ import {EventsComponent} from "./events.component";
 import {NoAuthGuard} from "../login/no-auth-guard.service";
 import {ModuleWithProviders} from "@angular/compiler/src/core";
 import {EventsService} from "../shared/services";
+import {AuthGuardService} from "../shared/services/auth-guard.service";
+import {EventTrackingComponent} from "./event-tracking/event-tracking.component";
 
 const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'events',
-    component: EventsComponent
+    component: EventsComponent,
+
+    children: [
+      {path: 'eventTracking' , component: EventTrackingComponent}
+    ]
   }
   // },
   // {
@@ -17,15 +23,18 @@ const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   //   component: LoginComponent,
   //   canActivate: [NoAuthGuard]
   // }
+
 ]);
 
 @NgModule({
   imports: [
     eventsRouting,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   declarations: [
-    EventsComponent
+    EventsComponent,
+    EventTrackingComponent
   ],
 
   providers: [
