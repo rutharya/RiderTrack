@@ -1,63 +1,58 @@
-<div class="settings-page col-lg-12 w-100">
+<fieldset class="container-fluid">
 
   <br>
-  <!-- Breadcrumbs-->
-  <h3 align="center">Create Event</h3>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
 
-  <form class="form-group" [formGroup]="createEventForm" (ngSubmit)="submitForm()">
-    <fieldset [disabled]="isSubmitting">
-      <div class="container">
+        <a href="#">Create Event</a>
+      </li>
+    </ol>
 
-        <div class="col-md-12">
-          <fieldset class="form-group">
-            <label for="name">Event Name</label>
-            <input formControlName="name" type="text" class="form-control" id="name"
-                   placeholder="Enter the event name" required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="description">Event Description</label>
-            <input formControlName="description" type="text" class="form-control" id="description"
-                   placeholder="Enter the event description" required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="location">Event Location</label>
-            <input formControlName="location" type="text" class="form-control" id="location"
-                   placeholder="Enter the event location" required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="eventDate">Event Date</label>
-            <input formControlName="eventDate" type="date" class="form-control" id="eventDate" value="Enter the event Date"
-                   required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="startTime">Event Start Time</label>
-            <input formControlName="startTime" type="time" class="form-control" id="startTime"
-                   placeholder="Enter Event Start Time" required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="endTime">Event End Time</label>
-            <input formControlName="endTime" type="time" class="form-control" id="endTime"
-                   placeholder="Enter Event End Time" required>
-          </fieldset>
-          <!--<fieldset class="form-group">-->
-          <!--<label for="image">Event Image</label>-->
-          <!--<input formControlName="event_img" type="file" class="form-control" id="image"-->
-          <!--accept="image/*" #EventImg>-->
-          <!--</fieldset>-->
-          <!--<fieldset class="form-group">-->
-            <!--<label for="fileTrack">Event Track (Upload a .gpx file)</label>-->
-            <!--<input formControlName="event_track" type="file" class="form-control" id="fileTrack"-->
-                   <!--accept=".gpx" #EventTrc required>-->
-          <!--</fieldset>-->
+    <form class="col-12" [formGroup]="createEventForm" (ngSubmit)="submitForm()">
+      <fieldset class="form-group">
+        <label for="name">Event Name</label>
+        <input formControlName="event_name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder= "Enter the event name" required>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="description">Event Description</label>
+        <input formControlName="event_description" type="text" class="form-control" id="description" placeholder= "Enter the event description" required>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="location">Event Location</label>
+        <input formControlName="event_location" type="text" class="form-control" id="location"
+               placeholder="Enter the event location" required>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="eventDate">Event Date</label>
+        <input formControlName="event_date" type="date" class="form-control" id="eventDate" value="Enter the event Date" required>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="startTime">Event Start Time</label>
+        <input formControlName="event_start_time" type="time" class="form-control" id="startTime"
+               placeholder="Enter Event Start Time" required>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="endTime">Event End Time</label>
+        <input formControlName="event_end_time" type="time" class="form-control" id="endTime"
+               placeholder="Enter Event End Time" required>
+      </fieldset>
+      <!--<fieldset class="form-group">-->
+        <!--<label for="image">Event Image</label>-->
+        <!--<input formControlName="event_img" type="file" class="form-control" id="image"-->
+               <!--accept="image/*" #EventImg>-->
+      <!--</fieldset>-->
+      <!--<fieldset class="form-group">-->
+        <!--<label for="fileTrack">Event Track (Upload a .gpx file)</label>-->
+        <!--<input formControlName="event_track" type="file" class="form-control" id="fileTrack"-->
+               <!--accept=".gpx" #EventTrc required>-->
+      <!--</fieldset>-->
 
-          <button type="submit" class="btn btn-primary">Create</button>
-        </div>
-      </div>
-    </fieldset>
-  </form>
-  <pre>{{createEventForm.value | json}}</pre>
+      <button type="submit" class="btn btn-primary" >Create</button>
+    </form>
+
   <br>
   <br>
-</div>
+</fieldset>
 <br>
 <br><br>

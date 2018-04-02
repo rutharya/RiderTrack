@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventsService} from '../../shared/services/events.service';
-import { AdminEventModel } from '../../shared/models/admin-event.model';
 
 @Component({
   selector: 'app-admin-events',
@@ -12,20 +11,19 @@ import { AdminEventModel } from '../../shared/models/admin-event.model';
 export class AdminEventsComponent implements OnInit {
 
   createEventForm: FormGroup;
-  adminEvent: AdminEventModel = {} as AdminEventModel;
   // @ViewChild('EventImg') EventImg;
-  @ViewChild('EventTrc') EventTrc;
+  // @ViewChild('EventTrc') EventTrc;
   // eventImageFile: File;
-  eventTrackFile: File;
+  // eventTrackFile: File;
   constructor(private fb: FormBuilder, private eventsService: EventsService) {
     this.createEventForm = this.fb.group({
-      'name': ['', Validators.required],
-      'description': ['', Validators.required],
+      'event_name': ['', Validators.required],
+      'event_description': ['', Validators.required],
       // 'event_img': [null],
-      'location': ['', Validators.required],
-      'eventDate': ['', Validators.required],
-      'startTime': ['', Validators.required],
-      'endTime': ['', Validators.required]
+      'event_location': ['', Validators.required],
+      'event_date': ['', Validators.required],
+      'event_start_time': ['', Validators.required],
+      'event_end_time': ['', Validators.required]
       // 'event_track': [null]
     });
   }
@@ -48,20 +46,18 @@ export class AdminEventsComponent implements OnInit {
     // }
     // const TrackFile: File = this.eventTrackFile;
     // console.log(TrackFile);
-    console.log(createEventValues.eventDate);
-    console.log(createEventValues.startTime);
-    // const formData: FormData = new FormData();
-    // formData.append('name', createEventValues.name);
-    // formData.append('description', createEventValues.description);
-    // // formData.append('image', ImageFile, ImageFile.name);
-    // formData.append('location', createEventValues.location);
-    // formData.append('date', createEventValues.eventDate);
-    // formData.append('startTime', createEventValues.startTime);
-    // formData.append('endTime', createEventValues.endTime);
-    // console.log(formData);
-    // // formData.append('trackFile', TrackFile, TrackFile.name);
+    const formData: FormData = new FormData();
+    formData.append('name', createEventValues.event_name);
+    formData.append('description', createEventValues.event_description);
+    // formData.append('image', ImageFile, ImageFile.name);
+    formData.append('location', createEventValues.event_location);
+    formData.append('date', createEventValues.event_date);
+    formData.append('startTime', createEventValues.event_start_time);
+    formData.append('endTime', createEventValues.event_end_time);
+    console.log(formData);
+    // formData.append('trackFile', TrackFile, TrackFile.name);
 
-    this.eventsService.saveEvent(createEventValues).subscribe(
+    this.eventsService.saveEvent(formData).subscribe(
       data => {
         console.log(data);
       }
