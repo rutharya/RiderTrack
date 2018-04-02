@@ -19,7 +19,7 @@ router.get('/',function(req,res){
 
 router.post('/save', function (req, res) {
     console.log('POST /events/save');
-    //console.log(req.body.name);
+    console.log(req.body);
     if(!req.body){
         res.render('error',{message:'invalid body'});
     }
@@ -34,7 +34,7 @@ router.post('/save', function (req, res) {
         name: req.body.name,
         description: req.body.description,
         // image: req.body.image,
-        date: req.body.date,
+        eventDate: req.body.eventDate,
         location: req.body.location,
         startTime: req.body.startTime,
         endTime: req.body.endTime,
