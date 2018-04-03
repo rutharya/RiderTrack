@@ -10,11 +10,21 @@ var Activity = require('../models/activity');
 
 
 
-
-// Method to get event stats
+// Method to get event stats for a rider
 router.get('/getEventStats',auth.required, function(req, res, next){
     console.log("Inside get event stats");
     var riderid, eventid, selectedactivity;
+
+    if(!req.payload){
+        res.render('error',{message:'invalid headers'});
+    }
+    else if(!req.query.eventid){
+        res.render('error',{message:'Missing parameter eventid'});
+    }
+    else if(req.query.eventid === ""){
+        res.render('error',{message:'Event id is blank'});
+    }
+
     User.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
         console.log("Rider selected:"+user._id);
@@ -43,7 +53,8 @@ router.get('/getEventStats',auth.required, function(req, res, next){
                 // Event stats are not calculated, hence calculate them.
                 else{
                     console.log("calculating statistics");
-                    var stats = calculateStats();
+                    var stats = calculateStats(activity._id);
+
 
                     activity.racestats = stats;
                     Activity.update(
@@ -72,11 +83,23 @@ router.get('/getEventStats',auth.required, function(req, res, next){
 });
 
 
-function calculateStats(){
 
+function calculateStats(activityid){
+
+    console.log("Inside calculate stats function");
     // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
-    Activity.aggregate([ { $match: { _id:activity._id }}, {$unwind: "$gps_stats"},
-        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },elevationgain: { $avg: "$gps_stats.altitude" }}} ], function (err,result)                  {
+    Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
+        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },totaldistance: {$max: "$gps_stats.distLeft"},
+                first: { $first: "$gps_stats" },
+                last: { $last: "$gps_stats" },
+                }},
+        { $project: {
+                datediff: {
+                    $subtract: [ "$last.timestamp", "$first.timestamp" ]
+                },
+                averagespeed:1, totaldistance:1, elevationgain: { $subtract: [ "$last.altitude", 0 ]}
+            }}
+        ], function (err,result){
         if (err) {
             console.log(err);
         }
@@ -95,6 +118,7 @@ return{
 }
 
 }
+
 
 
 
