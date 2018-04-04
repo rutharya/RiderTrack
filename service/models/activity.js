@@ -42,12 +42,8 @@ var activitySchema = new Schema({
             max: 100
         },
         totaldistance: Number,
-        elevationgain: Number,
-        eventduration: {
-            timehours: Number,
-            timeminutes: Number,
-            timeseconds: Number
-        }
+        currentelevation: Number,
+        elapsedtime: Number
 
     }
 });
