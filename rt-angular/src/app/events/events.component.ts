@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import { Event } from '../shared/models'
 import {User} from "../shared/models";
 
+
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
@@ -92,7 +93,7 @@ export class EventsComponent implements OnInit {
     for (let i = 0; i < eventsList.length; i++) {
       const eventDate = new Date(eventsList[i].date);
       eventDate.setHours(0, 0, 0, 0);
-      const setDate = monthNames[eventDate.getMonth()] + ' ' + eventDate.getDate() + ' ' + eventDate.getFullYear();
+      const setDate = monthNames[eventDate.getMonth()] + ' ' + (eventDate.getDate()+1) + ' ' + eventDate.getFullYear();
       eventsList[i].date = setDate;
     }
   }

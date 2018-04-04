@@ -42,82 +42,71 @@ router.get('/getEventStats',auth.required, function(req, res, next){
                 selectedactivity = activity;
                 console.log(activity);
 
-                // Check if statistics is already calculated. If the user is clicking the button for the first time or not.
-                if(activity.racestats.totaldistance != null){
-
-                    console.log("Stats already calculated");
-                    return res.json({statistics: activity.racestats});
-
-                }
-
                 // Event stats are not calculated, hence calculate them.
-                else{
+                    var stats = null;
                     console.log("calculating statistics");
-                    var stats = calculateStats(activity._id);
-
-
-                    activity.racestats = stats;
-                    Activity.update(
-                        { "_id": activity._id },
-                        { "$set": { "completed": true , "racestats": stats} },
-                        { "multi": false },
-                        function(err,numAffected) {
-                            if (err) {console.log("update failed:"+err); throw err;}
-                            console.log("Inserted succesfully to activity with id:"+activity._id );
-                            return res.json({statistics: activity.racestats});
+                    //var stats = calculateStats(activity._id);
+                    calculateStats(activity._id, function(result){
+                        for (var prop in result) {
+                            console.log(prop + " = " + result[prop]);
                         }
-                    );
-                }
-
+                       stats =  {
+                            averagespeed: result['averagespeed'],
+                            totaldistance: result['totaldistance'],
+                            elapsedtime: result['elapsedtime'],
+                            currentelevation: result['currentelevation']
+                       }
+                        activity.racestats = stats;
+                        Activity.update(
+                            { "_id": activity._id },
+                            { "$set": { "completed": true , "racestats": stats} },
+                            { "multi": false },
+                            function(err,numAffected) {
+                                if (err) {console.log("update failed:"+err); throw err;}
+                                console.log("Inserted succesfully to activity with id:"+activity._id );
+                                return res.json({statistics: activity.racestats});
+                            }
+                        );
+                    });
             });
-
-
         }).catch(next);
-
-
-
     }).catch(next);
-
-
-
 });
 
 
 
-function calculateStats(activityid){
+
+// Function to calculate Event stats including: average speed, current elevation, distance from start, and elapsed time in terms of milliseconds
+// Output: Average Speed, Current Distance from starting point of race, current altitude, and elapsed time.
+
+function calculateStats(activityid, fn){
 
     console.log("Inside calculate stats function");
     // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
-    Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
-        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },totaldistance: {$max: "$gps_stats.distLeft"},
-                first: { $first: "$gps_stats" },
-                last: { $last: "$gps_stats" },
+
+        Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
+            { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },
+                    first: { $first: "$gps_stats" },
+                    last: { $last: "$gps_stats" },
                 }},
-        { $project: {
-                datediff: {
-                    $subtract: [ "$last.timestamp", "$first.timestamp" ]
-                },
-                averagespeed:1, totaldistance:1, elevationgain: { $subtract: [ "$last.altitude", 0 ]}
-            }}
+            { $project: {
+                    elapsedtime: {
+                        $subtract: [ "$last.timestamp", "$first.timestamp" ]
+                    },
+                    averagespeed:1, totaldistance: {$subtract: ["$last.distLeft",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
+                }}
         ], function (err,result){
-        if (err) {
-            console.log(err);
-        }
-        console.log(result);
-        //return result.average;
-    });
-return{
-    averagespeed: 12,
-    totaldistance: 34,
-    elevationgain: 10,
-    eventduration: {
-        timehours: 1,
-        timeminutes: 25,
-        timeseconds: 22
-    }
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(result[0]);
+                fn(result[0]);
+            }
+
+        });
 }
 
-}
 
 
 

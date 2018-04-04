@@ -51,7 +51,7 @@ ul {
 }
 
 li {
-  line-height: 1.5;
+  line-height: 4;
   font-size: 18px;
   font-family: Helvetica, Verdana, sans-serif;
   border-bottom: 1px solid #ccc;
@@ -80,22 +80,6 @@ li a:hover {
   background: #f6f6f6;
   text-decoration: underline;
   text-decoration-color: #028ac7;
-}
-
-
-input[type=text] {
-  width: 130px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  background-color: white;
-  background-image: url('../../../search.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  padding: 10px 10px 10px 35px;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
 }
 
 input[type=text]:focus {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {TrackingData} from "../../shared/models/trackingData";
+import {LatestLocationService} from "../../tracking/latest-location.service";
 
 @Component({
   selector: 'app-event-tracking',
@@ -9,9 +11,32 @@ import {ActivatedRoute} from "@angular/router";
 
 export class EventTrackingComponent implements OnInit {
 
-  constructor(){ }
+  public eventName: string;
+  public eventDescription: string;
+  public eventDate: string;
+  public eventTime: string;
+  public eventLocation: string;
+
+  locationData$: TrackingData[];
+
+  constructor(private route: ActivatedRoute, private latestLocationService: LatestLocationService){ }
 
   ngOnInit(){
-    console.log('component initialized');
+    this.route.params.subscribe(params => {
+      this.eventName = params["eventName"];
+      this.eventDescription = params["eventDescription"];
+      this.eventDate = params["eventDate"];
+      this.eventLocation = params["eventLocation"];
+      this.eventTime = params["eventTime"];
+    });
+    this.getLatestLocation();
+  }
+
+  getLatestLocation(): void {
+    //this.locationData$ = this.latestLocationService.getLatestLocation();
+    this.latestLocationService.getLatestLocation().subscribe(locationData => {
+      this.locationData$ = locationData;
+      this.latestLocationService.plot(this.locationData$);
+    });
   }
 }
