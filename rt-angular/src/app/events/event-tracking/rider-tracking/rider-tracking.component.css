@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+}
+
+div.container {
+  width: 100%;
+  min-height: 300px;
+  background: white;
+  margin: auto;
+  padding: 10px;
+}
+
+body {
+  margin: 2;
+}
+
+h1, h4, h5{
+  color: white;
+}
+
+.header {
+  min-height:200px;
+  width:100%;
+}
+
+/* Create two columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left1 {
+  width: 25%;
+}
+
+.right1 {
+  width: 75%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  line-height: 1.5;
+  font-size: 18px;
+  font-family: Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 200px;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+li a:hover {
+  font-size: 20px;
+  color: #028ac7;
+  background: #f6f6f6;
+  text-decoration: underline;
+  text-decoration-color: #028ac7;
+}
+
+input[type=text]:focus {
+  width: 100%;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+

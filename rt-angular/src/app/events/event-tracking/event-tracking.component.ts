@@ -22,7 +22,6 @@ export class EventTrackingComponent implements OnInit {
   constructor(private route: ActivatedRoute, private latestLocationService: LatestLocationService){ }
 
   ngOnInit(){
-    console.log('component initialized');
     this.route.params.subscribe(params => {
       this.eventName = params["eventName"];
       this.eventDescription = params["eventDescription"];

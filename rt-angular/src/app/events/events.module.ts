@@ -7,6 +7,7 @@ import {ModuleWithProviders} from "@angular/compiler/src/core";
 import {EventsService} from "../shared/services";
 import {AuthGuardService} from "../shared/services/auth-guard.service";
 import {EventTrackingComponent} from "./event-tracking/event-tracking.component";
+import {RiderTrackingComponent} from "./event-tracking/rider-tracking/rider-tracking.component";
 
 const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -16,6 +17,10 @@ const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'eventTracking',
     component: EventTrackingComponent
+  },
+  {
+    path: 'riderTracking',
+    component: RiderTrackingComponent
   }
   // },
   // {
@@ -34,7 +39,8 @@ const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   ],
   declarations: [
     EventsComponent,
-    EventTrackingComponent
+    EventTrackingComponent,
+    RiderTrackingComponent
   ],
 
   providers: [
