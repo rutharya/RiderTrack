@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../shared/services/events.service';
 import {Router} from "@angular/router";
+import { Event } from '../shared/models'
+import {User} from "../shared/models";
 
 @Component({
   selector: 'app-events',
@@ -10,7 +12,8 @@ import {Router} from "@angular/router";
 
 
 export class EventsComponent implements OnInit {
-   events = null;
+   events: Event[];
+   user: User;
    getAllFutEvents = null;
    getAllPastEvents = null;
 
@@ -20,19 +23,28 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.eventsService.getEvents()
-      .subscribe(res => {
-        this.events = res;
-        this.getAllPastEvents = res;
-        this.getAllFutEvents = res;
-        this.getFutureEvents(this.getAllFutEvents);
-       // this.events = res[0].name;
-      });
+    // this.eventsService.getEvents()
+    //   .subscribe(res => {
+    //     this.events = res;
+    //     this.getAllPastEvents = res;
+    //     this.getAllFutEvents = res;
+    //     this.getFutureEvents(this.getAllFutEvents);
+    //    // this.events = res[0].name;
+    //   });
+    this.eventsService.getEvents().subscribe(res => {
+      this.events = res;
+    })
+  }
+
+  handleThumbnailClick(name){
+    console.log('handle thumbnail click');
+    console.log(name);
   }
 
   getUpcomingEvents() {
     this.getFutureEvents(this.getAllFutEvents);
   }
+
 
   getFutureEvents(AllEvents){
     const upcomingEvents = [];
