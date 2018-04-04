@@ -6,7 +6,7 @@ import {NoAuthGuard} from "../login/no-auth-guard.service";
 import {ModuleWithProviders} from "@angular/compiler/src/core";
 import {EventsService} from "../shared/services";
 import {AuthGuardService} from "../shared/services/auth-guard.service";
-// import {EventTrackingComponent} from "./event-tracking/event-tracking.component";
+import {EventTrackingComponent} from "./event-tracking/event-tracking.component";
 import {RiderTrackingComponent} from "./event-tracking/rider-tracking/rider-tracking.component";
 import {EventThumbnailComponent} from "./event-thumbnail";
 const eventsRouting: ModuleWithProviders = RouterModule.forChild([
@@ -40,11 +40,8 @@ const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   declarations: [
     EventsComponent,
     EventTrackingComponent,
-<<<<<<< HEAD
-    EventThumbnailComponent
-=======
+    EventThumbnailComponent,
     RiderTrackingComponent
->>>>>>> f65cee9efb9643b71e8efab36969b64f777872c7
   ],
 
   providers: [
