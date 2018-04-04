@@ -27,69 +27,45 @@ describe('ProfileComponent', () => {
   });
 
   it('should show the user\'s first  name', () => {
-    fixture.componentInstance.fname = 'Hello World' ;
+    fixture.componentInstance.user.firstName = 'Hello World' ;
     fixture.detectChanges();
     expect(fixture.nativeElement.fname).toEqual('Hello World');
   });
 
   it('should show the user\'s last name', () => {
-    fixture.componentInstance.lname = 'Hello World' ;
+    fixture.componentInstance.user.lastName = 'Hello World' ;
     fixture.detectChanges();
     expect(fixture.nativeElement.lname).toEqual('Hello World');
   });
 
   it('should show the user\'s height', () => {
-    fixture.componentInstance.height = 180 ;
+    fixture.componentInstance.user.height = 180 ;
     fixture.detectChanges();
     expect(fixture.nativeElement.fname).toEqual(180);
   });
 
   it('should show the user\'s weight', () => {
-    fixture.componentInstance.weight = 75 ;
+    fixture.componentInstance.user.weight = 75 ;
     fixture.detectChanges();
     expect(fixture.nativeElement.weight).toEqual(75);
   });
 
   it('should show the user\'s phonenumber', () => {
-    fixture.componentInstance.phonenumber = '0123456789' ;
+    fixture.componentInstance.user.phoneNo = 123456789;
     fixture.detectChanges();
-    expect(fixture.nativeElement.phonenumber).toEqual('0123456789');
+    expect(fixture.nativeElement.phonenumber).toEqual(123456789);
   });
 
   it('should show the user\'s email', () => {
-    fixture.componentInstance.email = 'a@gmail.com' ;
+    fixture.componentInstance.user.email = 'a@gmail.com' ;
     fixture.detectChanges();
     expect(fixture.nativeElement.email).toEqual('a@gmail.com');
   });
 
   it('should show the user\'s address', () => {
-    fixture.componentInstance.address = '123 euni' ;
+    fixture.componentInstance.user.address = '123 euni' ;
     fixture.detectChanges();
     expect(fixture.nativeElement.address).toEqual('123 euni');
-  });
-
-  it('should show the user\'s address2', () => {
-    fixture.componentInstance.fname = 'Hello World' ;
-    fixture.detectChanges();
-    expect(fixture.nativeElement.address2).toEqual('Hello World');
-  });
-
-  it('should show the user\'s city', () => {
-    fixture.componentInstance.city = 'Hello World' ;
-    fixture.detectChanges();
-    expect(fixture.nativeElement.city).toEqual('Hello World');
-  });
-
-  it('should show the user\'s zipcode', () => {
-    fixture.componentInstance.zipcode = 'Hello World' ;
-    fixture.detectChanges();
-    expect(fixture.nativeElement.zipcode).toEqual('Hello World');
-  });
-
-  it('should show the user\'s state', () => {
-    fixture.componentInstance.state = 'Hello World' ;
-    fixture.detectChanges();
-    expect(fixture.nativeElement.state).toEqual('Hello World');
   });
 
  });
