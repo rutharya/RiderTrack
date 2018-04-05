@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
-import {TrackingData} from '../shared/models/trackingData';
-import {environment} from '../../environments/environment';
+import {TrackingData} from '../models/trackingData';
+import {environment} from "../../../environments/environment";
+
 
 declare var omnivore: any;
 declare var L: any;

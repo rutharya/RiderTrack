@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {LatestLocationService} from './latest-location.service';
 import {TrackingData} from '../shared/models/trackingData';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
+import {LatestLocationService} from "../shared/services/latest-location.service";
 
 @Component({
   selector: 'app-tracking',

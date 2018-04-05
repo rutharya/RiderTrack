@@ -8,6 +8,7 @@ import {EventsService} from "../shared/services";
 import {AuthGuardService} from "../shared/services/auth-guard.service";
 import {EventTrackingComponent} from "./event-tracking/event-tracking.component";
 import {RiderTrackingComponent} from "./event-tracking/rider-tracking/rider-tracking.component";
+import {EventThumbnailComponent} from "./event-thumbnail";
 
 const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -40,6 +41,7 @@ const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   declarations: [
     EventsComponent,
     EventTrackingComponent,
+    EventThumbnailComponent,
     RiderTrackingComponent
   ],
 
