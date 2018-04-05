@@ -169,7 +169,7 @@ body {
     margin-right: 12px;
   }
 
-  
+
 
   .navbar-brand {
     margin: 0;
@@ -1417,4 +1417,7 @@ html {
   .offset-sm-11 {
     margin-left: 91.666667%;
   }
+}
+.eventsList {
+  padding-bottom: 10px;
 }

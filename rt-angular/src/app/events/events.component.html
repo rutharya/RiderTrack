@@ -12,9 +12,22 @@
 		<br>
 		<div *ngFor="let event of events">
       <div class="row eventsList">
-					<app-event-thumbnail #event_thumbnail
-                               [event]="event"
-                               (click)="handleThumbnailClick(event.name)" ></app-event-thumbnail>
+        <div class="col-md-7">
+          <a href="#">
+            <img class="img-fluid rounded mb-3 mb-md-0" src="{{event.image}}" style="width:640px;height:300px;">
+          </a>
+        </div>
+        <div class="col-md-5">
+          <h3><a href="#">{{event.name}}</a></h3>
+          <p>{{event.description}}</p>
+          <p><strong>{{event.date | date:'short'}}</strong></p>
+          <a class="btn btn-primary" routerLink="/eventTracking" routerLinkActive="active">View Event</a>
+          <a class="btn btn-primary"  *showAuthed="true">Register Event</a>
+        </div>
+
+        <!--<app-event-thumbnail #event_thumbnail-->
+                               <!--[event]="event"-->
+                               <!--(click)="handleThumbnailClick(event.name)" ></app-event-thumbnail>-->
 				</div>
 			</div>
 			<br>
