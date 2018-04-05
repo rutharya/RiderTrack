@@ -20,7 +20,7 @@ describe('/GET profile', function () {
 
         chai.request(server)
             .get('/username/')
-            .end(function (err,res) {
+            .end(function (err,res,) {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.not.be.eql(0);
