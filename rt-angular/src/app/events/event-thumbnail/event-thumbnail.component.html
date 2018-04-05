@@ -1,0 +1,33 @@
+<!--<div [routerLink]="['/events',event._id]" class="well thumbnail hoverwell">-->
+  <!--<h2>{{event.name | uppercase}}</h2>-->
+  <!--<div>Date: {{event.date |date}}</div>-->
+  <!--<div>Description: {{event.description}}</div>-->
+  <!--<img class="event_image" src="{{event.image}}"/>-->
+  <!--<div>-->
+    <!--<div>-->
+      <!--<span>Location: {{event?.location}}</span>-->
+    <!--</div>-->
+    <!--<div>-->
+      <!--<span>StartTime: {{event?.startTime |date:'short'}}</span>-->
+      <!--<span>End Time: {{event?.endTime | date: 'short'}}</span>-->
+    <!--</div>-->
+    <!--<div *ngIf="event?.track.difficulty">-->
+      <!--<span>Track Difficulty: {{event?.track.difficulty}}</span>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<button class="btn btn-success" (click)="handleClick()">Register!</button>-->
+  <!--</div>-->
+<!--</div>-->
+<div class="col-md-7">
+  <a href="#">
+    <img class="img-fluid rounded mb-3 mb-md-0" src="{{event.image}}" style="width:640px;height:300px;">
+  </a>
+</div>
+<div class="col-md-5">
+<h3><a href="#">{{event.name}}</a></h3>
+<p>{{event.description}}</p>
+<p><strong>{{event.date | date:'short'}}</strong></p>
+<a class="btn btn-primary" routerLink="/eventTracking" routerLinkActive="active">View Event</a>
+<a class="btn btn-primary"  (click)="handleClick(event._id)" *showAuthed="true">Register Event</a>
+</div>

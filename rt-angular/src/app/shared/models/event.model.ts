@@ -1,7 +1,7 @@
 import {LatLng} from "./latlng.model";
 
-export interface Events {
-  _id: number;
+export interface Event {
+  _id: string;
   name: string;
   image?: string;
   description: string;
