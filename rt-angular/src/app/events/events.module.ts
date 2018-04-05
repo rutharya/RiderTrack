@@ -9,6 +9,7 @@ import {AuthGuardService} from "../shared/services/auth-guard.service";
 import {EventTrackingComponent} from "./event-tracking/event-tracking.component";
 import {RiderTrackingComponent} from "./event-tracking/rider-tracking/rider-tracking.component";
 
+
 const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'events',

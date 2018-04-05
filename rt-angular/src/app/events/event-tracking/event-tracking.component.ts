@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {TrackingData} from "../../shared/models/trackingData";
-import {LatestLocationService} from "../../tracking/latest-location.service";
+import {LatestLocationService} from "../../shared/services/latest-location.service";
 
 @Component({
   selector: 'app-event-tracking',

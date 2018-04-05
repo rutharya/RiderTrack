@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {LatestLocationService} from "../../../tracking/latest-location.service";
+import {LatestLocationService} from "../../../shared/services/latest-location.service";
 import {TrackingData} from "../../../shared/models/trackingData";
 
 @Component({

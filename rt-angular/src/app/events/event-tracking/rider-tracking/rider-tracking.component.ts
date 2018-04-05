@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {RiderLocationsService} from "../../../shared/services/rider-locations.service";
 
 @Component({
   selector: 'app-rider-tracking',
@@ -15,7 +16,7 @@ export class RiderTrackingComponent implements OnInit {
   public eventTime: string;
   public eventLocation: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private riderLocationsService: RiderLocationsService) {}
 
   ngOnInit() {
     console.log('rider tracking component initialized');
@@ -26,6 +27,8 @@ export class RiderTrackingComponent implements OnInit {
       this.eventLocation = params["eventLocation"];
       this.eventTime = params["eventTime"];
     });
+
+    this.riderLocationsService.plot();
   }
 
 }
