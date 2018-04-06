@@ -14,16 +14,25 @@ export class EventsService {
       .map(result => result);
   }
 
-  saveEvent (formGroup) {
-    console.log(formGroup);
-    const URL = '/events/save';
-    const res = this.apiService.post(URL, formGroup).map(result => result);
+  saveEvent (data): any {
+    console.log(data);
+    console.log('Events service');
+    const body = {
+      name: data.name,
+      description: data.description,
+      location: data.location,
+      eventDate: data.eventDate,
+      startTime: data.startTime,
+      endTime: data.endTime
+    }
+    console.log(body);
+    const res = this.apiService.post('/events/save', body).map(result => result);
     return res;
   }
 
   register (data): any {
     console.log(data);
-    let body = {
+    const body = {
       eventId: data
     };
     console.log(body);
@@ -38,7 +47,4 @@ export class EventsService {
   }
 
 
-  // saveEvent() {
-  //   return this._http.post('http://localhost:3000/saveEvent', {})
-  // }
 }

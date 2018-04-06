@@ -1,4 +1,4 @@
-import {LatLng} from "./latlng.model";
+import {LatLng} from './latlng.model';
 
 export interface Event {
   _id: string;
