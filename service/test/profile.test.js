@@ -38,7 +38,7 @@ describe('GET /profile', function(done){
             });
     });
 //addresses 2nd bullet point: if the user is not logged in we should get a 302 response code and be directed to the /login page
-    it('should return a 302 response and redirect to /login', function(done){
+    it('should return a 404 response', function(done){
         chai.request(server)
             .get('/home/dashboard')
             .end(function (err,res) {
