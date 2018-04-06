@@ -85,7 +85,8 @@ function calculateStats(activityid, fn){
     // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
 
         Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
-            { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },
+            { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" }, maxspeed: {$max: "$gps_stats.speed"}, maxelevation: {$max: "$gps_stats.altitude"},
+                    averageelevation: {$avg:"$gps_stats.altitude"},
                     first: { $first: "$gps_stats" },
                     last: { $last: "$gps_stats" },
                 }},
@@ -93,7 +94,7 @@ function calculateStats(activityid, fn){
                     elapsedtime: {
                         $subtract: [ "$last.timestamp", "$first.timestamp" ]
                     },
-                    averagespeed:1, totaldistance: {$subtract: ["$last.distLeft",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
+                    averagespeed:1, maxspeed:1, averageelevation:1, maxelevation:1, totaldistance: {$subtract: ["$last.distLeft",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
                 }}
         ], function (err,result){
             if (err) {

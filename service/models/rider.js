@@ -62,7 +62,6 @@ var RiderSchema = new mongoose.Schema({
     }],
       statistics: {
 
-        mosrtparticipatedactivity: String,
         participationcount: Number,
         avgspeed: {
             type: Number,
@@ -82,24 +81,20 @@ var RiderSchema = new mongoose.Schema({
             type: Number,
             min:0
         },
-        elevationgain: {
+        maxelevation: {
             type: Number
         },
-        maxelevationgain: {
+          averageelevation: {
             type: Number
-        },
+          },
         wincount: {
             type: Number,
         },
-        movingtime: {
-            timehours: Number,
-            timeminutes: Number,
-            timeseconds: Number
+        totalmovingtime:{
+            type: Number
         },
         longestmovingtime: {
-            timehours: Number,
-            timeminutes: Number,
-            timeseconds: Number
+            type: Number
         }
 
     },
