@@ -57,7 +57,7 @@ describe('/GET events', function () {
             .end(function (err,res) {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.length.should.not.be.eql(0);
+                res.body.length.should.not.be.deep.eql(0);
                 // console.log(res);
                 done();
             });
@@ -100,17 +100,17 @@ describe('/eventId events', function () {
 });
 
 
-describe('/events/register events', function () {
-    it('Register event', function (done) {
-
-        event.save(function (err,event) {
-            chai.request(server)
-                .get('/events/register'+ event.id).
-            send(event)
-                .end(function(err,res){
-
-                    done();
-                });
-        });
-    });
-});
+// describe('/events/register events', function () {
+//     it('Register event', function (done) {
+//
+//         event.save(function (err,event) {
+//             chai.request(server)
+//                 .get('/events/register'+ event.id).
+//             send(event)
+//                 .end(function(err,res){
+//
+//                     done();
+//                 });
+//         });
+//     });
+// });
