@@ -4,7 +4,7 @@ export class TrackingData {
   coordinates: Coordinates;
 }
 
-export class Coordinates{
+export class Coordinates {
   lat: number;
   lng: number;
 }
