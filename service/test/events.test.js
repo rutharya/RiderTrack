@@ -100,17 +100,17 @@ describe('/eventId events', function () {
 });
 
 
-describe('/events/register events', function () {
-    it('Register event', function (done) {
-
-        event.save(function (err,event) {
-            chai.request(server)
-                .get('/events/register'+ event.id).
-            send(event)
-                .end(function(err,res){
-
-                    done();
-                });
-        });
-    });
-});
+// describe('/events/register events', function () {
+//     it('Register event', function (done) {
+//
+//         event.save(function (err,event) {
+//             chai.request(server)
+//                 .get('/events/register'+ event.id).
+//             send(event)
+//                 .end(function(err,res){
+//
+//                     done();
+//                 });
+//         });
+//     });
+// });

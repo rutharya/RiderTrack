@@ -8,15 +8,6 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Events', function() {
-    beforeEach(function (done) {
-        Event.remove({}, function (err) {
-            done();
-        });
-    });
-});
-
-
 describe('Creating event', function () {
     it('Save Event to MongoDB', function () {
 
