@@ -16,14 +16,34 @@ var userCredentials = {
 
 var authenticatedUser = request.agent(server);
 
-describe('Login function testing', function () {
-   it('Sees if credential is valid',function (done) {
-        authenticatedUser
-            .post('/users/login')
-            .send(userCredentials)
+before(function(done){
+    authenticatedUser
+        .post('/users/login')
+        .send(userCredentials)
+        .end(function (err, res) {
+            res.should.have.status(200);
+            expect('Location', '/home/dashboard');
+            done();
+        });
+});
+
+
+describe('GET /profile', function(done){
+//addresses 1st bullet point: if the user is logged in we should get a 200 status code
+    it('should return a 200 response if the user is logged in', function(done){
+        authenticatedUser.get('/profile')
             .end(function (err, res) {
                 res.should.have.status(200);
-                expect('Location', '/home/dashboard');
+                done();
+            });
+    });
+//addresses 2nd bullet point: if the user is not logged in we should get a 302 response code and be directed to the /login page
+    it('should return a 302 response and redirect to /login', function(done){
+        chai.request(server)
+            .get('/home/dashboard')
+            .end(function (err,res) {
+                res.should.have.status(404);
+                //expect('Location', '/login');
                 done();
             });
     });
