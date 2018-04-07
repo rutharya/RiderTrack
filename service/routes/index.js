@@ -359,17 +359,13 @@ router.get('/getLatestEvent', auth.required, function (req, res, next) {
                res.send("Error");
            }
            else{
-               
+
                console.log("Activity found"+activity._id);
                res.send(activity);
            }
         });
-
     }).catch(next);
-
-
-
-})
+});
 
 
 

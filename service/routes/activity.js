@@ -78,6 +78,46 @@ router.get('/getEventStats',auth.required, function(req, res, next){
 });
 
 
+router.get('/eventplotpoints',auth.required,function(req,res,next){
+    var riderid, eventid;
+    if(!req.payload){
+        res.render('error',{message:'invalid headers'});
+    }
+    else if(!req.query.eventid){
+        res.render('error',{message:'Missing parameter eventid'});
+    }
+    else if(req.query.eventid === ""){
+        res.render('error',{message:'Event id is blank'});
+    }
+
+    User.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        riderid = user._id;
+        console.log("rider selected"+riderid);
+
+        Event.findById(req.query.eventid).then(function (events) {
+            if(!events) {return res.sendStatus(401);}
+            eventid = events._id;
+            console.log("event selected:"+eventid);
+            Activity.aggregate([
+                {$match: {eventid: eventid, riderid: riderid}},
+                { "$unwind": "$gps_stats" },
+                { "$group": { "_id": null, speed:{$push:"$gps_stats.speed"}, distance:{$push: "$gps_stats.distLeft"}, altitude:{$push: "$gps_stats.altitude"} } },
+                { "$project":{speed:true,distance:true, altitude:true,_id:false}}
+            ], function (err, result) {
+                if(err) res.send(err);
+                else {
+                    console.log(result);
+                    res.send(result);
+                }
+
+            });
+        });
+
+
+    }).catch(next);
+})
+
 
 
 // Function to calculate Event stats including: average speed, current elevation, distance from start, and elapsed time in terms of milliseconds
