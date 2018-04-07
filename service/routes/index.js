@@ -18,13 +18,6 @@ router.use('/events', require('./events'));
 router.use('/activities', require('./activity'));
 router.use('/profiles',require('./profiles'));
 
-// To be used in the dashboard page depicting user overall statistics
-router.get('/userstatistics', auth.required, function(req,res,next){
-    User.findById(req.payload.id).then(function(user){
-        if(!user){ return res.sendStatus(401); }
-        return res.json({statistics: user.statistics});
-    }).catch(next);
-});
 
 
 router.get('/dashboard',function(req,res,next){
@@ -291,6 +284,88 @@ router.get('/manageevent', function (req, res, next) {
 router.get('/createevent', function (req, res, next) {
     res.render('createevent', {title: 'Create Event'});
 })
+
+
+router.get('/userstatistics',auth.required, function(req, res, next){
+    console.log("Inside get user stats");
+    var riderid, stats;
+
+    if(!req.payload){
+        res.render('error',{message:'invalid headers'});
+    }
+
+    User.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        console.log("Rider selected:"+user._id);
+        riderid = user._id;
+
+       calculateUserStats(user._id, function (result) {
+
+           for (var prop in result) {
+               console.log(prop + " = " + result[prop]);
+           }
+           stats =  {
+               participationcount: result['participationcount'],
+               avgspeed: result['avgspeed'],
+               maxspeed: result['maxspeed'],
+               totaldistance: result['totaldistance'],
+               longestdistance: result['longestdistance'],
+               maxelevation: result['maxelevation'],
+               averageelevation: result['averageelevation'],
+               totalmovingtime: result['totalmovingtime'],
+               wincount: result['wincount'],
+               longestmovingtime: result['longestmovingtime']
+           }
+
+           user.statistics = stats;
+           User.update(
+               { "_id": riderid },
+               { "$set": {"statistics": stats} },
+               { "multi": false },
+               function(err,numAffected) {
+                   if (err) {console.log("update failed:"+err); throw err;}
+                   console.log("Inserted succesfully to rider  with id:"+riderid);
+                   return res.json({statistics: user.statistics});
+               }
+           );
+       });
+
+    }).catch(next);
+});
+
+
+
+
+// Function to calculate Event stats including: average speed, current elevation, distance from start, and elapsed time in terms of milliseconds
+// Output: Average Speed, Current Distance from starting point of race, current altitude, and elapsed time.
+
+function calculateUserStats(riderid, fn){
+
+    console.log("Inside calculate stats function");
+    // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
+
+    Activity.aggregate([ { $match: { riderid :riderid }}, {$unwind: "$gps_stats"},
+        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },
+                first: { $first: "$gps_stats" },
+                last: { $last: "$gps_stats" },
+            }},
+        { $project: {
+                elapsedtime: {
+                    $subtract: [ "$last.timestamp", "$first.timestamp" ]
+                },
+                averagespeed:1, totaldistance: {$subtract: ["$last.distLeft",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
+            }}
+    ], function (err,result){
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result[0]);
+            fn(result[0]);
+        }
+
+    });
+}
 
 
 // router.get('/getAllEvents',events.getAllEvents)
