@@ -287,6 +287,7 @@ router.get('/createevent', function (req, res, next) {
 })
 
 
+
 router.get('/userstatistics',auth.required, function(req, res, next){
     console.log("Inside get user stats");
     var riderid, stats;
@@ -334,6 +335,44 @@ router.get('/userstatistics',auth.required, function(req, res, next){
 
     }).catch(next);
 });
+
+
+
+
+
+// Router method to get latest activity for a rider.
+router.get('/getLatestEvent', auth.required, function (req, res, next) {
+    console.log("Inside get last event");
+    var riderid;
+    if(!req.payload){
+        res.render('error',{message:'invalid headers'});
+    }
+    User.findById(req.payload.id).then(function (user) {
+        if(!user){ return res.sendStatus(401); }
+        console.log("Rider selected:"+user._id);
+        riderid = user._id;
+        // Get latest activity by natural sorting, and limiting
+        var q = Activity.find({riderid: riderid}).limit(1).sort({$natural:-1});
+        q.exec(function(err, activity) {
+           if(err){
+               console.log("Error occured"+err);
+               res.send("Error");
+           }
+           else{
+               
+               console.log("Activity found"+activity._id);
+               res.send(activity);
+           }
+        });
+
+    }).catch(next);
+
+
+
+})
+
+
+
 
 
 
