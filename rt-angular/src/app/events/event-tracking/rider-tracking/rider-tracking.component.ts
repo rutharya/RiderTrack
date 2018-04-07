@@ -28,6 +28,7 @@ export class RiderTrackingComponent implements OnInit {
       this.eventTime = params["eventTime"];
     });
 
+    this.riderLocationsService.getRiderLocations();
     this.riderLocationsService.plot();
   }
 
