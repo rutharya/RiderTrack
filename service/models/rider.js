@@ -65,13 +65,9 @@ var RiderSchema = new mongoose.Schema({
         participationcount: Number,
         avgspeed: {
             type: Number,
-            min:0,
-            max: 100
         },
         maxspeed: {
             type: Number,
-            min: 0,
-            max: 100
         },
         totaldistance: {
             type: Number,

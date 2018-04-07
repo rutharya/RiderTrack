@@ -5,6 +5,7 @@ var auth = require('../config/auth');
 var bodyParser = require('body-parser');
 
 var User = require('../models/rider');
+var Activity = require('../models/activity');
 
 // /* GET home page. */
 //HOME ROUTE COMMENTED OUT because We are serving Angular code from /dist.
@@ -305,7 +306,6 @@ router.get('/userstatistics',auth.required, function(req, res, next){
                console.log(prop + " = " + result[prop]);
            }
            stats =  {
-               participationcount: result['participationcount'],
                avgspeed: result['avgspeed'],
                maxspeed: result['maxspeed'],
                totaldistance: result['totaldistance'],
@@ -313,8 +313,10 @@ router.get('/userstatistics',auth.required, function(req, res, next){
                maxelevation: result['maxelevation'],
                averageelevation: result['averageelevation'],
                totalmovingtime: result['totalmovingtime'],
-               wincount: result['wincount'],
-               longestmovingtime: result['longestmovingtime']
+               longestmovingtime: result['longestmovingtime'],
+               participationcount: result['participationcount'],
+               wincount: user.statistics.wincount
+
            }
 
            user.statistics = stats;
@@ -344,17 +346,25 @@ function calculateUserStats(riderid, fn){
     console.log("Inside calculate stats function");
     // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
 
-    Activity.aggregate([ { $match: { riderid :riderid }}, {$unwind: "$gps_stats"},
-        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" },
-                first: { $first: "$gps_stats" },
-                last: { $last: "$gps_stats" },
-            }},
-        { $project: {
-                elapsedtime: {
-                    $subtract: [ "$last.timestamp", "$first.timestamp" ]
-                },
-                averagespeed:1, totaldistance: {$subtract: ["$last.distLeft",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
-            }}
+    Activity.aggregate([
+        {$match: {riderid: riderid}},
+        {$group:
+                {
+                    _id:null, totaldistance: {$sum: "$racestats.totaldistance"}, longestdistance: {$max: "$racestats.totaldistance"},
+                    totalmovingtime: {$sum: "$racestats.elapsedtime"}, longestmovingtime: {$max: "$racestats.elapsedtime"},
+                    averageelevation: {$avg: "$racestats.averageelevation"}, maxelevation: {$max: "$racestats.maxelevation"},
+                    avgspeed: {$avg: "$racestats.averagespeed"}, maxspeed: {$max: "$racestats.maxspeed"},
+                    participationcount: {$sum: 1}
+
+
+                }
+
+        },
+        {$project:
+                {
+                    totaldistance:1, longestdistance:1, totalmovingtime:1, longestmovingtime:1, averageelevation:1, maxelevation:1, avgspeed:1, maxspeed:1, participationcount:1
+                }
+        }
     ], function (err,result){
         if (err) {
             console.log(err);

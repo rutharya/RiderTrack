@@ -53,7 +53,7 @@ var activitySchema = new Schema({
         },
         totaldistance: Number,
         currentelevation: Number,
-        maximumelevation: Number,
+        maxelevation: Number,
         averageelevation: Number,
         elapsedtime: Number
 
