@@ -112,11 +112,14 @@ router.get('/getRiderLocation',function(req,res){
     console.log("In getRiderLocation");
     var i;
     var arrayRiderLocation = [];
+    console.log("eventid: "+req.query.eventid)
+    console.log("riderid: "+req.query.riderid)
 
-    query = Activity.find({"eventid": req.headers.eventid, "riderid": req.headers.riderid})
+    //query = Activity.find({"eventid": req.headers.eventid, "riderid": req.headers.riderid})
+    //query = Activity.find({"eventid": req.query.eventid, "riderid": req.query.riderid})
     query.exec(function (err, activity) {
         if (err) return handleError(err);
-        // console.log(activity);
+        console.log(activity);
         console.log(activity[0].gps_stats)
         for(i=0; i<activity[0].gps_stats.length; ++i){
 
