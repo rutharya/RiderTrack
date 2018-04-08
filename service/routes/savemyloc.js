@@ -12,18 +12,27 @@ var Events = require('../models/events');
 var cache = require('../config/cache');
 var CACHE_MAX = 3;
 
-router.get('/test', auth.required, function(req, res, next) {
-  // User.findById(req.payload.id).then(function(user) {
-  //   if (!user) {
-  //     return res.sendStatus(401);
-  //   }
-  //   //user.id -> user id
-  //   //next query the userEvents and return all the past gps data for a run.
-  //   //res.send({id: user.id});
-  //   res.json(req.payload);
-  //
-  // });
-    res.json(req.payload);
+router.get('/getLoc', auth.required, function(req, res, next) {
+  User.findById(req.payload.id).then(function(user) {
+    if (!user) {
+      return res.sendStatus(401);
+    }
+    //user.id -> user id
+    //next query the userEvents and return all the past gps data for a run.
+    //res.send({id: user.id});
+    if(!req.body){
+      return res.status(422).json({errors: {body: "eventId misssing"}});
+    }
+    if(!req.body.eventId || req.body.eventId === ''){
+      return res.status(422).json({errors: {eventId: "eventId misssing"}});
+    }
+    var event_id = new mongoose.Types.ObjectId(req.body.eventid);
+    console.log(typeof event_id);
+    Activity.findOne({eventId: event_id},function(err,activity){
+      res.json(lastestcoordinates);
+    })
+  
+  });
 })
 
 

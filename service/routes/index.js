@@ -359,18 +359,49 @@ router.get('/getLatestEvent', auth.required, function (req, res, next) {
                res.send("Error");
            }
            else{
-               
+
                console.log("Activity found"+activity._id);
                res.send(activity);
            }
         });
+    }).catch(next);
+});
+
+
+
+
+router.get('/userdatapoints',auth.required,function(req,res,next){
+    var riderid;
+    if(!req.payload){
+        res.render('error',{message:'invalid headers'});
+    }
+
+    User.findById(req.payload.id).then(function(user){
+        if(!user){ return res.sendStatus(401); }
+        riderid = user._id;
+        console.log("rider selected"+riderid);
+
+        Activity.aggregate([
+
+            {$match: {riderid: riderid}},
+            { "$group": { "_id": null, distance:{$push:"$racestats.totaldistance"}, speed:{$push: "$racestats.averagespeed"}, altitude:{$push: "$racestats.averageelevation"} } },
+            { "$project":{speed:true,distance:true, altitude:true,_id:false}}
+        ] ,function (err,result){
+            if (err) {
+                console.log(err);
+                res.send(err);
+            }
+            else {
+                console.log(result);
+                res.send(result);
+            }
+
+        });
+
+
 
     }).catch(next);
-
-
-
-})
-
+});
 
 
 

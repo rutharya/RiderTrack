@@ -23,10 +23,10 @@ router.post('/save', function (req, res) {
     if(!req.body){
         res.render('error',{message:'invalid body'});
     }
-    else if(!req.body.name || !req.body.description || !req.body.eventDate || !req.body.location || !req.body.startTime || !req.body.endTime ){
+    else if(!req.body.name || !req.body.description || !req.body.date || !req.body.location || !req.body.startTime || !req.body.endTime ){
         res.render('error',{message:'events required fields missing'});
     }
-    else if(req.body.name === "" || req.body.description === "" || req.body.eventDate === "" || req.body.location === "" || req.body.startTime === "" || req.body.endTime === "" ){
+    else if(req.body.name === "" || req.body.description === "" || req.body.date === "" || req.body.location === "" || req.body.startTime === "" || req.body.endTime === "" ){
         res.render('error',{message:'empty events fields'});
     }
     //var event = new Event(req.body);
@@ -34,7 +34,7 @@ router.post('/save', function (req, res) {
         name: req.body.name,
         description: req.body.description,
         // image: req.body.image,
-        eventDate: req.body.eventDate,
+        date: req.body.date,
         location: req.body.location,
         startTime: req.body.startTime,
         endTime: req.body.endTime,

@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class EventsService {
@@ -32,12 +33,18 @@ export class EventsService {
 
   register (data): any {
     console.log(data);
-    const body = {
-      eventId: data
-    };
+    // const body = {
+    //   eventId: data
+    // };
+    let body = new URLSearchParams();
+    body.set("eventId", data)
     console.log(body);
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    };
     const URL = '/events/register';
-    return this.apiService.post('/events/register', body);
+    return this.apiService.post2('/events/register', body.toString()
+    , options);
   }
 
   getRegisteredEvents() {
@@ -48,3 +55,4 @@ export class EventsService {
 
 
 }
+
