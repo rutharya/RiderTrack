@@ -3,6 +3,7 @@ import {Errors} from "../shared/models";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../shared/services";
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-login',
@@ -50,8 +51,12 @@ export class LoginComponent implements OnInit {
     this.userService
       .attemptAuth(this.authType, credentials)
       .subscribe(
-        data => this.router.navigateByUrl('/home'),//redirecting user to their home page.
+        data => {
+          toastr.success('login successful');
+          this.router.navigateByUrl('/home');
+        },//redirecting user to their home page.
         err => {
+          toastr.error('invalid login');
           this.errors = err;
           this.isSubmitting = false;
         }
