@@ -30,6 +30,7 @@ import { ApiComponent } from './api/api.component';
 import {TrackingModule} from './tracking/tracking.module';
 import {LatestLocationService} from './shared/services/latest-location.service';
 import {RiderLocationsService} from './shared/services/rider-locations.service';
+import {UploadFileService} from './shared/services/uploadFile.service';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {environment} from '../environments/environment';
@@ -76,6 +77,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     EventsService,
     LatestLocationService,
     MapService,
+    UploadFileService,
     RiderLocationsService
   ],
   bootstrap: [AppComponent]
