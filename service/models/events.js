@@ -5,7 +5,7 @@ var eventsSchema = new Schema({
 	name: {type:String, required:true},
     image: {type:String},
     description: {type:String,required:true},
-    eventDate: {type:Date,required:true},
+    date: {type:Date,required:true},
     location: {type:String, required:true},
     startTime:{type:Date, required:true},
     endTime:{type:Date, required:true},
