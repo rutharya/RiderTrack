@@ -29,8 +29,10 @@ import {EventsModule} from './events/events.module';
 import { ApiComponent } from './api/api.component';
 import {TrackingModule} from './tracking/tracking.module';
 import {LatestLocationService} from './shared/services/latest-location.service';
-import {RiderLocationsService} from "./shared/services/rider-locations.service";
-
+import {RiderLocationsService} from './shared/services/rider-locations.service';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {environment} from '../environments/environment';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
   // {
@@ -62,6 +64,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     TrackingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,
