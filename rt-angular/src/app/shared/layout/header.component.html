@@ -8,13 +8,14 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active"><a class="nav-link" routerLink="/home">Home<span class="sr-only">(current)</span></a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/api">API</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/api2">API2</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/events">Events</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/tracking">Tracking</a></li>
     </ul>
-    <!--<form class="form-inline my-2 my-lg-0">-->
-      <!--<input class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Search">-->
-      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login/Signup</button>-->
-    <!--</form>-->
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="search(searchTerm)">
+    <input [(ngModel)]="searchTerm" name="searchTerm" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" appModalTrigger="searchResults">Search</button>
+    </form>
     <button class="btn btn-outline-success my-2 my-sm-0" *showAuthed="false"><a class="nav-link" [routerLink]="['/login']">Login/Signup</a></button>
     <button class="btn btn-danger my-2 my-sm-0" *showAuthed="true"><a class="nav-link" (click)="logout()">Logout</a></button>
   </div>
