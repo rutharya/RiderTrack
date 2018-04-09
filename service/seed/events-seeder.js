@@ -672,7 +672,7 @@ module.exports = {
     seed_events
 }
 
-
+//
 // var done = 0;
 // for(var i=0; i<events.length; i++){
 //     events[i].save(function(err,result) {
