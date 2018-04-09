@@ -17,6 +17,8 @@ export class AdminEventsComponent implements OnInit {
   adminEvent: AdminEventModel = {} as AdminEventModel;
   selectedFiles: FileList;
   currentFileUpload: FileUpload;
+  selectedImageFiles: FileList;
+  currentImageFileUpload: FileUpload;
   progress: {percentage: number} = {percentage: 0};
   // @ViewChild('EventImg') EventImg;
   // @ViewChild('EventTrc') EventTrc;
@@ -26,12 +28,12 @@ export class AdminEventsComponent implements OnInit {
     this.createEventForm = this.fb.group({
       'name': ['', Validators.required],
       'description': ['', Validators.required],
-      // 'event_img': [null],
+      'image': ['', Validators.required],
       'location': ['', Validators.required],
       'date': ['', Validators.required],
       'startTime': ['', Validators.required],
       'endTime': ['', Validators.required],
-      'event_track': ['', Validators.required]
+      'trackFile': ['', Validators.required]
     });
   }
 
@@ -65,7 +67,8 @@ export class AdminEventsComponent implements OnInit {
     // formData.append('endTime', createEventValues.endTime);
     // console.log(formData);
     // // formData.append('trackFile', TrackFile, TrackFile.name);
-
+    createEventValues.trackFile = this.currentFileUpload.url;
+    createEventValues.image = this.currentImageFileUpload.url;
     this.eventsService.saveEvent(createEventValues).subscribe(
       data => {
         console.log(data);
@@ -80,7 +83,19 @@ export class AdminEventsComponent implements OnInit {
   upload() {
     const file = this.selectedFiles.item(0);
     this.currentFileUpload = new FileUpload(file);
-    this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
+    this.currentFileUpload.url = this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
+    // console.log('Upload');
+    // console.log(this.currentFileUpload.url);
+  }
+  selectImageFile(event) {
+    this.selectedImageFiles = event.target.files;
   }
 
+  uploadImage() {
+    const file = this.selectedImageFiles.item(0);
+    this.currentImageFileUpload = new FileUpload(file);
+    this.currentImageFileUpload.url = this.uploadService.pushImageFileToStorage(this.currentImageFileUpload, this.progress);
+    console.log('Upload');
+    console.log(this.currentFileUpload.url);
+  }
 }
