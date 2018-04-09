@@ -151,7 +151,7 @@ router.post('/register',auth.required,function(req,res,next){
             })}
             if(event.eventRiders.indexOf(user._id)>=0){
                 //already registered...
-                return res.status(200).json({Result:false, status: { msg: "already registered to event!!1"}})
+                return res.status(200).json({Result:false, status: { msg: "already registered to event!!"}})
             }
             else{
                 event.eventRiders.push(user._id);

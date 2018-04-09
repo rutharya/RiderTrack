@@ -4,39 +4,44 @@ var mocha = require('mocha');
 var Event = require('../models/events');
 var server = require('../app');
 var should = chai.should();
+var request = require('supertest');
+var expect = require('chai').expect;
 
 chai.use(chaiHttp);
 
+var userCredentials = {
+    email: 'admin@admin.com ',
+    password: 'admin'
+};
 
-var date1       = new Date('2018-04-25T00:00:00.000Z');
-var startTime   = new Date('2018-04-25T05:00:00.000Z');
-var endTime     = new Date('2018-04-26T05:00:00.000Z');
+var authenticatedUser = request.agent(server);
 
-var event = new Event({
-    name: 'Seattle Area111',
-    image: 'https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg',
-    description: 'ASU Trekking at Arizona State University at A Mountain Tempe ASU',
-    date: date1,
-    location: 'A-Mountain',
-    startTime: startTime,
-    endTime: endTime,
-    trackFile: 'https://abc123.gpx',
+
+var event =new Event({
+    name : "San Jose Marathon",
+    image : "http://thehotzoneusa.com/wp-content/uploads/2014/11/14803118587_20f2a571fc_o.jpg",
+    description : "San Jose Downtown Marathon",
+    date : new Date("2018-07-21"),
+    location : "A-Mountain",
+    startTime: new Date("2018-07-21T12:00:00Z"),
+    endTime: new Date("2018-07-21T14:00:00Z"),
     track: {
-        elevation: 40,
-        length: 12.2,
-        difficulty: 'Beginner'
+        "elevation": 34,
+        "length": 13.2,
+        "difficulty": "Beginner"
     },
     eventRiders: [],
     raceWinners: [],
-    statusOfRace:'',
-    startLocation: {
+    statusOfRace:"",
+    startLocation:{
         lat:12.239,
-        long:23.244
+        "lng":23.244
     },
-    endLocation: {
+    endLocation:{
         lat:23.344,
-        long:11.324
+        lng:11.324
     }
+
 });
 
 
@@ -57,8 +62,7 @@ describe('/GET events', function () {
             .end(function (err,res) {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.length.should.not.be.deep.eql(0);
-                // console.log(res);
+                res.body.length.should.not.be.eql(0);
                 done();
             });
 
@@ -74,8 +78,6 @@ describe('/save events', function () {
             .end(function (err,res) {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                //res.body.event.should.have.property('date');
-                //  console.log(res);
                 done();
             });
 
@@ -99,18 +101,74 @@ describe('/eventId events', function () {
     });
 });
 
+describe('login, create new event and register for event', function () {
 
-// describe('/events/register events', function () {
-//     it('Register event', function (done) {
-//
-//         event.save(function (err,event) {
-//             chai.request(server)
-//                 .get('/events/register'+ event.id).
-//             send(event)
-//                 .end(function(err,res){
-//
-//                     done();
-//                 });
-//         });
-//     });
-// });
+    it('Logging in, creating new event and registering event test - should give successful' +
+        ' registration message', function (done) {
+
+        authenticatedUser
+            .post('/users/login')
+            .send(userCredentials)
+            .end(function (err, res) {
+
+                var event_id = '';
+                var token = res.body.user.token;
+
+
+                chai.request(server)
+                    .post('/events/save')
+                    .send(event)
+                    .end(function (err,res) {
+                        chai.request(server)
+                            .post('/events/register')
+                            .set('Content-Type','application/x-www-form-urlencoded')
+                            .set('Authorization','Bearer '+token)
+                            .send({eventId:res.body['Saved Event ID']})
+                            .end(function(err,res){
+                                res.should.have.status(200);
+                                res.body.status.msg.should.be.eql('Successfully registered to event2');
+                            });
+                    });
+            });
+        done();
+    });
+
+
+});
+
+describe('login, go to /events and register for 1 event', function () {
+
+    it('Logging in, creating new event and registering event test - ' +
+        'should give already registered status', function (done) {
+
+        authenticatedUser
+            .post('/users/login')
+            .send(userCredentials)
+            .end(function (err, res) {
+
+                var event_id = '';
+                var token = res.body.user.token;
+
+
+                chai.request(server)
+                    .get('/events/')
+                    .end(function (err, res) {
+                        event_id = res.body[0]._id;
+                        chai.request(server)
+                            .post('/events/register')
+                            .set('Content-Type','application/x-www-form-urlencoded')
+                            .set('Authorization','Bearer '+token)
+                            .send({eventId:event_id})
+                            .end(function(err,res){
+                                res.should.have.status(200);
+                                res.body.status.msg.should.be.eql('already registered to event!!');
+                            });
+                    });
+
+            });
+        done();
+    });
+
+
+});
+

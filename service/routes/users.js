@@ -73,7 +73,7 @@ router.post('/', function(req, res, next) {
    }
 
    if(!req.body.password || req.body.password===''){
-     return res.status(422).son({errors: {password: "can't be blank"}});
+     return res.status(422).json({errors: {password: "can't be blank"}});
    }
   var user = new User();
   user.username = req.body.username;
