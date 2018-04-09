@@ -10,7 +10,7 @@ var request = require('supertest');
 chai.use(chaiHttp);
 
 var userCredentials = {
-    email: 'a@gmail.com',
+    email: 'sailingam2@gmail.com',
     password: 'superdragon'
 };
 

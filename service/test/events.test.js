@@ -10,7 +10,7 @@ var expect = require('chai').expect;
 chai.use(chaiHttp);
 
 var userCredentials = {
-    email: 'a@gmail.com',
+    email: 'sailingam2@gmail.com',
     password: 'superdragon'
 };
 
@@ -50,17 +50,6 @@ describe('Events', function() {
         Event.remove({}, function (err) {
             done();
         });
-
-        authenticatedUser
-            .post('/users/login')
-            .send(userCredentials)
-            .end(function (err, res) {
-                res.should.have.status(200);
-                //console.log(res);
-                expect('Location', '/home/dashboard');
-                done();
-            });
-
     });
 });
 
@@ -112,39 +101,74 @@ describe('/eventId events', function () {
     });
 });
 
-describe('login, go to /events, register for event - check status', function () {
+describe('login, create new event and register for event', function () {
+
+    it('Logging in, creating new event and registering event test - should give successful' +
+        ' registration message', function (done) {
+
+        authenticatedUser
+            .post('/users/login')
+            .send(userCredentials)
+            .end(function (err, res) {
+
+                var event_id = '';
+                var token = res.body.user.token;
 
 
-    describe('Login ', function () {
-        it('Logging in for register event test', function (done) {
-
-            authenticatedUser
-                .post('/users/login')
-                .send(userCredentials)
-                .end(function (err, res) {
-
-                    var event_id = '';
-                    var token = res.body.user.token;
-                    console.log('token is '+token);
-                    chai.request(server)
-                        .get('/events/')
-                        .end(function (err, res) {
-                            event_id = res.body[0]._id;
-                        });
-
-
-                    chai.request(server)
-                        .post('/events/register')
-                        .send({eventId:event_id})
-                        .set('Authorization','Bearer'+token)
-                        .set('Content-Type','application/x-www-form-urlencoded')
-                        .end(function(err,res){
-                          //  res.should.have.status(200);
-                        });
-                });
-            done();
-        });
+                chai.request(server)
+                    .post('/events/save')
+                    .send(event)
+                    .end(function (err,res) {
+                        chai.request(server)
+                            .post('/events/register')
+                            .set('Content-Type','application/x-www-form-urlencoded')
+                            .set('Authorization','Bearer '+token)
+                            .send({eventId:res.body['Saved Event ID']})
+                            .end(function(err,res){
+                                res.should.have.status(200);
+                                res.body.status.msg.should.be.eql('Successfully registered to event2');
+                            });
+                    });
+            });
+        done();
     });
 
 
 });
+
+describe('login, go to /events and register for 1 event', function () {
+
+    it('Logging in, creating new event and registering event test - ' +
+        'should give already registered status', function (done) {
+
+        authenticatedUser
+            .post('/users/login')
+            .send(userCredentials)
+            .end(function (err, res) {
+
+                var event_id = '';
+                var token = res.body.user.token;
+
+
+                chai.request(server)
+                    .get('/events/')
+                    .end(function (err, res) {
+                        event_id = res.body[0]._id;
+                        chai.request(server)
+                            .post('/events/register')
+                            .set('Content-Type','application/x-www-form-urlencoded')
+                            .set('Authorization','Bearer '+token)
+                            .send({eventId:event_id})
+                            .end(function(err,res){
+                                res.should.have.status(200);
+                                res.body.status.msg.should.be.eql('already registered to event!!');
+                            });
+                    });
+
+            });
+        done();
+    });
+
+
+});
+
