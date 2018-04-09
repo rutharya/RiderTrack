@@ -16,7 +16,7 @@ export class RiderLocationsService {
   map:any;
 
   constructor(private http: HttpClient) {
-    this.apiAddress = 'http://localhost:3000/test/getRiderLocation?eventid=5a99736c0af19f11a392b665&riderid=5a9978cd0af19f11a392b666'; //Change the url as required
+    this.apiAddress = 'https://athlete-tracker.herokuapp.com/test/getRiderLocation?eventid=5a9536fad047af0030c25018&riderid=5ab6ed215fd006001b7960ff'; //Change the url as required
     this.apiToken = environment.MAPBOX_API_KEY;
   }
 

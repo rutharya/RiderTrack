@@ -84,11 +84,8 @@ addRider (id) {
         confirm("You are already registered to this Event");
       }
     });
-<<<<<<< HEAD
   console.log(this.regResp);
-=======
 
->>>>>>> 7a38bf0a4833be94c0dae813899bcddab135b94f
   }
 
 
