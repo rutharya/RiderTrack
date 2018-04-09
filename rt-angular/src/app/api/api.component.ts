@@ -14,6 +14,7 @@ export class ApiComponent implements OnInit {
   currentFileUpload: FileUpload;
   progress: {percentage: number} = {percentage: 0};
 
+
   constructor(private _mapService: MapService, private uploadService: UploadFileService) { }
 
   ngOnInit() {
