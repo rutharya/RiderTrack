@@ -66,6 +66,11 @@ export class EventsService {
 
   }
 
+  getEventsById(eventId):any{
+    return this.apiService.get('/events/'+eventId.toString())
+      .map(result => result);
+  }
+
 
 }
 
