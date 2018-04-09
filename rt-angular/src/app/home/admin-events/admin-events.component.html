@@ -24,31 +24,61 @@
             <input formControlName="location" type="text" class="form-control" id="location"
                    placeholder="Enter the event location" required>
           </fieldset>
-          <fieldset class="form-group">
-            <label for="eventDate">Event Date</label>
-            <input formControlName="date" type="date" class="form-control" id="eventDate" value="Enter the event Date"
-                   required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="startTime">Event Start Time</label>
-            <input formControlName="startTime" type="time" class="form-control" id="startTime"
-                   placeholder="Enter Event Start Time" required>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="endTime">Event End Time</label>
-            <input formControlName="endTime" type="time" class="form-control" id="endTime"
-                   placeholder="Enter Event End Time" required>
-          </fieldset>
+
+          <div class="row">
+            <div class="col-4">
+              <fieldset class="form-group">
+                <label for="eventDate">Event Date</label>
+                <input formControlName="date" type="date" class="form-control" id="eventDate" value="Enter the event Date"
+                       required>
+              </fieldset>
+            </div>
+            <div class="col-4">
+              <fieldset class="form-group">
+                <label for="startTime">Event Start Time</label>
+                <input formControlName="startTime" type="time" class="form-control" id="startTime"
+                       placeholder="Enter Event Start Time" required>
+              </fieldset>
+            </div>
+            <div class="col-4">
+              <fieldset class="form-group">
+                <label for="endTime">Event End Time</label>
+                <input formControlName="endTime" type="time" class="form-control" id="endTime"
+                       placeholder="Enter Event End Time" required>
+              </fieldset>
+            </div>
+          </div>
+
           <!--<fieldset class="form-group">-->
           <!--<label for="image">Event Image</label>-->
           <!--<input formControlName="event_img" type="file" class="form-control" id="image"-->
           <!--accept="image/*" #EventImg>-->
           <!--</fieldset>-->
-          <!--<fieldset class="form-group">-->
-            <!--<label for="fileTrack">Event Track (Upload a .gpx file)</label>-->
-            <!--<input formControlName="event_track" type="file" class="form-control" id="fileTrack"-->
-                   <!--accept=".gpx" #EventTrc required>-->
-          <!--</fieldset>-->
+          <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+            <div class="progress-bar progress-bar-info progress-bar-striped"
+                 role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                 aria-valuemin="0" aria-valuemax="100"
+                 [ngStyle]="{width:progress.percentage+'%'}">
+              {{progress.percentage}}%</div>
+          </div>
+          <fieldset class="form-group">
+            <label for="fileTrack">Event Track (Upload a .gpx file)</label>
+            <label class="btn btn-default"> <input formControlName="trackFile" type="file" class="form-control" id="fileTrack" accept=".gpx"
+                                                   (change)="selectFile($event)">
+            </label>
+
+            <button class="btn btn-success" [disabled]="!selectedFiles"
+                    (click)="upload()">Upload</button>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="image">Event Image (Upload image file)</label>
+            <label class="btn btn-default"> <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
+                                                   (change)="selectImageFile($event)">
+            </label>
+
+            <button class="btn btn-success" [disabled]="!selectedImageFiles"
+                    (click)="uploadImage()">Upload</button>
+          </fieldset>
 
           <button type="submit" class="btn btn-primary">Create</button>
         </div>

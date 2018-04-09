@@ -4,9 +4,10 @@ import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-
+import {FileUpload} from '../models/fileupload';
 @Injectable()
 export class EventsService {
+  fileUpload: FileUpload;
 
   constructor(private apiService: ApiService) { }
 
@@ -33,6 +34,8 @@ export class EventsService {
     body.set('date', data.date);
     body.set('startTime', this.convertTimeToDate(data.date, data.startTime));
     body.set('endTime', this.convertTimeToDate(data.date, data.endTime));
+    body.set('trackFile', data.trackFile);
+    body.set('image', data.image);
     console.log(body);
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')

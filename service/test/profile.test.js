@@ -10,8 +10,8 @@ var request = require('supertest');
 chai.use(chaiHttp);
 
 var userCredentials = {
-    email: 'sailingam2@gmail.com',
-    password: 'superdragon'
+    email: 'admin@admin.com ',
+    password: 'admin'
 };
 
 var authenticatedUser = request.agent(server);
@@ -22,14 +22,13 @@ before(function(done){
         .send(userCredentials)
         .end(function (err, res) {
             res.should.have.status(200);
-            //console.log(res);
             expect('Location', '/home/dashboard');
             done();
         });
 });
 
 
-describe('GET /profile', function(done){
+describe('GET /profile', function(){
 //addresses 1st bullet point: if the user is logged in we should get a 200 status code
     it('should return a 200 response if the user is logged in', function(done){
         authenticatedUser.get('/profile')
