@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {RiderLocationsService} from "../../../shared/services/rider-locations.service";
+import {RiderData} from "../../../shared/models/riderData.model";
+import {Observable} from "rxjs/Rx";
+
 
 @Component({
   selector: 'app-rider-tracking',
@@ -16,6 +19,8 @@ export class RiderTrackingComponent implements OnInit {
   public eventTime: string;
   public eventLocation: string;
 
+  riderData$: RiderData[];
+
   constructor(private route: ActivatedRoute, private riderLocationsService: RiderLocationsService) {}
 
   ngOnInit() {
@@ -27,9 +32,18 @@ export class RiderTrackingComponent implements OnInit {
       this.eventLocation = params["eventLocation"];
       this.eventTime = params["eventTime"];
     });
+    this.getRiderLocation();
+    this.riderLocationsService.loadMap();
+    Observable.interval(2 * 60 * 1000).subscribe(x => {
+      this.getRiderLocation();
+    });
+  }
 
-    this.riderLocationsService.getRiderLocations();
-    this.riderLocationsService.plot();
+  getRiderLocation():void{
+    this.riderLocationsService.getRiderLocations().subscribe(riderData=>{
+      this.riderData$ = riderData;
+      this.riderLocationsService.plot(this.riderData$);
+    })
   }
 
 }

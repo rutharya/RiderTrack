@@ -14,7 +14,7 @@ export class LatestLocationService {
   apiAddress: string;
   apiToken: any;
   constructor(private http: HttpClient) {
-    this.apiAddress = 'http://localhost:3000/test/getLastLocation?_id=5a99736c0af19f11a392b665'; //Change the url as required
+    this.apiAddress = 'http://localhost:3000/test/getLastLocation?_id=5aa985360587801695a9e525'; //Change the url as required
     this.apiToken = environment.MAPBOX_API_KEY;
   }
 

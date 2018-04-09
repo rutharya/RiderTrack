@@ -12,6 +12,7 @@ var auth = require('../config/auth');
 var Activity = require('../models/activity');
 var Events = require('../models/events');
 var ObjectId = require('mongodb').ObjectId;
+var Rider = require('../models/rider');
 
 var seeder = require('../seed/events-seeder');
 
@@ -69,6 +70,12 @@ router.get('/seedevents',function(req,res,next){
 router.get('/getLastLocation',function(req,res){
     console.log("In getLastLocation");
     var arrayLastLocation = [];
+    query = Events.find({"_id": req.query._id});
+    //console.log(query);
+    query.exec(function (err, events) {
+        if (err) return handleError(err);
+        console.log("AAA" + events);
+    });
     /*var eventId;
     var eventLength;
     var i;
@@ -105,7 +112,41 @@ router.get('/getLastLocation',function(req,res){
 });
 
 
-
+router.post('/saveActivity',function (req,res) {
+    console.log(" In Save Activity");
+    console.log(req.body.lng);
+    var user_activiy = new Activity({
+        eventid: new mongoose.Types.ObjectId(req.body.eventid.toString()),
+        riderid: new mongoose.Types.ObjectId(req.body.riderid.toString()),
+        lastestcoordinates:{
+            lat: req.body.lat,
+            lng: req.body.lng
+        },
+        gps_stats:[{
+            timestamp: Date.now(),
+            lat: req.body.lat,
+            lng: req.body.lng,
+            speed: 0,
+            distLeft: 123,
+            altitude: 234
+        },
+        {
+            timestamp: Date.now(),
+            lat: req.body.lat1,
+            lng: req.body.lng1,
+            speed: 0,
+            distLeft: 123,
+            altitude: 234
+        }
+        ],
+        completed: false
+    });
+    user_activiy.save(function (err){
+        if(err) res.send("Error!!!")
+        res.send("ok");
+    })
+    //res.send("ok")
+})
 
 
 router.get('/getRiderLocation',function(req,res){
@@ -115,12 +156,15 @@ router.get('/getRiderLocation',function(req,res){
     console.log("eventid: "+req.query.eventid)
     console.log("riderid: "+req.query.riderid)
 
-    //query = Activity.find({"eventid": req.headers.eventid, "riderid": req.headers.riderid})
-    //query = Activity.find({"eventid": req.query.eventid, "riderid": req.query.riderid})
+    //query = Activity.find({"eventid": ObjectId(req.headers.eventid), "riderid": ObjectId(req.headers.riderid)})
+    query = Activity.find({"eventid": ObjectId(req.query.eventid), "riderid": ObjectId(req.query.riderid)})
     query.exec(function (err, activity) {
-        if (err) return handleError(err);
-        console.log(activity);
-        console.log(activity[0].gps_stats)
+        if (err) res.send(err);
+        if(!activity) {
+            return res.sendStatus(401);
+        }
+        //console.log(activity);
+        //console.log(activity[0].gps_stats)
         for(i=0; i<activity[0].gps_stats.length; ++i){
 
             arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng, "timestamp":activity[0].gps_stats[i].timestamp});
