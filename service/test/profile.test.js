@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 var userCredentials = {
     email: 'a@gmail.com',
     password: 'superdragon'
-}
+};
 
 var authenticatedUser = request.agent(server);
 
@@ -22,6 +22,7 @@ before(function(done){
         .send(userCredentials)
         .end(function (err, res) {
             res.should.have.status(200);
+            //console.log(res);
             expect('Location', '/home/dashboard');
             done();
         });
