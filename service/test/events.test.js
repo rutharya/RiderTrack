@@ -10,8 +10,8 @@ var expect = require('chai').expect;
 chai.use(chaiHttp);
 
 var userCredentials = {
-    email: 'sailingam2@gmail.com',
-    password: 'superdragon'
+    email: 'admin@admin.com ',
+    password: 'admin'
 };
 
 var authenticatedUser = request.agent(server);
