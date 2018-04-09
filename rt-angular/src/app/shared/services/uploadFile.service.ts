@@ -9,7 +9,7 @@ export class UploadFileService {
 
   constructor(private db: AngularFireDatabase) {}
 
-  private basePath = '/uploads';
+  private basePath = '/uploads/gpxFiles';
 
   pushFileToStorage(fileUpload: FileUpload, progress: {percentage: number}) {
     const storageRef = firebase.storage().ref();

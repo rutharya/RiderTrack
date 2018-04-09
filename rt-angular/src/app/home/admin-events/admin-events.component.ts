@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventsService} from '../../shared/services/events.service';
 import { AdminEventModel } from '../../shared/models/admin-event.model';
+import {UploadFileService} from '../../shared/services/uploadFile.service';
+import {FileUpload} from '../../shared/models/fileupload';
 
 @Component({
   selector: 'app-admin-events',
@@ -13,11 +15,14 @@ export class AdminEventsComponent implements OnInit {
 
   createEventForm: FormGroup;
   adminEvent: AdminEventModel = {} as AdminEventModel;
+  selectedFiles: FileList;
+  currentFileUpload: FileUpload;
+  progress: {percentage: number} = {percentage: 0};
   // @ViewChild('EventImg') EventImg;
-  @ViewChild('EventTrc') EventTrc;
+  // @ViewChild('EventTrc') EventTrc;
   // eventImageFile: File;
-  eventTrackFile: File;
-  constructor(private fb: FormBuilder, private eventsService: EventsService) {
+  // eventTrackFile: File;
+  constructor(private fb: FormBuilder, private eventsService: EventsService, private uploadService: UploadFileService ) {
     this.createEventForm = this.fb.group({
       'name': ['', Validators.required],
       'description': ['', Validators.required],
@@ -25,8 +30,8 @@ export class AdminEventsComponent implements OnInit {
       'location': ['', Validators.required],
       'date': ['', Validators.required],
       'startTime': ['', Validators.required],
-      'endTime': ['', Validators.required]
-      // 'event_track': [null]
+      'endTime': ['', Validators.required],
+      'event_track': ['', Validators.required]
     });
   }
 
@@ -67,7 +72,15 @@ export class AdminEventsComponent implements OnInit {
       }
     );
 
+  }
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
 
+  upload() {
+    const file = this.selectedFiles.item(0);
+    this.currentFileUpload = new FileUpload(file);
+    this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
   }
 
 }

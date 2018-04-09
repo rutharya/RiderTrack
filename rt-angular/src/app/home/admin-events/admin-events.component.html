@@ -44,11 +44,22 @@
           <!--<input formControlName="event_img" type="file" class="form-control" id="image"-->
           <!--accept="image/*" #EventImg>-->
           <!--</fieldset>-->
-          <!--<fieldset class="form-group">-->
-            <!--<label for="fileTrack">Event Track (Upload a .gpx file)</label>-->
-            <!--<input formControlName="event_track" type="file" class="form-control" id="fileTrack"-->
-                   <!--accept=".gpx" #EventTrc required>-->
-          <!--</fieldset>-->
+          <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+            <div class="progress-bar progress-bar-info progress-bar-striped"
+                 role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                 aria-valuemin="0" aria-valuemax="100"
+                 [ngStyle]="{width:progress.percentage+'%'}">
+              {{progress.percentage}}%</div>
+          </div>
+          <fieldset class="form-group">
+            <label for="fileTrack">Event Track (Upload a .gpx file)</label>
+            <label class="btn btn-default"> <input formControlName="event_track" type="file" class="form-control" id="fileTrack" accept=".gpx"
+                                                   (change)="selectFile($event)">
+            </label>
+
+            <button class="btn btn-success" [disabled]="!selectedFiles"
+                    (click)="upload()">Upload</button>
+          </fieldset>
 
           <button type="submit" class="btn btn-primary">Create</button>
         </div>
