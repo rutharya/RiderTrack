@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../../../shared/services/user.service';
+import {User} from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-profile-summary',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileSummaryComponent implements OnInit {
 
-  constructor() { }
+  currentUser: User;
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
 }
