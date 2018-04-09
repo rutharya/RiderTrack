@@ -23,7 +23,7 @@ export class AdminEventsComponent implements OnInit {
       'description': ['', Validators.required],
       // 'event_img': [null],
       'location': ['', Validators.required],
-      'eventDate': ['', Validators.required],
+      'date': ['', Validators.required],
       'startTime': ['', Validators.required],
       'endTime': ['', Validators.required]
       // 'event_track': [null]
@@ -48,7 +48,7 @@ export class AdminEventsComponent implements OnInit {
     // }
     // const TrackFile: File = this.eventTrackFile;
     // console.log(TrackFile);
-    console.log(createEventValues.eventDate);
+    console.log(createEventValues.date);
     console.log(createEventValues.startTime);
     // const formData: FormData = new FormData();
     // formData.append('name', createEventValues.name);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
-import {Router, NavigationExtras} from "@angular/router";
+import {Router, NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-rider-events',
@@ -10,7 +10,7 @@ import {Router, NavigationExtras} from "@angular/router";
 export class RiderEventsComponent implements OnInit {
   events = null;
   getAllFutEvents = null;
-  regResp = null
+  regResp = null;
 
   constructor(private eventsService: EventsService, private router: Router) {
   }
@@ -53,23 +53,23 @@ export class RiderEventsComponent implements OnInit {
     for (let i = 0; i < eventsList.length; i++) {
       const eventDate = new Date(eventsList[i].date);
       eventDate.setHours(0, 0, 0, 0);
-      const setDate = monthNames[eventDate.getMonth()] + ' ' + (eventDate.getDate()+1) + ' ' + eventDate.getFullYear();
+      const setDate = monthNames[eventDate.getMonth()] + ' ' + (eventDate.getDate() + 1) + ' ' + eventDate.getFullYear();
       eventsList[i].date = setDate;
     }
   }
 
-  getEventInfo(eventObj: any){
+  getEventInfo(eventObj: any) {
     console.log(eventObj);
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
-        "eventName": eventObj.name
+        'eventName': eventObj.name
       }
     };
     this.router.navigate(['detail']);
   }
 
 
-addRider (id){
+addRider (id) {
     console.log('rider id ');
     console.log(id);
 
@@ -84,7 +84,11 @@ addRider (id){
         confirm("You are already registered to this Event");
       }
     });
+<<<<<<< HEAD
+  console.log(this.regResp);
+=======
 
+>>>>>>> 7a38bf0a4833be94c0dae813899bcddab135b94f
   }
 
 

@@ -26,7 +26,7 @@
           </fieldset>
           <fieldset class="form-group">
             <label for="eventDate">Event Date</label>
-            <input formControlName="eventDate" type="date" class="form-control" id="eventDate" value="Enter the event Date"
+            <input formControlName="date" type="date" class="form-control" id="eventDate" value="Enter the event Date"
                    required>
           </fieldset>
           <fieldset class="form-group">
@@ -39,16 +39,16 @@
             <input formControlName="endTime" type="time" class="form-control" id="endTime"
                    placeholder="Enter Event End Time" required>
           </fieldset>
-          <fieldset class="form-group">
-          <label for="image">Event Image</label>
-          <input formControlName="event_img" type="file" class="form-control" id="image"
-          accept="image/*" #EventImg>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="fileTrack">Event Track (Upload a .gpx file)</label>
-            <input formControlName="event_track" type="file" class="form-control" id="fileTrack"
-                   accept=".gpx" #EventTrc required>
-          </fieldset>
+          <!--<fieldset class="form-group">-->
+          <!--<label for="image">Event Image</label>-->
+          <!--<input formControlName="event_img" type="file" class="form-control" id="image"-->
+          <!--accept="image/*" #EventImg>-->
+          <!--</fieldset>-->
+          <!--<fieldset class="form-group">-->
+            <!--<label for="fileTrack">Event Track (Upload a .gpx file)</label>-->
+            <!--<input formControlName="event_track" type="file" class="form-control" id="fileTrack"-->
+                   <!--accept=".gpx" #EventTrc required>-->
+          <!--</fieldset>-->
 
           <button type="submit" class="btn btn-primary">Create</button>
         </div>

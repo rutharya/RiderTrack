@@ -18,28 +18,41 @@ export class EventsService {
   saveEvent (data): any {
     console.log(data);
     console.log('Events service');
-    const body = {
-      name: data.name,
-      description: data.description,
-      location: data.location,
-      eventDate: data.eventDate,
-      startTime: data.startTime,
-      endTime: data.endTime
-    }
+    // const body = {
+    //   name: data.name,
+    //   description: data.description,
+    //   location: data.location,
+    //   date: data.date,
+    //   startTime: data.startTime,
+    //   endTime: data.endTime
+    // };
+    const body = new URLSearchParams();
+    body.set('name', data.name);
+    body.set('description', data.description);
+    body.set('location', data.location);
+    body.set('date', data.date);
+    body.set('startTime', this.convertTimeToDate(data.date, data.startTime));
+    body.set('endTime', this.convertTimeToDate(data.date, data.endTime));
     console.log(body);
-    const res = this.apiService.post('/events/save', body).map(result => result);
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    };
+    const res = this.apiService.post2('/events/save', body.toString(), options);
     return res;
   }
-
+  convertTimeToDate(date, time): any {
+    const timeString = date + 'T' + time + ':00Z';
+    return timeString;
+  }
   register (data): any {
     console.log(data);
     // const body = {
     //   eventId: data
     // };
-    let body = new URLSearchParams();
-    body.set("eventId", data)
+    const body = new URLSearchParams();
+    body.set('eventId', data);
     console.log(body);
-    let options = {
+    const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     };
     const URL = '/events/register';
