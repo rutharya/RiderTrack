@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../services";
-import { User } from '../models';
+import {EventsService, UserService} from "../services";
+import { Event,User } from '../models';
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,8 +9,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  title = 'RiderTrack';
+  searchTerm = '';
+  Events: Event[];
+  foundEvents: Event[];
   constructor(
-    private userService: UserService,private router: Router
+    private userService: UserService,
+    private eventsService: EventsService,
+    private router: Router
   ) {}
 
   currentUser: User;
@@ -21,11 +27,24 @@ export class HeaderComponent implements OnInit {
         this.currentUser = userData;
       }
     );
+    this.eventsService.getEvents().subscribe(
+      (eventsData) => {
+        this.Events = eventsData;
+      }
+    );
   }
 
   logout(){
       this.userService.purgeAuth();
       this.router.navigateByUrl('/');
+  }
+
+  search(searchTerm) {
+    console.log(searchTerm);
+    var term = searchTerm.toLocaleLowerCase();
+    var results: Event[] = [];
+    var matchingEvents = this.Events.filter(event => event.name.toLocaleLowerCase().indexOf(term) > -1);
+    console.log(matchingEvents);
   }
 
 }

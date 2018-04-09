@@ -76,8 +76,19 @@ addRider (id) {
   this.eventsService.register(id)
     .subscribe(res => {
       this.regResp = res;
+      console.log(this.regResp)
+
+      if(this.regResp.Result.toString()==='OK') {
+        confirm("You have succesfully registered to this Event")
+      }else if(this.regResp.Result.toString()==='false') {
+        confirm("You are already registered to this Event");
+      }
     });
+<<<<<<< HEAD
   console.log(this.regResp);
+=======
+
+>>>>>>> 7a38bf0a4833be94c0dae813899bcddab135b94f
   }
 
 
