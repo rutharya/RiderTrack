@@ -28,6 +28,9 @@ export class ProfileComponent implements OnInit {
       weight: '',
       phoneNo: '',
       address: '',
+      image: '',
+      password: '',
+      passwordconf: ''
     });
   }
 
@@ -45,15 +48,20 @@ export class ProfileComponent implements OnInit {
     console.log('in submit form');
     console.log(this.profileForm.get('gender'));
     console.log(this.profileForm.status);
+    console.log(this.user);
 
     this.isSubmitting = true;
     this.userService
-      .update(this.user)
+      .update(this.profileForm.value)
       .subscribe(
-        updatedUser => this.router.navigateByUrl('/home/profile'),
-        err => {
-          // this.errors = err;
-          this.isSubmitting = false;
+        // updatedUser => this.router.navigateByUrl('/home/profile'),
+        // err => {
+        //   // this.errors = err;
+        //   this.isSubmitting = false;
+        // }
+        data => {
+          console.log(data);
+          this.currentUser = data;
         }
       );
 

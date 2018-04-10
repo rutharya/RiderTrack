@@ -10,4 +10,5 @@ export interface User {
   phoneNo: number;
   address: string;
   bio: string;
+  image: string;
 }

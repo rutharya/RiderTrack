@@ -5,7 +5,7 @@ import {Api_Response} from '../models/api_response.model';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {ApiService} from './api.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {JwtService} from './jwt.service';
 import {Observable} from 'rxjs/Observable';
 
@@ -96,13 +96,56 @@ export class UserService {
   }
 
   // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
-    return this.apiService
-      .put('/users', { user })
-      .pipe(map(data => {
-        // Update the currentUser observable
-        this.currentUserSubject.next(data.user);
-        return data.user;
-      }));
+  update(data): any {
+    // return this.apiService
+    //   .put('/users', { user })
+    //   .pipe(map(data => {
+    //     // Update the currentUser observable
+    //     this.currentUserSubject.next(data.user);
+    //     return data.user;
+    //   }));
+    console.log(data);
+    console.log('User service');
+    const body = new URLSearchParams();
+    body.set('firstName', data.firstName);
+    body.set('lastName', data.lastName);
+    body.set('height', data.height);
+    body.set('weight', data.weight);
+    body.set('address', data.address);
+    body.set('phoneNo', data.phoneNo);
+    body.set('bio', data.bio);
+    body.set('image', data.image);
+    const options = {
+          headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        };
+        const res = this.apiService.put('/users', body.toString(), options);
+        return res;
   }
+  // saveEvent (data): any {
+  //   console.log(data);
+  //   console.log('Events service');
+  //   // const body = {
+  //   //   name: data.name,
+  //   //   description: data.description,
+  //   //   location: data.location,
+  //   //   date: data.date,
+  //   //   startTime: data.startTime,
+  //   //   endTime: data.endTime
+  //   // };
+  //   const body = new URLSearchParams();
+  //   body.set('name', data.name);
+  //   body.set('description', data.description);
+  //   body.set('location', data.location);
+  //   body.set('date', data.date);
+  //   body.set('startTime', this.convertTimeToDate(data.date, data.startTime));
+  //   body.set('endTime', this.convertTimeToDate(data.date, data.endTime));
+  //   body.set('trackFile', data.trackFile);
+  //   body.set('image', data.image);
+  //   console.log(body);
+  //   const options = {
+  //     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+  //   };
+  //   const res = this.apiService.post2('/events/save', body.toString(), options);
+  //   return res;
+  // }
 }
