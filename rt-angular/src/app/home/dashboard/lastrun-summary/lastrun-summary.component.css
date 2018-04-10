@@ -6,38 +6,6 @@
   margin-left: auto;
 }
 
-#map1{ height: 300%; width: 300% }
-
-
-.heading{
-  font-family: 'Fjalla One', sans-serif;
-  font-size: 2.2em;
-}
-
-.data-heading{
-  font-family: 'Fjalla One', sans-serif;
-  font-size: 1.6em;
-  color: #333;
-}
-
-.data-entry{
-  padding: 8px 0px 2px 16px;
-  font-size: 1.5em;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-
-}
-
-tr:nth-child(even){background-color: #f2f2f2}
-
 .breadcrumb {
   width: 100%;
   padding: 8px 15px;

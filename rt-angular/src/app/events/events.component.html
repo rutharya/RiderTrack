@@ -1,17 +1,17 @@
 <div class="content p-4">
-  <!--now we have access to play around with other div elements -> can add charts-->
-  <div class="container">
-    <h1 class="font-grey" style="text-align:center">EVENTS</h1>
-    <br>
+	<!--now we have access to play around with other div elements -> can add charts-->
+	<div class="container">
+		<h1 class="font-grey" style="text-align:center">EVENTS</h1>
+		<br>
 
-    <form action="" style="text-align:center">
-      <input type="radio" name="Events" value="Upcoming Events" (click)="getUpcomingEvents()" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp;
-      <input type="radio" name="Events" value="Past Events" (click)="getPastEvents()"><strong>  Past Events
-    </strong><br>
-    </form>
-    <br>
-    <div *ngFor="let event of events">
-      <div class="row">
+		<form action="" style="text-align:center">
+			<input type="radio" name="Events" value="Upcoming Events" (click)="getUpcomingEvents()" checked="checked"><strong> Upcoming Events  </strong>&emsp;&emsp;
+			<input type="radio" name="Events" value="Past Events" (click)="getPastEvents()"><strong>  Past Events
+			</strong><br>
+		</form>
+		<br>
+		<div *ngFor="let event of events">
+      <div class="row eventsList">
         <div class="col-md-7">
           <a href="#">
             <img class="img-fluid rounded mb-3 mb-md-0" src="{{event.image}}" style="width:640px;height:300px;">
@@ -20,15 +20,19 @@
         <div class="col-md-5">
           <h3><a href="#">{{event.name}}</a></h3>
           <p>{{event.description}}</p>
-          <p><strong>{{event.date}}</strong></p>
+          <p><strong>{{event.date | date:'short'}}</strong></p>
           <a class="btn btn-primary" [routerLink]="['/eventTracking',event._id]" routerLinkActive="active">View Event</a>
-          <!--<a class="btn btn-primary"  (click)="addRider(event._id)" *showAuthed="true">Register Event</a>-->
+          <!--<a class="btn btn-primary"  *showAuthed="true">Register Event</a>-->
         </div>
-      </div>
-      <br>
-    </div>
-  </div>
-</div>
+
+        <!--<app-event-thumbnail #event_thumbnail-->
+                               <!--[event]="event"-->
+                               <!--(click)="handleThumbnailClick(event.name)" ></app-event-thumbnail>-->
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
 <br>
 <br>
 <br>

@@ -13,10 +13,10 @@ import {User} from "../shared/models";
 
 
 export class EventsComponent implements OnInit {
-  events: Event[];
-  user: User;
-  getAllFutEvents = null;
-  getAllPastEvents = null;
+   events: Event[];
+   user: User;
+   getAllFutEvents = null;
+   getAllPastEvents = null;
 
 
   constructor(private eventsService: EventsService, private router: Router) {
@@ -24,17 +24,17 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.eventsService.getEvents()
-      .subscribe(res => {
-        this.events = res;
-        this.getAllPastEvents = res;
-        this.getAllFutEvents = res;
-        this.getFutureEvents(this.getAllFutEvents);
-       // this.events = res[0].name;
-      });
-    // this.eventsService.getEvents().subscribe(res => {
-    //   this.events = res;
-    // })
+    // this.eventsService.getEvents()
+    //   .subscribe(res => {
+    //     this.events = res;
+    //     this.getAllPastEvents = res;
+    //     this.getAllFutEvents = res;
+    //     this.getFutureEvents(this.getAllFutEvents);
+    //    // this.events = res[0].name;
+    //   });
+    this.eventsService.getEvents().subscribe(res => {
+      this.events = res;
+    })
   }
 
   handleThumbnailClick(name){
@@ -71,7 +71,7 @@ export class EventsComponent implements OnInit {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     for (let i = 0; i < this.getAllPastEvents.length; i++) {
-      const eventDate = new Date(this.getAllPastEvents[i].date);
+       const eventDate = new Date(this.getAllPastEvents[i].date);
       eventDate.setHours(0, 0, 0, 0);
       if (eventDate.getTime() < currentDate.getTime()) {
         pastEvents[k++] = this.getAllPastEvents[i];
