@@ -5,6 +5,7 @@ import {HeaderComponent} from '../../shared/layout';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {matchOtherValidator} from './match-other-validator';
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-profile',
@@ -62,6 +63,11 @@ export class ProfileComponent implements OnInit {
         data => {
           console.log(data);
           this.currentUser = data;
+          this.router.navigateByUrl('/home');
+          toastr.success('Profile updated!');
+        }
+        err => {
+          toastr.error('Cannot Update the profile try again');
         }
       );
 
