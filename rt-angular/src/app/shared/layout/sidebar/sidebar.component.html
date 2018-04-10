@@ -2,10 +2,16 @@
   <div class="sidebar bg-dark">
     <ul class="list-unstyled">
       <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
-      <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>
-      <li><a [routerLink]="['./riderEvents']"><i class="fa fa-fw fa-link"></i>Events</a></li>
-      <li><a [routerLink]="['./adminEvents']"><i class="fa fa-fw fa-link"></i>admin-events</a></li>
-      <li>
+      <br>
+      <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><b class="fa fa-fw fa-link">Dashboard</b></a></li>
+      <hr>
+      <li><a [routerLink]="['./myEvents']"><b class="fa fa-fw fa-angle-right">My Events</b></a></li>
+      <hr>
+      <li><a [routerLink]="['./riderEvents']"><b class="fa fa-fw fa-link">Events Registration</b></a></li>
+      <hr>
+      <li><a [routerLink]="['./adminEvents']"><b class="fa fa-fw fa-link">Create Event</b></a></li>
+      <hr>
+      <!--<li>-->
         <!--<a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>-->
         <!--TOOD: implement submenu system?-->
         <!--<ul id="submenu1" class="list-unstyled collapse">-->
@@ -13,12 +19,13 @@
           <!--<li><a href="#">Last Run</a></li>-->
           <!--<li><a href="#">Summary</a></li>-->
         <!--</ul>-->
-      </li>
-      <li>
-        <a (click)="onToggleSubmenu($event)" [class.selected]="wasClicked">Last Run</a>
-      </li>
-      <li><a [routerLink]="['./myEvents']"><i class="fa fa-fw fa-angle-right"></i>My Events</a></li>
-      <li><a [routerLink]="['./profile']"><i class="fa fa-fw fa-link"></i>Profile</a></li>
+      <!--</li>-->
+      <!--<li>-->
+        <!--<a (click)="onToggleSubmenu($event)" [class.selected]="wasClicked">Last Run</a>-->
+      <!--</li>-->
+
+      <li><a [routerLink]="['./profile']"><b class="fa fa-fw fa-link">Profile</b></a></li>
+      <hr>
     </ul>
   </div>
   </div>

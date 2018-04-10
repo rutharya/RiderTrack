@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
 import {Router, NavigationExtras} from '@angular/router';
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-rider-events',
@@ -16,6 +17,7 @@ export class RiderEventsComponent implements OnInit {
   }
 
   ngOnInit() {
+    toastr.options.timeOut = 2000;
     this.eventsService.getEvents()
       .subscribe(res => {
         this.events = res;
@@ -78,10 +80,10 @@ addRider (id) {
       this.regResp = res;
       console.log(this.regResp)
 
-      if(this.regResp.Result.toString()==='OK') {
-        confirm("You have succesfully registered to this Event")
+      if(this.regResp.Result.toString()==='true') {
+       toastr.success("You have succesfully registered to this Event");
       }else if(this.regResp.Result.toString()==='false') {
-        confirm("You are already registered to this Event");
+        toastr.error("You are already registered to this Event");
       }
     });
   console.log(this.regResp);

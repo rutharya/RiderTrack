@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
       .attemptAuth(this.authType, credentials)
       .subscribe(
         data => {
-          toastr.success('login successful');
+          toastr.options.timeOut = 1000;
+          toastr.success('Login successful');
           this.router.navigateByUrl('/home');
         },//redirecting user to their home page.
         err => {
