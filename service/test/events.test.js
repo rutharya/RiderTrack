@@ -62,7 +62,8 @@ describe('/GET events', function () {
             .end(function (err,res) {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                expect(res.body.length).to.not.equal(0);
+                console.log(res.body.length);
+                expect(res.body.length).to.equal(0);
                 done();
             });
 
