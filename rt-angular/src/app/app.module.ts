@@ -20,6 +20,7 @@ import {
   SharedModule,
   FooterComponent,
   HeaderComponent,
+  JQ_TOKEN,
   HttpTokenInterceptor
 } from './shared/';
 import { LandingComponent } from './landing/landing.component';
@@ -34,6 +35,7 @@ import {UploadFileService} from './shared/services/uploadFile.service';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {environment} from '../environments/environment';
+declare let jQuery: Object;
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
   // {
