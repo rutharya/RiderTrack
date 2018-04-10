@@ -71,7 +71,7 @@ router.get('/getEventStats',auth.required, function(req, res, next){
                     activity.racestats = stats;
                     Activity.update(
                         { "_id": activity._id },
-                        { "$set": { "completed": true , "racestats": stats} },
+                        { "$set": {"racestats": stats} },
                         { "multi": false },
                         function(err,numAffected) {
                             if (err) {console.log("update failed:"+err); return res.send([]);}
