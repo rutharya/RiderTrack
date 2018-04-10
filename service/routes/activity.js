@@ -32,6 +32,7 @@ router.get('/getEventStats',auth.required, function(req, res, next){
 
         Event.findById(req.query.eventid).then(function(events){
             if(!events) {return res.sendStatus(401);}
+            if(events === null) {return res.sendStatus(401);}
             eventid = events._id;
             console.log("event selected:"+events._id);
 
@@ -39,39 +40,46 @@ router.get('/getEventStats',auth.required, function(req, res, next){
                 if(!activity) {
                     return res.sendStatus(401);
                 }
+                else if(activity === null) return res.send([]);
                 selectedactivity = activity;
                 console.log(activity);
 
                 // Event stats are not calculated, hence calculate them.
-                    var stats = null;
-                    console.log("calculating statistics");
-                    //var stats = calculateStats(activity._id);
-                    calculateStats(activity._id, function(result){
-                        for (var prop in result) {
-                            console.log(prop + " = " + result[prop]);
+                var stats = null;
+                console.log("calculating statistics");
+                //var stats = calculateStats(activity._id);
+                calculateStats(activity._id, function(result){
+                    console.log("Result of calculate stats for event is"+result);
+                    if(result === "Error" || result == "Error"){
+                        console.log("No activity for the user");
+                        return res.send([]);
+                    }
+                    for (var prop in result) {
+                        console.log(prop + " = " + result[prop]);
+                    }
+
+                    stats =  {
+                        maxspeed: result['maxspeed'],
+                        averagespeed: result['averagespeed'],
+                        lastspeed: result['lastspeed'],
+                        totaldistance: result['totaldistance'],
+                        elapsedtime: result['elapsedtime'],
+                        currentelevation: result['currentelevation'],
+                        maxelevation: result['maxelevation'],
+                        averageelevation: result['averageelevation']
+                    }
+                    activity.racestats = stats;
+                    Activity.update(
+                        { "_id": activity._id },
+                        { "$set": { "completed": true , "racestats": stats} },
+                        { "multi": false },
+                        function(err,numAffected) {
+                            if (err) {console.log("update failed:"+err); return res.send([]);}
+                            console.log("Inserted succesfully to activity with id:"+activity._id );
+                            return res.json({statistics: activity.racestats});
                         }
-                       stats =  {
-                            maxspeed: result['maxspeed'],
-                            averagespeed: result['averagespeed'],
-                            lastspeed: result['lastspeed'],
-                            totaldistance: result['totaldistance'],
-                            elapsedtime: result['elapsedtime'],
-                            currentelevation: result['currentelevation'],
-                            maxelevation: result['maxelevation'],
-                           averageelevation: result['averageelevation']
-                       }
-                        activity.racestats = stats;
-                        Activity.update(
-                            { "_id": activity._id },
-                            { "$set": { "completed": true , "racestats": stats} },
-                            { "multi": false },
-                            function(err,numAffected) {
-                                if (err) {console.log("update failed:"+err); throw err;}
-                                console.log("Inserted succesfully to activity with id:"+activity._id );
-                                return res.json({statistics: activity.racestats});
-                            }
-                        );
-                    });
+                    );
+                });
             });
         }).catch(next);
     }).catch(next);
@@ -96,7 +104,11 @@ router.get('/eventplotpoints',auth.required,function(req,res,next){
         console.log("rider selected"+riderid);
 
         Event.findById(req.query.eventid).then(function (events) {
-            if(!events) {return res.sendStatus(401);}
+            if(!events) {return res.send([]);}
+            else if(events === null) {
+                console.log("'No event found");
+                res.send([]);
+            }
             eventid = events._id;
             console.log("event selected:"+eventid);
             Activity.aggregate([
@@ -107,6 +119,10 @@ router.get('/eventplotpoints',auth.required,function(req,res,next){
             ], function (err, result) {
                 if(err) res.send(err);
                 else {
+                    if(result === null){
+                        console.log("No activity found");
+                        res.send([]);
+                    }
                     console.log(result);
                     res.send(result);
                 }
@@ -128,30 +144,34 @@ function calculateStats(activityid, fn){
     console.log("Inside calculate stats function");
     // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
 
-        Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
-            { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" }, maxspeed: {$max: "$gps_stats.speed"}, maxelevation: {$max: "$gps_stats.altitude"},
-                    averageelevation: {$avg:"$gps_stats.altitude"},
-                    first: { $first: "$gps_stats" },
-                    last: { $last: "$gps_stats" },
-                }},
-            { $project: {
-                    elapsedtime: {
-                        $subtract: [ "$last.timestamp", "$first.timestamp"]
-                    },
-                    averagespeed:1, maxspeed:1, averageelevation:1, maxelevation:1, totaldistance: {$subtract: ["$last.distLeft",0]}, lastspeed:{$subtract: ["$last.speed",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
-                }}
-        ], function (err,result){
-            if (err) {
-                console.log(err);
+    Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
+        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" }, maxspeed: {$max: "$gps_stats.speed"}, maxelevation: {$max: "$gps_stats.altitude"},
+                averageelevation: {$avg:"$gps_stats.altitude"},
+                first: { $first: "$gps_stats" },
+                last: { $last: "$gps_stats" },
+            }},
+        { $project: {
+                elapsedtime: {
+                    $subtract: [ "$last.timestamp", "$first.timestamp"]
+                },
+                averagespeed:1, maxspeed:1, averageelevation:1, maxelevation:1, totaldistance: {$subtract: ["$last.distLeft",0]}, lastspeed:{$subtract: ["$last.speed",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
+            }}
+    ], function (err,result){
+        if (err) {
+            console.log(err);
+            fn("Error");
+        }
+        else {
+            if(result === null){
+                console.log("Error");
+                fn("Error");
             }
-            else {
-                console.log(result[0]);
-                fn(result[0]);
-            }
+            console.log(result[0]);
+            fn(result[0]);
+        }
 
-        });
+    });
 }
-
 
 
 

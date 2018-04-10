@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 var User = require('../models/rider');
 var Activity = require('../models/activity');
+var Event = require('../models/events');
 
 // /* GET home page. */
 //HOME ROUTE COMMENTED OUT because We are serving Angular code from /dist.
@@ -22,12 +23,12 @@ router.use('/profiles',require('./profiles'));
 
 
 router.get('/dashboard',function(req,res,next){
- res.render('dashboard');
+    res.render('dashboard');
 })
 
 
 router.get('/dashboard2',auth.required,function(req,res,next){
-  res.redirect('/dashboard/'+req.payload.id);
+    res.redirect('/dashboard/'+req.payload.id);
 });
 
 router.get('/authsuc', function (req, res, next) {
@@ -301,37 +302,41 @@ router.get('/userstatistics',auth.required, function(req, res, next){
         console.log("Rider selected:"+user._id);
         riderid = user._id;
 
-       calculateUserStats(user._id, function (result) {
+        calculateUserStats(user._id, function (result) {
 
-           for (var prop in result) {
-               console.log(prop + " = " + result[prop]);
-           }
-           stats =  {
-               avgspeed: result['avgspeed'],
-               maxspeed: result['maxspeed'],
-               totaldistance: result['totaldistance'],
-               longestdistance: result['longestdistance'],
-               maxelevation: result['maxelevation'],
-               averageelevation: result['averageelevation'],
-               totalmovingtime: result['totalmovingtime'],
-               longestmovingtime: result['longestmovingtime'],
-               participationcount: result['participationcount'],
-               wincount: user.statistics.wincount
+            console.log("Result is:"+result);
+            if(result == "Error" || result === "Error" || result == undefined){
+                return res.send([]);
+            }
+            for (var prop in result) {
+                console.log(prop + " = " + result[prop]);
+            }
+            stats =  {
+                avgspeed: result['avgspeed'],
+                maxspeed: result['maxspeed'],
+                totaldistance: result['totaldistance'],
+                longestdistance: result['longestdistance'],
+                maxelevation: result['maxelevation'],
+                averageelevation: result['averageelevation'],
+                totalmovingtime: result['totalmovingtime'],
+                longestmovingtime: result['longestmovingtime'],
+                participationcount: result['participationcount'],
+                wincount: user.statistics.wincount
 
-           }
+            }
 
-           user.statistics = stats;
-           User.update(
-               { "_id": riderid },
-               { "$set": {"statistics": stats} },
-               { "multi": false },
-               function(err,numAffected) {
-                   if (err) {console.log("update failed:"+err); throw err;}
-                   console.log("Inserted succesfully to rider  with id:"+riderid);
-                   return res.json({statistics: user.statistics});
-               }
-           );
-       });
+            user.statistics = stats;
+            User.update(
+                { "_id": riderid },
+                { "$set": {"statistics": stats} },
+                { "multi": false },
+                function(err,numAffected) {
+                    if (err) {console.log("update failed:"+err); return res.send([]);}
+                    console.log("Inserted succesfully to rider  with id:"+riderid);
+                    return res.json({statistics: user.statistics});
+                }
+            );
+        });
 
     }).catch(next);
 });
@@ -343,7 +348,7 @@ router.get('/userstatistics',auth.required, function(req, res, next){
 // Router method to get latest activity for a rider.
 router.get('/getLatestEvent', auth.required, function (req, res, next) {
     console.log("Inside get last event");
-    var riderid;
+    var riderid, activityselected, eventid,result;
     if(!req.payload){
         res.render('error',{message:'invalid headers'});
     }
@@ -352,25 +357,49 @@ router.get('/getLatestEvent', auth.required, function (req, res, next) {
         console.log("Rider selected:"+user._id);
         riderid = user._id;
         // Get latest activity by natural sorting, and limiting
-        var q = Activity.find({riderid: riderid}).limit(1).sort({$natural:-1});
+        var q = Activity.find({riderid: user._id}).limit(1).sort({$natural:-1});
         q.exec(function(err, activity) {
-           if(err){
-               console.log("Error occured"+err);
-               res.send("Error");
-           }
-           else{
+            if(err){
+                console.log("Error occured"+err);
+                return res.send([]);
+            }
+            else{
+                console.log("Activity returned"+activity);
+                if(activity === null || activity == undefined)
+                {return res.sendStatus(401);}
+                activityselected = activity[0];
+                if(activityselected == undefined) return res.send([]);
+                eventid = activityselected.eventid;
+                Event.findById({_id: eventid}).then(function (events) {
+                    if(!events) {return res.sendStatus(401);}
+                    else if(events === null || events == undefined) return res.send([]);
+                    else{
 
-               console.log("Activity found"+activity._id);
-               res.send(activity);
-           }
+                        result = {
+                            activity: activityselected,
+                            eventinfo: {
+                                eventname: events.name,
+                                eventlocation: events.location,
+                                eventdate: events.date
+                            }
+                        }
+                        res.send(result);
+
+                    }
+                });
+
+
+
+            }
         });
     }).catch(next);
 });
 
 
 
-
+// Route to get user data points for plotting. Return average speed, distance and altitude arrays for plotting
 router.get('/userdatapoints',auth.required,function(req,res,next){
+    console.log("Inside userdatapoints");
     var riderid;
     if(!req.payload){
         res.render('error',{message:'invalid headers'});
@@ -389,9 +418,13 @@ router.get('/userdatapoints',auth.required,function(req,res,next){
         ] ,function (err,result){
             if (err) {
                 console.log(err);
-                res.send(err);
+                res.send([]);
             }
             else {
+                if(result === null){
+                    console.log("No data for the user");
+                    res.send([]);
+                }
                 console.log(result);
                 res.send(result);
             }
@@ -438,10 +471,18 @@ function calculateUserStats(riderid, fn){
     ], function (err,result){
         if (err) {
             console.log(err);
+            fn("Error");
         }
         else {
-            console.log(result[0]);
-            fn(result[0]);
+            if(result === null) {
+                console.log("No events for the user");
+                fn("Error");
+
+            }
+            else {
+                console.log(result[0]);
+                fn(result[0]);
+            }
         }
 
     });
