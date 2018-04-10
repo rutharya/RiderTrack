@@ -20,6 +20,8 @@ import {
   SharedModule,
   FooterComponent,
   HeaderComponent,
+  SimpleModalComponent,
+  ModalTriggerDirective,
   JQ_TOKEN,
   HttpTokenInterceptor
 } from './shared/';
@@ -55,6 +57,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     HeaderComponent,
     FooterComponent,
     LandingComponent,
+    SimpleModalComponent,
+    ModalTriggerDirective,
     ApiComponent
   ],
   imports: [
@@ -72,6 +76,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,
+    {provide: JQ_TOKEN, useValue: jQuery},
     AuthGuardService,
     JwtService,
     UserService,

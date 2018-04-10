@@ -5,3 +5,4 @@ export * from './user.service';
 export * from './statistics.service';
 export * from './events.service';
 export * from './maps.service';
+export * from './jquery.service';
