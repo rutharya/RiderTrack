@@ -2,17 +2,6 @@
   <div class="container text-center card mb-3" style="background-color:darkslategrey; margin-left: 2px">
     <h1>{{eventName}}</h1><br/>
     <h4>{{eventDescription}}</h4><br/>
-    <!--<div class="row">
-        <div class="col-sm-4">
-            <h4>Event Date</h4>
-        </div>
-        <div class="col-sm-4">
-            <h4>Event Time</h4>
-        </div>
-        <div class="col-sm-4">
-            <h4>Event Venue</h4>
-        </div>
-    </div>-->
     <h5><i>Date: </i>{{eventDate}}</h5>
     <h5><i>Time: </i>{{eventTime}}</h5>
     <h5><i>Location: </i>{{eventLocation}}</h5>
@@ -21,7 +10,6 @@
 
   <div class="row">
     <div class="column left1">
-      <!-- <div class="breadcrumb" style="border: 1px solid gray;width:100%; height:100%;"></div>-->
       <div class="card mb-3" style="height:630px">
         <div class="card-header">
           <i class="fa fa-area-chart"></i>Track Participants
@@ -33,8 +21,7 @@
           </form>
           <br/>
           <ul>
-            <li *ngFor="let data of locationData$"><a [routerLink]="['/riderTracking',{eventName: eventName, eventDescription: eventDescription,
-                                                             eventTime: eventTime, eventDate: eventDate, eventLocation: eventLocation}]">{{data.riderName}}</a></li>
+            <li *ngFor="let data of locationData$"><a routerLink="/riderTracking">{{data.riderName}}</a></li>
           </ul>
         </div>
       </div>

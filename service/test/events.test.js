@@ -10,7 +10,7 @@ var expect = require('chai').expect;
 chai.use(chaiHttp);
 
 var userCredentials = {
-    email: 'admin@admin.com ',
+    email: 'admin@admin.com',
     password: 'admin'
 };
 

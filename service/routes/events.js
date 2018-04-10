@@ -117,7 +117,7 @@ router.delete('/register',auth.required,function(req,res,next){
                 console.log(err);
                 if(err) return res.status(500).json({Result: false, status: {err: err}});
                 user.save(function(err) {
-                    return res.json({Result: "OK", status:{msg:"Successfully un-registered from event"}});
+                    return res.json({Result: true, status:{msg:"Successfully un-registered from event"}});
                   });
             })
         })
@@ -166,7 +166,7 @@ router.post('/register',auth.required,function(req,res,next){
                 console.log(err);
                 if(err) return res.status(500).json({Result: false, status: {err: err}});
                 user.save(function(err) {
-                    return res.json({Result: "OK", status:{msg:"Successfully registered to event2"}});
+                    return res.json({Result: true, status:{msg:"Successfully registered to event2"}});
                   });
             })
         })
