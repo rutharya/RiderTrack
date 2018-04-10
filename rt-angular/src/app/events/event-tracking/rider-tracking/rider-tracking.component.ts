@@ -32,11 +32,11 @@ export class RiderTrackingComponent implements OnInit {
       this.eventLocation = params["eventLocation"];
       this.eventTime = params["eventTime"];
     });
-    this.getRiderLocation();
+    //this.getRiderLocation();
     this.riderLocationsService.loadMap();
-    Observable.interval(2 * 60 * 1000).subscribe(x => {
+    /*Observable.interval(2 * 60 * 1000).subscribe(x => {
       this.getRiderLocation();
-    });
+    });*/
   }
 
   getRiderLocation():void{
