@@ -8,47 +8,91 @@
     </li>
   </ol>
   <div class="row">
-    <!--TODO: stats object here has all your data. you can edit this and mock data in acticity.service.ts file to render things. -->
-    <p>{{stats.mostparticipatedactivity}}</p>
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <!-- Example Bar Chart Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-bar-chart"></i>Activities Summary
+          <i class="fa fa-bar-chart"></i>Rider Stats
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-sm-8 my-auto">
-              <canvas id="myStat" width="100" height="50"></canvas>
-            </div>
+          <div class="overflow-x:auto;">
+            <table id="myTable">
+              <tr>
+                <td><b>Participated In</b></td>
+                <td>{{result.participationcount}}&nbsp;events</td>
+                <td><b>Max elevation</b></td>
+                <td>{{result.maxelevation}}&nbsp;feet</td>
+              </tr>
+              <tr>
+                <td><b>Total distance</b></td>
+                <td>{{result.totaldistance}}&nbsp;miles</td>
+                <td><b>Longest distance</b></td>
+                <td>{{result.longestdistance}}&nbsp;miles</td>
+              </tr>
+              <tr>
+                <td><b>Average Speed</b></td>
+                <td>{{result.avgspeed | number:'1.1-2'}}&nbsp;mph</td>
+                <td><b>Maximum Speed</b></td>
+                <td>{{result.maxspeed | number: '1.1-2'}}&nbsp;mph</td>
+              </tr>
+              <tr>
+                <td><b>Total Moving time</b></td>
+                <td>{{result.totalmovingtime / 60000 | number: '1.1-2'}}&nbsp;minutes</td>
+                <td><b>Longest event duration</b></td>
+                <td>{{result.longestmovingtime / 60000 | number: '1.1-2'}}&nbsp;minutes</td>
+              </tr>
+
+            </table>
           </div>
         </div>
-        <div class="custom-select" style="width:200px;">
-          <select>
-            <option value="0">Select Stat:</option>
-            <option value="1">Elevation</option>
-            <option value="2">Distance</option>
-            <option value="2">Time</option>
-          </select>
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
       </div>
 
       <!-- /Card Columns-->
     </div>
-    <div class="col-lg-4">
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-6">
       <!-- Example Pie Chart Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-pie-chart"></i> Races Completed
+          <i class="fa fa-pie-chart"></i> Speed Stats
         </div>
         <div class="card-body">
-          <canvas id="raceStats" width="100%" height="100"></canvas>
+          <canvas id="speedchart" width="100%" height="100%">{{speedchart}}</canvas>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <!-- Example Pie Chart Card-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-pie-chart"></i>Distance Stats
+        </div>
+        <div class="card-body">
+          <canvas id="distchart" width="100%" height="100%">{{distchart}}</canvas>
+        </div>
+
       </div>
     </div>
   </div>
+
+  <!--<div class="row">-->
+  <!--<div class="col-lg-12">-->
+  <!--&lt;!&ndash; Example Pie Chart Card&ndash;&gt;-->
+  <!--<div class="card mb-3">-->
+  <!--<div class="card-header">-->
+  <!--<i class="fa fa-pie-chart"></i> Speed Stats-->
+  <!--</div>-->
+  <!--<div class="card-body">-->
+  <!--<canvas id="altchart" width="100%" height="100">{{altchart}}</canvas>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
 </div>
 
 <br>
