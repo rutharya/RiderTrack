@@ -16,16 +16,16 @@ var userCredentials = {
 
 var authenticatedUser = request.agent(server);
 
-before(function(done){
-    authenticatedUser
-        .post('/users/login')
-        .send(userCredentials)
-        .end(function (err, res) {
-            res.should.have.status(200);
-            expect('Location', '/home/dashboard');
-            done();
-        });
-});
+// before(function(done){
+//     authenticatedUser
+//         .post('/users/login')
+//         .send(userCredentials)
+//         .end(function (err, res) {
+//             res.should.have.status(200);
+//             expect('Location', '/home/dashboard');
+//             done();
+//         });
+// });
 
 
 describe('GET /profile', function(){

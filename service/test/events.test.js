@@ -111,7 +111,6 @@ describe('login, create new event and register for event', function () {
             .send(userCredentials)
             .end(function (err, res) {
 
-                var event_id = '';
                 var token = res.body.user.token;
 
 
