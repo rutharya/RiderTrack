@@ -57,7 +57,7 @@ router.post('/save', function (req, res) {
     //     res.send({"Saved Event ID": event._id})
     //
     // });
-})
+});
 
 router.get('/register', auth.required, function (req, res,next) {
     Rider.findById(req.payload.id).then(function(user){
