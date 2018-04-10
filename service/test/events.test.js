@@ -46,13 +46,11 @@ var event =new Event({
 
 
 describe('Events', function() {
-    before(function (done) {
-        mongoose.connect('localhost:27017/ridertrack.events', function(){
-            mongoose.connection.db.dropDatabase(function(){
-                done()
-            })
-        })
-    })
+    beforeEach(function (done) {
+        Event.remove({}, function (err) {
+            done();
+        });
+    });
 });
 
 
