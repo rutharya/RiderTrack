@@ -46,11 +46,13 @@ var event =new Event({
 
 
 describe('Events', function() {
-    beforeEach(function (done) {
-        Event.remove({}, function (err) {
-            done();
-        });
-    });
+    before(function (done) {
+        mongoose.connect('localhost:27017/ridertrack.events', function(){
+            mongoose.connection.db.dropDatabase(function(){
+                done()
+            })
+        })
+    })
 });
 
 
@@ -69,20 +71,20 @@ describe('/GET events', function () {
     });
 });
 
-describe('/save events', function () {
-    it('Save event to database', function (done) {
-
-        chai.request(server)
-            .post('/events/save')
-            .send(event)
-            .end(function (err,res) {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                done();
-            });
-
-    });
-});
+// describe('/save events', function () {
+//     it('Save event to database', function (done) {
+//
+//         chai.request(server)
+//             .post('/events/save')
+//             .send(event)
+//             .end(function (err,res) {
+//                 res.should.have.status(200);
+//                 res.body.should.be.a('object');
+//                 done();
+//             });
+//
+//     });
+// });
 
 describe('/eventId events', function () {
     it('Get event with that id from the database', function (done) {
@@ -153,6 +155,7 @@ describe('login, go to /events and register for 1 event', function () {
                     .get('/events/')
                     .end(function (err, res) {
                         event_id = res.body[0]._id;
+                        console.log("event id is " + event_id);
                         chai.request(server)
                             .post('/events/register')
                             .set('Content-Type','application/x-www-form-urlencoded')
