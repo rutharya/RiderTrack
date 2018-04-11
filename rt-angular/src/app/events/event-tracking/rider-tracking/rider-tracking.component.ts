@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {RiderLocationsService} from "../../../shared/services/rider-locations.service";
 import {RiderData} from "../../../shared/models/riderData.model";
 import {Observable} from "rxjs/Rx";
+import {EventsService} from "../../../shared/services/events.service";
 
 
 @Component({
@@ -13,6 +14,8 @@ import {Observable} from "rxjs/Rx";
 
 export class RiderTrackingComponent implements OnInit {
 
+  public riderId: any;
+  public eventId: any;
   public eventName: string;
   public eventDescription: string;
   public eventDate: string;
@@ -21,26 +24,44 @@ export class RiderTrackingComponent implements OnInit {
 
   riderData$: RiderData[];
 
-  constructor(private route: ActivatedRoute, private riderLocationsService: RiderLocationsService) {}
+  constructor(private route: ActivatedRoute,
+              private riderLocationsService: RiderLocationsService,
+              private eventsService: EventsService) {}
 
   ngOnInit() {
     console.log('rider tracking component initialized');
     this.route.params.subscribe(params => {
-      this.eventName = params["eventName"];
-      this.eventDescription = params["eventDescription"];
-      this.eventDate = params["eventDate"];
-      this.eventLocation = params["eventLocation"];
-      this.eventTime = params["eventTime"];
+      this.eventId = params["eventid"];
+      this.riderId = params["riderid"];
+      console.log("EventId: "+this.eventId);
+      console.log("RiderId: "+this.riderId);
+
+      //getting data from the events api
+      this.eventsService.getEventsById(this.eventId).subscribe(eventsData=>{
+        this.eventName = eventsData.name;
+        this.eventDescription = eventsData.description;
+        this.eventDate = eventsData.date;
+        this.eventTime = eventsData.time;
+        this.eventLocation = eventsData.location;
+      });
+
+      this.riderLocationsService.loadMap();
+      this.getRiderLocation(this.eventId, this.riderId);
+      Observable.interval(2 * 60 * 1000).subscribe(x => {
+        this.getRiderLocation(this.eventId,this.riderId);
+      });
     });
-    //this.getRiderLocation();
+
+    //************* Live tracking code ************************
+    /*this.getRiderLocation();
     this.riderLocationsService.loadMap();
-    /*Observable.interval(2 * 60 * 1000).subscribe(x => {
+    Observable.interval(2 * 60 * 1000).subscribe(x => {
       this.getRiderLocation();
     });*/
   }
 
-  getRiderLocation():void{
-    this.riderLocationsService.getRiderLocations().subscribe(riderData=>{
+  getRiderLocation(eventId, riderId):void{
+    this.riderLocationsService.getRiderLocations(eventId,riderId).subscribe(riderData=>{
       this.riderData$ = riderData;
       this.riderLocationsService.plot(this.riderData$);
     })

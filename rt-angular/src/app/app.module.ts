@@ -76,7 +76,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,
-    {provide: JQ_TOKEN, useValue: jQuery},
+    //{provide: JQ_TOKEN, useValue: jQuery},
     AuthGuardService,
     JwtService,
     UserService,

@@ -26,6 +26,10 @@ const eventsRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'riderTracking',
     component: RiderTrackingComponent
+  },
+  {
+    path: 'riderTracking/:eventid/:riderid',
+    component: RiderTrackingComponent
   }
   // },
   // {

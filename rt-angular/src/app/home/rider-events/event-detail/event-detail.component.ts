@@ -32,14 +32,14 @@ export class EventDetailComponent implements OnInit {
       this.eventLocation = params["eventLocation"];
       this.eventTime = params["eventTime"];
     });
-    this.getLatestLocation();
+    //this.getLatestLocation();
   }
 
-  getLatestLocation(): void {
+  /*getLatestLocation(): void {
     //this.locationData$ = this.latestLocationService.getLatestLocation();
     this.latestLocationService.getLatestLocation().subscribe(locationData => {
       this.locationData$ = locationData;
       this.latestLocationService.plot(this.locationData$);
     });
-  }
+  }*/
 }
