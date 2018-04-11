@@ -42,9 +42,9 @@ export class HeaderComponent implements OnInit {
   search(searchTerm) {
     console.log(searchTerm);
     var term = searchTerm.toLocaleLowerCase();
-    var results: Event[] = [];
-    var matchingEvents = this.Events.filter(event => event.name.toLocaleLowerCase().indexOf(term) > -1);
-    console.log(matchingEvents);
+    // var results: Event[] = [];
+    this.foundEvents = this.Events.filter(event => event.name.toLocaleLowerCase().indexOf(term) > -1);
+    // console.log(matchingEvents);
   }
 
 }
