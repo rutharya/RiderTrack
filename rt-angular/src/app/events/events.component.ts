@@ -24,17 +24,17 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.eventsService.getEvents()
-    //   .subscribe(res => {
-    //     this.events = res;
-    //     this.getAllPastEvents = res;
-    //     this.getAllFutEvents = res;
-    //     this.getFutureEvents(this.getAllFutEvents);
-    //    // this.events = res[0].name;
-    //   });
-    this.eventsService.getEvents().subscribe(res => {
-      this.events = res;
-    })
+    this.eventsService.getEvents()
+      .subscribe(res => {
+        this.events = res;
+        this.getAllPastEvents = res;
+        this.getAllFutEvents = res;
+        this.getFutureEvents(this.getAllFutEvents);
+       // this.events = res[0].name;
+      });
+    // this.eventsService.getEvents().subscribe(res => {
+    //   this.events = res;
+    // })
   }
 
   handleThumbnailClick(name){

@@ -20,7 +20,7 @@
         <div class="col-md-5">
           <h3><a href="#">{{event.name}}</a></h3>
           <p>{{event.description}}</p>
-          <p><strong>{{event.date | date:'short'}}</strong></p>
+          <p><strong>{{event.date}}</strong></p>
           <a class="btn btn-primary" [routerLink]="['/eventTracking',event._id]" routerLinkActive="active">View Event</a>
           <!--<a class="btn btn-primary"  *showAuthed="true">Register Event</a>-->
         </div>
