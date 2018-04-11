@@ -17,11 +17,11 @@
       "statusOfRace":"",
       "startLocation":{
         "lat":12.239,
-        "lng":23.244
+        "long":23.244
       },
       "endLocation":{
         "lat":23.344,
-        "lng":11.324
+        "long":11.324
       }
     },
     {
@@ -41,11 +41,11 @@
         "raceWinners": [],
         "startLocation":{
         "lat":12.239,
-        "lng":23.244
+        "long":23.244
       },
       "endLocation":{
         "lat":23.344,
-        "lng":11.324
+        "long":11.324
       }
       }
   ]

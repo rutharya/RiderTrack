@@ -1,6 +1,7 @@
 <div class="d-flex align-items-stretch">
   <div class="sidebar bg-dark">
     <ul class="list-unstyled">
+      <div fxShow="true" fxHide.lt-md="true">
       <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
       <br>
       <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><b class="fa fa-fw fa-link">Dashboard</b></a></li>
@@ -26,6 +27,8 @@
 
       <li><a [routerLink]="['./profile']"><b class="fa fa-fw fa-link">Profile</b></a></li>
       <hr>
+      </div>
     </ul>
+
   </div>
   </div>

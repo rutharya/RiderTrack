@@ -25,11 +25,11 @@ var events = [
             statusOfRace:"",
             startLocation:{
                 lat:12.239,
-                "lng":23.244
+                long:23.244
             },
             endLocation:{
                 lat:23.344,
-                lng:11.324
+                long:11.324
             }
 
     }),
@@ -53,11 +53,11 @@ var events = [
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
     }),
@@ -80,11 +80,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
     }
 
 }),
@@ -106,11 +106,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -132,11 +132,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -159,11 +159,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -186,11 +186,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -213,11 +213,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -240,11 +240,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -267,11 +267,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -294,11 +294,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -321,11 +321,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -347,11 +347,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -374,11 +374,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -401,11 +401,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -428,11 +428,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -455,11 +455,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -482,11 +482,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -509,11 +509,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -536,11 +536,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -563,11 +563,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -590,11 +590,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -616,11 +616,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 }),
@@ -642,11 +642,11 @@ new Event({
         statusOfRace:"",
         startLocation:{
             lat:12.239,
-            "lng":23.244
+            long:23.244
         },
         endLocation:{
             lat:23.344,
-            lng:11.324
+            long:11.324
         }
 
 })
