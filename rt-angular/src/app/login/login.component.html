@@ -19,6 +19,7 @@
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
+              <em *ngIf="authForm.controls.username?.invalid && authForm.controls.username?.touched">Required</em>
               <input
                 formControlName="username"
                 placeholder="Username"
@@ -27,6 +28,7 @@
                 *ngIf="authType == 'register'" />
             </fieldset>
             <fieldset class="form-group">
+              <em *ngIf="authForm.controls.email?.invalid  && authForm.controls.email?.touched">Required</em>
               <input
                 formControlName="email"
                 placeholder="Email"
@@ -34,6 +36,7 @@
                 type="text" />
             </fieldset>
             <fieldset class="form-group">
+              <em *ngIf="authForm.controls.password?.invalid  && authForm.controls.password?.touched ">Required</em>
               <input
                 formControlName="password"
                 placeholder="Password"
@@ -43,6 +46,8 @@
             <fieldset>
               <a routerLink="/forgotpwd">forgot your password?</a>
             </fieldset>
+            <br />
+          <br />
             <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
               {{ title }}
             </button>
