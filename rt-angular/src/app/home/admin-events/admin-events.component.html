@@ -4,7 +4,7 @@
   <!-- Breadcrumbs-->
   <h3 align="center">Create Event</h3>
 
-  <form class="form-group" [formGroup]="createEventForm" (ngSubmit)="submitForm()">
+  <form class="form-group" [formGroup]="createEventForm" >
     <fieldset [disabled]="isSubmitting">
       <div class="container">
 
@@ -80,12 +80,12 @@
                     (click)="uploadImage()">Upload</button>
           </fieldset>
 
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button (click)="submitForm()" class="btn btn-primary">Create</button>
         </div>
       </div>
     </fieldset>
   </form>
-  <pre>{{createEventForm.value | json}}</pre>
+  <!--<pre>{{createEventForm.value | json}}</pre>-->
   <br>
   <br>
 </div>

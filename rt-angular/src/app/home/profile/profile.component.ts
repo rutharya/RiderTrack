@@ -15,7 +15,7 @@ import * as toastr from 'toastr';
 export class ProfileComponent implements OnInit {
   user: User = {} as User;
   profileForm: FormGroup;
-  isSubmitting = false;
+  // isSubmitting = false;
   currentUser: User;
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.profileForm.status);
     console.log(this.user);
 
-    this.isSubmitting = true;
+    // this.isSubmitting = true;
     this.userService
       .update(this.profileForm.value)
       .subscribe(
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
           this.currentUser = data;
           this.router.navigateByUrl('/home');
           toastr.success('Profile updated!');
-        }
+        },
         err => {
           toastr.error('Cannot Update the profile try again');
         }
