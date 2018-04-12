@@ -2,7 +2,7 @@
 
   <br>
   <!-- Breadcrumbs-->
-  <h3 align="center">Create Event</h3>
+  <h3 align="center" style="color: dimgrey">Create Event</h3>
 
   <form class="form-group" [formGroup]="createEventForm" >
     <fieldset [disabled]="isSubmitting">
@@ -62,7 +62,7 @@
               {{progress.percentage}}%</div>
           </div>
           <fieldset class="form-group">
-            <label for="fileTrack">Event Track (Upload a .gpx file)</label>
+            <label for="fileTrack">Event Track (Upload a .gpx file)&nbsp;</label>
             <label class="btn btn-default"> <input formControlName="trackFile" type="file" class="form-control" id="fileTrack" accept=".gpx"
                                                    (change)="selectFile($event)">
             </label>
