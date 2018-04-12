@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {StatisticsService} from "../../../shared/services";
-import {MapService} from "../../../shared/services/maps.service";
+import {StatisticsService} from '../../../shared/services';
+import {MapService} from '../../../shared/services/maps.service';
 
 @Component({
   selector: 'app-lastrun-summary',
@@ -10,13 +10,13 @@ import {MapService} from "../../../shared/services/maps.service";
 export class LastrunSummaryComponent implements OnInit {
 
   //activity: any;
-  public eventname = "";
-  public eventlocation = "";
-  public eventdate = "";
-  public totaldistance = "";
-  public elapsedtime = "-";
-  public avgspeed = "";
-  public altitdue = "";
+  public eventname = '';
+  public eventlocation = '';
+  public eventdate = '';
+  public totaldistance = '';
+  public elapsedtime = '-';
+  public avgspeed = '';
+  public altitdue = '';
   //public gpsstats = [];
 
 
@@ -26,15 +26,14 @@ export class LastrunSummaryComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("init stat service");
+    console.log('init stat service');
     this.statisticsService.getLatestEvent()
       .subscribe(res => {
         console.log(res);
-        if(res === [] || res === undefined){
+        if (res === [] || res === undefined) {
           // this.activity = [];
 
-        }
-        else {
+        } else {
           //this.activity = res['activity'];
           this.eventname = res['eventinfo'].eventname;
           this.eventlocation = res['eventinfo'].eventlocation;
@@ -50,7 +49,7 @@ export class LastrunSummaryComponent implements OnInit {
         //TODO: data received from statistics service -> modify for chart udpate.
         //TODO: remove static data thats encoded for now.
 
-      });//end of subscribe
+      }); //end of subscribe
 
     this._mapService.plotRecentActivity();
   }

@@ -16,15 +16,9 @@
         <div class="col-md-4">
           <div class="text-center">
 
-            <fieldset class="form-group">
-              <input class="form-control img-circle"
-                     src="https://pickaface.net/assets/images/slides/slide4.png"
-                     type="image"
-                     formControlName="imageDisplay"
-                     placeholder="URL of profile picture"
-                     id="imageDisplay"
-              />
-            </fieldset>
+
+            <img src="{{currentUser.image}}" alt="Smiley face" height="42" width="42">
+
             <br>
             <fieldset class="form-group">
               <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"

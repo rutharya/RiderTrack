@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
       phoneNo: '',
       address: '',
       image: '',
+      imageDisplay: '',
       password: '',
       passwordconf: ''
     });
@@ -84,6 +85,7 @@ export class ProfileComponent implements OnInit {
   selectImageFile(event) {
     this.selectedImageFiles = event.target.files;
   }
+
   // enableEdit() {
   //
   //   if (this.profileForm.enabled) {
