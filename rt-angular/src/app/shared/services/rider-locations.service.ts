@@ -14,6 +14,7 @@ export class RiderLocationsService {
   apiAddress: string;
   apiToken: any;
   map:any;
+  markersLayer: any;
 
   constructor(private http: HttpClient) {
     //this.apiAddress = 'http://localhost:3000/test/getRiderLocation?eventid=5a99736c0af19f11a392b665&riderid=5a9978cd0af19f11a392b666'; //Change the url as required
@@ -35,9 +36,14 @@ export class RiderLocationsService {
       id: 'mapbox.streets',
       accessToken: this.apiToken
     }).addTo(this.map);
+    this.markersLayer = new L.LayerGroup();
+    this.markersLayer.addTo(this.map);
   }
 
   plot(riderData: any): void{
+    for (var data1 of riderData) {
+      console.log(data1.lat);
+    }
     /*var map = L.map('map').setView([33.42192543, -111.92350757], 11);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
@@ -48,6 +54,7 @@ export class RiderLocationsService {
       accessToken: this.apiToken
     }).addTo(map);*/
 
+    this.markersLayer.clearLayers();
 
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
@@ -67,17 +74,21 @@ export class RiderLocationsService {
       shadowAnchor: [22, 94]
     });
 
-    for (var data of riderData) {
-      console.log(data.lat);
-      var marker = L.marker([data.lat, data.lng],{icon: myIcon}).addTo(this.map);
+    /*for (var data of riderData) {
+      //console.log(data.lat);
+      var marker = L.marker([data.lat, data.lng],{icon: myIcon});
       marker.bindPopup('<b>'+ data.timestamp +'</b><br>' + 'Lat: '+ data.lat + 'Lng: '+ data.lng).openPopup();
-    }
-    /*var i;
+      this.markersLayer.addLayer(marker);
+      //marker.addTo(this.map)
+    }*/
+    var i;
     for(i=0; i<riderData.length-1; i++){
       var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon}).addTo(this.map);
       marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
+      this.markersLayer.addLayer(marker);
     }
     var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon}).addTo(this.map);
-    marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();*/
+    marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
+    this.markersLayer.addLayer(marker);
   }
 }

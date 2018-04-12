@@ -77,7 +77,10 @@ router.get('/getLastLocation',function(req,res){
     //console.log(req.headers._id);
     Events.findOne({_id: req.query._id}).then(function (events) {
     //Events.findOne({_id: req.headers._id}).then(function (events) {
-        if (!events) console.log("Error!!!");
+        if (!events) if(!activity) { return res.status(422).json({
+            Result: false,
+            status: { msg: "No Events found"}
+        })}
         //console.log(events);
         eventLength = events.eventRiders.length;
         for(i=0; i<events.eventRiders.length; ++i){
@@ -86,12 +89,18 @@ router.get('/getLastLocation',function(req,res){
             query = Activity.find({"riderid": ObjectId(events.eventRiders[i]), "eventid": ObjectId(events._id)});
             query.exec(function (err, activity) {
                 //console.log(activity);
-                if (err) return handleError(err);
-                if(!activity) console.log("Activity not found");
+                if (err) return res.status(500).json({Result: false, status: {err: err}});
+                if(!activity) { return res.status(422).json({
+                    Result: false,
+                    status: { msg: "No tracking data found for this athlete."}
+                })}
 
                 //query Rider table to get Rider name
                 Rider.findOne({_id: ObjectId(activity[0].riderid)}).then(function (riders) {
-                    if(!riders) console.log("ERROR!!!");
+                    if(!riders) { return res.status(422).json({
+                        Result: false,
+                        status: { msg: "Athlete data not found."}
+                    })}
                     arrayLastLocation.push({"riderId": activity[0].riderid, "riderName":riders.firstName + " " + riders.lastName, "coordinates": activity[0].latestcoordinates});
                     if(arrayLastLocation.length === eventLength){
                         res.send(arrayLastLocation);
@@ -159,10 +168,11 @@ router.get('/getRiderLocation',function(req,res){
     //query = Activity.find({"eventid": ObjectId(req.headers.eventid), "riderid": ObjectId(req.headers.riderid)})
     query = Activity.find({"eventid": ObjectId(req.query.eventid), "riderid": ObjectId(req.query.riderid)})
     query.exec(function (err, activity) {
-        if (err) res.send("Error!!!");
-        if(!activity) {
-            return res.sendStatus(401);
-        }
+        if (err) return res.status(500).json({Result: false, status: {err: err}});
+        if(!activity) { return res.status(422).json({
+            Result: false,
+            status: { msg: "No location data found for that athlete."}
+        })}
         //console.log(activity);
         //console.log(activity[0].gps_stats)
         for(i=0; i<activity[0].gps_stats.length; ++i){

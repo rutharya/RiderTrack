@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {RiderLocationsService} from "../../../shared/services/rider-locations.service";
 import {RiderData} from "../../../shared/models/riderData.model";
@@ -12,7 +12,7 @@ import {EventsService} from "../../../shared/services/events.service";
   styleUrls: ['./rider-tracking.component.css']
 })
 
-export class RiderTrackingComponent implements OnInit {
+export class RiderTrackingComponent implements OnInit, OnDestroy {
 
   public riderId: any;
   public eventId: any;
@@ -21,6 +21,7 @@ export class RiderTrackingComponent implements OnInit {
   public eventDate: string;
   public eventTime: string;
   public eventLocation: string;
+  private alive: boolean = true;
 
   riderData$: RiderData[];
 
@@ -47,7 +48,7 @@ export class RiderTrackingComponent implements OnInit {
 
       this.riderLocationsService.loadMap();
       this.getRiderLocation(this.eventId, this.riderId);
-      Observable.interval(2 * 60 * 1000).subscribe(x => {
+      Observable.interval(1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
       });
     });
@@ -66,5 +67,11 @@ export class RiderTrackingComponent implements OnInit {
       this.riderLocationsService.plot(this.riderData$);
     })
   }
+
+  ngOnDestroy(): void {
+    console.log("Rider Tracking Destroyed");
+    this.alive = false;
+  }
+
 
 }
