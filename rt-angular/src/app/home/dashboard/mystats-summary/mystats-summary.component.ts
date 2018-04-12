@@ -33,7 +33,7 @@ export class MystatsSummaryComponent implements OnInit {
     this.result = this.statservice.getStats();
     this.statservice.getStats()
       .subscribe(res => {
-        if(res === undefined) {
+        if(res === undefined || res.length === null || res.length == 0 || res == "Unauthorized") {
         }
         else{
           this.result = [];
