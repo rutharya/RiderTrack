@@ -18,9 +18,10 @@
           </a>
         </div>
         <div class="col-md-5">
-          <h3><a href="#">{{event.name}}</a></h3>
+          <h3 style="color: blue">{{event.name}}</h3>
           <p>{{event.description}}</p>
-          <p><strong>{{event.date}}</strong></p>
+          <p><strong>{{event.date}} </strong></p>
+          <!--<p>Time: {{event.startTime}} - {{event.endTime}} UTC </p>-->
           <a class="btn btn-primary" [routerLink]="['/eventTracking',event._id]" routerLinkActive="active">View Event</a>
           <!--<a class="btn btn-primary"  *showAuthed="true">Register Event</a>-->
         </div>
