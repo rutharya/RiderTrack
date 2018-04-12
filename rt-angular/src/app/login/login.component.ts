@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Errors} from "../shared/models";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../shared/services";
+import {Errors} from '../shared/models';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../shared/services';
 import * as toastr from 'toastr';
 
 @Component({
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           toastr.options.timeOut = 1000;
           toastr.success('Login successful');
           this.router.navigateByUrl('/home');
-        },//redirecting user to their home page.
+        }, // redirecting user to their home page.
         err => {
           toastr.error('invalid login');
           this.errors = err;

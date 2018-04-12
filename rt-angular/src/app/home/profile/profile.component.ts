@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {matchOtherValidator} from './match-other-validator';
 import * as toastr from 'toastr';
+import {FileUpload} from '../../shared/models/fileupload';
+import {UploadFileService} from '../../shared/services/uploadFile.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +19,10 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   // isSubmitting = false;
   currentUser: User;
+  selectedImageFiles: FileList;
+  currentImageFileUpload: FileUpload;
 
-  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private uploadService: UploadFileService) {
     this.profileForm = this.fb.group({
       username: '',
       bio: '',
@@ -50,7 +54,12 @@ export class ProfileComponent implements OnInit {
     console.log(this.profileForm.get('gender'));
     console.log(this.profileForm.status);
     console.log(this.user);
-
+    const file = this.selectedImageFiles.item(0);
+    this.currentImageFileUpload = new FileUpload(file);
+    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload);
+    const profileFormValue = this.profileForm.value;
+    profileFormValue.image = this.currentImageFileUpload.url;
+    // this.profileForm.image = this.currentImageFileUpload.url;
     // this.isSubmitting = true;
     this.userService
       .update(this.profileForm.value)
@@ -72,7 +81,9 @@ export class ProfileComponent implements OnInit {
       );
 
   }
-
+  selectImageFile(event) {
+    this.selectedImageFiles = event.target.files;
+  }
   // enableEdit() {
   //
   //   if (this.profileForm.enabled) {
