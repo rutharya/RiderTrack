@@ -21,7 +21,7 @@
           </form>
           <br/>
           <ul>
-            <li *ngFor="let data of locationData$"><a routerLink="/riderTracking">{{data.riderName}}</a></li>
+            <li *ngFor="let data of locationData$"><a [routerLink]="['/riderTracking',eventId,data.riderId]">{{data.riderName}}</a></li>
           </ul>
         </div>
       </div>

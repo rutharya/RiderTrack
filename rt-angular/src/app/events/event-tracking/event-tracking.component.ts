@@ -43,13 +43,13 @@ export class EventTrackingComponent implements OnInit {
         this.eventTime = eventsData.time;
         this.eventLocation = eventsData.location;
       });
+      this.getLatestLocation(this.eventId);
     });
-    this.getLatestLocation();
+
   }
 
-  getLatestLocation(): void {
-    //this.locationData$ = this.latestLocationService.getLatestLocation();
-    this.latestLocationService.getLatestLocation().subscribe(locationData => {
+  getLatestLocation(eventId): void {
+    this.latestLocationService.getLatestLocation(eventId).subscribe(locationData => {
       this.locationData$ = locationData;
       this.latestLocationService.plot(this.locationData$);
     });

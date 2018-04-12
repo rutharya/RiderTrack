@@ -1,4 +1,4 @@
-<div class=".col-12">
+<div class=".col-12" style="width: 100%">
   <!-- Breadcrumbs-->
   <br>
 
@@ -11,43 +11,41 @@
   </ol>
   <div class="card mb-3">
     <div class="card-header">
-      <i class="fa fa-area-chart"></i>Last Run
+      <i class="fa fa-area-chart"></i>Latest Activity
     </div>
     <div class="card-body">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg">
-            <img src="../assets/Image/track.jpeg" height="100%" width="100%"/>
-          </div>
-          <div class="col-sm">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-              <tr>
-                <th colspan="5" bgcolor="#FFD700">Ride 1</th>
-              </tr>
-              </thead>
-              <tr>
-                <th>Date</th>
-                <th>Moving Time</th>
-                <th>Location</th>
-                <th>Activity</th>
-                <th>Distance</th>
-              </tr>
-              <tbody>
-              <tr>
-                <td>11/27/2017</td>
-                <td>54 mins</td>
-                <td>Launceston</td>
-                <td>Cycling <i class="fa fa-bicycle"></i></td>
-                <td>12.29 mi</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="row">
+        <h4>{{eventname}}&nbsp;&nbsp;{{eventlocation}}</h4>
+      </div>
+      <div class="row">
+        <!--<div id="map1"></div>-->
+        <img src="../assets/Image/track.jpeg" height="100%" width="100%"/>
+      </div>
+      <br/>
+      <div class="row">
+        <table id="dataTable1">
+          <tr>
+            <th>Date</th>
+            <th>Moving Time (Mins)</th>
+            <th>Avg Speed (MPH)</th>
+            <th>Elevation (Feet)</th>
+            <th>Distance (Miles)</th>
+          </tr>
+          <tbody>
+          <tr>
+            <td>{{eventdate |  date : "MMM dd yyyy"}}</td>
+            <td>{{elapsedtime / 60000 |  number: '1.1-2'}}</td>
+            <td>{{avgspeed | number: '1.1-2'}}</td>
+            <td>{{altitdue | number: '1.1-2'}}</td>
+            <td>{{totaldistance | number: '1.1-2'}}</td>
+          </tr>
+          </tbody>
+        </table>
+
       </div>
     </div>
-    <div class="card-footer small text-muted"><a style="text-underline: #1b1e21;color: #0c7fda">View All Activity</a>
-    </div>
+    <br/>
   </div>
 </div>
+
+

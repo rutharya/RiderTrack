@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {TrackingData} from '../models/trackingData';
 import {environment} from "../../../environments/environment";
+import {ApiService} from "./api.service";
 
 
 declare var omnivore: any;
@@ -13,13 +14,14 @@ declare var L: any;
 export class LatestLocationService {
   apiAddress: string;
   apiToken: any;
-  constructor(private http: HttpClient) {
-    this.apiAddress = 'http://localhost:3000/test/getLastLocation?_id=5aa985360587801695a9e525'; //Change the url as required
+
+  constructor(private http: HttpClient,private apiService: ApiService) {
+    this.apiAddress = environment.api_url+'/test/getLastLocation?_id=';
     this.apiToken = environment.MAPBOX_API_KEY;
   }
 
-  getLatestLocation(): Observable<Array<TrackingData>> {
-    return this.http.get<Array<TrackingData>>(this.apiAddress);
+  getLatestLocation(eventId): Observable<Array<TrackingData>> {
+    return this.http.get<Array<TrackingData>>(this.apiAddress+eventId);
   }
 
 

@@ -70,37 +70,46 @@ router.get('/seedevents',function(req,res,next){
 router.get('/getLastLocation',function(req,res){
     console.log("In getLastLocation");
     var arrayLastLocation = [];
-    query = Events.find({"_id": req.query._id});
-    //console.log(query);
-    query.exec(function (err, events) {
-        if (err) return handleError(err);
-        console.log("AAA" + events);
-    });
-    /*var eventId;
+    var eventId;
     var eventLength;
     var i;
-    console.log(req.query._id);
-    query = Events.find({"_id": req.query._id});
-    //console.log(query);
-    query.exec(function (err, events) {
-        if (err) return handleError(err);
-        console.log("AAA"+events);
-        for(i=0; i<events[0].eventRiders.length; ++i){
-            eventLength = events[0].eventRiders.length;
-            console.log()
-            query2 = Activity.find({"riderid": ObjectId(events[0].eventRiders[i].toString()), "eventid": ObjectId(events[0]._id.toString())});
-            query2.exec(function (err, activity) {
-                console.log("executing 2nd query");
-                console.log(activity);
-                if (err) return handleError(err);
-                arrayLastLocation.push({"rider": activity[0].riderid, "coordinates": activity[0].latestcoordinates});
-                if(arrayLastLocation.length === eventLength){
-                    res.send(arrayLastLocation);
-                }
+    //console.log(req.query._id);
+    //console.log(req.headers._id);
+    Events.findOne({_id: req.query._id}).then(function (events) {
+    //Events.findOne({_id: req.headers._id}).then(function (events) {
+        if (!events) if(!activity) { return res.status(422).json({
+            Result: false,
+            status: { msg: "No Events found"}
+        })}
+        //console.log(events);
+        eventLength = events.eventRiders.length;
+        for(i=0; i<events.eventRiders.length; ++i){
+
+            //query activity table to get latest coordinates
+            query = Activity.find({"riderid": ObjectId(events.eventRiders[i]), "eventid": ObjectId(events._id)});
+            query.exec(function (err, activity) {
+                //console.log(activity);
+                if (err) return res.status(500).json({Result: false, status: {err: err}});
+                if(!activity) { return res.status(422).json({
+                    Result: false,
+                    status: { msg: "No tracking data found for this athlete."}
+                })}
+
+                //query Rider table to get Rider name
+                Rider.findOne({_id: ObjectId(activity[0].riderid)}).then(function (riders) {
+                    if(!riders) { return res.status(422).json({
+                        Result: false,
+                        status: { msg: "Athlete data not found."}
+                    })}
+                    arrayLastLocation.push({"riderId": activity[0].riderid, "riderName":riders.firstName + " " + riders.lastName, "coordinates": activity[0].latestcoordinates});
+                    if(arrayLastLocation.length === eventLength){
+                        res.send(arrayLastLocation);
+                    }
+                });
             });
         }
-    });*/
-    var latestcoordinates = {"lat": 33.43, "lng": -111.92};
+    })
+    /*var latestcoordinates = {"lat": 33.43, "lng": -111.92};
     arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Rutuja Faldu", "coordinates": latestcoordinates});
     latestcoordinates = {"lat": 33.23, "lng": -111.78};
     arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Himani Shah", "coordinates": latestcoordinates});
@@ -108,7 +117,7 @@ router.get('/getLastLocation',function(req,res){
     arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Tom", "coordinates": latestcoordinates});
     latestcoordinates = {"lat": 33.21, "lng": -111.87};
     arrayLastLocation.push({"riderId": "5a9973e10af19f11a392b666", "riderName":"Charlie", "coordinates": latestcoordinates});
-    res.send(arrayLastLocation);
+    res.send(arrayLastLocation);*/
 });
 
 
@@ -159,10 +168,11 @@ router.get('/getRiderLocation',function(req,res){
     //query = Activity.find({"eventid": ObjectId(req.headers.eventid), "riderid": ObjectId(req.headers.riderid)})
     query = Activity.find({"eventid": ObjectId(req.query.eventid), "riderid": ObjectId(req.query.riderid)})
     query.exec(function (err, activity) {
-        if (err) res.send(err);
-        if(!activity) {
-            return res.sendStatus(401);
-        }
+        if (err) return res.status(500).json({Result: false, status: {err: err}});
+        if(!activity) { return res.status(422).json({
+            Result: false,
+            status: { msg: "No location data found for that athlete."}
+        })}
         //console.log(activity);
         //console.log(activity[0].gps_stats)
         for(i=0; i<activity[0].gps_stats.length; ++i){
