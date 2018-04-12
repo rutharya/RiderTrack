@@ -10,20 +10,21 @@ import { Chart } from 'chart.js';
 })
 export class MystatsSummaryComponent implements OnInit {
   result: any;
-  public participationcount = "";
-  public  totaldistance = "";
-  public longestdistance = "";
-  public avgspeed = "";
-  public maxspeed = "";
+  public participationcount = "0";
+  public  totaldistance = "0";
+  public longestdistance = "0";
+  public avgspeed = "0";
+  public maxspeed = "0";
   public totalmovingtime = "";
   public  longestmovingtime = "";
-  public maxelevation = "";
+  public maxelevation = "0";
   speedchart = [];
   distchart = [];
   altchart = [];
-  speeddata : any;
-  distancedata: any;
-  altitudedata: any;
+  speeddata = [];
+  distancedata = [];
+  altitudedata = [];
+  labels = [];
   constructor(private activityService: ActivityService, private statservice: StatisticsService) { }
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class MystatsSummaryComponent implements OnInit {
     this.result = this.statservice.getStats();
     this.statservice.getStats()
       .subscribe(res => {
-        if(res == "Unauthorized") {
+        if(res === undefined) {
         }
         else{
           this.result = [];
@@ -54,23 +55,27 @@ export class MystatsSummaryComponent implements OnInit {
     this.statservice.getDatapoints()
       .subscribe(res => {
         console.log(res[0]);
-        if(res === undefined || res === []){
-
+        if(res === undefined || res.length === null || res.length == 0){
+          console.log("In res undefined mystats");
+          this.speeddata = [0];
+          this.distancedata = [0];
+          this.labels = [1,2,3,4,5];
         }
         else {
           this.speeddata = res[0]['speed'];
           this.distancedata = res[0]['distance'];
           this.altitudedata = res[0]['altitude'];
+          var len = this.distancedata.length
+          this.labels = Array.apply(null, {length: len}).map(Number.call, Number)
         }
-        var len = this.distancedata.length
-        var labels = Array.apply(null, {length: len}).map(Number.call, Number)
+
         //TODO: data received from statistics service -> modify for chart udpate.
         //TODO: remove static data thats encoded for now.
         this.speedchart = new Chart('speedchart', {
           type: 'line',
           data: {
 
-            labels: labels,
+            labels: this.labels,
             datasets: [{
               fill:false,
               label: 'Average speed across events',
@@ -105,7 +110,7 @@ export class MystatsSummaryComponent implements OnInit {
           type: 'line',
           data: {
 
-            labels: labels,
+            labels: this.labels,
             datasets: [{
               fill:false,
               label: 'Distance covered across events',
