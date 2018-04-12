@@ -43,4 +43,37 @@ export class MapService {
       }).addTo(map);
   }
 
+
+  plotRecentActivity(){
+
+    const myStyle = {
+      'color': '#3949AB',
+      'weight': 5,
+      'opacity': 0.95
+    };
+
+    const map = L.map('map1').setView(defaultCoords, defaultZoom);
+
+    map.maxZoom = 100;
+
+    L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: apiToken
+    }).addTo(map);
+
+    const customLayer = L.geoJson(null, {
+      style: myStyle
+    });
+
+    // Change the code here..
+
+    const gpxLayer = omnivore.gpx('../../../assets/gpx/1.gpx', null, customLayer)
+      .on('ready', function() {
+        map.fitBounds(gpxLayer.getBounds());
+      }).addTo(map);
+
+  }
+
 }
