@@ -95,6 +95,7 @@ var RiderSchema = new mongoose.Schema({
         }
 
     },
+    admin: Boolean,
     hash: String,
     salt: String,
     resetPasswordToken: String,
@@ -127,7 +128,9 @@ RiderSchema.methods.generateJWT = function () {
     }, secret);
 };
 
-
+RiderSchema.methods.isAdmin = function() {
+    return this.admin;
+}
 RiderSchema.methods.toAuthJSON = function () {
     return {
         username: this.username,
@@ -141,6 +144,7 @@ RiderSchema.methods.toAuthJSON = function () {
         phoneNo: this.phoneNo,
         address: this.address,
         image: this.image,
+        admin: this.admin,
         token: this.generateJWT(),
     };
 }

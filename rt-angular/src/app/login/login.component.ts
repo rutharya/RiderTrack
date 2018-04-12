@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
       // add form control for username if this is the register page
       if (this.authType === 'register') {
         this.authForm.addControl('username', new FormControl());
+        this.authForm.addControl('admin', new FormControl());
       }
     });
   }
@@ -46,8 +47,8 @@ export class LoginComponent implements OnInit {
   submitForm() {
     this.isSubmitting = true;
     this.errors = {errors: {}};
-
     const credentials = this.authForm.value;
+    console.log(credentials);
     this.userService
       .attemptAuth(this.authType, credentials)
       .subscribe(

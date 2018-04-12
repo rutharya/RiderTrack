@@ -84,6 +84,9 @@ router.post('/', function (req, res, next) {
     var user = new User();
     user.username = req.body.username;
     user.email = req.body.email;
+    if(typeof req.body.admin !== 'undefined'){
+      user.admin = true;
+   }
     user.setPassword(req.body.password);
     user.save().then(function () {
         return res.json({
