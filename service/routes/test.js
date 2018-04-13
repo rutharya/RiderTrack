@@ -108,7 +108,7 @@ router.get('/getLastLocation',function(req,res){
                         status: { msg: "Athlete data not found."}
                     })}
                     var gps_stats_len = activity[0].gps_stats.length;
-                    arrayLastLocation.push({"riderId": activity[0].riderid, "riderName":riders.firstName + " " + riders.lastName,
+                    arrayLastLocation.push({"riderId": activity[0].riderid, "riderName":riders.username,
                         "coordinates": {"lat": activity[0].gps_stats[gps_stats_len-1].lat, "lng": activity[0].gps_stats[gps_stats_len-1].lng}});
                     if(arrayLastLocation.length === eventLength){
                         res.send(arrayLastLocation);
