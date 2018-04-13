@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {TrackingData} from '../models/trackingData';
+import {TrackingDataDmass} from '../models/trackingDataDmass';
 import {environment} from "../../../environments/environment";
 import {ApiService} from "./api.service";
 
@@ -17,8 +18,13 @@ export class LatestLocationService {
   map:any;
 
   constructor(private http: HttpClient,private apiService: ApiService) {
+    // this.apiAddress = environment.api_url+'/test/getLastLocation?_id=';
     this.apiAddress = environment.api_url+'/test/getLastLocation?_id=';
     this.apiToken = environment.MAPBOX_API_KEY;
+  }
+
+  getLatestLocationDMASS(eventId): Observable<Array<TrackingDataDmass>> {
+    return this.apiService.get('/tracking/eventDMASS/' + eventId);
   }
 
   getLatestLocation(eventId): Observable<Array<TrackingData>> {
@@ -63,9 +69,9 @@ export class LatestLocationService {
     });
 
     for (var data of locationData) {
-      console.log(data.coordinates.lat);
-      var marker = L.marker([data.coordinates.lat, data.coordinates.lng],{icon: myIcon}).addTo(this.map);
-      marker.bindPopup('<b>'+ data.riderName +'</b><br>' + 'Lat: '+ data.coordinates.lat + 'Lng: '+ data.coordinates.lng).openPopup();
+      console.log(data.latestcoordinates.lat);
+      var marker = L.marker([data.latestcoordinates.lat, data.latestcoordinates.lng],{icon: myIcon}).addTo(this.map);
+      marker.bindPopup('<b>'+ data.riderid +'</b><br>' + 'Lat: '+ data.latestcoordinates.lat + 'Lng: '+ data.latestcoordinates.lng).openPopup();
     }
   }
 }

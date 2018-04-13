@@ -19,6 +19,7 @@ router.use('/users', require('./users'));
 router.use('/events', require('./events'));
 router.use('/activities', require('./activity'));
 router.use('/profiles',require('./profiles'));
+router.use('/tracking',require('./tracking'));
 
 
 

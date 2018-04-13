@@ -4,6 +4,7 @@ import {RiderLocationsService} from "../../../shared/services/rider-locations.se
 import {RiderData} from "../../../shared/models/riderData.model";
 import {Observable} from "rxjs/Rx";
 import {EventsService} from "../../../shared/services/events.service";
+import {RiderDataDmass} from "../../../shared/models/riderDataDmass.model";
 
 
 @Component({
@@ -24,6 +25,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   private alive: boolean = true;
 
   riderData$: RiderData[];
+  riderData$$: RiderDataDmass;
 
   constructor(private route: ActivatedRoute,
               private riderLocationsService: RiderLocationsService,
@@ -56,9 +58,10 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   }
 
   getRiderLocation(eventId, riderId):void{
-    this.riderLocationsService.getRiderLocations(eventId,riderId).subscribe(riderData=>{
-      this.riderData$ = riderData;
-      this.riderLocationsService.plot(this.riderData$);
+    this.riderLocationsService.getRiderLocationsDMASS(eventId,riderId).subscribe(riderData=>{
+      // this.riderData$ = riderData;
+      this.riderData$$ = riderData;
+      this.riderLocationsService.plot(this.riderData$$.gps_stats);
     })
   }
 

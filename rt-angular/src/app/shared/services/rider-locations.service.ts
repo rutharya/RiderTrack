@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {environment} from "../../../environments/environment";
 import {RiderData} from "../models/riderData.model";
+import {ApiService} from "./api.service";
+import {RiderDataDmass} from "../models/riderDataDmass.model";
 
 
 declare var omnivore: any;
@@ -16,10 +18,15 @@ export class RiderLocationsService {
   map:any;
   markersLayer: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService:ApiService,private http: HttpClient) {
     //this.apiAddress = 'http://localhost:3000/test/getRiderLocation?eventid=5a99736c0af19f11a392b665&riderid=5a9978cd0af19f11a392b666'; //Change the url as required
     this.apiAddress = environment.api_url+'/test/getRiderLocation?';
     this.apiToken = environment.MAPBOX_API_KEY;
+  }
+
+  getRiderLocationsDMASS(eventId,riderId): Observable<RiderDataDmass>{
+    // return this.http.get<Array<RiderData>>(this.apiAddress+"eventid="+eventId+"&riderid="+riderId);
+    return this.apiService.get('/tracking/rider/'+eventId+'?riderid='+riderId);
   }
 
   getRiderLocations(eventId,riderId): Observable<Array<RiderData>>{

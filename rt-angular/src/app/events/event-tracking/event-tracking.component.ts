@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {TrackingData} from "../../shared/models/trackingData";
 import {LatestLocationService} from "../../shared/services/latest-location.service";
 import {EventsService} from "../../shared/services/events.service";
+import {TrackingDataDmass} from "../../shared/models/trackingDataDmass";
 
 @Component({
   selector: 'app-event-tracking',
@@ -20,6 +21,7 @@ export class EventTrackingComponent implements OnInit {
   public eventLocation: string;
 
   locationData$: TrackingData[];
+  locationData$$: TrackingDataDmass[];
 
   constructor(private route: ActivatedRoute,
               private latestLocationService: LatestLocationService,
@@ -46,9 +48,10 @@ export class EventTrackingComponent implements OnInit {
   }
 
   getLatestLocation(eventId): void {
-    this.latestLocationService.getLatestLocation(eventId).subscribe(locationData => {
-      this.locationData$ = locationData;
-      this.latestLocationService.plot(this.locationData$);
+    this.latestLocationService.getLatestLocationDMASS(eventId).subscribe(locationData => {
+      //this.locationData$ = locationData;
+      this.locationData$$ = locationData;
+      this.latestLocationService.plot(this.locationData$$);
     });
   }
 }

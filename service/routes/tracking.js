@@ -40,21 +40,21 @@ router.get('/eventDMASS/:eventid',function(req,res,next){
   
   });
 
-// router.get('/rider/:eventid',auth.required,function(req,res,next){
-//     // var eventId = req.params.id;
-//     Activity.findOne({"eventid": req.params.eventid}).then(function(activity){
-//       res.json(activity);
-//       console.log(activity);
-//       if(activity.length == 0){
-//         return res.status(422).json({result: false, status: { msg: 'user has not particiapted in any activity'}});
-//       }
-//       else {
-//         res.json({result:true,status:{msg:'data sent back'},activity: activity});
-//       }
-//     })
-
-
-//   });
+router.get('/rider/:eventid',function(req,res,next){
+    // var eventId = req.params.id;
+    console.log('inside rideer event');
+    console.log(req.params.eventid);
+    console.log(req.query.riderid);
+    Activity.findOne({"eventid": ObjectId(req.params.eventid),"riderid":ObjectId(req.query.riderid)}).then(function(activity){
+      console.log(activity);
+      if(!activity){
+        return res.status(422).json({result: false, status: { msg: 'user has not particiapted in any activity'}});
+      }
+      else {
+        res.json(activity);
+      }
+    }).catch(next);
+  });
 
 
 
