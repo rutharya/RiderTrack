@@ -49,7 +49,7 @@ var RiderSchema = new mongoose.Schema({
     phoneNo: String,
     address: String,
     image: String,
-    following: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    following: [{type: mongoose.Schema.Types.ObjectId, ref: 'Rider'}],
     registeredEvents: [{
         // pasteventdate: Date,
         // pasteventlocation: String,
@@ -60,6 +60,10 @@ var RiderSchema = new mongoose.Schema({
         // //ref:'events'
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
+    }],
+    activities: [{
+        eventId: {type: mongoose.Schema.Types.ObjectId, ref: 'Event'},
+        activityId: {type: mongoose.Schema.Types.ObjectId, ref: 'activity'}
     }],
     statistics: {
 
