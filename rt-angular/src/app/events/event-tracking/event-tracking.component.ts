@@ -17,7 +17,8 @@ export class EventTrackingComponent implements OnInit {
   public eventName: string;
   public eventDescription: string;
   public eventDate: string;
-  public eventTime: string;
+  public eventStartTime: string;
+  public eventEndTime: string;
   public eventLocation: string;
 
   locationData$: TrackingData[];
@@ -37,7 +38,8 @@ export class EventTrackingComponent implements OnInit {
         this.eventName = eventsData.name;
         this.eventDescription = eventsData.description;
         this.eventDate = eventsData.date;
-        this.eventTime = eventsData.time;
+        this.eventStartTime = eventsData.startTime;
+        this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
       });
 

@@ -20,7 +20,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public eventName: string;
   public eventDescription: string;
   public eventDate: string;
-  public eventTime: string;
+  public eventStartTime: string;
+  public eventEndTime: string;
   public eventLocation: string;
   private alive: boolean = true;
 
@@ -44,7 +45,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
         this.eventName = eventsData.name;
         this.eventDescription = eventsData.description;
         this.eventDate = eventsData.date;
-        this.eventTime = eventsData.time;
+        this.eventStartTime = eventsData.startTime;
+        this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
       });
 
