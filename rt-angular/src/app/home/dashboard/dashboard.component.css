@@ -5,3 +5,16 @@
   margin-right: auto;
   margin-left: auto;
 }
+.breadcrumb {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+}
+.cmp {
+  padding: 6px;
+  margin-left: 100px;
+}

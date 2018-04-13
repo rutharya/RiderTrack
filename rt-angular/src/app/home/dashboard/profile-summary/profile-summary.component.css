@@ -5,7 +5,20 @@
   margin-right: auto;
   margin-left: auto;
 }
-
+.round {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 110px;
+  height: 110px;
+}
+.round img {
+  display: block;
+  /* Stretch
+        height: 100%;
+        width: 100%; */
+  min-width: 100%;
+  min-height: 100%;
+}
 .breadcrumb {
   width: 100%;
   padding: 8px 15px;
