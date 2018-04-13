@@ -24,7 +24,8 @@ export class AdminEventsComponent implements OnInit {
   currentImageFileUpload: FileUpload;
   progress: {percentage: number} = {percentage: 0};
 
-  constructor(private fb: FormBuilder, private eventsService: EventsService, private uploadService: UploadFileService, private router: Router ) {
+  constructor(private fb: FormBuilder, private eventsService: EventsService, private uploadService: UploadFileService,
+              private router: Router ) {
     this.createEventForm = this.fb.group({
       'name': ['', Validators.required],
       'description': ['', Validators.required],

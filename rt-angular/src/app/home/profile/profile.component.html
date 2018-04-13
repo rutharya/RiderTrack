@@ -7,7 +7,7 @@
 
   <!--<app-list-errors [errors]="errors"></app-list-errors>-->
 
-  <form class="form-group" [formGroup]="profileForm" (ngSubmit)="submitForm()">
+  <form class="form-group" [formGroup]="profileForm" >
     <!--<fieldset [disabled]="isSubmitting">-->
     <div class="container">
 
@@ -17,12 +17,17 @@
           <div class="text-center">
 
 
-            <img src="{{currentUser.image}}" alt="Smiley face" height="42" width="42">
+            <img  class="thumbnail-image" src="{{ currentUser.image }}"
+                  onError="this.src='../../assets/Image/profile1.jpg';"  alt="..." height="185" width="220"/>
 
+            <br>
             <br>
             <fieldset class="form-group">
               <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
                      (change)="selectImageFile($event)"/>
+              <br>
+              <button class="btn btn-success" [disabled]="!selectedImageFiles"
+              (click)="uploadImage()">Upload</button>
             </fieldset>
           </div>
         </div>
@@ -129,7 +134,7 @@
           <div class="row">
 
 
-            <button class="btn btn-lg btn-primary pull-xs-right"
+            <button (click)="submitForm()" class="btn btn-lg btn-primary pull-xs-right"
                     type="submit" style="margin-left: 40%">
               Update Settings
             </button>
