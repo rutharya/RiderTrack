@@ -11,15 +11,18 @@
   <div class="col-sm-12">
     <div class="container" align="center">
 
-      <img src="{{ currentUser.image }}"
-           onError="this.src='../assets/Image/profile1.jpg';" alt="Person" style="width:120px;height:130px; align-self: center">
-      <div class="container">
+      <div class = "col-lg-4">
+        <img src="{{ currentUser.image }}"
+             onError="this.src='../assets/Image/profile1.jpg';" alt="Person" style="width:120px;height:130px; align-self: center">
+      </div>
+      <div class = "col-lg-4">
         <h4><b>{{currentUser.username}}</b></h4>
         <a>{{currentUser.email}}</a>
+        <br>
+        <a class="btn btn-primary" routerLink="../profile">Edit Profile</a>
       </div>
 
-      <br>
-      <a class="btn btn-primary" routerLink="../profile">Edit Profile</a>
+
       <br>
       <br>
 

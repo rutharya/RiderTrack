@@ -4,24 +4,26 @@
   <!-- Breadcrumbs-->
   <h3 align="center" style="color: dimgrey">Create Event</h3>
 
-  <form class="form-group" [formGroup]="createEventForm" >
+  <form class="form-group" [formGroup]="createEventForm">
     <fieldset [disabled]="isSubmitting">
       <div class="container">
 
         <div class="col-md-12">
           <fieldset class="form-group">
-            <label for="name">Event Name</label>
-            <em *ngIf="createEventForm.controls.name?.invalid  && createEventForm.controls.name?.touched">Required</em>
+            <label class="required" for="name">Event Name:</label>
+            <em *ngIf="createEventForm.controls.name?.invalid && createEventForm.controls.name?.touched">Required</em>
             <input formControlName="name" type="text" class="form-control" id="name"
                    placeholder="Enter the event name" required>
           </fieldset>
           <fieldset class="form-group">
-            <label for="description">Event Description</label>
+            <label for="description">Event Description:</label>
+            <em *ngIf="createEventForm.controls.description?.invalid && createEventForm.controls.description?.touched">Required</em>
             <input formControlName="description" type="text" class="form-control" id="description"
                    placeholder="Enter the event description" required>
           </fieldset>
           <fieldset class="form-group">
-            <label for="location">Event Location</label>
+            <label for="location">Event Location:</label>
+            <em *ngIf="createEventForm.controls.location?.invalid && createEventForm.controls.location?.touched">Required</em>
             <input formControlName="location" type="text" class="form-control" id="location"
                    placeholder="Enter the event location" required>
           </fieldset>
@@ -29,21 +31,26 @@
           <div class="row">
             <div class="col-4">
               <fieldset class="form-group">
-                <label for="eventDate">Event Date</label>
-                <input formControlName="date" type="date" class="form-control" id="eventDate" value="Enter the event Date"
+                <label for="eventDate">Event Date:</label>
+                <em
+                  *ngIf="createEventForm.controls.date?.invalid && createEventForm.controls.date?.touched">Required</em>
+                <input formControlName="date" type="date" class="form-control" id="eventDate"
+                       value="Enter the event Date"
                        required>
               </fieldset>
             </div>
             <div class="col-4">
               <fieldset class="form-group">
-                <label for="startTime">Event Start Time</label>
+                <label for="startTime">Event Start Time:</label>
+                <em *ngIf="createEventForm.controls.startTime?.invalid && createEventForm.controls.startTime?.touched">Required</em>
                 <input formControlName="startTime" type="time" class="form-control" id="startTime"
                        placeholder="Enter Event Start Time" required>
               </fieldset>
             </div>
             <div class="col-4">
               <fieldset class="form-group">
-                <label for="endTime">Event End Time</label>
+                <label for="endTime">Event End Time:</label>
+                <em *ngIf="createEventForm.controls.endTime?.invalid && createEventForm.controls.endTime?.touched">Required</em>
                 <input formControlName="endTime" type="time" class="form-control" id="endTime"
                        placeholder="Enter Event End Time" required>
               </fieldset>
@@ -60,28 +67,33 @@
                  role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
                  aria-valuemin="0" aria-valuemax="100"
                  [ngStyle]="{width:progress.percentage+'%'}">
-              {{progress.percentage}}%</div>
+              {{progress.percentage}}%
+            </div>
           </div>
           <fieldset class="form-group">
             <label for="fileTrack">Event Track (Upload a .gpx file)&nbsp;</label>
-            <label class="btn btn-default"> <input formControlName="trackFile" type="file" class="form-control" id="fileTrack" accept=".gpx"
-                                                   (change)="selectFile($event)" required>
+            <label class="btn btn-default">
+              <input formControlName="trackFile" type="file" class="form-control" id="fileTrack" accept=".gpx"
+                     (change)="selectFile($event)" required>
             </label>
 
             <button class="btn btn-success" [disabled]="!selectedFiles"
-                    (click)="upload()">Upload</button>
+                    (click)="upload()">Upload
+            </button>
           </fieldset>
           <fieldset class="form-group">
             <label for="image">Event Image (Upload image file)</label>
-            <label class="btn btn-default"> <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
+            <label class="btn btn-default"> <input formControlName="image" type="file" class="form-control" id="image"
+                                                   accept="image/*"
                                                    (change)="selectImageFile($event)" required>
             </label>
 
             <button class="btn btn-success" [disabled]="!selectedImageFiles"
-                    (click)="uploadImage()">Upload</button>
+                    (click)="uploadImage()">Upload
+            </button>
           </fieldset>
 
-          <button (click)="submitForm()" class="btn btn-primary" [disabled]="!createEventForm.valid">Create</button>
+          <button (click)="submitForm()" class="btn btn-primary">Create</button>
         </div>
       </div>
     </fieldset>

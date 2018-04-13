@@ -277,6 +277,9 @@ table {
   .label {
     border: 1px solid #000;
   }
+  .label.required:after {
+    content: " *"; color: red;
+  }
   .table {
     border-collapse: collapse !important;
   }
