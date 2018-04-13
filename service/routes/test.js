@@ -77,12 +77,18 @@ router.get('/getLastLocation',function(req,res){
     //console.log(req.headers._id);
     Events.findOne({_id: req.query._id}).then(function (events) {
     //Events.findOne({_id: req.headers._id}).then(function (events) {
-        if (!events) if(!activity) { return res.status(422).json({
+        if (!events) { return res.status(422).json({
             Result: false,
             status: { msg: "No Events found"}
         })}
         //console.log(events);
         eventLength = events.eventRiders.length;
+        if(eventLength <= 0){
+            return res.status(422).json({
+                Result: false,
+                status: { msg: "No athletes registered for the event."}
+            })
+        }
         for(i=0; i<events.eventRiders.length; ++i){
 
             //query activity table to get latest coordinates
@@ -90,7 +96,7 @@ router.get('/getLastLocation',function(req,res){
             query.exec(function (err, activity) {
                 //console.log(activity);
                 if (err) return res.status(500).json({Result: false, status: {err: err}});
-                if(!activity) { return res.status(422).json({
+                if(!activity || activity.length == 0) { return res.status(422).json({
                     Result: false,
                     status: { msg: "No tracking data found for this athlete."}
                 })}
@@ -101,7 +107,9 @@ router.get('/getLastLocation',function(req,res){
                         Result: false,
                         status: { msg: "Athlete data not found."}
                     })}
-                    arrayLastLocation.push({"riderId": activity[0].riderid, "riderName":riders.firstName + " " + riders.lastName, "coordinates": activity[0].latestcoordinates});
+                    var gps_stats_len = activity[0].gps_stats.length;
+                    arrayLastLocation.push({"riderId": activity[0].riderid, "riderName":riders.username,
+                        "coordinates": {"lat": activity[0].gps_stats[gps_stats_len-1].lat, "lng": activity[0].gps_stats[gps_stats_len-1].lng}});
                     if(arrayLastLocation.length === eventLength){
                         res.send(arrayLastLocation);
                     }
@@ -162,27 +170,29 @@ router.get('/getRiderLocation',function(req,res){
     console.log("In getRiderLocation");
     var i;
     var arrayRiderLocation = [];
-    console.log("eventid: "+req.query.eventid)
-    console.log("riderid: "+req.query.riderid)
+    //console.log("eventid: "+req.headers.eventid)
+    //console.log("riderid: "+req.headers.riderid)
 
     //query = Activity.find({"eventid": ObjectId(req.headers.eventid), "riderid": ObjectId(req.headers.riderid)})
     query = Activity.find({"eventid": ObjectId(req.query.eventid), "riderid": ObjectId(req.query.riderid)})
     query.exec(function (err, activity) {
-        if (err) return res.status(500).json({Result: false, status: {err: err}});
-        if(!activity) { return res.status(422).json({
+        if (err) res.status(500).send({Result: false, status: {err: err}});
+        else if(!activity || activity.length == 0) { res.status(422).send({
             Result: false,
             status: { msg: "No location data found for that athlete."}
         })}
-        //console.log(activity);
-        //console.log(activity[0].gps_stats)
-        for(i=0; i<activity[0].gps_stats.length; ++i){
+        else
+        {
+            //console.log(activity);
+            //console.log(activity[0].gps_stats)
+            for(i=0; i<activity[0].gps_stats.length; ++i){
 
-            arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng, "timestamp":activity[0].gps_stats[i].timestamp});
-            if(arrayRiderLocation.length === activity[0].gps_stats.length){
-                res.send(arrayRiderLocation);
+                arrayRiderLocation.push({"lat":activity[0].gps_stats[i].lat, "lng":activity[0].gps_stats[i].lng, "timestamp":activity[0].gps_stats[i].timestamp});
+                if(arrayRiderLocation.length === activity[0].gps_stats.length){
+                    res.send(arrayRiderLocation);
+                }
             }
         }
-
     });
 });
 
