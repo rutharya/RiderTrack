@@ -153,7 +153,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                 cache.set(req.payload.id,JSON.stringify(activity.gps_stats),function(){
                   //cache has been set
                   console.log('cache set ');
-                  res.json(activity); //response data sent back
+                  res.json({result:true,data:activity}); //response data sent back
                 })
               }
             })
