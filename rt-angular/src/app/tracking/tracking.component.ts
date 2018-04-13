@@ -19,15 +19,14 @@ export class TrackingComponent implements OnInit {
   constructor(private latestLocationService: LatestLocationService) {}
 
   ngOnInit() {
-    this.getLatestLocation();
+    //this.getLatestLocation();
   }
 
-  getLatestLocation(): void {
-    //this.locationData$ = this.latestLocationService.getLatestLocation();
+  /*getLatestLocation(): void {
     this.latestLocationService.getLatestLocation().subscribe(locationData => {
       this.locationData$ = locationData;
       this.latestLocationService.plot(this.locationData$);
     });
-  }
+  }*/
 
 }

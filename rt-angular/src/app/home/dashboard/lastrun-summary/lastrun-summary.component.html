@@ -35,9 +35,9 @@
           <tr>
             <td>{{eventdate |  date : "MMM dd yyyy"}}</td>
             <td>{{elapsedtime / 60000 |  number: '1.1-2'}}</td>
-            <td>{{avgspeed}}</td>
-            <td>{{altitdue}}</td>
-            <td>{{totaldistance}}</td>
+            <td>{{avgspeed | number: '1.1-2'}}</td>
+            <td>{{altitdue | number: '1.1-2'}}</td>
+            <td>{{totaldistance | number: '1.1-2'}}</td>
           </tr>
           </tbody>
         </table>

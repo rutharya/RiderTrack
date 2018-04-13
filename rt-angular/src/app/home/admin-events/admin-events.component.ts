@@ -28,12 +28,12 @@ export class AdminEventsComponent implements OnInit {
     this.createEventForm = this.fb.group({
       'name': ['', Validators.required],
       'description': ['', Validators.required],
-      'image': ['', Validators.required],
+      'image': [],
       'location': ['', Validators.required],
       'date': ['', Validators.required],
       'startTime': ['', Validators.required],
       'endTime': ['', Validators.required],
-      'trackFile': ['', Validators.required]
+      'trackFile': []
     });
   }
 
@@ -41,9 +41,8 @@ export class AdminEventsComponent implements OnInit {
   }
 
   submitForm() {
+    console.log(this.createEventForm.status);
     const createEventValues = this.createEventForm.value;
-    console.log(createEventValues.date);
-    console.log(createEventValues.startTime);
 
     createEventValues.trackFile = this.currentFileUpload.url;
     createEventValues.image = this.currentImageFileUpload.url;

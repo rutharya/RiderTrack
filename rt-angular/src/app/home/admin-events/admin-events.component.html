@@ -2,7 +2,7 @@
 
   <br>
   <!-- Breadcrumbs-->
-  <h3 align="center">Create Event</h3>
+  <h3 align="center" style="color: dimgrey">Create Event</h3>
 
   <form class="form-group" [formGroup]="createEventForm" >
     <fieldset [disabled]="isSubmitting">
@@ -11,6 +11,7 @@
         <div class="col-md-12">
           <fieldset class="form-group">
             <label for="name">Event Name</label>
+            <em *ngIf="createEventForm.controls.name?.invalid  && createEventForm.controls.name?.touched">Required</em>
             <input formControlName="name" type="text" class="form-control" id="name"
                    placeholder="Enter the event name" required>
           </fieldset>
@@ -64,7 +65,7 @@
           <fieldset class="form-group">
             <label for="fileTrack">Event Track (Upload a .gpx file)&nbsp;</label>
             <label class="btn btn-default"> <input formControlName="trackFile" type="file" class="form-control" id="fileTrack" accept=".gpx"
-                                                   (change)="selectFile($event)">
+                                                   (change)="selectFile($event)" required>
             </label>
 
             <button class="btn btn-success" [disabled]="!selectedFiles"
@@ -73,14 +74,14 @@
           <fieldset class="form-group">
             <label for="image">Event Image (Upload image file)</label>
             <label class="btn btn-default"> <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
-                                                   (change)="selectImageFile($event)">
+                                                   (change)="selectImageFile($event)" required>
             </label>
 
             <button class="btn btn-success" [disabled]="!selectedImageFiles"
                     (click)="uploadImage()">Upload</button>
           </fieldset>
 
-          <button (click)="submitForm()" class="btn btn-primary">Create</button>
+          <button (click)="submitForm()" class="btn btn-primary" [disabled]="!createEventForm.valid">Create</button>
         </div>
       </div>
     </fieldset>

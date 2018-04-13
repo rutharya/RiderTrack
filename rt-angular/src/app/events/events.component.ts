@@ -92,9 +92,11 @@ export class EventsComponent implements OnInit {
 
     for (let i = 0; i < eventsList.length; i++) {
       const eventDate = new Date(eventsList[i].date);
+
       eventDate.setHours(0, 0, 0, 0);
-      const setDate = monthNames[eventDate.getMonth()] + ' ' + (eventDate.getDate()+1) + ' ' + eventDate.getFullYear();
+      const setDate = monthNames[eventDate.getMonth()] + ' ' + (eventDate.getDate()) + ' ' + eventDate.getFullYear();
       eventsList[i].date = setDate;
+
     }
   }
 

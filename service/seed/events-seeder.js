@@ -10,7 +10,7 @@ var events = [
     new Event({
             name: "Hawaii Trekking",
             image: "https://www.topfivebuzz.com/wp-content/uploads/2017/07/trekking-essentials.jpg",
-            description: "Hawaii Trekking at Hawaii University at A Mountain Tempe ASU",
+            description: "Hawaii Trekking at Hawaii University",
             date: new Date("2018-07-21"),
             location: "A-Mountain",
             startTime: new Date("2018-07-21T15:00:00Z"),
@@ -38,7 +38,7 @@ var events = [
     new Event({
         name : "Tucson Marathon",
         image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg",
-        description : "San Jose Downtown Marathon",
+        description : "Tucson AZ Downtown Marathon",
         date : new Date("2017-10-21"),
         location : "DownTown Tucson",
         startTime: new Date("2017-10-21T07:00:00Z"),
@@ -309,7 +309,7 @@ new Event({
        description : "Sacramento Mountains California Sacramento Mountains California at 3:00 PM",
        date : new Date("2018-07-04"),
        location : "Sacramento Mountains California",
-        startTime: new Date("2018-07-04T14:00:00Z"),
+        startTime: new Date("2018-07-04T15:00:00Z"),
         endTime: new Date("2018-07-04T18:00:00Z"),
         track: {
             "elevation": 34,

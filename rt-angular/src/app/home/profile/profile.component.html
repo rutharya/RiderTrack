@@ -9,138 +9,140 @@
 
   <form class="form-group" [formGroup]="profileForm" (ngSubmit)="submitForm()">
     <!--<fieldset [disabled]="isSubmitting">-->
-      <div class="container">
+    <div class="container">
 
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="text-center">
-              <input class="form-control img-circle"
-                     src="https://pickaface.net/assets/images/slides/slide4.png"
-                     type="image"
-                     placeholder="URL of profile picture"
-              />
-              <br>
-              <input formControlName="image" type="file" class="form-control" id="image" accept="image/*" #EventImg>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="text-center">
+
+
+            <img src="{{currentUser.image}}" alt="Smiley face" height="42" width="42">
+
+            <br>
+            <fieldset class="form-group">
+              <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
+                     (change)="selectImageFile($event)"/>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <h3>Personal info</h3>
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg"
+                   type="text"
+                   value="{{currentUser.firstName}}"
+                   placeholder="Enter the first name"
+                   formControlName="firstName"/>
+          </fieldset>
+
+
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg"
+                   type="text"
+                   value="{{currentUser.lastName}}"
+                   placeholder="Enter Last name"
+                   formControlName="lastName"/>
+          </fieldset>
+
+          <div class="row">
+            <div class="col">
+              <fieldset class="form-group">
+                <input class="form-control form-control-lg"
+                       type="number"
+                       value="{{currentUser.height}}"
+                       placeholder="Enter the height"
+                       formControlName="height"/>
+              </fieldset>
+            </div>
+
+            <div class="col">
+              <fieldset class="form-group">
+                <input class="form-control form-control-lg"
+                       type="number"
+                       value="{{currentUser.weight}}"
+                       placeholder="Enter the weight"
+                       formControlName="weight"/>
+              </fieldset>
             </div>
           </div>
 
-          <div class="col-md-8">
-            <h3>Personal info</h3>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                     type="text"
-                     value="{{currentUser.firstName}}"
-                     placeholder="Enter the first name"
-                     formControlName="firstName"/>
-            </fieldset>
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg"
+                   type="text"
+                   value="{{currentUser.phoneNo}}"
+                   placeholder="Enter the phone number"
+                   formControlName="phoneNo"
+            />
+          </fieldset>
+
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg"
+                   type="email"
+                   value="{{currentUser.email}}"
+                   placeholder="Enter the email"
+                   formControlName="email"/>
+          </fieldset>
 
 
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                     type="text"
-                     value="{{currentUser.lastName}}"
-                     placeholder="Enter Last name"
-                     formControlName="lastName"/>
-            </fieldset>
-
-            <div class="row">
-              <div class="col">
-                <fieldset class="form-group">
-                  <input class="form-control form-control-lg"
-                         type="number"
-                         value="{{currentUser.height}}"
-                         placeholder="Enter the height"
-                         formControlName="height"/>
-                </fieldset>
-              </div>
-
-              <div class="col">
-                <fieldset class="form-group">
-                  <input class="form-control form-control-lg"
-                         type="number"
-                         value="{{currentUser.weight}}"
-                         placeholder="Enter the weight"
-                         formControlName="weight"/>
-                </fieldset>
-              </div>
-            </div>
-
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                     type="text"
-                     value="{{currentUser.phoneNo}}"
-                     placeholder="Enter the phone number"
-                     formControlName="phoneNo"
-              />
-            </fieldset>
-
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                     type="email"
-                     value="{{currentUser.email}}"
-                     placeholder="Enter the email"
-                     formControlName="email"/>
-            </fieldset>
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg"
+                   value="{{currentUser.address}}"
+                   placeholder="Enter the address"
+                   formControlName="address"/>
+          </fieldset>
 
 
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                     value="{{currentUser.address}}"
-                     placeholder="Enter the address"
-                     formControlName="address"/>
-            </fieldset>
-
-
-            <fieldset class="form-group">
+          <fieldset class="form-group">
              <textarea class="form-control form-control-lg"
                        rows="3"
                        data-value="{{currentUser.bio}}"
                        placeholder="About you..."
                        formControlName="bio">
              </textarea>
-            </fieldset>
+          </fieldset>
 
 
-            <!--<div class="row">-->
+          <!--<div class="row">-->
 
-              <!--<div class="col">-->
-                <!--<fieldset class="form-group">-->
-                  <!--<input class="form-control form-control-lg"-->
-                         <!--type="password"-->
-                         <!--placeholder="New Password"-->
-                         <!--formControlName="password"/>-->
-                <!--</fieldset>-->
-              <!--</div>-->
+          <!--<div class="col">-->
+          <!--<fieldset class="form-group">-->
+          <!--<input class="form-control form-control-lg"-->
+          <!--type="password"-->
+          <!--placeholder="New Password"-->
+          <!--formControlName="password"/>-->
+          <!--</fieldset>-->
+          <!--</div>-->
 
-              <!--<div class="col">-->
-                <!--<fieldset class="form-group">-->
-                  <!--<input class="form-control form-control-lg"-->
-                         <!--type="password"-->
-                         <!--placeholder="Confirm Password"-->
-                         <!--formControlName="passwordconf"-->
-                  <!--/>-->
-                <!--</fieldset>-->
-              <!--</div>-->
-            <!--</div>-->
+          <!--<div class="col">-->
+          <!--<fieldset class="form-group">-->
+          <!--<input class="form-control form-control-lg"-->
+          <!--type="password"-->
+          <!--placeholder="Confirm Password"-->
+          <!--formControlName="passwordconf"-->
+          <!--/>-->
+          <!--</fieldset>-->
+          <!--</div>-->
+          <!--</div>-->
 
-            <div class="row">
+          <div class="row">
 
 
-              <button class="btn btn-lg btn-primary pull-xs-right"
-                      type="submit" style="margin-left: 40%">
-                Update Settings
-              </button>
-            </div>
-
+            <button class="btn btn-lg btn-primary pull-xs-right"
+                    type="submit" style="margin-left: 40%">
+              Update Settings
+            </button>
           </div>
+
         </div>
       </div>
+    </div>
     <!--</fieldset>-->
   </form>
 
-  <p>Form value: {{ profileForm.value | json }}</p>
-  <p>Form status: {{ profileForm.status | json }}</p>
+  <!--<p>Form value: {{ profileForm.value | json }}</p>-->
+  <!--<p>Form status: {{ profileForm.status | json }}</p>-->
   <!--<p> uSER: {{ user | json }}</p>-->
   <!--<p> current user: {{ currentUser | json }}</p>-->
 

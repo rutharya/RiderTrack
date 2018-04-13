@@ -28,6 +28,17 @@
                 *ngIf="authType == 'register'" />
             </fieldset>
             <fieldset class="form-group">
+              <div *ngIf="authType == 'register'" >
+                <input
+                  formControlName="admin"
+                  class="form-control form-check-input form-control-lg"
+                  type="checkbox"
+                  id="adminCheckbox"
+                  value=""/>
+                <label class="form-check-label" for="adminCheckbox" style="color:red;">make this user an administrator</label>
+              </div>
+            </fieldset>
+            <fieldset class="form-group">
               <em *ngIf="authForm.controls.email?.invalid  && authForm.controls.email?.touched">Required</em>
               <input
                 formControlName="email"
@@ -58,4 +69,6 @@
 
     </div>
   </div>
+  asdfafd: {{authForm.controls}}
+
 </div>

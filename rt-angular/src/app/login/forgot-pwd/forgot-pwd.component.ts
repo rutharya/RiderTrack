@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Errors} from "../../shared/models";
 import {UserService} from "../../shared/services";
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-forgot-pwd',
@@ -35,7 +36,13 @@ export class ForgotPwdComponent implements OnInit {
     const credentials = this.forgotPwdForm.value;
     console.log(credentials);
     //TODO: add success message on angular front end to show that password reset email has been sent.
-    this.userService.generate_new_pwd(credentials).subscribe();
+    this.userService.generate_new_pwd(credentials).subscribe( data => {
+      console.log(data);
+      toastr.warning('recovery email sent');
+      //TODO: redirect the user to login component?
+    }, err => {
+      toastr.error(`Invalid email address : ${err}`);
+    });
   }
 
 }

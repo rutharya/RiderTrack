@@ -9,20 +9,20 @@ var RiderSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        lowercase:true,
+        lowercase: true,
         required: [true, "can't be blank"],
         match: [/\S+@\S+\.\S+/, 'is invalid'],
-        index:true,
+        index: true,
         trim: true
     },
-    username:{
-      type:String,
-      unique:true,
-      required: [true, "can't be blank"],
-      lowercase:true,
-      trim:true,
-      match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
-      index:true
+    username: {
+        type: String,
+        unique: true,
+        required: [true, "can't be blank"],
+        lowercase: true,
+        trim: true,
+        match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
+        index: true
     },
     firstName: {
         type: String,
@@ -48,7 +48,8 @@ var RiderSchema = new mongoose.Schema({
     bio: String,
     phoneNo: String,
     address: String,
-    following:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}],
+    image: String,
+    following: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     registeredEvents: [{
         // pasteventdate: Date,
         // pasteventlocation: String,
@@ -60,7 +61,7 @@ var RiderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
     }],
-      statistics: {
+    statistics: {
 
         participationcount: Number,
         avgspeed: {
@@ -71,22 +72,22 @@ var RiderSchema = new mongoose.Schema({
         },
         totaldistance: {
             type: Number,
-            min:0
+            min: 0
         },
         longestdistance: {
             type: Number,
-            min:0
+            min: 0
         },
         maxelevation: {
             type: Number
         },
-          averageelevation: {
+        averageelevation: {
             type: Number
-          },
+        },
         wincount: {
             type: Number,
         },
-        totalmovingtime:{
+        totalmovingtime: {
             type: Number
         },
         longestmovingtime: {
@@ -94,6 +95,7 @@ var RiderSchema = new mongoose.Schema({
         }
 
     },
+    admin: Boolean,
     hash: String,
     salt: String,
     resetPasswordToken: String,
@@ -104,101 +106,105 @@ var RiderSchema = new mongoose.Schema({
 
 RiderSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
-RiderSchema.methods.validPassword = function(password) {
-  var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-  return this.hash === hash;
+RiderSchema.methods.validPassword = function (password) {
+    var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+    return this.hash === hash;
 };
 
-RiderSchema.methods.setPassword = function(password){
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+RiderSchema.methods.setPassword = function (password) {
+    this.salt = crypto.randomBytes(16).toString('hex');
+    this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
-RiderSchema.methods.generateJWT = function() {
-  var today = new Date();
-  var exp = new Date(today);
-  exp.setDate(today.getDate() + 1); //expiry set to 1 day for now-> to test if expiry works
+RiderSchema.methods.generateJWT = function () {
+    var today = new Date();
+    var exp = new Date(today);
+    exp.setDate(today.getDate() + 1); //expiry set to 1 day for now-> to test if expiry works
 
-  return jwt.sign({
-    id: this._id,
-    username: this.username,
-    exp: parseInt(exp.getTime() / 1000),
-  }, secret);
+    return jwt.sign({
+        id: this._id,
+        username: this.username,
+        exp: parseInt(exp.getTime() / 1000),
+    }, secret);
 };
 
-
-RiderSchema.methods.toAuthJSON = function(){
-  return {
-    username: this.username,
-    email: this.email,
-    firstName: this.firstName,
-      lastName: this.lastName,
-      height: this.height,
-    weight: this.weight,
-    gender: this.gender,
-    bio: this.bio,
-    phoneNo: this.phoneNo,
-    address: this.address,
-    token: this.generateJWT(),
-  };
+RiderSchema.methods.isAdmin = function() {
+    return this.admin;
 }
-
-RiderSchema.methods.toProfileJSON = function(user){
+RiderSchema.methods.toAuthJSON = function () {
     return {
-      username: this.username,
-      email: this.email,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      //TODO: is it a privacy concern to return PII (phone number, ht,wt, and address)
-      following: user ? user.isFollowing(this._id) : false
+        username: this.username,
+        email: this.email,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        height: this.height,
+        weight: this.weight,
+        gender: this.gender,
+        bio: this.bio,
+        phoneNo: this.phoneNo,
+        address: this.address,
+        image: this.image,
+        admin: this.admin,
+        token: this.generateJWT(),
     };
-  };
+}
 
-RiderSchema.methods.userProfile = function(){
-  return {
-    username: this.username,
-    email: this.email,
-    height: this.height,
-    weight: this.weight,
-    gender: this.gender,
-    phoneNo: this.phoneNo,
-    address: this.address,
-  }
+RiderSchema.methods.toProfileJSON = function (user) {
+    return {
+        username: this.username,
+        email: this.email,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        //TODO: is it a privacy concern to return PII (phone number, ht,wt, and address)
+        following: user ? user.isFollowing(this._id) : false
+    };
+};
+
+RiderSchema.methods.userProfile = function () {
+    return {
+        username: this.username,
+        email: this.email,
+        height: this.height,
+        weight: this.weight,
+        gender: this.gender,
+        phoneNo: this.phoneNo,
+        address: this.address,
+        image: this.image
+    }
 }
 
 
-
-RiderSchema.methods.follow = function(id){
- if(this.following.indexOf(id)===-1){
-  this.following.push(id);
- }
- return this.save();
+RiderSchema.methods.follow = function (id) {
+    if (this.following.indexOf(id) === -1) {
+        this.following.push(id);
+    }
+    return this.save();
 }
 
-RiderSchema.methods.unfollow=function(id){
-  this.following.remove(id);
-  return this.sace();
+RiderSchema.methods.unfollow = function (id) {
+    this.following.remove(id);
+    return this.sace();
 }
 
-RiderSchema.methods.getid = function(){
-  return user._id;
+RiderSchema.methods.getid = function () {
+    return user._id;
 }
 
-RiderSchema.methods.getRegisteredEvents = function(){
+RiderSchema.methods.getRegisteredEvents = function () {
     return {
         registeredEvents: this.registeredEvents
     }
 }
 
-RiderSchema.methods.isParticipant = function(eventId){
+RiderSchema.methods.isParticipant = function (eventId) {
     console.log('in is participant');
     console.log(this.registeredEvents);
     console.log(eventId);
     console.log(this.registeredEvents.indexOf(eventId));
-    if( this.registeredEvents.indexOf(eventId) >=0){
+    if (this.registeredEvents.indexOf(eventId) >= 0) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }

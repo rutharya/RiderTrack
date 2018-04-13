@@ -121,31 +121,5 @@ export class UserService {
         const res = this.apiService.put('/users', body.toString(), options);
         return res;
   }
-  // saveEvent (data): any {
-  //   console.log(data);
-  //   console.log('Events service');
-  //   // const body = {
-  //   //   name: data.name,
-  //   //   description: data.description,
-  //   //   location: data.location,
-  //   //   date: data.date,
-  //   //   startTime: data.startTime,
-  //   //   endTime: data.endTime
-  //   // };
-  //   const body = new URLSearchParams();
-  //   body.set('name', data.name);
-  //   body.set('description', data.description);
-  //   body.set('location', data.location);
-  //   body.set('date', data.date);
-  //   body.set('startTime', this.convertTimeToDate(data.date, data.startTime));
-  //   body.set('endTime', this.convertTimeToDate(data.date, data.endTime));
-  //   body.set('trackFile', data.trackFile);
-  //   body.set('image', data.image);
-  //   console.log(body);
-  //   const options = {
-  //     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-  //   };
-  //   const res = this.apiService.post2('/events/save', body.toString(), options);
-  //   return res;
-  // }
+
 }
