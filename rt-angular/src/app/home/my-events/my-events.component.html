@@ -3,7 +3,7 @@
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
+<script src="node_modules/bootbox/bootbox.js"></script>
 <br>
 <h3 style="color: dimgrey; text-align: center" >
 My Registered Events
@@ -24,7 +24,7 @@ My Registered Events
           <th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Action</th>
         </tr>
         </thead>
-        <b style="margin-left: 50px"  *ngIf="regEvents.length===0">
+        <b style="margin-left: 50px"  *ngIf=" regEvents===null || regEvents.length===0">
        <br>
           No Events Registered
         </b>
@@ -36,8 +36,8 @@ My Registered Events
           <td>{{event1.date.substring(0, 10)}}</td>
 
           <td>{{event1.location}}</td>
-          <td><button class='btn btn-primary btn-xs' *ngIf="event1.date>=currentDate">Invite Spectator</button>
-          <button class='btn btn-primary btn-xs' *ngIf="event1.date>=currentDate">Unregister Event</button>
+          <td><button class='btn btn-primary btn-xs' *ngIf="event1.date>=currentDate" (click)="inviteSpec(event1._id)">Invite Spectator</button>
+          <button class='btn btn-primary btn-xs' *ngIf="event1.date>=currentDate" (click)="removeRider(event1._id)">Unregister Event</button>
           <button class='btn btn-primary btn-xs' *ngIf="event1.date<currentDate">View Statistics</button></td>
         </tr>
 

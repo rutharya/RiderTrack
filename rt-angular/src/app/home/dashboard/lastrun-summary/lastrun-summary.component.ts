@@ -17,7 +17,7 @@ export class LastrunSummaryComponent implements OnInit {
   public elapsedtime = '-';
   public avgspeed = '';
   public altitdue = '';
-  //public gpsstats = [];
+  public gpsstats = [];
 
 
   constructor(private statisticsService: StatisticsService, private _mapService: MapService) {
@@ -42,7 +42,9 @@ export class LastrunSummaryComponent implements OnInit {
           this.totaldistance = res['activity'].racestats.totaldistance;
           this.avgspeed = res['activity'].racestats.averagespeed;
           this.altitdue = res['activity'].racestats.averageelevation;
-          //this.gpsstats = res['activity'].gps_stats;
+          this.gpsstats = res['activity'].gps_stats;
+          console.log("The gps stats are:"+this.gpsstats);
+          this._mapService.plotRecentActivity(this.gpsstats);
 
 
         }
@@ -51,7 +53,7 @@ export class LastrunSummaryComponent implements OnInit {
 
       }); //end of subscribe
 
-    this._mapService.plotRecentActivity();
+
   }
 
 }

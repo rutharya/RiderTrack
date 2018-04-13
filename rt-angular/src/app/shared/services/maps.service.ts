@@ -30,7 +30,7 @@ export class MapService {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox.streets',
-      accessToken: apiToken
+      accessToken: apiToken,
     }).addTo(map);
 
     const customLayer = L.geoJson(null, {
@@ -44,35 +44,55 @@ export class MapService {
   }
 
 
-  plotRecentActivity(){
+  plotRecentActivity(locationData: any) {
 
+    console.log("Plotting most recent activity");
     const myStyle = {
       'color': '#3949AB',
       'weight': 5,
       'opacity': 0.95
     };
 
+
     const map = L.map('map1').setView(defaultCoords, defaultZoom);
 
     map.maxZoom = 100;
-
     L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
+      maxZoom: 20,
       id: 'mapbox.streets',
-      accessToken: apiToken
+      accessToken: apiToken,
     }).addTo(map);
 
-    const customLayer = L.geoJson(null, {
-      style: myStyle
+
+
+    var latlngs = [];
+
+
+    var myIcon = L.icon({
+      iconUrl: '../../assets/Image/marker-icon.png',
+      iconSize: [30, 55],
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
     });
 
-    // Change the code here..
 
-    const gpxLayer = omnivore.gpx('../../../assets/gpx/1.gpx', null, customLayer)
-      .on('ready', function() {
-        map.fitBounds(gpxLayer.getBounds());
-      }).addTo(map);
+
+    console.log("The data received is:"+locationData);
+    for(var data of locationData){
+      console.log(data.lat+" and " +data.lng);
+          latlngs.push([data.lat, data.lng]);
+
+    }
+
+
+
+    var polyline = L.polyline(latlngs, {color: '#ffa500',weight: 10,lineCap: 'round', stroke:true}).addTo(map);
+// zoom the map to the polyline
+    map.fitBounds(polyline.getBounds());
+
 
   }
 

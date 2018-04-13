@@ -76,11 +76,11 @@ router.get('/registered_events',auth.required,function(req,res,next){
               return;
             }
             return res.send(events);
-        }); 
+        });
       }).catch(next);
 })
 
-router.delete('/register',auth.required,function(req,res,next){
+router.post('/unregister',auth.required,function(req,res,next){
     if(!req.body.eventId || req.body.eventId === ""){
         return res.status(422).json({
             errors: {
@@ -106,7 +106,7 @@ router.delete('/register',auth.required,function(req,res,next){
                 status: { msg: "event not found. please create event"}
             })}
             if(event.eventRiders.indexOf(user._id)>=0){
-                event.eventRiders.splice(event.eventRiders.indexOf(user._id),1); 
+                event.eventRiders.splice(event.eventRiders.indexOf(user._id),1);
             }else{
                 return res.status(422).json({
                     Result: false,
@@ -128,7 +128,7 @@ router.delete('/register',auth.required,function(req,res,next){
 router.post('/register',auth.required,function(req,res,next){
     console.log('here');
     console.log(req.body);
-    console.log(req.body.eventId);    
+    console.log(req.body.eventId);
     if(!req.body.eventId || req.body.eventId === ""){
         return res.status(422).json({
             errors: {
@@ -157,11 +157,7 @@ router.post('/register',auth.required,function(req,res,next){
                 event.eventRiders.push(user._id);
                 user.registeredEvents.push(event._id);
             }
-            //TODO: (ruthar) this next 3 lines of code will be replaced when all events have startTime and endTime values.
-            var time = new Date();
-            event.startTime = time.getTime();
-            event.endTime= time.getTime();
-            //TODO: replace above 3 lines.
+
             event.save(function(err){
                 console.log(err);
                 if(err) return res.status(500).json({Result: false, status: {err: err}});
