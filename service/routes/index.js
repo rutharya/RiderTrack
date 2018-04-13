@@ -358,7 +358,7 @@ router.get('/getLatestEvent', auth.required, function (req, res, next) {
         console.log("Rider selected:"+user._id);
         riderid = user._id;
         // Get latest activity by natural sorting, and limiting
-        var q = Activity.find({riderid: user._id}).limit(1).sort({$natural:-1});
+        var q = Activity.find({riderid: user._id, completed: true}).limit(1).sort({$natural:-1});
         q.exec(function(err, activity) {
             if(err){
                 console.log("Error occured"+err);
