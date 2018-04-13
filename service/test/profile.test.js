@@ -36,8 +36,6 @@ describe('GET /profile', function(){
         .send(userCredentials)
         .end(function (err, res) {
 
-            var token = res.body.user.token;
-
             chai.request(server)
                 .get('/profile')
                 .end(function (err, res) {
