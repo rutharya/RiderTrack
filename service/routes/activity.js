@@ -11,21 +11,27 @@ var Activity = require('../models/activity');
 
 
 // Method to get event stats for a rider
-router.get('/getEventStats',auth.required, function(req, res, next){
+router.get('/getEventStats',function(req, res, next){
     console.log("Inside get event stats");
     var riderid, eventid, selectedactivity;
 
-    if(!req.payload){
-        res.render('error',{message:'invalid headers'});
-    }
-    else if(!req.query.eventid){
-        res.render('error',{message:'Missing parameter eventid'});
+    console.log(req.query.riderid+" and "+req.query.eventid)
+
+
+     if(!req.query.eventid){
+        return res.render('error',{message:'Missing parameter eventid'});
     }
     else if(req.query.eventid === ""){
-        res.render('error',{message:'Event id is blank'});
+       return res.render('error',{message:'Event id is blank'});
+    }
+    else if(!req.query.riderid){
+        return res.render('error', {message: 'Missing rider id params'});
+    }
+    else if(req.query.riderid === ""){
+        return res.render('error', {message: 'rider id params is blamk'});
     }
 
-    User.findById(req.payload.id).then(function(user){
+    User.findById(req.query.riderid).then(function(user){
         if(!user){ return res.sendStatus(401); }
         console.log("Rider selected:"+user._id);
         riderid = user._id;

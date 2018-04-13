@@ -2,7 +2,7 @@
   <div class="container text-center card mb-3" style="background-color:darkslategrey; margin-left: 2px">
     <h1>{{eventName}}</h1><br/>
     <h4>{{eventDescription}}</h4><br/>
-    <h5><i>Date: </i>{{eventDate}}</h5>
+    <h5><i>Date: </i>{{eventDate | date : "MMM dd yyyy"}}</h5>
     <h5><i>Time: </i>{{eventTime}}</h5>
     <h5><i>Location: </i>{{eventLocation}}</h5>
   </div>
