@@ -10,8 +10,8 @@ var expect = require('chai').expect;
 chai.use(chaiHttp);
 
 var userCredentials = {
-    email: 'admin@admin.com ',
-    password: 'admin'
+    email: 'sailingam@gmail.com',
+    password: 'superdragon'
 };
 
 var authenticatedUser = request.agent(server);
@@ -152,7 +152,10 @@ describe('login, go to /events and register for 1 event', function () {
 
                 var event_id = '';
                 var token = res.body.user.token;
-                console.log("token is " + token);
+                console.log("token is " );
+                console.log(res.body);
+                console.log("environment is ");
+                //console.log(process.env);
 
                 chai.request(server)
                     .get('/events/')
