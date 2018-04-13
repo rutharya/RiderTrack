@@ -44,13 +44,22 @@ router.post('/saveloc',auth.required,function(req,res,next){
     console.log(event_id);
     console.log('POST /savemyloc call recieved at :' + now);
     if(!req.body){
-      res.render('error',{message:'invalid body'});
+      return res.status(422).json({
+        Result: false,
+        status: {msg: "Request body not present"}
+    });
     }
     else if(!req.body.lat || !req.body.lng || !req.body.eventid){
-      res.render('error',{message:'invalid lat/lng'});
+      return res.status(422).json({
+        Result: false,
+        status: {msg: "invalid lat/lng or eventid"}
+    });
     }
     else if(req.body.lat === "" || req.body.lng === "" || req.body.eventid === "" ){
-      res.render('error',{message:'empty lat,lng or eventid'});
+      return res.status(422).json({
+        Result: false,
+        status: {msg: "invalid lat/lng eventid"}
+    });
     }
     else{
         Activity.findOne({eventid:event_id},function(err,activity){
@@ -91,8 +100,11 @@ router.post('/saveloc',auth.required,function(req,res,next){
                 // console.log('user activity - '+ user_activiy);
                 //console.log('user_gps data - ' + user_gps_data);
                 user_activiy.save(function(err,result){
-                  if(err){res.render('error',{message:err});}
-                  return res.send({result:"OK",data:result})
+                  if(err){return res.status(422).json({
+                    Result: false,
+                    status: {msg: err}
+                });}
+                  return res.send({result:true,data:result})
                 });
           }
           else{
@@ -109,7 +121,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                   cache.set(req.payload.id,JSON.stringify(ath_gps_cache),function(){
                     //res.json(ath_gps);
                     console.log('cache set updated - length is lesser than 3');
-                    return res.send({result:"OK",data:ath_gps_cache})
+                    return res.send({result:true,data:ath_gps_cache})
                   })
                 }
                 else{
@@ -118,9 +130,12 @@ router.post('/saveloc',auth.required,function(req,res,next){
                   activity.set({gps_stats:ath_gps_cache});
                   cache.del(req.payload.id); //delete cache data -> we are storing it to db
                   activity.save(function (err, updatedData) {
-                        if (err) return res.render('error',{message:err});
+                        if (err) return res.status(422).json({
+                          Result: false,
+                          status: {msg: err}
+                      });
                         console.log('updatedData -' + updatedData);
-                          return res.send({result:"OK",status:"saved to db",data:activity})
+                          return res.send({result:true,status:"saved to db",data:activity})
                           })
                       }
               }else{
