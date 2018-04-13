@@ -27,11 +27,6 @@ export class EventTrackingComponent implements OnInit {
 
   ngOnInit(){
     this.route.params.subscribe(params => {
-      /*this.eventName = params["eventName"];
-      this.eventDescription = params["eventDescription"];
-      this.eventDate = params["eventDate"];
-      this.eventLocation = params["eventLocation"];
-      this.eventTime = params["eventTime"];*/
       this.eventId = params["id"];
       console.log("EventId: "+this.eventId);
 
@@ -43,6 +38,8 @@ export class EventTrackingComponent implements OnInit {
         this.eventTime = eventsData.time;
         this.eventLocation = eventsData.location;
       });
+
+      this.latestLocationService.loadMap();
       this.getLatestLocation(this.eventId);
     });
 

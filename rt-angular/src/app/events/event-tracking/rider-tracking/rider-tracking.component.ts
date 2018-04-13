@@ -53,12 +53,6 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       });
     });
 
-    //************* Live tracking code ************************
-    /*this.getRiderLocation();
-    this.riderLocationsService.loadMap();
-    Observable.interval(2 * 60 * 1000).subscribe(x => {
-      this.getRiderLocation();
-    });*/
   }
 
   getRiderLocation(eventId, riderId):void{

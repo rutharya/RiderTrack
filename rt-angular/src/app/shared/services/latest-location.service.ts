@@ -14,6 +14,7 @@ declare var L: any;
 export class LatestLocationService {
   apiAddress: string;
   apiToken: any;
+  map:any;
 
   constructor(private http: HttpClient,private apiService: ApiService) {
     this.apiAddress = environment.api_url+'/test/getLastLocation?_id=';
@@ -24,14 +25,8 @@ export class LatestLocationService {
     return this.http.get<Array<TrackingData>>(this.apiAddress+eventId);
   }
 
-
-  plot(locationData: any): void{
-    const myStyle = {
-      'color': '#3949AB',
-      'weight': 5,
-      'opacity': 0.95
-    };
-    var map = L.map('map').setView([33.42192543, -111.92350757], 11);
+  loadMap(){
+    this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
       ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -39,7 +34,24 @@ export class LatestLocationService {
       maxZoom: 18,
       id: 'mapbox.streets',
       accessToken: this.apiToken
-    }).addTo(map);
+    }).addTo(this.map);
+  }
+
+  plot(locationData: any): void{
+    const myStyle = {
+      'color': '#3949AB',
+      'weight': 5,
+      'opacity': 0.95
+    };
+    /*var map = L.map('map').setView([33.42192543, -111.92350757], 11);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
+      ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: this.apiToken
+    }).addTo(map);*/
 
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
@@ -52,7 +64,7 @@ export class LatestLocationService {
 
     for (var data of locationData) {
       console.log(data.coordinates.lat);
-      var marker = L.marker([data.coordinates.lat, data.coordinates.lng],{icon: myIcon}).addTo(map);
+      var marker = L.marker([data.coordinates.lat, data.coordinates.lng],{icon: myIcon}).addTo(this.map);
       marker.bindPopup('<b>'+ data.riderName +'</b><br>' + 'Lat: '+ data.coordinates.lat + 'Lng: '+ data.coordinates.lng).openPopup();
     }
   }
