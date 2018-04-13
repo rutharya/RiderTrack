@@ -43,6 +43,7 @@ export class LastrunSummaryComponent implements OnInit {
           this.avgspeed = res['activity'].racestats.averagespeed;
           this.altitdue = res['activity'].racestats.averageelevation;
           //this.gpsstats = res['activity'].gps_stats;
+          this._mapService.plotRecentActivity();
 
 
         }
@@ -51,7 +52,7 @@ export class LastrunSummaryComponent implements OnInit {
 
       }); //end of subscribe
 
-    this._mapService.plotRecentActivity();
+
   }
 
 }
