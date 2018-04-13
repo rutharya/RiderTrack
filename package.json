@@ -34,6 +34,7 @@
     "angularfire2": "^4.0.0-rc.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+    "bootbox": "^4.4.0",
     "bootstrap": "^4.0.0",
     "chai-http": "^4.0.0",
     "chart.js": "^2.7.2",
