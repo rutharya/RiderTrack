@@ -140,42 +140,42 @@ describe('/eventId events', function () {
 //
 // });
 //
-describe('login, go to /events and register for 1 event', function () {
-
-    it('Logging in, creating new event and registering event test - ' +
-        'should give already registered status', function (done) {
-
-        authenticatedUser
-            .post('/users/login')
-            .send(userCredentials)
-            .end(function (err, res) {
-
-                var event_id = '';
-                var token = res.body.user.token;
-                console.log("token is " );
-                console.log(res.body);
-                console.log("environment is ");
-                //console.log(process.env);
-
-                chai.request(server)
-                    .get('/events/')
-                    .end(function (err, res) {
-                        event_id = res.body[0]._id;
-                        chai.request(server)
-                            .post('/events/register')
-                            .set('Content-Type','application/x-www-form-urlencoded')
-                            .set('Authorization','Bearer '+token)
-                            .send({eventId:event_id})
-                            .end(function(err,res){
-                                res.should.have.status(200);
-                                res.body.status.msg.should.be.eql('already registered to event!!');
-                            });
-                    });
-
-            });
-        done();
-    });
-
-
-});
+// describe('login, go to /events and register for 1 event', function () {
+//
+//     it('Logging in, creating new event and registering event test - ' +
+//         'should give already registered status', function (done) {
+//
+//         authenticatedUser
+//             .post('/users/login')
+//             .send(userCredentials)
+//             .end(function (err, res) {
+//
+//                 var event_id = '';
+//                 var token = res.body.user.token;
+//                 console.log("token is " );
+//                 console.log(res.body);
+//                 console.log("environment is ");
+//                 //console.log(process.env);
+//
+//                 chai.request(server)
+//                     .get('/events/')
+//                     .end(function (err, res) {
+//                         event_id = res.body[0]._id;
+//                         chai.request(server)
+//                             .post('/events/register')
+//                             .set('Content-Type','application/x-www-form-urlencoded')
+//                             .set('Authorization','Bearer '+token)
+//                             .send({eventId:event_id})
+//                             .end(function(err,res){
+//                                 res.should.have.status(200);
+//                                 res.body.status.msg.should.be.eql('already registered to event!!');
+//                             });
+//                     });
+//
+//             });
+//         done();
+//     });
+//
+//
+// });
 
