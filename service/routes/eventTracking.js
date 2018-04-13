@@ -8,14 +8,17 @@ var router = express.Router();
 
 exports.getLastLocation = function(req,res){
     console.log("In getLastLocation");
+    console.log("In getLastLocation");
     var arrayLastLocation = [];
     var eventId;
     var eventLength;
     var i;
+    
     query = Event.find({"_id": req.headers._id})
     query.exec(function (err, events) {
         if (err) return handleError(err);
-
+        console.log(events);
+        console.log(events.length);
         for(i=0; i<events[0].eventRiders.length; ++i){
             eventLength = events[0].eventRiders.length;
 

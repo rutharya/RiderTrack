@@ -60,5 +60,14 @@ var activitySchema = new Schema({
     }
 });
 
+
+activitySchema.methods.isCompleted = function () {
+    if(this.completed){
+        return true;
+    }
+    return false;
+};
+
 var activity = mongoose.model('activity', activitySchema);
+
 module.exports = activity;
