@@ -80,7 +80,7 @@ router.get('/registered_events',auth.required,function(req,res,next){
       }).catch(next);
 })
 
-router.delete('/register',auth.required,function(req,res,next){
+router.post('/unregister',auth.required,function(req,res,next){
     if(!req.body.eventId || req.body.eventId === ""){
         return res.status(422).json({
             errors: {

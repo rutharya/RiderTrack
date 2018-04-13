@@ -63,6 +63,21 @@ export class EventsService {
     , options);
   }
 
+  unregister (data): any {
+    console.log(data);
+    const body = new URLSearchParams();
+    body.set('eventId', data);
+    console.log(body);
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    };
+    const URL = '/events/register';
+    return this.apiService.post2('/events/unregister', body.toString()
+      , options);
+  }
+
+
+
   getRegisteredEvents() {
     return this.apiService.get('/events/registered_events')
       .map(result => result);
