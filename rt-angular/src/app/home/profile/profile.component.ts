@@ -55,9 +55,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.profileForm.get('gender'));
     console.log(this.profileForm.status);
     console.log(this.user);
-    const file = this.selectedImageFiles.item(0);
-    this.currentImageFileUpload = new FileUpload(file);
-    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload);
+
     const profileFormValue = this.profileForm.value;
     profileFormValue.image = this.currentImageFileUpload.url;
     // this.profileForm.image = this.currentImageFileUpload.url;
@@ -85,7 +83,13 @@ export class ProfileComponent implements OnInit {
   selectImageFile(event) {
     this.selectedImageFiles = event.target.files;
   }
-
+  uploadImage() {
+    const file = this.selectedImageFiles.item(0);
+    this.currentImageFileUpload = new FileUpload(file);
+    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload);
+    // console.log('Upload');
+    // console.log(this.currentFileUpload.url);
+  }
   // enableEdit() {
   //
   //   if (this.profileForm.enabled) {

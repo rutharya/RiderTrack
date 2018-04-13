@@ -11,7 +11,8 @@
   <div class="col-sm-12">
     <div class="container" align="center">
 
-      <img src="../assets/Image/profile1.jpg" alt="Person" style="width:120px;height:130px; align-self: center">
+      <img src="{{ currentUser.image }}"
+           onError="this.src='../assets/Image/profile1.jpg';" alt="Person" style="width:120px;height:130px; align-self: center">
       <div class="container">
         <h4><b>{{currentUser.username}}</b></h4>
         <a>{{currentUser.email}}</a>
