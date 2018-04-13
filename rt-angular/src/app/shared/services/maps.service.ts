@@ -54,7 +54,7 @@ export class MapService {
     };
 
 
-    const map = L.map('map1').setView([37.33527476, -122.03254703], defaultZoom);
+    const map = L.map('map1').setView(defaultCoords, defaultZoom);
 
     map.maxZoom = 100;
     L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -382,7 +382,7 @@ export class MapService {
         "distLeft":30000,
         "altitude":0
       },
-      
+
       {
         "timestamp":"2018-04-11T04:33:58.109Z",
         "lat":37.33527476,
@@ -877,10 +877,31 @@ export class MapService {
           latlngs.push([gpsdata.lat, gpsdata.lng]);
 
     }
+    var myIcon = L.icon({
+      iconUrl: '../../assets/Image/marker-icon.png',
+      iconSize: [30, 55],
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
 
 
 
 
+
+    // L.marker(new L.LatLng(latlngs[0]), {
+    //   icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+    //   title: 'Start Point'
+    // }).addTo(map);
+    //
+    //  L.marker(new L.LatLng(latlngs[latlngs.length-1]), {
+    //   icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+    //   title: 'Start Point'
+    // }).addTo(map);
+
+    L.marker(latlngs[0],{icon: myIcon}).addTo(map);
+    L.marker(latlngs[latlngs.length-1],{icon: myIcon}).addTo(map);
     var polyline = L.polyline(latlngs, {color: '#ffa500',weight: 7,lineCap: 'round', stroke:true}).addTo(map);
 // zoom the map to the polyline
     map.fitBounds(polyline.getBounds());
