@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
 import * as toastr from 'toastr';
+import * as bootbox from 'bootbox';
 
 @Component({
   selector: 'app-my-events',
@@ -72,11 +73,12 @@ export class MyEventsComponent implements OnInit {
   }
 
   inviteSpec(id){
+  //bootbox.alert("In alert");
    var emailid = prompt("Enter an email id to Invite spectator:");
     if (emailid == null || emailid == "") {
       console.log("User cancelled to invite");
     } else {
-      console.log("Email Id is: " +emailid);
+      console.log("Email Id is: " +emailid+ " Event Id is: "+ id);
     }
 
   }
