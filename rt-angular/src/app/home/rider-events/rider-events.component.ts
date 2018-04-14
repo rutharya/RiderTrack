@@ -54,15 +54,9 @@ export class RiderEventsComponent implements OnInit {
 
     for (let i = 0; i < eventsList.length; i++) {
       const eventDate = new Date(eventsList[i].date);
-      const eventStartTime = new Date(eventsList[i].startTime);
-      const eventEndTime = new Date(eventsList[i].endTime);
-      const stime = eventStartTime.getHours() + ':'+ (eventStartTime.getMinutes()<10?'0':'') + eventStartTime.getMinutes();
-      const etime = eventEndTime.getHours() + ':'+ (eventEndTime.getMinutes()<10?'0':'') + eventEndTime.getMinutes();
       eventDate.setHours(0, 0, 0, 0);
       const setDate = monthNames[eventDate.getMonth()] + ' ' + (eventDate.getDate()) + ' ' + eventDate.getFullYear();
       eventsList[i].date = setDate;
-      eventsList[i].startTime = stime;
-      eventsList[i].endTime = etime;
     }
   }
 

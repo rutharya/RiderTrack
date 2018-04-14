@@ -30,7 +30,8 @@ var events = [
             endLocation:{
                 lat:23.344,
                 long:11.324
-            }
+            },
+           trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
     }),
 
@@ -58,7 +59,8 @@ var events = [
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+        trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
     }),
 
@@ -67,7 +69,7 @@ new Event({
         image : "https://fwmdocks.com/wp-content/uploads/2017/01/FWM-Rowing-807x356-1.jpg",
         description : "Rowing event in Oregon from 5:00 PM",
         date : new Date("2018-03-21"),
-        location : "DownTown San Jose",
+        location : "Oregon Lake",
         startTime: new Date("2018-03-21T15:00:00Z"),
         endTime: new Date("2018-03-21T18:00:00Z"),
         track: {
@@ -85,7 +87,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-    }
+    },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 new Event({
@@ -93,7 +96,7 @@ new Event({
         image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg",
         description : "San Jose Downtown Marathon",
         date : new Date("2019-01-11"),
-        location : "A-Mountain",
+        location : "San Jose Downtown",
         startTime: new Date("2019-01-11T15:00:00Z"),
         endTime: new Date("2019-01-11T18:00:00Z"),
         track: {
@@ -111,7 +114,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 new Event({
@@ -119,7 +123,7 @@ new Event({
         image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg",
         description : "Seattle Downtown Marathon Seattle Downtown Marathon",
         date : new Date("2016-12-28"),
-        location : "DownTown San Jose",
+        location : "Seattle WA",
         startTime: new Date("2016-12-28T13:00:00Z"),
         endTime: new Date("2016-12-28T17:00:00Z"),
         track: {
@@ -137,7 +141,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -164,7 +169,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -191,7 +197,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -200,7 +207,7 @@ new Event({
         image : "http://thehotzoneusa.com/wp-content/uploads/2014/11/14803118587_20f2a571fc_o.jpg",
         description : "California Trekking at California State University at abcd Mountain",
         date : new Date("2018-12-21"),
-        location : "DownTown San Jose",
+        location : "DownTown CA",
         startTime: new Date("2018-12-21T15:00:00Z"),
         endTime: new Date("2018-12-21T18:00:00Z"),
         track: {
@@ -218,7 +225,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -227,7 +235,7 @@ new Event({
         image : "https://www.topfivebuzz.com/wp-content/uploads/2017/07/trekking-essentials.jpg",
         description : "San Mateo Downtown Marathon",
         date : new Date("2018-12-21"),
-        location : "A-Mountain",
+        location : "California Mountain",
         startTime: new Date("2018-12-21T11:00:00Z"),
         endTime: new Date("2018-12-21T15:00:00Z"),
         track: {
@@ -245,7 +253,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -254,11 +263,11 @@ new Event({
        image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
        description : "A Mountain Tempe ASU ASU Trekking at Arizona State University at A Mountain Tempe ASU",
        date : new Date("2018-02-13"),
-       location : "DownTown San Jose",
+       location : "DownTown Tempe",
         startTime: new Date("2018-02-13T11:00:00Z"),
         endTime: new Date("2018-02-13T18:00:00Z"),
         track: {
-            "elevation": 34,
+            "elevation": 33,
             "length": 13.2,
             "difficulty": "Beginner"
         },
@@ -266,13 +275,14 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:33.40,
+            long:-111.95
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
-        }
+            lat:33.58,
+            long:-111.324
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -299,7 +309,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -314,7 +325,7 @@ new Event({
         track: {
             "elevation": 34,
             "length": 13.2,
-            "difficulty": "Beginner"
+            "difficulty": "Hard"
         },
         eventRiders: [],
         raceWinners: [],
@@ -326,7 +337,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -334,7 +346,7 @@ new Event({
         name : "Indore Marathon", image : "http://thehotzoneusa.com/wp-content/uploads/2014/11/14803118587_20f2a571fc_o.jpg",
         description : "Indore India Marathon",
         date : new Date("2018-12-21"),
-        location : "Vijay Nagar",
+        location : "Vijay Nagar India",
         startTime: new Date("2018-12-21T15:00:00Z"),
         endTime: new Date("2018-12-21T18:00:00Z"),
         track: {
@@ -352,7 +364,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -361,7 +374,7 @@ new Event({
         image : "https://fwmdocks.com/wp-content/uploads/2017/01/FWM-Rowing-807x356-1.jpg",
         description : "Phoenix Rowing at Lake Pleasant this December",
         date : new Date("2017-07-21"),
-        location : "A-Mountain",
+        location : "Lake Pleasant AZ",
         startTime: new Date("2017-07-21T15:00:00Z"),
         endTime: new Date("2017-07-21T18:00:00Z"),
         track: {
@@ -373,13 +386,14 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:32.239,
+            long:-112.244
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
-        }
+            lat:33.344,
+            long:-111.324
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -388,7 +402,7 @@ new Event({
         image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
         description : "Arizona Trekking at Downtown Phoenix",
         date: new Date("2018-07-21"),
-        location : "DownTown San Jose",
+        location : "Phoenix AZ",
         startTime: new Date("2018-07-21T09:00:00Z"),
         endTime: new Date("2018-07-21T01:00:00Z"),
         track: {
@@ -400,13 +414,14 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:34.239,
+            long:-114.244
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
-        }
+            lat:35.344,
+            long:-111.324
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -433,16 +448,17 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
 new Event({
       name : "ASU Tempe Trekking",
       image : "https://fwmdocks.com/wp-content/uploads/2017/01/FWM-Rowing-807x356-1.jpg",
-      description : "ASU Trekking at Arizona State University at A Mountain Tempe ASU Marathon San Jose Downtown Marathon",
+      description : "ASU Trekking at Arizona State University at A Mountain Mesa",
       date : new Date("2017-12-21"),
-      location : "DownTown San Jose",
+      location : "DownTown Mesa",
         startTime: new Date("2017-12-21T15:00:00Z"),
         endTime: new Date("2017-12-21T18:00:00Z"),
         track: {
@@ -454,13 +470,14 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
+            lat:44.239,
             long:23.244
         },
         endLocation:{
-            lat:23.344,
+            lat:43.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -474,7 +491,7 @@ new Event({
         endTime: new Date("2017-07-21T18:00:00Z"),
         track: {
             "elevation": 34,
-            "length": 13.2,
+            "length": 15.2,
             "difficulty": "Beginner"
         },
         eventRiders: [],
@@ -487,7 +504,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -496,12 +514,12 @@ new Event({
         image : "https://alhujjattravels.com/wp-content/uploads/2017/04/treking-1.jpg",
         description : "New York Winter Trek",
         date : new Date("2018-08-21"),
-        location : "DownTown San Jose",
+        location : "DownTown NY",
         startTime: new Date("2018-08-21T15:00:00Z"),
         endTime: new Date("2018-08-21T18:00:00Z"),
         track: {
             "elevation": 34,
-            "length": 13.2,
+            "length": 17.2,
             "difficulty": "Beginner"
         },
         eventRiders: [],
@@ -514,7 +532,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -528,7 +547,7 @@ new Event({
         endTime: new Date("2018-02-04T18:00:00Z"),
         track: {
             "elevation": 34,
-            "length": 13.2,
+            "length": 20.2,
             "difficulty": "Intermediate"
         },
         eventRiders: [],
@@ -541,7 +560,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -550,12 +570,12 @@ new Event({
        image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
        description : "Nevada Trek near Las Vegas",
        date : new Date("2018-12-21"),
-       location : "DownTown San Jose",
+       location : "Nevada Canyons",
         startTime: new Date("2018-02-04T15:00:00Z"),
         endTime: new Date("2018-02-04T18:00:00Z"),
         track: {
             "elevation": 34,
-            "length": 13.2,
+            "length": 50.2,
             "difficulty": "Beginner"
         },
         eventRiders: [],
@@ -568,7 +588,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 
@@ -577,25 +598,26 @@ new Event({
        image : "http://thehotzoneusa.com/wp-content/uploads/2014/11/14803118587_20f2a571fc_o.jpg",
        description : "San Jose Downtown Marathon",
        date : new Date("2018-07-21"),
-       location : "A-Mountain",
+       location : "A-Mountain CA",
         startTime: new Date("2018-07-21T12:00:00Z"),
         endTime: new Date("2018-07-21T14:00:00Z"),
         track: {
             "elevation": 34,
-            "length": 13.2,
+            "length": 10.2,
             "difficulty": "Beginner"
         },
         eventRiders: [],
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:40.239,
+            long:-119.244
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
-        }
+            lat:41.344,
+            long:-120.328
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 new Event({
@@ -603,7 +625,7 @@ new Event({
        image : "http://www.parcjeandrapeau.com/medias/images/header/marathon-et-demi-marathon-oasis-rock-n-roll-de-montreal.jpg",
        description : "Seattle Marathon Downtown Marathon Seattle Marathon Downtown Marathon Seattle Marathon Downtown Marathon Seattle Marathon Downtown Marathon ",
        date : new Date("2018-11-22"),
-       location : "DownTown San Jose",
+       location : "DownTown Seattle WA",
         startTime: new Date("2018-11-22T15:00:00Z"),
         endTime: new Date("2018-11-22T18:00:00Z"),
         track: {
@@ -621,7 +643,8 @@ new Event({
         endLocation:{
             lat:23.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 }),
 new Event({
@@ -629,7 +652,7 @@ new Event({
         image : "https://www.topfivebuzz.com/wp-content/uploads/2017/07/trekking-essentials.jpg",
         description : "Phoenix Downtown Marathon",
         date : new Date("2017-05-18"),
-        location : "DownTown San Jose",
+        location : "DownTown Phoenix AZ",
         startTime: new Date("2017-05-18T15:00:00Z"),
         endTime: new Date("2017-05-18T18:00:00Z"),
         track: {
@@ -641,15 +664,43 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
+            lat:43.239,
             long:23.244
         },
         endLocation:{
-            lat:23.344,
+            lat:44.344,
             long:11.324
-        }
+        },
+    trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
 })
+    new Event({
+        name : "Fremont Cycling" ,
+        image : "http://www.horshamcycling.co.uk/joomla15/images/stories/horsham/flypass.jpg",
+        description : "Fremont California Cycling Event",
+        date : new Date("2018-08-18"),
+        location : "Fremont CA",
+        startTime: new Date("2018-08-18T15:00:00Z"),
+        endTime: new Date("2018-08-18T18:00:00Z"),
+        track: {
+            "elevation": 34,
+            "length": 13.2,
+            "difficulty": "Beginner"
+        },
+        eventRiders: [],
+        raceWinners: [],
+        statusOfRace:"",
+        startLocation:{
+            lat:12.239,
+            long:-118.244
+        },
+        endLocation:{
+            lat:23.344,
+            long:-120.324
+        },
+        trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
+
+    })
 
 ];
 
