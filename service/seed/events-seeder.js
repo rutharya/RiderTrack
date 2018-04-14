@@ -673,7 +673,7 @@ new Event({
         },
     trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
-})
+}),
     new Event({
         name : "Fremont Cycling" ,
         image : "http://www.horshamcycling.co.uk/joomla15/images/stories/horsham/flypass.jpg",
