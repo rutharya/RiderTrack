@@ -80,7 +80,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
     console.log("Event stats inside the getlatest corrd");
     this.statsService.getEventStats(eventId, riderId).subscribe(res=> {
       console.log("The latest stats returned is "+res);
-      const stats = res['result'];
+      const stats = res['statistics'];
       this.currentspeed =stats.lastspeed;
       this.averagespeed = stats.averagespeed;
       this.currentelevation = stats.currentelevation;
