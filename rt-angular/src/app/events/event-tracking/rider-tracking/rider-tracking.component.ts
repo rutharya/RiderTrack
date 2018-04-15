@@ -26,7 +26,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public eventLocation: string;
   private alive: boolean = true;
   public averagespeed: string;
-  public currentspeed: string;
+  public lastspeed: string;
   public currentelevation: string;
   public elapsedtime: string;
   public totaldistance: string;
@@ -81,11 +81,12 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
     this.statsService.getEventStats(eventId, riderId).subscribe(res=> {
       console.log("The latest stats returned is "+res);
       const stats = res['statistics'];
-      this.currentspeed =stats.lastspeed;
+      this.lastspeed =stats.lastspeed;
       this.averagespeed = stats.averagespeed;
       this.currentelevation = stats.currentelevation;
       this.totaldistance = stats.totaldistance;
       this.elapsedtime = stats.elapsedtime;
+      console.log("Event stats called"+this.lastspeed+" and "+this.currentelevation+" and "+this.averagespeed+" and "+this.totaldistance+" and "+this.elapsedtime);
     });
   }
 
