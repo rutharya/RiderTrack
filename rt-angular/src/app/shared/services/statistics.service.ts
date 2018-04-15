@@ -24,8 +24,9 @@ export class StatisticsService {
       .map(result => result);
   }
 
-  public getEventStats() {
-    return this.apiService.get('/activities/getEventStats')
+  public getEventStats(eventId, riderId) {
+    console.log("Event stats inside the getlatest corrd service");
+    return this.apiService.get('/activities/getEventStats?eventid='+eventId+"&riderid="+riderId)
       .map(result => result);
   }
 
