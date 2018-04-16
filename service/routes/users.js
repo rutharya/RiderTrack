@@ -18,6 +18,15 @@ router.get('/', auth.required, function (req, res, next) {
     }).catch(next);
 });
 
+
+router.get('/:riderId',function(req,res,next){
+    console.log(req.params.riderId);
+    User.findOne({_id:req.params.riderId}).then(function(rider){
+        if(!rider) res.status(404).json({Result:false,status: { msg: "rider not found"}});
+        res.send(rider);
+    }).catch(next);
+})
+
 //update profile information of the user.
 router.put('/', auth.required, function (req, res, next) {
     console.log('req.body: ');

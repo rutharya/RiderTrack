@@ -22,7 +22,8 @@
           <br/>
           <ul>
             <!--<li *ngFor="let data of locationData$$"><a [routerLink]="['/riderTracking',eventId,data.riderId]">{{data.riderName}}</a></li>-->
-            <li *ngFor="let data of locationData$$"><a [routerLink]="['/riderTracking',eventId,data.riderid]">{{data.riderid}}</a></li>
+            <!--<li *ngFor="let data of locationData$$"><a [routerLink]="['/riderTracking',eventId,data.riderid]">{{data.riderid}}</a></li>-->
+            <li *ngFor="let data of rider"><a [routerLink]="['/riderTracking',eventId,data.riderId]">{{data.riderUsername}}</a></li>
           </ul>
         </div>
       </div>

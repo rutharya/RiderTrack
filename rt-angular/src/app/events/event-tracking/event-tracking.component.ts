@@ -4,6 +4,7 @@ import {TrackingData} from "../../shared/models/trackingData";
 import {LatestLocationService} from "../../shared/services/latest-location.service";
 import {EventsService} from "../../shared/services/events.service";
 import {TrackingDataDmass} from "../../shared/models/trackingDataDmass";
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-event-tracking',
@@ -21,12 +22,14 @@ export class EventTrackingComponent implements OnInit {
   public eventEndTime: string;
   public eventLocation: string;
 
+  rider: Rider[] = [];
   locationData$: TrackingData[];
   locationData$$: TrackingDataDmass[];
 
   constructor(private route: ActivatedRoute,
               private latestLocationService: LatestLocationService,
-              private eventsService: EventsService){ }
+              private eventsService: EventsService,
+              private userService: UserService){ }
 
   ngOnInit(){
     this.route.params.subscribe(params => {
@@ -53,7 +56,23 @@ export class EventTrackingComponent implements OnInit {
     this.latestLocationService.getLatestLocationDMASS(eventId).subscribe(locationData => {
       //this.locationData$ = locationData;
       this.locationData$$ = locationData;
-      this.latestLocationService.plot(this.locationData$$);
+      //this.latestLocationService.plot(this.locationData$$);
+      for(var i=0; i<this.locationData$$.length; i++){
+        this.userService.getUsername(this.locationData$$[i].riderid).subscribe(rider=>{
+          this.rider.push({
+            riderId: rider._id,
+            riderUsername: rider.username
+          });
+          if(this.rider.length == this.locationData$$.length){
+            this.latestLocationService.plot(this.locationData$$,this.rider);
+          }
+        });
+      }
     });
   }
+}
+
+interface Rider{
+  riderId ?: string;
+  riderUsername ?: string;
 }

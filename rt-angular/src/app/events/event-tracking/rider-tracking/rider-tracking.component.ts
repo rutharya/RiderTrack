@@ -5,7 +5,7 @@ import {RiderData} from "../../../shared/models/riderData.model";
 import {Observable} from "rxjs/Rx";
 import {EventsService} from "../../../shared/services/events.service";
 import {RiderDataDmass} from "../../../shared/models/riderDataDmass.model";
-
+import {MapService} from "../../../shared/services/maps.service";
 
 @Component({
   selector: 'app-rider-tracking',
@@ -30,7 +30,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private riderLocationsService: RiderLocationsService,
-              private eventsService: EventsService) {}
+              private eventsService: EventsService,
+              private mapService:MapService) {}
 
   ngOnInit() {
     console.log('rider tracking component initialized');
@@ -51,10 +52,11 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       });
 
       this.riderLocationsService.loadMap();
-      this.getRiderLocation(this.eventId, this.riderId);
+      // this.mapService.plotActivity();
+      /*this.getRiderLocation(this.eventId, this.riderId);
       Observable.interval(1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
-      });
+      });*/
     });
 
   }
