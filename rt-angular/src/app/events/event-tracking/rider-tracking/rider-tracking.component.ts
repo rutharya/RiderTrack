@@ -5,7 +5,9 @@ import {RiderData} from "../../../shared/models/riderData.model";
 import {Observable} from "rxjs/Rx";
 import {EventsService} from "../../../shared/services/events.service";
 import {RiderDataDmass} from "../../../shared/models/riderDataDmass.model";
+import {MapService} from "../../../shared/services/maps.service";
 import {StatisticsService} from "../../../shared/services";
+
 
 
 @Component({
@@ -36,7 +38,9 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private riderLocationsService: RiderLocationsService,
-              private eventsService: EventsService, private statsService: StatisticsService) {}
+              private eventsService: EventsService,
+              private mapService:MapService,
+              private statsService: StatisticsService) {}
 
   ngOnInit() {
     console.log('rider tracking component initialized');

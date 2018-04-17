@@ -11,6 +11,10 @@ import {RiderDataDmass} from "../models/riderDataDmass.model";
 declare var omnivore: any;
 declare var L: any;
 
+const defaultCoords: number[] = [40, -80];
+const defaultZoom = 8;
+var Lmap;
+
 @Injectable()
 export class RiderLocationsService {
   apiAddress: string;
@@ -34,18 +38,88 @@ export class RiderLocationsService {
   }
 
   loadMap(){
-    this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
-      ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    //this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
+    const myStyle = {
+      'color': '#3949AB',
+      'weight': 5,
+      'opacity': 0.95
+    };
+
+    // this.map = L.map('map').setView(defaultCoords, defaultZoom);
+    // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    //   attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
+    //   ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    //   'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    //   maxZoom: 18,
+    //   id: 'mapbox.streets',
+    //   accessToken: this.apiToken
+    // }).addTo(this.map);
+    Lmap = L.map('map').setView(defaultCoords, defaultZoom);
+
+    Lmap.maxZoom = 100;
+
+    L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox.streets',
-      accessToken: this.apiToken
-    }).addTo(this.map);
+      accessToken: this.apiToken,
+    }).addTo(Lmap);
     this.markersLayer = new L.LayerGroup();
-    this.markersLayer.addTo(this.map);
+    this.markersLayer.addTo(Lmap);
+
+    /*const customLayer = L.geoJson(null, {
+      style: myStyle
+    });
+
+    const gpxLayer = omnivore.gpx('../../../assets/gpx/1.gpx', null, customLayer)
+      .on('ready', function() {
+        Lmap.fitBounds(gpxLayer.getBounds());
+      }).addTo(Lmap);
+
+    var myIcon = L.icon({
+      iconUrl: '../../assets/Image/marker-icon.png',
+      iconSize: [30, 55],
+      iconAnchor: [22, 28],
+      popupAnchor: [-3, -76],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
+
+    var currentPositionIcon = L.icon({
+      iconUrl: '../../assets/Image/red-marker.png',
+      iconSize: [40, 55],
+      iconAnchor: [22, 28],
+      popupAnchor: [-3, -26],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
+
+    var currentPositionIcon = L.icon({
+      iconUrl: '../../assets/Image/red-marker.png',
+      iconSize: [40, 55],
+      iconAnchor: [22, 28],
+      popupAnchor: [-3, -26],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
+
+    var latlngs = [];
+
+    latlngs.push([43.066748000,-89.305216000]);
+    latlngs.push([43.066806000,-89.306505000]);
+    latlngs.push([43.066761000,-89.307909000]);
+    latlngs.push([43.066426000,-89.308907000]);
+
+    var marker = L.marker(latlngs[0],{icon: myIcon}).addTo(Lmap);
+    marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[0][0] + 'Lng: '+ latlngs[0][1]).openPopup();
+    marker = L.marker(latlngs[1],{icon: myIcon}).addTo(Lmap);
+    marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[1][0] + 'Lng: '+ latlngs[1][1]).openPopup();
+    marker = L.marker(latlngs[2],{icon: myIcon}).addTo(Lmap);
+    marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[2][0] + 'Lng: '+ latlngs[2][1]).openPopup();
+    marker = L.marker(latlngs[3],{icon: currentPositionIcon}).addTo(Lmap);
+    marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[3][0] + 'Lng: '+ latlngs[3][1]).openPopup();*/
   }
+
 
   plot(riderData: any): void{
     for (var data1 of riderData) {
@@ -75,8 +149,8 @@ export class RiderLocationsService {
     var currentPositionIcon = L.icon({
       iconUrl: '../../assets/Image/red-marker.png',
       iconSize: [40, 55],
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
+      iconAnchor: [22, 28],
+      popupAnchor: [-3, -26],
       shadowSize: [68, 95],
       shadowAnchor: [22, 94]
     });
@@ -90,12 +164,12 @@ export class RiderLocationsService {
     }*/
     var i;
     for(i=0; i<riderData.length-1; i++){
-      var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon}).addTo(this.map);
+      var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon}).addTo(Lmap);
       marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
       this.markersLayer.addLayer(marker);
     }
-    var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon}).addTo(this.map);
-    marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
+    var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon}).addTo(Lmap);
+    marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
     this.markersLayer.addLayer(marker);
   }
 }

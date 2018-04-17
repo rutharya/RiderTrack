@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
 import * as toastr from 'toastr';
-import * as bootbox from 'bootbox';
+//import * as bootbox from 'bootbox';
 
 @Component({
   selector: 'app-my-events',

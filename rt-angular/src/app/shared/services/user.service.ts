@@ -122,4 +122,8 @@ export class UserService {
         return res;
   }
 
+  getUsername(riderId):any{
+    return this.apiService.get('/users/'+riderId.toString()).map(result => result);
+  }
+
 }
