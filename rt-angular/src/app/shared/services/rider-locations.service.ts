@@ -14,6 +14,7 @@ declare var L: any;
 const defaultCoords: number[] = [40, -80];
 const defaultZoom = 8;
 var Lmap;
+
 @Injectable()
 export class RiderLocationsService {
   apiAddress: string;
@@ -63,10 +64,10 @@ export class RiderLocationsService {
       id: 'mapbox.streets',
       accessToken: this.apiToken,
     }).addTo(Lmap);
-    //this.markersLayer = new L.LayerGroup();
-    //this.markersLayer.addTo(this.map);
+    this.markersLayer = new L.LayerGroup();
+    this.markersLayer.addTo(Lmap);
 
-    const customLayer = L.geoJson(null, {
+    /*const customLayer = L.geoJson(null, {
       style: myStyle
     });
 
@@ -116,7 +117,7 @@ export class RiderLocationsService {
     marker = L.marker(latlngs[2],{icon: myIcon}).addTo(Lmap);
     marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[2][0] + 'Lng: '+ latlngs[2][1]).openPopup();
     marker = L.marker(latlngs[3],{icon: currentPositionIcon}).addTo(Lmap);
-    marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[3][0] + 'Lng: '+ latlngs[3][1]).openPopup();
+    marker.bindPopup('<b>'+ "15:30:00" +'</b><br>' + 'Lat: '+ latlngs[3][0] + 'Lng: '+ latlngs[3][1]).openPopup();*/
   }
 
 
@@ -163,11 +164,11 @@ export class RiderLocationsService {
     }*/
     var i;
     for(i=0; i<riderData.length-1; i++){
-      var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon}).addTo(this.map);
+      var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon}).addTo(Lmap);
       marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
       this.markersLayer.addLayer(marker);
     }
-    var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon}).addTo(this.map);
+    var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon}).addTo(Lmap);
     marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
     this.markersLayer.addLayer(marker);
   }

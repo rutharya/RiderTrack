@@ -20,15 +20,23 @@
           <ul>
             <li>
               <i>Average Speed:</i>
-              <b><h2>10 miles/hr</h2></b>
+              <b><h3>{{averagespeed | number: '1.1-2'}}</h3></b>
+            </li>
+            <li>
+              <i>Current Speed:</i>
+              <b><h3>{{lastspeed |  number: '1.1-2'}}</h3></b>
             </li>
             <li>
               <i>Distance Covered:</i>
-              <b><h2>1.25 miles</h2></b>
+              <b><h3>{{totaldistance | number: '1.1-2'}}</h3></b>
             </li>
             <li>
               <i>Time Elapsed:</i>
-              <b><h2>45 min</h2></b>
+              <b><h3>{{elapsedtime / 60000 |  number: '1.1-2'}}</h3></b>
+            </li>
+            <li>
+              <i>Current Elevation</i>
+              <b><h3>{{currentelevation|  number: '1.1-2'}}</h3></b>
             </li>
           </ul>
         </div>

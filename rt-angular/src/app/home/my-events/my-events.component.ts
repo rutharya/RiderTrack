@@ -60,11 +60,8 @@ export class MyEventsComponent implements OnInit {
           } else if (this.regResp.Result.toString() === 'false') {
             toastr.error("You have already unregistered from the event");
           }
-         // $route.reload();
-         // $state.go($state.current, {}, {reload: true});
          // window.location.reload();
           history.go(0);
-          //ngOnInit();
         });
       console.log(this.regResp);
 

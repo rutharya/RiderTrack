@@ -6,6 +6,9 @@ import {Observable} from "rxjs/Rx";
 import {EventsService} from "../../../shared/services/events.service";
 import {RiderDataDmass} from "../../../shared/models/riderDataDmass.model";
 import {MapService} from "../../../shared/services/maps.service";
+import {StatisticsService} from "../../../shared/services";
+
+
 
 @Component({
   selector: 'app-rider-tracking',
@@ -24,6 +27,11 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public eventEndTime: string;
   public eventLocation: string;
   private alive: boolean = true;
+  public averagespeed: string;
+  public lastspeed: string;
+  public currentelevation: string;
+  public elapsedtime: string;
+  public totaldistance: string;
 
   riderData$: RiderData[];
   riderData$$: RiderDataDmass;
@@ -31,7 +39,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private riderLocationsService: RiderLocationsService,
               private eventsService: EventsService,
-              private mapService:MapService) {}
+              private mapService:MapService,
+              private statsService: StatisticsService) {}
 
   ngOnInit() {
     console.log('rider tracking component initialized');
@@ -52,11 +61,12 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       });
 
       this.riderLocationsService.loadMap();
-      // this.mapService.plotActivity();
-      /*this.getRiderLocation(this.eventId, this.riderId);
+      this.getRiderLocation(this.eventId, this.riderId);
+      this.getLatestStats(this.eventId, this.riderId);
       Observable.interval(1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
-      });*/
+        this.getLatestStats(this.eventId,this.riderId);
+      });
     });
 
   }
@@ -67,6 +77,21 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       this.riderData$$ = riderData;
       this.riderLocationsService.plot(this.riderData$$.gps_stats);
     })
+  }
+
+
+  getLatestStats(eventId, riderId):void{
+    console.log("Event stats inside the getlatest corrd");
+    this.statsService.getEventStats(eventId, riderId).subscribe(res=> {
+      console.log("The latest stats returned is "+res);
+      const stats = res['statistics'];
+      this.lastspeed =stats.lastspeed;
+      this.averagespeed = stats.averagespeed;
+      this.currentelevation = stats.currentelevation;
+      this.totaldistance = stats.totaldistance;
+      this.elapsedtime = stats.elapsedtime;
+      console.log("Event stats called"+this.lastspeed+" and "+this.currentelevation+" and "+this.averagespeed+" and "+this.totaldistance+" and "+this.elapsedtime);
+    });
   }
 
   ngOnDestroy(): void {
