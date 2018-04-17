@@ -5,8 +5,8 @@ import {RiderData} from "../../../shared/models/riderData.model";
 import {Observable} from "rxjs/Rx";
 import {EventsService} from "../../../shared/services/events.service";
 import {RiderDataDmass} from "../../../shared/models/riderDataDmass.model";
-import {MapService} from "../../../shared/services/maps.service";
 import {StatisticsService} from "../../../shared/services";
+import {UserService} from "../../../shared/services/user.service";
 
 
 
@@ -32,6 +32,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public currentelevation: string;
   public elapsedtime: string;
   public totaldistance: string;
+  public riderUsername: string;
 
   riderData$: RiderData[];
   riderData$$: RiderDataDmass;
@@ -39,7 +40,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private riderLocationsService: RiderLocationsService,
               private eventsService: EventsService,
-              private mapService:MapService,
+              private userService: UserService,
               private statsService: StatisticsService) {}
 
   ngOnInit() {
@@ -58,6 +59,10 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
         this.eventStartTime = eventsData.startTime;
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
+      });
+
+      this.userService.getUsername(this.riderId).subscribe(rider=> {
+        this.riderUsername = rider.username;
       });
 
       this.riderLocationsService.loadMap();
