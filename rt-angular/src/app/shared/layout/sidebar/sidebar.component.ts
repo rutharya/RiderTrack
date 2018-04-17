@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-//TODO: add jquery to angular -> can easily do data-toggle, and team is comfortable using jquery with bootstrap.
-//TODO: jquery has been installed, -> use it responsibly and in proper click listners.
+// TODO: add jquery to angular -> can easily do data-toggle, and team is comfortable using jquery with bootstrap.
+// TODO: jquery has been installed, -> use it responsibly and in proper click listners.
 import * as $ from 'jquery';
+import {User} from '../../models/user.model';
+import {UserService} from '../../services/user.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -9,28 +11,28 @@ import * as $ from 'jquery';
 })
 export class SidebarComponent implements OnInit {
   wasClicked = false;
+  currentUser: User;
 
-
-  constructor() { }
+  constructor(private userService: UserService) { }
   @Input() selected: string;
   @Output() notify: EventEmitter<boolean> =  new EventEmitter<boolean>();
   ngOnInit() {
-
+    this.currentUser = this.userService.getCurrentUser();
   }
-  //tried to toggle sidebar to show other values.
+  // tried to toggle sidebar to show other values.
   onToggleSubmenu(toggled: boolean) {
     console.log(toggled);
     console.log(this.wasClicked);
-    if(this.wasClicked){
+    if (this.wasClicked) {
       this.wasClicked = false;
 
-    }else {
+    } else {
       this.wasClicked = true;
     }
   }
-  //this is for the onclick -> for the first menu item
+  // this is for the onclick -> for the first menu item
 
-  toEvents(event){
+  toEvents(event) {
     console.log(event);
     console.log('events clicked from sidebar');
     console.log(this.notify);
@@ -38,7 +40,7 @@ export class SidebarComponent implements OnInit {
     return;
   }
 
-  toDashboard(){
+  toDashboard() {
     console.log('dashboard clicked from sidebar');
     this.notify.emit(true);
     return;
