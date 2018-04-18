@@ -1,0 +1,659 @@
+swagger: "2.0"
+info:
+  description: "This is the documentation of the apis we used in our web application RiderTrack.  You can find out more about    RiderTrack at [ https://athlete-tracker.herokuapp.com/]( https://athlete-tracker.herokuapp.com/)."
+  version: "1.0.0"
+  title: "Swagger RiderTrack"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "ridertrackproject@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "athlete-tracker.herokuapp.com"
+tags:
+- name: "Event"
+  description: "All the routes dealing with events"
+- name: "store"
+  description: "Access to Petstore orders"
+- name: "user"
+  description: "Operations about user"
+schemes:
+- "http"
+paths:
+  /pet:
+    post:
+      tags:
+      - "Event"
+      summary: "Add a new pet to the store"
+      description: ""
+      operationId: "addPet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Events"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /events/{eventID}:
+    get:
+      tags:
+      - "Event"
+      summary: "Find event by ID"
+      description: "Returns a single event"
+      operationId: "getEventbyID"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "eventID"
+        in: "path"
+        description: "ID of event to return"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Events"
+        404:
+          description: "event not found"
+  /events/:
+    get:
+      tags:
+      - "Event"
+      summary: "Get all events"
+      description: "Return all  events"
+      operationId: "getEvent"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "eventID"
+        in: "path"
+        description: "Events to return"
+        required: true
+        type: "array"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Events"
+    delete:
+      tags:
+      - "pet"
+      summary: "Deletes a pet"
+      description: ""
+      operationId: "deletePet"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "petId"
+        in: "path"
+        description: "Pet id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /pet/{petId}/uploadImage:
+    post:
+      tags:
+      - "pet"
+      summary: "uploads an image"
+      description: ""
+      operationId: "uploadFile"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "petId"
+        in: "path"
+        description: "ID of pet to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "additionalMetadata"
+        in: "formData"
+        description: "Additional data to pass to server"
+        required: false
+        type: "string"
+      - name: "file"
+        in: "formData"
+        description: "file to upload"
+        required: false
+        type: "file"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /store/inventory:
+    get:
+      tags:
+      - "store"
+      summary: "Returns pet inventories by status"
+      description: "Returns a map of status codes to quantities"
+      operationId: "getInventory"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "integer"
+              format: "int32"
+      security:
+      - api_key: []
+  /store/order:
+    post:
+      tags:
+      - "store"
+      summary: "Place an order for a pet"
+      description: ""
+      operationId: "placeOrder"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "order placed for purchasing the pet"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Invalid Order"
+  /store/order/{orderId}:
+    get:
+      tags:
+      - "store"
+      summary: "Find purchase order by ID"
+      description: "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions"
+      operationId: "getOrderById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of pet that needs to be fetched"
+        required: true
+        type: "integer"
+        maximum: 10.0
+        minimum: 1.0
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Order not found"
+    delete:
+      tags:
+      - "store"
+      summary: "Delete purchase order by ID"
+      description: "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors"
+      operationId: "deleteOrder"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of the order that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Order not found"
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+  /user/createWithArray:
+    post:
+      tags:
+      - "user"
+      summary: "Creates list of users with given input array"
+      description: ""
+      operationId: "createUsersWithArrayInput"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "List of user object"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+  /user/createWithList:
+    post:
+      tags:
+      - "user"
+      summary: "Creates list of users with given input array"
+      description: ""
+      operationId: "createUsersWithListInput"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "List of user object"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+  /user/login:
+    get:
+      tags:
+      - "user"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        400:
+          description: "Invalid username/password supplied"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+    delete:
+      tags:
+      - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+    
+    
+definitions:
+  Events:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      image:
+        type: "string"
+      description:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      location:
+        type: "string"
+      startTime:
+        type: "string"
+        format: "date-time"
+      endTime:
+        type: "string"
+        format: "date-time"
+      trackFile:
+        type: "string"
+      track:
+        type: "object"
+        properties:
+          elevation: 
+            type: "number"
+          lenght:
+            type: "number"
+          difficulty:
+            type: "string"
+      eventRiders:
+            type: "array"
+            items:
+              $ref: "#/definitions/Rider"
+      raceWinners:
+            type: "array"
+            items:
+              $ref: "#/definitions/Rider"
+      statusOfRace:
+            type: "string"
+      startLocation:
+            type: "object"
+            properties:
+              lat:
+                type: "number"
+              long:
+                type: "number"
+      endLocation:
+            type: "object"
+            properties:
+              lat:
+                type: "number"
+              long:
+                type: "number"
+    required:
+      - name
+      - description
+      - date
+      - location
+      - startTime
+      - endTime
+  
+    xml:
+      name: "Events"
+      
+  Rider:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        pattern: '^[a-z0-9._%+-]+@[a-z0-9._]+\.[a-z]+$'
+        uniqueItems: true
+      username:
+        type: "string"
+        pattern: '^[a-zA-Z0-9]+$'
+        uniqueItems: true
+      firstName :
+        type: "string"
+      lastName:
+        type: "string"
+      height: 
+        type: "number"
+      weight:
+        type: "number"
+      gender:
+        type: "string"
+      bio:
+        type: "string"
+      phoneNo:
+        type: "string"
+      address:
+        type: "string"
+      image: 
+        type: "string"
+      following:
+        type: "array"
+        items:
+          $ref: 
+            "#/definitions/Rider"
+      registeredEvents:
+        type: "array"
+        items:
+          $ref: 
+            "#/definitions/Events"
+      activities:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            eventId:
+              type: "string"
+            activityId:
+              type: "string"
+      statistics:
+        type: "object"
+        properties:
+          participantioncount:
+            type: "number"
+          avgspeed:
+            type: "number"
+          maxspeed:
+            type: "number"
+          totaldistance:
+            type: "number"
+            minimum: 0
+          longestdistance:
+            type: "number"
+            minimum: 0
+          maxelevation:
+            type: "number"
+            minimum: 0
+          averageelevation:
+            type: "number"
+            minimum: 0
+          wincount:
+            type: "number"
+            minimum: 0
+          totalmovingtime:
+            type: "number"
+          longestmovingtime:
+            type: "number"
+      admin: 
+        type: "boolean"
+      hash:
+        type: "string"
+      salt:
+        type: "string"
+      resetPasswordToken:
+        type: "string"
+      resetPasswordExpires:
+        type: "string"
+        
+    required:
+      - email
+      - username
+    xml:
+      name: "Rider"
+  Activity:
+    type: "object"
+    properties:
+      riderid:
+        type: "string"
+      eventid:
+        type: "string"
+      latestcoordinates:
+        type: "object"
+        properties:
+          lat:
+            type: "number"
+          lng:
+            type: "number"
+      gps_stats: 
+        type: "array"
+        items:
+          $ref: 
+            "#/definitions/GPS_Stats"
+      currentRace:
+        type: "array"
+        items:
+          type: "string"
+      completed:
+        type: "boolean"
+        default: false
+      racestats:
+        type: "object"
+        properties:
+          averagespeed: 
+            type: "number"
+            minimum: 0
+            maximum: 100
+          maxspeed:
+            type: "number"
+            minimum: 0
+            maximum: 100
+          lastspeed:
+            type: "number"
+            minimum: 0
+            maximum: 100
+          totaldistance:
+            type: "number"
+          currentelevation:
+            type: "number"
+          maxelevation:
+            type: "number"
+          averageelevation:
+            type: "number"
+          elapsedtime:
+            type: "number"
+            
+    required:
+      - riderid
+      - eventid
+    xml:
+      name: "Activity"
+      
+  GPS_Stats:
+    type: "object"
+    properties:
+      timestamp: 
+        type: "string"
+      lat:
+        type: "number"
+      lng:
+        type: "number"
+      speed:
+        type: "number"
+      distLeft: 
+        type: "number"
+      altitude:
+        type: "number"
