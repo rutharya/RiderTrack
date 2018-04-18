@@ -1,5 +1,6 @@
 var Event = require('../models/events'); //mongoose data model.
 var Rider = require('../models/rider');
+var chalk = require('chalk');
 var Activity = require('../models/activity');
 var express = require('express');
 var router = express.Router();
@@ -9,9 +10,13 @@ var auth = require('../config/auth');
 var bodyParser = require('body-parser');
 
 
-
+/**
+ * GET /events/ ->Returns all the events
+ * @method GET
+ * @returns Events[]
+ */
 router.get('/',function(req,res){
-    console.log('GET: /events/');
+    console.log(chalk.green('Events Request Recieved: <GET> /EVENTS/:'));
     Event.find({},function(err,events){
         res.send(events);
     });
@@ -59,6 +64,12 @@ router.post('/save', function (req, res) {
     // });
 })
 
+/**
+ * GET /events/register -> Get array of event_ID's user has registered for.
+ * @method GET
+ * @requires JWT_authentication Token
+ * @returns USER_REGISTERED_EventIDS[]
+ */
 router.get('/register', auth.required, function (req, res,next) {
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
@@ -66,6 +77,12 @@ router.get('/register', auth.required, function (req, res,next) {
       }).catch(next);
 });
 
+/**
+ * GET /events/registered_events -> Gets array of Events that user is registered to.
+ * @method GET
+ * @requires JWT_authentication Token
+ * @returns USER_REGISTERED_Events[]
+ */
 router.get('/registered_events',auth.required,function(req,res,next){
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
@@ -80,7 +97,15 @@ router.get('/registered_events',auth.required,function(req,res,next){
       }).catch(next);
 })
 
+/**
+ * POST /events/unregister -> Get current Logged in User
+ * @method POST
+ * @requires JWT_authentication Token
+ * @returns success or failure if registration is completed.
+ */
 router.post('/unregister',auth.required,function(req,res,next){
+    console.log(chalk.green('de-Register to event Request Recieved: <POST> /EVENTS/UNREGISTER:'));
+    console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
     if(!req.body.eventId || req.body.eventId === ""){
         return res.status(422).json({
             errors: {
@@ -125,30 +150,30 @@ router.post('/unregister',auth.required,function(req,res,next){
       }).catch(next);
 
 })
+
+/**
+ * POST /events/register -> REGISTER to an event, given its ID.
+ * @method POST
+ * @requires JWT_authentication Token
+ * @param eventId as req.body.eventId
+ * @returns USER.toAuthJSON()
+ */
 router.post('/register',auth.required,function(req,res,next){
-    console.log('here');
-    console.log(req.body);
-    console.log(req.body.eventId);
+    console.log(chalk.green('REGISTER to event Request Recieved: <POST> /EVENTS/REGISTER:'));
+    console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
     if(!req.body.eventId || req.body.eventId === ""){
-        return res.status(422).json({
-            errors: {
-              eventId: "can't be blank"
-            }
-          });
+        return res.status(422).json({result: false, status: {msg: 'eventId is missing'}});
     }
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
         //1. if already registered
-        console.log('is participant?')
+        console.log(chalk.red('is participant?'));
         console.log(user.isParticipant(req.body.eventId));
         if(user.isParticipant(req.body.eventId)){
-            return res.status(200).json({Result:false, status: {msg: "already registered to event!!"}});
+            return res.status(200).json({result:false, status: {msg: "already registered to event!!"}});
         }
         Event.findOne({_id: req.body.eventId}).then(function(event){
-            if(!event){ return res.status(422).json({
-                Results: false,
-                status: { msg: "event not found. please create event"}
-            })}
+            if(!event){ return res.status(500).json({result: false,status: { msg: "event not found. please create event"}})}
             if(event.eventRiders.indexOf(user._id)>=0){
                 //already registered...
                 return res.status(200).json({Result:false, status: { msg: "already registered to event!!"}})
@@ -169,10 +194,17 @@ router.post('/register',auth.required,function(req,res,next){
     }).catch(next);
 });
 
+/**
+ * GET /events/:ID -> get event by id
+ * @method GET
+ * @param eventID required as url parameter /events/<<EVENT_ID>>
+ * @returns Event.toJSON()
+ */
 router.get('/:eventId',function(req,res,next){
-    console.log(req.params.eventId);
+    console.log(chalk.green('Login Request Recieved: <POST> /USERS/LOGIN:'));
+    console.log(chalk.yellow('EVENT_ID: ', JSON.stringify(req.params.eventId)));
     Event.findOne({_id:req.params.eventId}).then(function(event){
-        if(!event) res.status(404).json({Result:false,status: { msg: "event not found"}});
+        if(!event) res.status(404).json({result:false,status: { msg: "event not found"}});
         res.send(event);
     }).catch(next);
 })
