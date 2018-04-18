@@ -4,6 +4,15 @@
       <div fxShow="true" fxHide.lt-md="true">
       <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
       <br>
+        <li><div class="round">
+          <img src="{{ currentUser.image }}"
+               onError="this.src='../assets/Image/profile1.jpg';" alt="Person"
+               style="width:100px;height:100px; align-self: center">
+        </div></li>
+        <br>
+        <li><div class="tmp" align="center"><h3><b>{{currentUser.username}}</b></h3></div> </li>
+        <li><div class="tomp" align="center"><a>{{currentUser.email}}</a></div> </li>
+        <hr>
       <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><b class="fa fa-fw fa-link">Dashboard</b></a></li>
       <hr>
       <li><a [routerLink]="['./myEvents']"><b class="fa fa-fw fa-angle-right">My Events</b></a></li>

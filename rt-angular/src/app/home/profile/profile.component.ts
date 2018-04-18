@@ -33,10 +33,7 @@ export class ProfileComponent implements OnInit {
       weight: '',
       phoneNo: '',
       address: '',
-      image: '',
-      imageDisplay: '',
-      password: '',
-      passwordconf: ''
+      image: ''
     });
   }
 
