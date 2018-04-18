@@ -15,7 +15,7 @@ var riderTrackMailer = function(email,text){
       from: 'ridertrackproject@gmail.com',
       to: email,
       subject: 'Ridertrack Password reset',
-      text: text
+      html: text
   };
   transporter.sendMail(mailOptions, function(error, info){
       if (error) {
