@@ -81,12 +81,12 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:43.8041,
+            long:-120.5542
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
+            lat:43.7041,
+            long:-120.5142
     },
     trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
@@ -148,10 +148,10 @@ new Event({
 
 new Event({
         name : "San Jose Marathon",
-        image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
+        image : "https://media.defense.gov/2010/Sep/12/2000327102/780/780/0/100913-F-9165S-072.JPG",
         description : "San Jose Downtown Marathon",
         date : new Date("2018-09-07"),
-        location : "A-Mountain",
+        location : "A-track",
         startTime: new Date("2018-09-07T09:00:00Z"),
         endTime: new Date("2018-09-07T12:00:00Z"),
         track: {
@@ -259,7 +259,7 @@ new Event({
 }),
 
 new Event({
-       name : "ASU Tempe Trekking",
+       name : "Arizona Trekking",
        image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
        description : "A Mountain Tempe ASU ASU Trekking at Arizona State University at A Mountain Tempe ASU",
        date : new Date("2018-02-13"),
@@ -288,7 +288,7 @@ new Event({
 
 new Event({
       name : "San Jose Marathon",
-      image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
+      image : "https://media.defense.gov/2010/Sep/12/2000327102/780/780/0/100913-F-9165S-072.JPG",
       description : "San Jose Downtown Marathon",
       date : new Date("2018-01-25"),
       location : "A-Mountain",
@@ -331,12 +331,12 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:38.5816,
+            long:-121.4944
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
+            lat:38.4816,
+            long:-121.3944
         },
     trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
@@ -398,9 +398,9 @@ new Event({
 }),
 
 new Event({
-        name : "Arizona Trekking",
+        name : "ASU - Mesa Arizona Trekking",
         image : "https://s-media-cache-ak0.pinimg.com/originals/48/51/6a/48516a2b7d82b4755063e4c737d764b2.jpg",
-        description : "Arizona Trekking at Downtown Phoenix",
+        description : "Arizona Trekking at Polytechnic Mesa",
         date: new Date("2018-07-21"),
         location : "Phoenix AZ",
         startTime: new Date("2018-07-21T09:00:00Z"),
@@ -414,12 +414,12 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:34.239,
-            long:-114.244
+            lat:33.305568,
+            long:-111.680494
         },
         endLocation:{
-            lat:35.344,
-            long:-111.324
+            lat:33.30,
+            long:-111.65
         },
     trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
@@ -470,12 +470,12 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:44.239,
-            long:23.244
+            lat:33.52,
+            long:-111.8
         },
         endLocation:{
-            lat:43.344,
-            long:11.324
+            lat:33.4,
+            long:-111.6
         },
     trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
@@ -610,12 +610,12 @@ new Event({
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:40.239,
-            long:-119.244
+            lat:37.3382,
+            long:-121.8863
         },
         endLocation:{
-            lat:41.344,
-            long:-120.328
+            lat:37.2382,
+            long:-121.728
         },
     trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
