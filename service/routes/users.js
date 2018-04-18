@@ -19,7 +19,7 @@ router.get('/', auth.required, function (req, res, next) {
 });
 
 
-router.get('/:riderId',function(req,res,next){
+router.get('/username/:riderId',function(req,res,next){
     console.log(req.params.riderId);
     User.findOne({_id:req.params.riderId}).then(function(rider){
         if(!rider) res.status(404).json({Result:false,status: { msg: "rider not found"}});
