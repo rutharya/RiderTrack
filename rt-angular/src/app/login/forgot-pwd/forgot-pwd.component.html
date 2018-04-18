@@ -2,20 +2,15 @@
   <div class="container page">
     <div class="banner" *showAuthed="false">
       <div class="container">
-
         <br>
-        <h1 class="logo-font" style="text-align: center; color: darkslategrey" >Forgot Password?</h1>
+        <h1 class="logo-font" style="text-align: center; color: darkslategrey" >{{page_title}}</h1>
         <hr>
-        <br><br><br><br><br>
-
+        <br><br>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
-
-        <h2 class="text-xs-center">Enter Email to Reset Password</h2>
-
-
+        <h4 class="text-xs-center">Enter Email to Reset Password</h4>
         <p class="text-xs-center">
         </p>
         <!--<app-list-errors [errors]="errors"></app-list-errors>-->
@@ -27,11 +22,17 @@
                 class="form-control form-control-lg"
                 type="text" />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!forgotPwdForm.valid" type="submit">
+            <button class="btn btn-lg btn-success pull-xs-right" [disabled]="!forgotPwdForm.valid" type="submit">
               Retrive password
             </button>
         </form>
       </div>
+      <br>
+      <br>
+      <br>
+        <div class="col-md-6 offset-md-3 col-xs-12">
+        <p style="color: red; size: 10px">**Link to reset password will be sent to registered email address</p>
+        </div>
 
     </div>
   </div>

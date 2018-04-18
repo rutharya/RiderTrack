@@ -83,9 +83,10 @@ export class UserService {
     return this.apiService.post('/users' + route, credentials)
       .pipe(map(data => {
         if (data.result) {
-          return data;
+          return data.status;
         } else {
          console.log('failure');
+         return data.status.msg;
         }
     }));
   }

@@ -200,7 +200,7 @@ router.post('/forgotpwd', function (req, res, next) {
         <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
         </body>
         </html>`;
-        // console.log(chalk.blue(data));
+        console.log(chalk.blue(data));
         mailer(user.email, data);
         console.log(chalk.yellow('EMAIL SENT to user.'));
         // console.log('GO TO : ' + process.env.HOST + '/users/' + user.resetPasswordToken);
@@ -243,9 +243,12 @@ router.post('/:token', function (req, res) {
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
         user.save(function (err) {
-            // TODO: (ruthar) either respond with a simple API and change EJS to reflect the change
-            // TODO: Route back to angular from EJS?? 
-            return res.json({result: true, status: {msg: "user password written to db"}})
+            // TODO: (ruthar) TRY Disable express error routing and make it return angular code)
+            res.redirect('/');
+            //this is a temporary fix for now. 
+            //option 2 - > let ejs trigger the toastr and then redirect to angular. 
+            //option 3 -> redirect to /login and let angular take care of the rest when the express server is configured.
+            // return res.json({result: true, status: {msg: "user password written to db"}})
         });
     });
 });
