@@ -37,8 +37,10 @@ export class RiderLocationsService {
     return this.http.get<Array<RiderData>>(this.apiAddress+"eventid="+eventId+"&riderid="+riderId);
   }
 
-  loadMap(){
+  loadMap(initCoordsLat, initCoordsLng){
     //this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
+    console.log("In loadmap function");
+    //console.log("XXX"+initCoordsLat);
     const myStyle = {
       'color': '#3949AB',
       'weight': 5,
@@ -54,7 +56,7 @@ export class RiderLocationsService {
     //   id: 'mapbox.streets',
     //   accessToken: this.apiToken
     // }).addTo(this.map);
-    Lmap = L.map('map').setView(defaultCoords, defaultZoom);
+    Lmap = L.map('map').setView([initCoordsLat,initCoordsLng], 11);
 
     Lmap.maxZoom = 100;
 
