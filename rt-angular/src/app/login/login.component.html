@@ -3,15 +3,14 @@
     <div class="banner" *showAuthed="false">
       <div class="container">
         <br>
-        <h1 class="logo-font" style="text-align: center; color: darkslategrey" >RiderTrack</h1>
+        <h1 class="logo-font" style="text-align: center; color: darkslategrey" >{{ title }}</h1>
         <hr>
-        <br><br><br><br><br>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">{{ title }}</h1>
-        <p class="text-xs-center">
+        <!--<h1 class="text-xs-center">{{ title }}</h1>-->
+        <p class="text-xs-center" style="text-align: center;">
           <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
           <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
         </p>
@@ -58,10 +57,12 @@
               <a routerLink="/forgotpwd">forgot your password?</a>
             </fieldset>
             <br />
-          <br />
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
-              {{ title }}
-            </button>
+            <div class="col-md-6 login_btn_div">
+              <button id="login_btn" class="btn btn-lg btn-primary pull-xs-right " [disabled]="!authForm.valid" type="submit" style="align-content:center;text-align: center">
+                {{ title }}
+              </button>
+            </div>
+
           </fieldset>
         </form>
       </div>

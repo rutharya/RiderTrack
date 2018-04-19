@@ -14,8 +14,10 @@ export class ApiService {
     private jwtService: JwtService
   ) {}
 
-  private formatErrors(error: any) {
-    return new ErrorObservable(error.json());
+  private formatErrors(httpErrorResponse: any) {
+    // console.log('inside format errors');
+    // console.log(httpErrorResponse);
+    return new ErrorObservable(httpErrorResponse.error.status.msg);
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {

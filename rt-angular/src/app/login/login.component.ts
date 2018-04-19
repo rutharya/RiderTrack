@@ -48,17 +48,18 @@ export class LoginComponent implements OnInit {
     this.isSubmitting = true;
     this.errors = {errors: {}};
     const credentials = this.authForm.value;
-    console.log(credentials);
     this.userService
       .attemptAuth(this.authType, credentials)
       .subscribe(
         data => {
           toastr.options.timeOut = 1000;
           toastr.success('Login successful');
+          // redirecting user to their home page.
           this.router.navigateByUrl('/home');
-        }, // redirecting user to their home page.
+        },
         err => {
-          toastr.error('invalid login');
+          toastr.options.timeOut = 1000;
+          toastr.error(`ERROR: ${err}`);
           this.errors = err;
           this.isSubmitting = false;
         }
