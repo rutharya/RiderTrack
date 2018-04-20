@@ -45,17 +45,22 @@ app.use(function(req, res, next) {
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', index);
+app.use('/', express.static('./dist',{redirect: false}));
+app.use('/api',index);
 app.use('/test',test);
-app.use('/tracking',savemyloc);
+// app.use('/tracking',savemyloc);
 // app.use('/users', users);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.get('*', function (req, res, next) {
+  res.sendFile(path.resolve('./service/dist/index.html'));
 });
+
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // error handler
 app.use(function(err, req, res, next) {
