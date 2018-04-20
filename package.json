@@ -63,6 +63,7 @@
     "mongoose": "^5.0.13",
     "mongoose-unique-validator": "^2.0.0",
     "morgan": "~1.9.0",
+    "ngx-bootstrap": "^2.0.4",
     "nodemailer": "^4.6.4",
     "npm": "^5.8.0",
     "npm-run-all": "^4.1.2",

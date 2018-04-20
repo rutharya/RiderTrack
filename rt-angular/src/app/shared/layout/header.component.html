@@ -1,34 +1,112 @@
-<nav class="navbar navbar-inverse navbar-light bg-light navbar-fixed-top">
+<!--<nav class="navbar navbar-inverse navbar-light bg-light navbar-fixed-top">-->
+  <!--<div class="container-fluid">-->
+    <!--<div class="navbar-header">-->
+      <!--<a class="navbar-brand" routerLink="/" style="font-size: x-large">RiderTrack &nbsp; </a>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;TODO : Navigation using navbar and sidebar is broken - fix it with routing&ndash;&gt;-->
+    <!--&lt;!&ndash;<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;-->
+    <!--&lt;!&ndash;<span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+      <!--<ul class="nav navbar-nav">-->
+        <!--<li class="nav-item active" style="font-size: larger"><a class="nav-link" routerLink="/home">Home<span-->
+          <!--class="sr-only">(current)</span></a></li>-->
+        <!--<li class="nav-item" style="font-size: larger"><a class="nav-link" routerLink="/events">Events</a></li>-->
+        <!--<li class="nav-item" style="font-size: larger"><a class="nav-link" routerLink="/api">API</a></li>-->
+        <!--&lt;!&ndash;<li class="nav-item"><a class="nav-link" routerLink="/api2">API2</a></li>&ndash;&gt;-->
+        <!--<li class="nav-item" style="font-size: larger"><a class="nav-link" href="#contact" target="_self">Contact us</a>-->
+        <!--</li>-->
+        <!--&lt;!&ndash;<li class="nav-item"><a class="nav-link" routerLink="/tracking">Tracking</a></li>&ndash;&gt;-->
+      <!--</ul>-->
+      <!--<form class="form-inline my-2 my-lg-0" (ngSubmit)="search(searchTerm)">-->
+      <!--<input [(ngModel)]="searchTerm" name="searchTerm" class="form-control mr-sm-2" type="text" placeholder="Search Events" aria-label="Search" *showAuthed="true">-->
+      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" appModalTrigger="searchResults" *showAuthed="true">Search</button>-->
+      <!--</form>&emsp;-->
+      <!--<button class="btn btn-outline-success my-2 my-sm-0" *showAuthed="false"><a class="nav-link" [routerLink]="['/login']">Login/Signup</a></button>-->
+      <!--<button class="btn btn-danger my-2 my-sm-0" *showAuthed="true"><a class="nav-link" (click)="logout()">Logout</a></button>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</nav>-->
+
+<!--<nav class="navbar navbar-light bg-light navbar-fixed-top navbar-inverse" role="navigation">-->
+  <!--<div class="container-fluid">-->
+    <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+    <!--<div class="navbar-header">-->
+      <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
+        <!--<span class="sr-only">Toggle navigation</span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+      <!--</button>-->
+      <!--<a class="navbar-brand" href="#">Brand</a>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+    <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+      <!--<ul class="nav navbar-nav">-->
+        <!--<li class="active"><a href="#">Link</a></li>-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--<li class="dropdown">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Action</a></li>-->
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <!--<li class="divider"></li>-->
+            <!--<li><a href="#">Separated link</a></li>-->
+            <!--<li class="divider"></li>-->
+            <!--<li><a href="#">One more separated link</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+      <!--</ul>-->
+      <!--<form class="navbar-form navbar-left" role="search">-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="Search">-->
+        <!--</div>-->
+        <!--<button type="submit" class="btn btn-default">Submit</button>-->
+      <!--</form>-->
+      <!--<ul class="nav navbar-nav navbar-right">-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--<li class="dropdown">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Action</a></li>-->
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <!--<li class="divider"></li>-->
+            <!--<li><a href="#">Separated link</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
+  <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--</nav>-->
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/" style="font-size: x-large">RiderTrack &nbsp; </a>
+      <button type="button"
+              class="navbar-toggle collapsed"
+              (click)="toggleState()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">Project Manager</a>
     </div>
-
-    <!--TODO : Navigation using navbar and sidebar is broken - fix it with routing-->
-    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-    <!--<span class="navbar-toggler-icon"></span>-->
-    <!--</button>-->
-
-    <ul class="nav navbar-nav">
-      <li class="active"><a class="nav-link" routerLink="/home">Home<span
-        class="sr-only">(current)</span></a></li>
-      <li><a class="nav-link" routerLink="/events">Events</a></li>
-      <li><a class="nav-link" routerLink="/api">API</a></li>
-      <!--<li class="nav-item"><a class="nav-link" routerLink="/api2">API2</a></li>-->
-      <li><a class="nav-link" href="#contact" target="_self">Contact us</a>
-      </li>
-      <!--<li class="nav-item"><a class="nav-link" routerLink="/tracking">Tracking</a></li>-->
-    </ul>
-    <!--<form class="form-inline my-2 my-lg-0" (ngSubmit)="search(searchTerm)">-->
-    <!--<input [(ngModel)]="searchTerm" name="searchTerm" class="form-control mr-sm-2" type="text" placeholder="Search Events" aria-label="Search" *showAuthed="true">-->
-    <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" appModalTrigger="searchResults" *showAuthed="true">Search</button>-->
-    <!--</form>&emsp;-->
-    <!--<button class="btn btn-outline-success my-2 my-sm-0" *showAuthed="false"><a class="nav-link" [routerLink]="['/login']">Login/Signup</a></button>-->
-    <!--<button class="btn btn-danger my-2 my-sm-0" *showAuthed="true"><a class="nav-link" (click)="logout()">Logout</a></button>-->
-
+    <div class="collapse navbar-collapse"
+         [ngClass]="{ 'in': isIn }">
+      <ul class="nav navbar-nav">
+        <li><a>Link 1</a></li>
+        <li><a>Link 2</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
-
 <app-simple-modal closeOnBodyClick="true" elementId="searchResults" title="Matching Events">
   <div class="list-group">
     <a class="list-group-item" *ngFor="let event of foundEvents"

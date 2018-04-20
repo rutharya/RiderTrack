@@ -13,13 +13,16 @@ export class HeaderComponent implements OnInit {
   searchTerm = '';
   Events: Event[];
   foundEvents: Event[];
+  isIn = false;   // store state
+  currentUser: User;
+
   constructor(
     private userService: UserService,
     private eventsService: EventsService,
     private router: Router
   ) {}
 
-  currentUser: User;
+
 
   ngOnInit() {
     this.userService.currentUser.subscribe(
@@ -46,5 +49,8 @@ export class HeaderComponent implements OnInit {
     this.foundEvents = this.Events.filter(event => event.name.toLocaleLowerCase().indexOf(term) > -1);
     // console.log(matchingEvents);
   }
-
+  toggleState() { // click handler
+    const bool = this.isIn;
+    this.isIn = bool === false ? true : false;
+  }
 }
