@@ -14,7 +14,7 @@ var Event = require('../models/events');
 //   // res.render('index', { title: 'Express' });
 //   res.render('index');
 // });
-router.use('/api', require('./api'));
+// router.use('/api', require('./api'));
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));
 router.use('/activities', require('./activity'));
