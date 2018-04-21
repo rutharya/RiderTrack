@@ -27,6 +27,11 @@ router.get('/', auth.required, function (req, res, next) {
 });
 
 
+/**
+ * GET /users/username/:riderId -> get the username for the riderID
+ * @method GET
+ * @returns UserName for the userID. 
+ */
 router.get('/username/:riderId',function(req,res,next){
     console.log(req.params.riderId);
     User.findOne({_id:req.params.riderId}).then(function(rider){
@@ -35,6 +40,12 @@ router.get('/username/:riderId',function(req,res,next){
     }).catch(next);
 })
 
+/**
+ * PUT /users/ -> update user profile data
+ * @method PUT
+ * @requires JWT_authentication TOKEN
+ * @returns USER.toAuthJSON
+ */
 //update profile information of the user.
 router.put('/', auth.required, function (req, res, next) {
     console.log(chalk.green('Request Recieved: <PUT> /USERS/:\n'));
@@ -100,7 +111,7 @@ router.post('/', function (req, res, next) {
         return res.status(422).json({result: false, status: {msg: 'username is missing'}});
     }
     if (!req.body.email || req.body.email === '') {
-        return res.status(422).json({Result: false, status: {msg: 'email is missing'}});
+        return res.status(422).json({result: false, status: {msg: 'email is missing'}});
     }
     if (!req.body.password || req.body.password === '') {
         return res.status(422).json({result: false, status: {msg: 'password is missing'}});
