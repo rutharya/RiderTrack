@@ -24,12 +24,12 @@ var events = [
             raceWinners: [],
             statusOfRace:"",
             startLocation:{
-                lat:12.239,
-                long:23.244
+                lat:21.289373,
+                long:-157.917480
             },
             endLocation:{
-                lat:23.344,
-                long:11.324
+                lat:21.344,
+                long:-157.924
             },
            trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
@@ -53,12 +53,12 @@ var events = [
         raceWinners: [],
         statusOfRace:"",
         startLocation:{
-            lat:12.239,
-            long:23.244
+            lat:32.2,
+            long:-110.9
         },
         endLocation:{
-            lat:23.344,
-            long:11.324
+            lat:32.3,
+            long:-111
         },
         trackFile: "https://firebasestorage.googleapis.com/v0/b/ridertrack-a6b4e.appspot.com/o/uploads%2FgpxFiles%2F1.gpx?alt=media&token=1d0a0e28-86aa-4c37-abe4-a7a885566290"
 
