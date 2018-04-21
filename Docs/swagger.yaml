@@ -25,7 +25,7 @@ schemes:
 
 paths:
 
-  /events/save/:
+  /api/events/save/:
     post:
       security:
         - bearerAuth:[]
@@ -49,7 +49,7 @@ paths:
         200:
           description: "successful operation"
   
-  /events/register/:
+  /api/events/register/:
     get:
       security:
         - bearerAuth:[]
@@ -57,7 +57,7 @@ paths:
       - "Event"
       summary: "Gets all registered events for that user"
       description: "gives all events in the form of an array"
-      operationId: "register"
+      operationId: "registerEvent"
       produces: 
       - "application/json"
       parameters: 
@@ -74,7 +74,7 @@ paths:
             items:
               $ref: "#/definitions/Events"
     
-  /events/register_events/:
+  /api/events/register_events/:
     get:
       security:
         - bearerAuth:[]
@@ -99,7 +99,7 @@ paths:
             items:
               $ref: "#/definitions/Events"
               
-  /events/unregister/:
+  /api/events/unregister/:
     post:
       security:
         - bearerAuth:[]
@@ -114,7 +114,7 @@ paths:
           schema:
             $ref: "#/definitions/Result"
   
-  /events/{eventID}:
+  /api/events/{eventID}:
     get:
       tags:
       - "Event"
@@ -138,7 +138,7 @@ paths:
         404:
           description: "event not found"
           
-  /events/:
+  /api/events/:
     get:
       tags:
       - "Event"
@@ -157,7 +157,7 @@ paths:
             items:
               $ref: "#/definitions/Events"
             
-  /users/forgotpwd/:
+  /api/users/forgotpwd/:
     post:
       tags:
       - "Rider"
@@ -174,8 +174,10 @@ paths:
           schema:
             $ref: "#/definitions/Result"
   
-  /users/getEventStats/:
+  /api/users/getEventStats/:
     get:
+      security:
+        - bearerAuth:[]
       tags:
       - "Rider"
       summary: "Get user statistics"
@@ -189,8 +191,10 @@ paths:
           schema:
             $ref: "#/definitions/RaceStats"
             
-  /users/eventplotpoints/:
+  /api/users/eventplotpoints/:
     get:
+      security:
+        - bearerAuth:[]
       tags:
       - "Rider"
       summary: "Get points for the graphs"
@@ -203,11 +207,31 @@ paths:
           description: "Retrieved stat plots successfully"
           
           
+  /api/users/:
+    post:
+      tags: 
+      - "Rider"
+      summary: "Register new user"
+      description: "Provide username, pass and email id"
+      operationId: "registerRider"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - name: "credentials"
+        in: "body"
+        description: "username, pass, email"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateUserCredentials"
+      responses:
+        200:
+          description: "User successfully registered"
+    
   
   
-  
-  
-  /users/login/:
+  /api/users/login/:
     post:
       tags:
       - "Rider"
@@ -233,6 +257,55 @@ paths:
             $ref: "#/definitions/Events"
         422:
           description: "Unprocessable Entity"
+          
+  /api/tracking/saveloc/:
+    post:
+      security:
+        - bearerAuth:[]
+      tags: 
+      - "AthleteTracking"
+      summary: "Post athlete location"
+      description: "Send athlete's location via Apple Watch"
+      operationId: "saveLoc"
+      consumes: 
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "gpsStats"
+        in: "body"
+        description: "racing stats sent"
+        required: true
+        schema:
+          $ref: "#/definitions/RaceStats"
+      responses:
+        200:
+          description: OK
+  
+  /api/tracking/getLoc/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags: 
+      - "AthleteTracking"
+      summary: "Get athlete's location"
+      description: "Get's athlete's location and displays it on dashboard"
+      operationId: "getLoc"
+      produces: 
+      - "application/json"
+      parameters: 
+      - name: "eventId"
+        in: "path"
+        description: "eventId of the event the user is participating in"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Fetched the location"
+          schema:
+            $ref: "#/definitions/RaceStats"
+    
+    
         
 securitySchemes:
     bearerAuth:            # arbitrary name for the security scheme
@@ -453,6 +526,9 @@ definitions:
       altitude:
         type: "number"
         
+        
+  
+  
   LoginCredentials:
     type: "object"
     properties:
@@ -460,7 +536,7 @@ definitions:
         type: "string"
       password:
         type: "string"
-  
+
   CreateUserCredentials:
     type: "object"
     properties:
@@ -472,6 +548,7 @@ definitions:
         type : "string"
       admin:
         type : "boolean"
+      
         
   RaceStats:
     type: "object"
@@ -498,7 +575,7 @@ definitions:
           type: "number"
         elapsedtime:
           type: "number"
-        
+          
   Result:
     type: "object"
     properties:
