@@ -17,6 +17,7 @@ var Event = require('../models/events');
 // router.use('/api', require('./api'));
 router.use('/users', require('./users'));
 router.use('/events', require('./events'));
+router.use('/loc',require('./savemyloc'));
 router.use('/activities', require('./activity'));
 router.use('/profiles',require('./profiles'));
 router.use('/tracking',require('./tracking'));
