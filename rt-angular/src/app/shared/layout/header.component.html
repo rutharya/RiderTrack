@@ -1,33 +1,35 @@
-<!--<nav class="navbar navbar-inverse navbar-light bg-light navbar-fixed-top">-->
-  <!--<div class="container-fluid">-->
-    <!--<div class="navbar-header">-->
-      <!--<a class="navbar-brand" routerLink="/" style="font-size: x-large">RiderTrack &nbsp; </a>-->
-    <!--</div>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top" >
+  <div class="navbar-header">
+    <!--<button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed" aria-expanded="false">-->
+      <!--<span class="sr-only">Toggle navigation</span>-->
+      <!--<span class="icon-bar"></span>-->
+      <!--<span class="icon-bar"></span>-->
+      <!--<span class="icon-bar"></span>-->
+    <!--</button>-->
+    <a class="navbar-brand" routerLink="/" style="font-size: x-large">RiderTrack &nbsp; </a>
+  </div>
 
-    <!--&lt;!&ndash;TODO : Navigation using navbar and sidebar is broken - fix it with routing&ndash;&gt;-->
-    <!--&lt;!&ndash;<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;-->
-    <!--&lt;!&ndash;<span class="navbar-toggler-icon"></span>&ndash;&gt;-->
-    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-    <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-      <!--<ul class="nav navbar-nav">-->
-        <!--<li class="nav-item active" style="font-size: larger"><a class="nav-link" routerLink="/home">Home<span-->
-          <!--class="sr-only">(current)</span></a></li>-->
-        <!--<li class="nav-item" style="font-size: larger"><a class="nav-link" routerLink="/events">Events</a></li>-->
-        <!--<li class="nav-item" style="font-size: larger"><a class="nav-link" routerLink="/api">API</a></li>-->
-        <!--&lt;!&ndash;<li class="nav-item"><a class="nav-link" routerLink="/api2">API2</a></li>&ndash;&gt;-->
-        <!--<li class="nav-item" style="font-size: larger"><a class="nav-link" href="#contact" target="_self">Contact us</a>-->
-        <!--</li>-->
-        <!--&lt;!&ndash;<li class="nav-item"><a class="nav-link" routerLink="/tracking">Tracking</a></li>&ndash;&gt;-->
-      <!--</ul>-->
-      <!--<form class="form-inline my-2 my-lg-0" (ngSubmit)="search(searchTerm)">-->
-      <!--<input [(ngModel)]="searchTerm" name="searchTerm" class="form-control mr-sm-2" type="text" placeholder="Search Events" aria-label="Search" *showAuthed="true">-->
-      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" appModalTrigger="searchResults" *showAuthed="true">Search</button>-->
-      <!--</form>&emsp;-->
-      <!--<button class="btn btn-outline-success my-2 my-sm-0" *showAuthed="false"><a class="nav-link" [routerLink]="['/login']">Login/Signup</a></button>-->
-      <!--<button class="btn btn-danger my-2 my-sm-0" *showAuthed="true"><a class="nav-link" (click)="logout()">Logout</a></button>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</nav>-->
+  <!--TODO : Navigation using navbar and sidebar is broken - fix it with routing-->
+  <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+  <!--<span class="navbar-toggler-icon"></span>-->
+  <!--</button>-->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+    <ul class="navbar navbar-nav mr-auto">
+      <li class="nav-item active" style="font-size: larger"><a class="nav-link" routerLink="/home">Home<span class="sr-only">(current)</span></a></li>
+      <li class="nav-item" style="font-size: larger"><a class="nav-link" routerLink="/events">Events</a></li>
+      <li class="nav-item" style="font-size: larger"><a class="nav-link" routerLink="/api">API</a></li>
+      <!--<li class="nav-item"><a class="nav-link" routerLink="/api2">API2</a></li>-->
+      <li class="nav-item" style="font-size: larger"><a class="nav-link" href="#contact" target="_self">Contact us</a></li>
+      <!--<li class="nav-item"><a class="nav-link" routerLink="/tracking">Tracking</a></li>-->
+    </ul>
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="search(searchTerm)">
+      <input [(ngModel)]="searchTerm" name="searchTerm" class="form-control mr-sm-2" type="text" placeholder="Search Events" aria-label="Search" *showAuthed="true">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" appModalTrigger="searchResults" *showAuthed="true">Search</button>
+    </form>&emsp;
+    <button class="btn btn-outline-success my-2 my-sm-0" *showAuthed="false"><a class="nav-link" [routerLink]="['/login']">Login/Signup</a></button>
+    <button class="btn btn-danger my-2 my-sm-0" *showAuthed="true"><a class="nav-link" (click)="logout()">Logout</a></button>
+  </div>
+</nav>
 
 <!--<nav class="navbar navbar-light bg-light navbar-fixed-top navbar-inverse" role="navigation">-->
   <!--<div class="container-fluid">-->
@@ -85,57 +87,120 @@
   <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
 <!--</nav>-->
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button"
-              class="navbar-toggle collapsed"
-              (click)="toggleState()">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand">Project Manager</a>
-    </div>
-    <div class="collapse navbar-collapse"
-         [ngClass]="{ 'in': isIn }">
-      <ul class="nav navbar-nav">
-        <li><a>Link 1</a></li>
-        <li><a>Link 2</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
+<!--<nav class="navbar navbar-default">-->
+  <!--<div class="container-fluid">-->
+    <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+    <!--<div class="navbar-header">-->
+      <!--<button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed" aria-expanded="false">-->
+        <!--<span class="sr-only">Toggle navigation</span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+      <!--</button>-->
+      <!--<a class="navbar-brand" href="#">Brand</a>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+    <!--<div class="collapse navbar-collapse" [collapse]=isCollapsed>-->
+      <!--<ul class="nav navbar-nav">-->
+        <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--&lt;!&ndash;<li class="dropdown" dropdown>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a href="#" dropdownToggle class="dropdown-toggle">Dropdown <span class="caret"></span></a>&ndash;&gt;-->
+          <!--&lt;!&ndash;<ul *dropdownMenu class="dropdown-menu" role="menu">&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li class="divider dropdown-divider"></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+          <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+      <!--</ul>-->
+      <!--<form class="navbar-form navbar-left">-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="Search">-->
+        <!--</div>-->
+        <!--<button type="submit" class="btn btn-default">Submit</button>-->
+      <!--</form>-->
+      <!--<ul class="nav navbar-nav navbar-right">-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--&lt;!&ndash;<li class="dropdown" dropdown>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a href="#" dropdownToggle class="dropdown-toggle">Dropdown <span class="caret"></span></a>&ndash;&gt;-->
+          <!--&lt;!&ndash;<ul *dropdownMenu class="dropdown-menu" role="menu">&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li class="divider dropdown-divider"></li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+          <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+      <!--</ul>-->
+    <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
+  <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--</nav>-->
+
+<!--<nav class="navbar navbar-toggleable-md navbar-light bg-faded">-->
+  <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--<span class="navbar-toggler-icon"></span>-->
+  <!--</button>-->
+  <!--<div class="collapse navbar-collapse" id="navbarTogglerDemo01">-->
+    <!--<a class="navbar-brand" href="#">Hidden brand</a>-->
+    <!--<ul class="navbar-nav mr-auto mt-2 mt-lg-0">-->
+      <!--<li class="nav-item active">-->
+        <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link" href="#">Link</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link disabled" href="#">Disabled</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<form class="form-inline my-2 my-lg-0">-->
+      <!--<input class="form-control mr-sm-2" type="text" placeholder="Search">-->
+      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+    <!--</form>-->
+  <!--</div>-->
+<!--</nav>-->
+
 <app-simple-modal closeOnBodyClick="true" elementId="searchResults" title="Matching Events">
   <div class="list-group">
     <a class="list-group-item" *ngFor="let event of foundEvents"
        [routerLink]="['/events',event._id]">
       {{event.name}}</a>
   </div>
+</app-simple-modal>
 
-  <!--<nav class="navbar navbar-toggleable-md navbar-light bg-faded">-->
-  <!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">-->
-  <!--<span class="navbar-toggler-icon"></span>-->
-  <!--</button>-->
-  <!--<a class="navbar-brand" href="#">Navbar</a>-->
-
-  <!--<div class="collapse navbar-collapse" id="navbarTogglerDemo02">-->
-  <!--<ul class="navbar-nav mr-auto mt-2 mt-md-0">-->
-  <!--<li class="nav-item active">-->
-  <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-  <!--</li>-->
-  <!--<li class="nav-item">-->
-  <!--<a class="nav-link" href="#">Link</a>-->
-  <!--</li>-->
-  <!--<li class="nav-item">-->
-  <!--<a class="nav-link disabled" href="#">Disabled</a>-->
-  <!--</li>-->
-  <!--</ul>-->
-  <!--<form class="form-inline my-2 my-lg-0">-->
-  <!--<input class="form-control mr-sm-2" type="text" placeholder="Search">-->
-  <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-  <!--</form>-->
+<!--<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">-->
+  <!--<div class="clearfix">-->
+    <!--<button (click)="isCollapsed = !isCollapsed"-->
+            <!--class="navbar-toggler pull-xs-right hidden-sm-up" type="button"-->
+            <!--aria-controls="bd-main-nav"-->
+            <!--aria-label="Toggle navigation">-->
+      <!--<span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
+    <!--<a (click)="isCollapsed = true" class="navbar-brand hidden-sm-up" routerLink="/" style="font-size: x-large">RiderTrack &nbsp;">-->
+    <!--</a>-->
   <!--</div>-->
-  <!--</nav>-->
+  <!--<div class="navbar-toggleable-xs navbar-collapse" id="bd-main-nav"-->
+       <!--[attr.aria-expanded]="!isCollapsed" [ngClass]="{collapse: isCollapsed}">-->
+    <!--<ul class="nav navbar-nav">-->
+      <!--<li (click)="isCollapsed = true" class="nav-item" routerLinkActive="active">-->
+        <!--<a class="navbar-brand hidden-xs-down" routerLink="/home">Home</a>-->
+      <!--</li>-->
+      <!--<li (click)="isCollapsed = true" class="nav-item">-->
+        <!--<a class="navbar-brand hidden-xs-down" routerLink="/events">Events</a>-->
+      <!--</li>-->
+      <!--<li (click)="isCollapsed = true" class="nav-item">-->
+        <!--<a class="navbar-brand hidden-xs-down" routerLink="/API">API</a>-->
+      <!--</li>-->
+      <!--<li (click)="isCollapsed = true" class="nav-item">-->
+        <!--<a class="navbar-brand hidden-xs-down" href="#contact" target="_self">Contact Us</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</div>-->
+<!--</nav>-->
 
