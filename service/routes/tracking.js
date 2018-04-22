@@ -87,7 +87,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
     });
     }
     else{
-        Activity.findOne({eventid:event_id},function(err,activity){
+        Activity.findOne({eventid:event_id,riderid:req.payload.id},function(err,activity){
           if(activity && activity.isCompleted()){
             return res.status(422).json({
               result: false,
