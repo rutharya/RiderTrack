@@ -25,7 +25,7 @@
 <app-simple-modal closeOnBodyClick="true" elementId="searchResults" title="Matching Events">
   <div class="list-group">
     <a class="list-group-item" *ngFor="let event of foundEvents"
-       [routerLink]="['/events',event._id]">
+       [routerLink]="['/eventTracking',event._id]">
       {{event.name}}</a>
   </div>
 
