@@ -34,7 +34,14 @@ export class AdminEventsComponent implements OnInit {
       'date': ['', Validators.required],
       'startTime': ['', Validators.required],
       'endTime': ['', Validators.required],
-      'trackFile': []
+      'trackFile': [],
+      'startLat': [],
+      'startLng': [],
+      'endLat': [],
+      'endLng': [],
+      'elevation': [],
+      'length': [],
+      'difficulty': []
     });
   }
 

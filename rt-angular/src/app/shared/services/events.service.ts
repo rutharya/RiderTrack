@@ -36,6 +36,13 @@ export class EventsService {
     body.set('endTime', this.convertTimeToDate(data.date, data.endTime));
     body.set('trackFile', data.trackFile);
     body.set('image', data.image);
+    body.set('startLat', data.startLat);
+    body.set('startLng', data.startLng);
+    body.set('endLat', data.endLat);
+    body.set('endLng', data.endLng);
+    body.set('elevation', data.elevation);
+    body.set('length', data.length);
+    body.set('difficulty', data.difficulty);
     console.log(body);
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
