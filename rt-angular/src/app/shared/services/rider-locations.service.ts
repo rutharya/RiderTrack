@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {environment} from "../../../environments/environment";
@@ -37,7 +37,7 @@ export class RiderLocationsService {
     return this.http.get<Array<RiderData>>(this.apiAddress+"eventid="+eventId+"&riderid="+riderId);
   }
 
-  loadMap(initCoordsLat, initCoordsLng){
+  loadMap(initCoordsLat, initCoordsLng, trackFile){
     //this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
     console.log("In loadmap function");
     //console.log("XXX"+initCoordsLat);
@@ -69,16 +69,16 @@ export class RiderLocationsService {
     this.markersLayer = new L.LayerGroup();
     this.markersLayer.addTo(Lmap);
 
-    /*const customLayer = L.geoJson(null, {
+    const customLayer = L.geoJson(null, {
       style: myStyle
     });
 
-    const gpxLayer = omnivore.gpx('../../../assets/gpx/1.gpx', null, customLayer)
+    const gpxLayer = omnivore.gpx(trackFile, null, customLayer)
       .on('ready', function() {
         Lmap.fitBounds(gpxLayer.getBounds());
       }).addTo(Lmap);
 
-    var myIcon = L.icon({
+    /*var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
       iconSize: [30, 55],
       iconAnchor: [22, 28],
@@ -142,8 +142,8 @@ export class RiderLocationsService {
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
       iconSize: [30, 55],
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
+      iconAnchor: [22, 28],
+      popupAnchor: [-3, -26],
       shadowSize: [68, 95],
       shadowAnchor: [22, 94]
     });
@@ -165,13 +165,26 @@ export class RiderLocationsService {
       //marker.addTo(this.map)
     }*/
     var i;
+
     for(i=0; i<riderData.length-1; i++){
-      var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon}).addTo(Lmap);
-      marker.bindPopup('<b>'+ riderData[i].timestamp +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
+      var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon});
+      marker.bindPopup('<b>'+ new Date(riderData[i].timestamp).getTime() +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng);
       this.markersLayer.addLayer(marker);
+      marker.on('mouseover', function(e) {
+        this.openPopup();
+      });
+      marker.on('mouseout', function(e) {
+        this.closePopup();
+      });
     }
-    var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon}).addTo(Lmap);
-    marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng).openPopup();
+    var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon});
+    marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng);
     this.markersLayer.addLayer(marker);
+    marker.on('mouseover', function(e) {
+      this.openPopup();
+    });
+    marker.on('mouseout', function(e) {
+      this.closePopup();
+    });
   }
 }
