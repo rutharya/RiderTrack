@@ -55,9 +55,9 @@ export class MyEventsComponent implements OnInit {
         .subscribe(res => {
           this.regResp = res;
           console.log(this.regResp)
-          if (this.regResp.Result.toString() === 'true') {
+          if (this.regResp.result.toString() === 'true') {
             toastr.success("Succesfully Unregistered from the Event");
-          } else if (this.regResp.Result.toString() === 'false') {
+          } else if (this.regResp.result.toString() === 'false') {
             toastr.error("You have already unregistered from the event");
           }
          // window.location.reload();

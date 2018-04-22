@@ -13,41 +13,108 @@ host: "athlete-tracker.herokuapp.com"
 tags:
 - name: "Event"
   description: "All the routes dealing with events"
-- name: "store"
-  description: "Access to Petstore orders"
-- name: "user"
+- name: "Rider"
   description: "Operations about user"
+- name: "Activity"
+  description: "Events Stats, Event plots, Save Activity"
+- name: "AthleteTracking"
+  description: "find rider in event, get last location, get rider location"
+  
 schemes:
 - "http"
+
 paths:
-  /pet:
+
+  /api/events/save/:
     post:
+      security:
+        - bearerAuth:[]
       tags:
       - "Event"
-      summary: "Add a new pet to the store"
-      description: ""
-      operationId: "addPet"
+      summary: "Save an event to database"
+      description: "Save an event to database"
+      operationId: "save"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
-        name: "body"
-        description: "Pet object that needs to be added to the store"
+        name: "Event"
+        description: "Event that needs to be added to the db"
         required: true
         schema:
           $ref: "#/definitions/Events"
       responses:
-        405:
-          description: "Invalid input"
+        200:
+          description: "successful operation"
+  
+  /api/events/register/:
+    get:
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-  /events/{eventID}:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Gets all registered events for that user"
+      description: "gives all events in the form of an array"
+      operationId: "registerEvent"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "id of event"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Events"
+    
+  /api/events/register_events/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Gets all registered events for that user"
+      description: "gives all events in the form of an array"
+      operationId: "registered_events"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "id of event"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Events"
+              
+  /api/events/unregister/:
+    post:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Unregisted from Events"
+      description: "Have to be logged in to unregister"
+      operationId: "unregister"
+      responses:
+        200:
+          description: "successfully unregistered from event"
+          schema:
+            $ref: "#/definitions/Result"
+  
+  /api/events/{eventID}:
     get:
       tags:
       - "Event"
@@ -70,7 +137,8 @@ paths:
             $ref: "#/definitions/Events"
         404:
           description: "event not found"
-  /events/:
+          
+  /api/events/:
     get:
       tags:
       - "Event"
@@ -80,349 +148,171 @@ paths:
       produces:
       - "application/json"
       - "application/xml"
-      parameters:
-      - name: "eventID"
-        in: "path"
-        description: "Events to return"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Events"
+            
+  /api/users/forgotpwd/:
+    post:
+      tags:
+      - "Rider"
+      summary: "Forgot Password route"
+      description: "Sends a password reset link to the user's email id"
+      operationId: "forgotPass"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successfully sent email"
+          schema:
+            $ref: "#/definitions/Result"
+  
+  /api/users/getEventStats/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Rider"
+      summary: "Get user statistics"
+      description: "Shows stats suchs as max speed average speed etc"
+      operationId: "showStats"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Retrieved stats successfully"
+          schema:
+            $ref: "#/definitions/RaceStats"
+            
+  /api/users/eventplotpoints/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Rider"
+      summary: "Get points for the graphs"
+      description: "Gets the points for the graph to show on the user dashboard"
+      operationId: "eventPlot"
+      produces: 
+      - "application/json"
+      responses:
+        200:
+          description: "Retrieved stat plots successfully"
+          
+          
+  /api/users/:
+    post:
+      tags: 
+      - "Rider"
+      summary: "Register new user"
+      description: "Provide username, pass and email id"
+      operationId: "registerRider"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - name: "credentials"
+        in: "body"
+        description: "username, pass, email"
         required: true
-        type: "array"
+        schema:
+          $ref: "#/definitions/CreateUserCredentials"
+      responses:
+        200:
+          description: "User successfully registered"
+    
+  
+  
+  /api/users/login/:
+    post:
+      tags:
+      - "Rider"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "credentials"
+        in: "body"
+        description: "The user name for login"
+        required: true
+        schema:
+          $ref: "#/definitions/LoginCredentials"
       responses:
         200:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Events"
-    delete:
-      tags:
-      - "pet"
-      summary: "Deletes a pet"
-      description: ""
-      operationId: "deletePet"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "api_key"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "petId"
-        in: "path"
-        description: "Pet id to delete"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Pet not found"
+        422:
+          description: "Unprocessable Entity"
+          
+  /api/tracking/saveloc/:
+    post:
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-  /pet/{petId}/uploadImage:
-    post:
-      tags:
-      - "pet"
-      summary: "uploads an image"
-      description: ""
-      operationId: "uploadFile"
-      consumes:
-      - "multipart/form-data"
+        - bearerAuth:[]
+      tags: 
+      - "AthleteTracking"
+      summary: "Post athlete location"
+      description: "Send athlete's location via Apple Watch"
+      operationId: "saveLoc"
+      consumes: 
+      - "application/json"
       produces:
       - "application/json"
-      parameters:
-      - name: "petId"
-        in: "path"
-        description: "ID of pet to update"
+      parameters: 
+      - name: "gpsStats"
+        in: "body"
+        description: "racing stats sent"
         required: true
-        type: "integer"
-        format: "int64"
-      - name: "additionalMetadata"
-        in: "formData"
-        description: "Additional data to pass to server"
-        required: false
-        type: "string"
-      - name: "file"
-        in: "formData"
-        description: "file to upload"
-        required: false
-        type: "file"
+        schema:
+          $ref: "#/definitions/RaceStats"
       responses:
         200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResponse"
+          description: OK
+  
+  /api/tracking/getLoc/:
+    get:
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-  /store/inventory:
-    get:
-      tags:
-      - "store"
-      summary: "Returns pet inventories by status"
-      description: "Returns a map of status codes to quantities"
-      operationId: "getInventory"
-      produces:
+        - bearerAuth:[]
+      tags: 
+      - "AthleteTracking"
+      summary: "Get athlete's location"
+      description: "Get's athlete's location and displays it on dashboard"
+      operationId: "getLoc"
+      produces: 
       - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "object"
-            additionalProperties:
-              type: "integer"
-              format: "int32"
-      security:
-      - api_key: []
-  /store/order:
-    post:
-      tags:
-      - "store"
-      summary: "Place an order for a pet"
-      description: ""
-      operationId: "placeOrder"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "order placed for purchasing the pet"
-        required: true
-        schema:
-          $ref: "#/definitions/Order"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Order"
-        400:
-          description: "Invalid Order"
-  /store/order/{orderId}:
-    get:
-      tags:
-      - "store"
-      summary: "Find purchase order by ID"
-      description: "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions"
-      operationId: "getOrderById"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "orderId"
+      parameters: 
+      - name: "eventId"
         in: "path"
-        description: "ID of pet that needs to be fetched"
-        required: true
-        type: "integer"
-        maximum: 10.0
-        minimum: 1.0
-        format: "int64"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Order"
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Order not found"
-    delete:
-      tags:
-      - "store"
-      summary: "Delete purchase order by ID"
-      description: "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors"
-      operationId: "deleteOrder"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "orderId"
-        in: "path"
-        description: "ID of the order that needs to be deleted"
-        required: true
-        type: "integer"
-        minimum: 1.0
-        format: "int64"
-      responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Order not found"
-  /user:
-    post:
-      tags:
-      - "user"
-      summary: "Create user"
-      description: "This can only be done by the logged in user."
-      operationId: "createUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/createWithArray:
-    post:
-      tags:
-      - "user"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithArrayInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/createWithList:
-    post:
-      tags:
-      - "user"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithListInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/login:
-    get:
-      tags:
-      - "user"
-      summary: "Logs user into the system"
-      description: ""
-      operationId: "loginUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "query"
-        description: "The user name for login"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
+        description: "eventId of the event the user is participating in"
         required: true
         type: "string"
       responses:
         200:
-          description: "successful operation"
+          description: "Fetched the location"
           schema:
-            type: "string"
-          headers:
-            X-Rate-Limit:
-              type: "integer"
-              format: "int32"
-              description: "calls per hour allowed by the user"
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
-        400:
-          description: "Invalid username/password supplied"
-  /user/logout:
-    get:
-      tags:
-      - "user"
-      summary: "Logs out current logged in user session"
-      description: ""
-      operationId: "logoutUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-  /user/{username}:
-    get:
-      tags:
-      - "user"
-      summary: "Get user by user name"
-      description: ""
-      operationId: "getUserByName"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/User"
-        400:
-          description: "Invalid username supplied"
-        404:
-          description: "User not found"
-    delete:
-      tags:
-      - "user"
-      summary: "Delete user"
-      description: "This can only be done by the logged in user."
-      operationId: "deleteUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be deleted"
-        required: true
-        type: "string"
-      responses:
-        400:
-          description: "Invalid username supplied"
-        404:
-          description: "User not found"
-securityDefinitions:
-  petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
-  api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
+            $ref: "#/definitions/RaceStats"
+    
+    
+        
+securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+
     
     
 definitions:
@@ -612,30 +502,8 @@ definitions:
         default: false
       racestats:
         type: "object"
-        properties:
-          averagespeed: 
-            type: "number"
-            minimum: 0
-            maximum: 100
-          maxspeed:
-            type: "number"
-            minimum: 0
-            maximum: 100
-          lastspeed:
-            type: "number"
-            minimum: 0
-            maximum: 100
-          totaldistance:
-            type: "number"
-          currentelevation:
-            type: "number"
-          maxelevation:
-            type: "number"
-          averageelevation:
-            type: "number"
-          elapsedtime:
-            type: "number"
-            
+        $ref: "#/definitions/RaceStats"
+      
     required:
       - riderid
       - eventid
@@ -657,3 +525,64 @@ definitions:
         type: "number"
       altitude:
         type: "number"
+        
+        
+  
+  
+  LoginCredentials:
+    type: "object"
+    properties:
+      email: 
+        type: "string"
+      password:
+        type: "string"
+
+  CreateUserCredentials:
+    type: "object"
+    properties:
+      email:
+        type : "string"
+      password: 
+        type : "string"
+      username:
+        type : "string"
+      admin:
+        type : "boolean"
+      
+        
+  RaceStats:
+    type: "object"
+    properties:
+        averagespeed: 
+          type: "number"
+          minimum: 0
+          maximum: 100
+        maxspeed:
+          type: "number"
+          minimum: 0
+          maximum: 100
+        lastspeed:
+          type: "number"
+          minimum: 0
+          maximum: 100
+        totaldistance:
+          type: "number"
+        currentelevation:
+          type: "number"
+        maxelevation:
+          type: "number"
+        averageelevation:
+          type: "number"
+        elapsedtime:
+          type: "number"
+          
+  Result:
+    type: "object"
+    properties:
+      result: 
+        type: "boolean"
+      status:
+        type: "object"
+        properties:
+          msg: 
+            type: "string"
