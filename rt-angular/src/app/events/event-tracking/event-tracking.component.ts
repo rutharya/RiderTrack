@@ -21,7 +21,7 @@ export class EventTrackingComponent implements OnInit {
   public eventStartTime: string;
   public eventEndTime: string;
   public eventLocation: string;
-
+  public foundRiders: Rider[];
   rider: Rider[] = [];
   locationData$: TrackingData[];
   locationData$$: TrackingDataDmass[];
@@ -52,6 +52,13 @@ export class EventTrackingComponent implements OnInit {
 
   }
 
+  searchRiders(searchTerm) {
+  console.log(searchTerm);
+  const term = searchTerm.toLocaleLowerCase();
+  this.foundRiders = this.rider.filter(x => x.riderUsername.toLocaleLowerCase().indexOf(term) > -1);
+  console.log(this.foundRiders);
+  }
+
   getLatestLocation(eventId): void {
     this.latestLocationService.getLatestLocationDMASS(eventId).subscribe(locationData => {
       //this.locationData$ = locationData;
@@ -71,6 +78,8 @@ export class EventTrackingComponent implements OnInit {
     });
   }
 }
+
+
 
 interface Rider{
   riderId ?: string;
