@@ -90,6 +90,7 @@ export class EventsService {
     // make post request with email to /users/sendinvite
     const credentials = new URLSearchParams();
     credentials.set('email', email);
+   // credentials.set('user-email',)
     credentials.set('eventid', eventid);
     console.log(credentials);
     const options = {
