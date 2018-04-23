@@ -81,6 +81,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       // this.riderData$ = riderData;
       this.riderData$$ = riderData;
       this.riderLocationsService.plot(this.riderData$$.gps_stats);
+      if(this.riderData$$.completed == true)
+        this.alive = false;
     })
   }
 
