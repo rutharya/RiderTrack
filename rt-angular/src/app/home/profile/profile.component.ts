@@ -8,7 +8,7 @@ import {matchOtherValidator} from './match-other-validator';
 import * as toastr from 'toastr';
 import {FileUpload} from '../../shared/models/fileupload';
 import {UploadFileService} from '../../shared/services/uploadFile.service';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-profile',
@@ -20,10 +20,11 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   isSubmitting = false;
   currentUser: User;
-  timerSubscription : any;
-  profileSubscription : any;
+  timerSubscription: any;
+  profileSubscription: any;
   selectedImageFiles: FileList;
   currentImageFileUpload: FileUpload;
+  progress: {percentage: number} = {percentage: 0};
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private uploadService: UploadFileService) {
     this.profileForm = this.fb.group({
@@ -60,7 +61,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.user);
 
     const profileFormValue = this.profileForm.value;
-    if(this.currentImageFileUpload){
+    if (this.currentImageFileUpload) {
       profileFormValue.image = this.currentImageFileUpload.url;
     }
 
@@ -73,12 +74,15 @@ export class ProfileComponent implements OnInit {
 
     this.userService.update(this.profileForm.value)
       .subscribe(updatedUser => {
+        toastr.success('Profile updated!');
         console.log('updated user');
         console.log(updatedUser);
+        history.go(0);
         // this.currentUser = updatedUser;
         // this.refreshData();
-      },err => {
+      }, err => {
         console.log(err);
+        toastr.error('Cannot Update the profile try again');
       });
 
     // this.userService
@@ -120,7 +124,8 @@ export class ProfileComponent implements OnInit {
   uploadImage() {
     const file = this.selectedImageFiles.item(0);
     this.currentImageFileUpload = new FileUpload(file);
-    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload);
+    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload, this.progress);
+
     // console.log('Upload');
     // console.log(this.currentFileUpload.url);
   }
