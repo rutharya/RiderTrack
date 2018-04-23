@@ -1,4 +1,5 @@
 var User = require('../models/rider'); //mongoose data model.
+var Event = require('../models/events');
 var chalk = require('chalk');
 var express = require('express');
 var router = express.Router();
@@ -177,6 +178,7 @@ router.post('/login', function (req, res, next) {
 router.post('/forgotpwd', function (req, res, next) {
     console.log(chalk.green('Forgot Password Request Recieved: <POST> /USERS/forgotpwd:'));
     console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
+    console.log(req.body);
     //TODO: do we addd email validators here?
     if (!req.body.email || req.body.email === '' || req.body.email=== ' ') {
         return res.status(422).json({result: false, status: {msg: 'email is missing'}});
@@ -200,7 +202,7 @@ router.post('/forgotpwd', function (req, res, next) {
                 data: user.resetPasswordToken
             });
         });
-        var data = `
+        var data = ['User Password Reset Mail',`
         <html>
         <head>
         <title>User Password Reset Mail</title>
@@ -212,7 +214,7 @@ router.post('/forgotpwd', function (req, res, next) {
         <br/>
         <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
         </body>
-        </html>`;
+        </html>`];
         console.log(chalk.blue(data));
         mailer(user.email, data);
         console.log(chalk.yellow('EMAIL SENT to user.'));

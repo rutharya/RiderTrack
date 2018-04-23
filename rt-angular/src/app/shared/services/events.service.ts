@@ -5,6 +5,7 @@ import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import {FileUpload} from '../models/fileupload';
+import {map} from "rxjs/operators";
 @Injectable()
 export class EventsService {
   fileUpload: FileUpload;
@@ -74,6 +75,28 @@ export class EventsService {
     const URL = '/events/register';
     return this.apiService.post2('/events/unregister', body.toString()
       , options);
+  }
+
+  send_invite(email, eventid): any {
+    const route = '/sendinvite';
+    console.log('inside sendinvite');
+    // make post request with email to /users/sendinvite
+    const credentials = new URLSearchParams();
+    credentials.set('email', email);
+    credentials.set('eventid', eventid);
+    console.log(credentials);
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    };
+    return this.apiService.post2('/events' + route, credentials.toString(), options)
+      .pipe(map(data => {
+        if (data.result) {
+          return data.status;
+        } else {
+          console.log('failure');
+          return data.status.msg;
+        }
+      }));
   }
 
 
