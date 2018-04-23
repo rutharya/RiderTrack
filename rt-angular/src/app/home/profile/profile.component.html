@@ -22,6 +22,17 @@
 
             <br>
             <br>
+            <div class="tmp">
+              <div *ngIf="currentImageFileUpload" class="progress col-md-12 ">
+                <div class="progress-bar progress-bar-info progress-bar-striped"
+                     role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                     aria-valuemin="0" aria-valuemax="100"
+                     [ngStyle]="{width:progress.percentage+'%'}">
+                  {{progress.percentage}}%
+                </div>
+              </div>
+            </div>
+            <br>
             <fieldset class="form-group">
               <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
                      (change)="selectImageFile($event)"/>
@@ -136,7 +147,7 @@
 
             <button (click)="submitForm()" class="btn btn-lg btn-primary pull-xs-right"
                     type="submit" style="margin-left: 40%">
-              Update Settings
+              Update Profile
             </button>
           </div>
 

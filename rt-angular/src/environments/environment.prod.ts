@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  api_url: '',
+  api_url: '/api',
   MAPBOX_API_KEY: 'pk.eyJ1IjoicnV0dWphZmFsZHUiLCJhIjoiY2pmMWo0ZWpsMDBhNTJ3cGRxYW5meXgyaCJ9.xBm2FFUhUjaEUtCVwLJKAw',
   firebase: {
     apiKey: 'AIzaSyATE_T_HP9RqMyU5-OuUPQKU3jIrlBDmh4',

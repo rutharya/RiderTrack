@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var auth = require('../config/auth');
 var bodyParser = require('body-parser');
+var mailer = require('../../tools/sendInvites');
 
 
 /**
@@ -48,7 +49,15 @@ router.post('/save', function (req, res) {
             elevation: req.body.elevation,
             length: req.body.length,
             difficulty: req.body.difficulty
-        }
+        },
+        startLocation:{
+            lat:req.body.startLat,
+            long:req.body.startLng
+        },
+        endLocation:{
+            lat:req.body.endLat,
+            long:req.body.endLng
+        },
     });
     console.log(event);
     event.save(function(err,result){
@@ -148,6 +157,55 @@ router.post('/unregister',auth.required,function(req,res,next){
       }).catch(next);
 
 })
+
+router.post('/sendinvite', function (req,res,next) {
+
+    console.log(chalk.green(' Sent invite to user: <POST> /USERS/sendinvite:'));
+    console.log(JSON.stringify(req.body));
+    if(!req.body.email || req.body.email === '' || req.body.email === ' '){
+        return res.status(422).json({result: false, status: {msg: 'email is missing'}});
+    }
+    Event.findOne({_id: req.body.eventid}, function (err, event) {
+        if (err) {
+            return res.status(422).json({result: false, status: {msg: 'event with that id not found!!'}, err: err});
+        }
+        if (!event) {
+            return res.status(422).json({result: false, status: {msg: 'event with that id not found!!'}});
+        }
+
+        Rider.findOne({email: req.body.email}, function (err, user) {
+
+            if (err) {
+                return res.status(422).json({
+                    result: false,
+                    status: {msg: 'user with that email not found!!'},
+                    err: err
+                });
+            }
+            if (!user) {
+                return res.status(422).json({result: false, status: {msg: 'user with that email not found!!'}});
+            }
+            var data = ['You\'re invited by ' + `${user.username}` + ' to view ' + `${event.name}`,`
+        <html>
+        <head>
+        <title>You're invited to view ${event.name}</title>
+        </head>
+        <body>
+        <h3>Hello ${req.body.email},</h3>
+        <p>Use this Link below to access the event your friend invited you to .</p>
+        <p style="color:blue">${process.env.HOST}/eventTracking/${event._id}/${user._id}</p>
+        <br/>
+        <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
+        </body>
+        </html>`];
+
+            console.log(chalk.blue(data));
+            mailer(req.body.email, data);
+            console.log(chalk.yellow('EMAIL SENT to user.'));
+        });
+    })
+});
+
 
 /**
  * POST /events/register -> REGISTER to an event, given its ID.

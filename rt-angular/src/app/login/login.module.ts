@@ -5,6 +5,7 @@ import { NoAuthGuard } from './no-auth-guard.service';
 import { SharedModule } from '../shared';
 import {LoginComponent} from "./login.component";
 import { ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
+// import {ForgotPwdComponent2} from "./forgot-pwd2/forgot-pwd.component2";
 
 const authRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -21,7 +22,12 @@ const authRouting: ModuleWithProviders = RouterModule.forChild([
     path:'forgotpwd',
     component: ForgotPwdComponent,
     canActivate: [NoAuthGuard]
-  }
+  },
+  // {
+  //   path:'forgotpwd/:id',
+  //   component: ForgotPwdComponent2,
+  //   canActivate: [NoAuthGuard]
+  // }
 ]);
 
 @NgModule({
@@ -31,7 +37,8 @@ const authRouting: ModuleWithProviders = RouterModule.forChild([
   ],
   declarations: [
     LoginComponent,
-    ForgotPwdComponent
+    ForgotPwdComponent,
+    // ForgotPwdComponent2
   ],
 
   providers: [

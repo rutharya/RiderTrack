@@ -1,4 +1,5 @@
 var User = require('../models/rider'); //mongoose data model.
+var Event = require('../models/events');
 var chalk = require('chalk');
 var express = require('express');
 var router = express.Router();
@@ -27,6 +28,11 @@ router.get('/', auth.required, function (req, res, next) {
 });
 
 
+/**
+ * GET /users/username/:riderId -> get the username for the riderID
+ * @method GET
+ * @returns UserName for the userID. 
+ */
 router.get('/username/:riderId',function(req,res,next){
     console.log(req.params.riderId);
     User.findOne({_id:req.params.riderId}).then(function(rider){
@@ -35,49 +41,57 @@ router.get('/username/:riderId',function(req,res,next){
     }).catch(next);
 })
 
+/**
+ * PUT /users/ -> update user profile data
+ * @method PUT
+ * @requires JWT_authentication TOKEN
+ * @returns USER.toAuthJSON
+ */
 //update profile information of the user.
 router.put('/', auth.required, function (req, res, next) {
-    console.log('req.body: ');
-    console.log(req.body);
+    console.log(chalk.green('Request Recieved: <PUT> /USERS/:\n'));
+    console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
     User.findById(req.payload.id).then(function (user) {
         if (!user) {
             return res.sendStatus(401);
         }
-
         // only update fields that were actually passed...
-        if (typeof req.body.username !== 'undefined') {
+        //username shouldnt be passed??
+        if ((typeof req.body.username !== 'undefined') && (!(req.body.username === ''))) {
             user.username = req.body.username;
         }
-        if (typeof req.body.firstName !== 'undefined') {
-            user.firstName = req.body.firstName;
+        if ((typeof req.body.firstName !== 'undefined') && (!(req.body.firstName === ''))) {
+                user.firstName = req.body.firstName;
         }
-        if (typeof req.body.lastName !== 'undefined') {
+        if ((typeof req.body.lastName !== 'undefined') && (!(req.body.lastName === ''))) {
             user.lastName = req.body.lastName;
         }
-        if (typeof req.body.email !== 'undefined') {
+        if ((typeof req.body.email !== 'undefined') && (!(req.body.email === ''))) {
             user.email = req.body.email;
         }
-        if (typeof req.body.height !== 'undefined') {
+        if ((typeof req.body.height !== 'undefined') && (!(req.body.height === ''))) {
             user.height = req.body.height;
         }
-        if (typeof req.body.weight !== 'undefined') {
+        if ((typeof req.body.weight !== 'undefined') && (!(req.body.weight === ''))) {
             user.weight = req.body.weight;
         }
-        if (typeof req.body.gender !== 'undefined') {
+        if ((typeof req.body.gender !== 'undefined') && (!(req.body.gender === ''))) {
             user.gender = req.body.gender;
         }
-        if (typeof req.body.bio !== 'undefined') {
+        if ((typeof req.body.bio !== 'undefined') && (!(req.body.bio === ''))) {
             user.bio = req.body.bio;
         }
-        if (typeof req.body.phoneNo !== 'undefined') {
+        if ((typeof req.body.phoneNo !== 'undefined') && (!(req.body.phoneNo === ''))) {
             user.phoneNo = req.body.phoneNo;
         }
-        if (typeof req.body.address !== 'undefined') {
+        if ((typeof req.body.address !== 'undefined') && (!(req.body.address === ''))) {
             user.address = req.body.address;
         }
-        if (typeof req.body.image !== 'undefined') {
+        if ((typeof req.body.image !== 'undefined') && (!(req.body.image === ''))) {
             user.image = req.body.image;
         }
+        console.log('user ??');
+        console.log(user);
         return user.save().then(function () {
             return res.json({user: user.toAuthJSON()});
         });
@@ -98,7 +112,7 @@ router.post('/', function (req, res, next) {
         return res.status(422).json({result: false, status: {msg: 'username is missing'}});
     }
     if (!req.body.email || req.body.email === '') {
-        return res.status(422).json({Result: false, status: {msg: 'email is missing'}});
+        return res.status(422).json({result: false, status: {msg: 'email is missing'}});
     }
     if (!req.body.password || req.body.password === '') {
         return res.status(422).json({result: false, status: {msg: 'password is missing'}});
@@ -164,6 +178,7 @@ router.post('/login', function (req, res, next) {
 router.post('/forgotpwd', function (req, res, next) {
     console.log(chalk.green('Forgot Password Request Recieved: <POST> /USERS/forgotpwd:'));
     console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
+    console.log(req.body);
     //TODO: do we addd email validators here?
     if (!req.body.email || req.body.email === '' || req.body.email=== ' ') {
         return res.status(422).json({result: false, status: {msg: 'email is missing'}});
@@ -187,8 +202,19 @@ router.post('/forgotpwd', function (req, res, next) {
                 data: user.resetPasswordToken
             });
         });
-
-        // console.log(chalk.blue(data));
+        // var data = ['User Password Reset Mail',`
+        // <html>
+        // <head>
+        // <title>User Password Reset Mail</title>
+        // </head>
+        // <body>
+        // <h3>Hello ${user.username},</h3>
+        // <p>Use this Link below to reset your password : your link will be active for <em>1 hour</em>.</p>
+        // <p style="color:blue">${process.env.HOST}/api/users/${user.resetPasswordToken}</p>
+        // <br/>
+        // <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
+        // </body>
+        // </html>`];
         console.log(chalk.blue(data));
         mailer(user.email, data);
         console.log(chalk.yellow('EMAIL SENT to user.'));
@@ -206,7 +232,7 @@ router.get('/:token', function (req, res) {
     console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
     User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function (err, user) {
         if (!user) {
-            return res.status(422).json({errors: {user: "user not found"}});
+            return res.status(422).json({result:false,status: {msg: "user not found"}});
         }
         //found --
         console.log('user successfully found -> render the proper form to reset password');
@@ -233,7 +259,7 @@ router.post('/:token', function (req, res) {
         user.resetPasswordExpires = undefined;
         user.save(function (err) {
             // TODO: (ruthar) TRY Disable express error routing and make it return angular code)
-            res.redirect('/');
+            res.redirect(200,'/login');
             //this is a temporary fix for now. 
             //option 2 - > let ejs trigger the toastr and then redirect to angular. 
             //option 3 -> redirect to /login and let angular take care of the rest when the express server is configured.

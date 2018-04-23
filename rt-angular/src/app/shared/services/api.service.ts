@@ -15,8 +15,8 @@ export class ApiService {
   ) {}
 
   private formatErrors(httpErrorResponse: any) {
-    // console.log('inside format errors');
-    // console.log(httpErrorResponse);
+    console.log('inside format errors');
+    console.log(httpErrorResponse);
     return new ErrorObservable(httpErrorResponse.error.status.msg);
   }
 

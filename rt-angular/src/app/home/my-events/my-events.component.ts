@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../../shared/services/events.service';
 import * as toastr from 'toastr';
+import {UserService} from "../../shared/services";
+import {Api_Response} from "../../shared/models/api_response.model";
+import {Errors} from "../../shared/models";
 //import * as bootbox from 'bootbox';
 
 @Component({
@@ -13,6 +16,8 @@ export class MyEventsComponent implements OnInit {
   regResp = null;
   formattedEvents = null;
   currentDate = new Date().toISOString();
+  isSubmitting = false;
+  errors: Errors = {errors: {}};
 
   //formatDate = moment(this.currentDate).format('YYYYMMDD');
 
@@ -55,9 +60,9 @@ export class MyEventsComponent implements OnInit {
         .subscribe(res => {
           this.regResp = res;
           console.log(this.regResp)
-          if (this.regResp.Result.toString() === 'true') {
+          if (this.regResp.result.toString() === 'true') {
             toastr.success("Succesfully Unregistered from the Event");
-          } else if (this.regResp.Result.toString() === 'false') {
+          } else if (this.regResp.result.toString() === 'false') {
             toastr.error("You have already unregistered from the event");
           }
          // window.location.reload();
@@ -71,11 +76,23 @@ export class MyEventsComponent implements OnInit {
 
   inviteSpec(id){
   //bootbox.alert("In alert");
-   var emailid = prompt("Enter an email id to Invite spectator:");
-    if (emailid == null || emailid == "") {
-      console.log("User cancelled to invite");
+
+    var email = prompt("Enter an email id to Invite spectator:");
+
+    if (email == null || email == "") {
+      console.log("User cancelled invite");
     } else {
-      console.log("Email Id is: " +emailid+ " Event Id is: "+ id);
+      console.log(email, id);
+
+      this.isSubmitting = true;
+      this.errors = {errors: {}};
+      this.eventsService.send_invite(email,id).subscribe( data => {
+        console.log(data);
+        toastr.warning('Spectator invited! Good luck.');
+        //TODO: redirect the user to login component?
+      }, err => {
+        toastr.error(`ERROR: ${err}`);
+      });
     }
 
   }

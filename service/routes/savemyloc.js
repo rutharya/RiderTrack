@@ -21,15 +21,15 @@ router.get('/getLoc', auth.required, function(req, res, next) {
     //next query the userEvents and return all the past gps data for a run.
     //res.send({id: user.id});
     if(!req.body){
-      return res.status(422).json({errors: {body: "eventId misssing"}});
+      return res.status(422).json({result: false, status: {msg: 'eventId is missing'}});
     }
     if(!req.body.eventId || req.body.eventId === ''){
-      return res.status(422).json({errors: {eventId: "eventId misssing"}});
+      return res.status(422).json({result: false, status: {msg: 'eventId is missing'}});
     }
     var event_id = new mongoose.Types.ObjectId(req.body.eventid);
     console.log(typeof event_id);
     Activity.findOne({eventId: event_id},function(err,activity){
-      res.json(lastestcoordinates);
+      res.json(activity.lastestcoordinates);
     })
 
   });
@@ -45,19 +45,19 @@ router.post('/saveloc',auth.required,function(req,res,next){
     console.log('POST /savemyloc call recieved at :' + now);
     if(!req.body){
       return res.status(422).json({
-        Result: false,
+        result: false,
         status: {msg: "Request body not present"}
     });
     }
     else if(!req.body.lat || !req.body.lng || !req.body.eventid){
       return res.status(422).json({
-        Result: false,
+        result: false,
         status: {msg: "invalid lat/lng or eventid"}
     });
     }
     else if(req.body.lat === "" || req.body.lng === "" || req.body.eventid === "" ){
       return res.status(422).json({
-        Result: false,
+        result: false,
         status: {msg: "invalid lat/lng eventid"}
     });
     }
@@ -65,7 +65,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
         Activity.findOne({eventid:event_id},function(err,activity){
           if(activity && activity.isCompleted()){
             return res.status(422).json({
-              Result: false,
+              result: false,
               status: {msg: 'activity is already marked completed'}
           });
           }
@@ -109,7 +109,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
               }
                 user_activiy.save(function(err,result){
                   if(err){return res.status(422).json({
-                    Result: false,
+                    result: false,
                     status: {msg: err}
                 });}
                   return res.send({result:true,data:result})
@@ -144,7 +144,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                   cache.del(req.payload.id); //delete cache data -> we are storing it to db
                   activity.save(function (err, updatedData) {
                         if (err) return res.status(422).json({
-                          Result: false,
+                          result: false,
                           status: {msg: err}
                       });
                         console.log('updatedData -' + updatedData);

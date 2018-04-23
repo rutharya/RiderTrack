@@ -91,7 +91,6 @@ export class UserService {
     }));
   }
 
-
   getCurrentUser(): User {
     return this.currentUserSubject.value;
   }
@@ -105,6 +104,7 @@ export class UserService {
     //     this.currentUserSubject.next(data.user);
     //     return data.user;
     //   }));
+    console.log('User service');
     console.log(data);
     console.log('User service');
     const body = new URLSearchParams();
@@ -116,10 +116,22 @@ export class UserService {
     body.set('phoneNo', data.phoneNo);
     body.set('bio', data.bio);
     body.set('image', data.image);
+
+    console.log(data);
     const options = {
           headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         };
-        const res = this.apiService.put('/users', body.toString(), options);
+        const res = this.apiService.put('/users', body.toString(), options).pipe(map(data => {
+          if (data) {
+            console.log('data returned from put');
+            console.log(data.user);
+            this.currentUserSubject.next(data.user);
+
+          } else {
+            console.log('failure');
+            // return data.status.msg;
+          }
+        }));
         return res;
   }
 
