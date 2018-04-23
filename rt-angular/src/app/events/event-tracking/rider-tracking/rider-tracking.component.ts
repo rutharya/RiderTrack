@@ -68,7 +68,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       //this.riderLocationsService.loadMap(this.startLocationLat,this.startLocationLng);
       this.getRiderLocation(this.eventId, this.riderId);
       this.getLatestStats(this.eventId, this.riderId);
-      Observable.interval(1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
+      Observable.interval(0.1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
         this.getLatestStats(this.eventId,this.riderId);
       });
