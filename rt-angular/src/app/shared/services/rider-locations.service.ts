@@ -19,7 +19,6 @@ var Lmap;
 export class RiderLocationsService {
   apiAddress: string;
   apiToken: any;
-  map:any;
   markersLayer: any;
 
   constructor(private apiService:ApiService,private http: HttpClient) {
@@ -127,32 +126,23 @@ export class RiderLocationsService {
     for (var data1 of riderData) {
       console.log(data1.lat);
     }
-    /*var map = L.map('map').setView([33.42192543, -111.92350757], 11);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
-      ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox.streets',
-      accessToken: this.apiToken
-    }).addTo(map);*/
 
     this.markersLayer.clearLayers();
 
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
-      iconSize: [30, 55],
-      iconAnchor: [22, 28],
-      popupAnchor: [-3, -26],
+      iconSize: [20, 40],
+      iconAnchor: [10, 40],
+      popupAnchor: [0, -36],
       shadowSize: [68, 95],
       shadowAnchor: [22, 94]
     });
 
     var currentPositionIcon = L.icon({
       iconUrl: '../../assets/Image/red-marker.png',
-      iconSize: [40, 55],
-      iconAnchor: [22, 28],
-      popupAnchor: [-3, -26],
+      iconSize: [30, 40],
+      iconAnchor: [15, 40],
+      popupAnchor: [0, -36],
       shadowSize: [68, 95],
       shadowAnchor: [22, 94]
     });
@@ -168,7 +158,7 @@ export class RiderLocationsService {
 
     for(i=0; i<riderData.length-1; i++){
       var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: myIcon});
-      marker.bindPopup('<b>'+ new Date(riderData[i].timestamp).getTime() +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng);
+      marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + ' Lng: '+ riderData[i].lng);
       this.markersLayer.addLayer(marker);
       marker.on('mouseover', function(e) {
         this.openPopup();
@@ -178,7 +168,7 @@ export class RiderLocationsService {
       });
     }
     var marker = L.marker([riderData[i].lat, riderData[i].lng],{icon: currentPositionIcon});
-    marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + 'Lng: '+ riderData[i].lng);
+    marker.bindPopup('<b>'+ new Date(riderData[i].timestamp) +'</b><br>' + 'Lat: '+ riderData[i].lat + ' Lng: '+ riderData[i].lng);
     this.markersLayer.addLayer(marker);
     marker.on('mouseover', function(e) {
       this.openPopup();

@@ -5,6 +5,7 @@ import {LatestLocationService} from "../../shared/services/latest-location.servi
 import {EventsService} from "../../shared/services/events.service";
 import {TrackingDataDmass} from "../../shared/models/trackingDataDmass";
 import {UserService} from "../../shared/services/user.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-event-tracking',
@@ -14,6 +15,7 @@ import {UserService} from "../../shared/services/user.service";
 
 export class EventTrackingComponent implements OnInit {
 
+  private alive: boolean = true;
   public eventId: any;
   public eventName: string;
   public eventDescription: string;
@@ -44,10 +46,14 @@ export class EventTrackingComponent implements OnInit {
         this.eventStartTime = eventsData.startTime;
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
+        this.latestLocationService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.trackFile);
       });
 
-      this.latestLocationService.loadMap();
+      //this.latestLocationService.loadMap();
       this.getLatestLocation(this.eventId);
+      Observable.interval(0.5 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
+        this.getLatestLocation(this.eventId);
+      });
     });
 
   }
@@ -64,6 +70,7 @@ export class EventTrackingComponent implements OnInit {
       //this.locationData$ = locationData;
       this.locationData$$ = locationData;
       //this.latestLocationService.plot(this.locationData$$);
+      this.rider = [];
       for(var i=0; i<this.locationData$$.length; i++){
         this.userService.getUsername(this.locationData$$[i].riderid).subscribe(rider=>{
           this.rider.push({
@@ -76,6 +83,11 @@ export class EventTrackingComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log("Event Tracking Destroyed");
+    this.alive = false;
   }
 }
 

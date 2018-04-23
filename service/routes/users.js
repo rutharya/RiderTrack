@@ -202,19 +202,21 @@ router.post('/forgotpwd', function (req, res, next) {
                 data: user.resetPasswordToken
             });
         });
-        // var data = ['User Password Reset Mail',`
-        // <html>
-        // <head>
-        // <title>User Password Reset Mail</title>
-        // </head>
-        // <body>
-        // <h3>Hello ${user.username},</h3>
-        // <p>Use this Link below to reset your password : your link will be active for <em>1 hour</em>.</p>
-        // <p style="color:blue">${process.env.HOST}/api/users/${user.resetPasswordToken}</p>
-        // <br/>
-        // <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
-        // </body>
-        // </html>`];
+
+        var data = ['User Password Reset Mail',`
+        <html>
+        <head>
+        <title>User Password Reset Mail</title>
+        </head>
+        <body>
+        <h3>Hello ${user.username},</h3>
+        <p>Use this Link below to reset your password : your link will be active for <em>1 hour</em>.</p>
+        <p style="color:blue">${process.env.HOST}/api/users/${user.resetPasswordToken}</p>
+        <br/>
+        <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
+        </body>
+        </html>`];
+
         console.log(chalk.blue(data));
         mailer(user.email, data);
         console.log(chalk.yellow('EMAIL SENT to user.'));
