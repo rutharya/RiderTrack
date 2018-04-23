@@ -3,10 +3,11 @@ var router = express.Router();
 var passport = require('passport');
 var auth = require('../config/auth');
 var bodyParser = require('body-parser');
-
 var User = require('../models/rider');
 var Activity = require('../models/activity');
 var Event = require('../models/events');
+var swaggerUi = require('swagger-ui-express');
+var swaggerDocument = require('../swagger.json');
 
 // /* GET home page. */
 //HOME ROUTE COMMENTED OUT because We are serving Angular code from /dist.
@@ -21,8 +22,7 @@ router.use('/loc',require('./savemyloc'));
 router.use('/activities', require('./activity'));
 router.use('/profiles',require('./profiles'));
 router.use('/tracking',require('./tracking'));
-
-
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 router.get('/createevent', function (req, res, next) {
     function rendercall(name, description, location, date) {

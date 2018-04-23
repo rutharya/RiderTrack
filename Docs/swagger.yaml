@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "athlete-tracker.herokuapp.com"
+host: "athlete-tracker-preprod.herokuapp.com"
 tags:
 - name: "Event"
   description: "All the routes dealing with events"
