@@ -49,7 +49,15 @@ router.post('/save', function (req, res) {
             elevation: req.body.elevation,
             length: req.body.length,
             difficulty: req.body.difficulty
-        }
+        },
+        startLocation:{
+            lat:req.body.startLat,
+            long:req.body.startLng
+        },
+        endLocation:{
+            lat:req.body.endLat,
+            long:req.body.endLng
+        },
     });
     console.log(event);
     event.save(function(err,result){
