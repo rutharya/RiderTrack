@@ -137,6 +137,7 @@ RiderSchema.methods.isAdmin = function() {
 }
 RiderSchema.methods.toAuthJSON = function () {
     return {
+        _id: this._id,
         username: this.username,
         email: this.email,
         firstName: this.firstName,
