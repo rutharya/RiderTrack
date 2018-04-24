@@ -38,7 +38,7 @@ My Registered Events
           <td>{{event1.location}}</td>
           <td><button class='btn btn-primary btn-xs' *ngIf="event1.date>=currentDate" (click)="inviteSpec(event1._id)">Invite Spectator</button>
           <button class='btn btn-primary btn-xs' *ngIf="event1.date>=currentDate" (click)="removeRider(event1._id)">Unregister Event</button>
-          <button class='btn btn-primary btn-xs' *ngIf="event1.date<currentDate">View Statistics</button></td>
+            <a class='btn btn-primary btn-xs' *ngIf="event1.date<currentDate" [routerLink]="['/riderTracking',event1._id, currentUser._id]">View Statistics</a></td>
         </tr>
 
         </tbody>

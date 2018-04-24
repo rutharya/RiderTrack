@@ -18,10 +18,11 @@ export class MyEventsComponent implements OnInit {
   currentDate = new Date().toISOString();
   isSubmitting = false;
   errors: Errors = {errors: {}};
+  currentUser = null;
 
   //formatDate = moment(this.currentDate).format('YYYYMMDD');
 
-  constructor(private eventsService: EventsService) {
+  constructor(private eventsService: EventsService,private userservice: UserService) {
 
   }
 
@@ -32,6 +33,9 @@ export class MyEventsComponent implements OnInit {
         this.regEvents = res;
         this.formatEvents(this.regEvents);
       });
+
+    this.currentUser = this.userservice.getCurrentUser();
+
   }
 
   formatEvents(eventsList) {
@@ -73,6 +77,7 @@ export class MyEventsComponent implements OnInit {
     }
 
   }
+
 
   inviteSpec(id){
   //bootbox.alert("In alert");
