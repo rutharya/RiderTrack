@@ -104,7 +104,7 @@ router.get('/userstatistics',auth.required, function(req, res, next){
                 });
             }
 
-            user.statistics =  {
+            stats =  {
                 avgspeed: result['avgspeed'],
                 maxspeed: result['maxspeed'],
                 totaldistance: result['totaldistance'],
