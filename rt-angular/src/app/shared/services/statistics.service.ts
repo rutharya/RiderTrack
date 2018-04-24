@@ -30,8 +30,4 @@ export class StatisticsService {
       .map(result => result);
   }
 
-  public getEventDatapoints() {
-    return this.apiService.get('/activities/eventplotpoints')
-      .map(result => result);
-  }
 }
