@@ -131,6 +131,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                 console.log(user_activiy);
                 if ((typeof req.body.completed !== 'undefined') && (!(req.body.completed === ''))) {
                   user_activiy.completed = true;
+                  console.log('trigger calculate stats here');
               }
                 user_activiy.save(function(err,result){
                   if(err){return res.status(422).json({

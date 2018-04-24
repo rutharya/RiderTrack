@@ -27,6 +27,56 @@ router.get('/', auth.required, function (req, res, next) {
     }).catch(next);
 });
 
+/**
+ * POST /users/ -> create a new user.
+ * @method POST
+ * @param username required as req.body.username
+ * @param password required as req.body.password
+ * @returns USER.toAuthJSON()
+ */
+router.post('/', function (req, res, next) {
+    console.log(chalk.green('Request Recieved: <POST> /USERS:\n'));
+    console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
+    if (!req.body.username || req.body.username === '') {
+        return res.status(422).json({result: false, status: {msg: 'username is missing'}});
+    }
+    if (!req.body.email || req.body.email === '') {
+        return res.status(422).json({result: false, status: {msg: 'email is missing'}});
+    }
+    if (!req.body.password || req.body.password === '') {
+        return res.status(422).json({result: false, status: {msg: 'password is missing'}});
+    }
+    var user = new User();
+    user.username = req.body.username;
+    user.email = req.body.email;
+    //set admin as true only if the data is set.
+    user.admin = false;
+    if(typeof req.body.admin !== 'undefined' && req.body.admin !== '' )
+    {
+       //if admin value in post body is set, this value gets updated. 
+      user.admin = req.body.admin;
+   }
+   //calling mongoose setPassword method -> generates salt and hashes the pwd and stores in db.
+    user.setPassword(req.body.password);
+    console.log('here');
+    // TODO: (ruthar) check the response (do we really need to send back so much info about user from just login?)
+    user.save().then(function (usr) {
+        console.log(chalk.red('here'));
+        console.log(usr);
+        return res.json({
+            user: user.toAuthJSON()
+        });
+    }).catch(next => {
+        if(next.errors.username){
+            return res.status(500).json({result:false, status: { msg: 'username taken'}});
+        }
+        if(next.errors.email){
+            return res.status(500).json({result:false, status: { msg: 'email taken'}});
+        }
+        return res.status(500).json({result:false, status: { msg: next.errors}});
+    });
+});
+
 
 /**
  * GET /users/username/:riderId -> get the username for the riderID
@@ -38,7 +88,12 @@ router.get('/username/:riderId',function(req,res,next){
     User.findOne({_id:req.params.riderId}).then(function(rider){
         if(!rider) res.status(404).json({result:false,status: { msg: "rider not found"}});
         res.send(rider);
-    }).catch(next);
+    }).catch(next => {
+        if(next.errors){
+            return res.status(500).json({result:false, status: { msg: next.errors}});
+        }
+        return res.status(500).json({result:false, status: { msg: next}});
+    });
 })
 
 /**
@@ -98,44 +153,7 @@ router.put('/', auth.required, function (req, res, next) {
     }).catch(next);
 });
 
-/**
- * POST /users/ -> create a new user.
- * @method POST
- * @param username required as req.body.username
- * @param password required as req.body.password
- * @returns USER.toAuthJSON()
- */
-router.post('/', function (req, res, next) {
-    console.log(chalk.green('Request Recieved: <POST> /USERS:\n'));
-    console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
-    if (!req.body.username || req.body.username === '') {
-        return res.status(422).json({result: false, status: {msg: 'username is missing'}});
-    }
-    if (!req.body.email || req.body.email === '') {
-        return res.status(422).json({result: false, status: {msg: 'email is missing'}});
-    }
-    if (!req.body.password || req.body.password === '') {
-        return res.status(422).json({result: false, status: {msg: 'password is missing'}});
-    }
-    var user = new User();
-    user.username = req.body.username;
-    user.email = req.body.email;
-    //set admin as true only if the data is set.
-    user.admin = false;
-    if(typeof req.body.admin !== 'undefined' && req.body.admin !== '' )
-    {
-       //if admin value in post body is set, this value gets updated. 
-      user.admin = req.body.admin;
-   }
-   //calling mongoose setPassword method -> generates salt and hashes the pwd and stores in db.
-    user.setPassword(req.body.password);
-    // TODO: (ruthar) check the response (do we really need to send back so much info about user from just login?)
-    user.save().then(function () {
-        return res.json({
-            user: user.toAuthJSON()
-        });
-    }).catch(next);
-});
+
 
 /**
  * POST /users/login -> login existing user
