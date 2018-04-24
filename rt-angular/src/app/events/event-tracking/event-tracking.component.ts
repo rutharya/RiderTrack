@@ -24,6 +24,7 @@ export class EventTrackingComponent implements OnInit {
   public eventEndTime: string;
   public eventLocation: string;
   public foundRiders: Rider[];
+  riderSearchTerm = '';
   rider: Rider[] = [];
   locationData$: TrackingData[];
   locationData$$: TrackingDataDmass[];
@@ -71,9 +72,14 @@ export class EventTrackingComponent implements OnInit {
       this.locationData$$ = locationData;
       //this.latestLocationService.plot(this.locationData$$);
       this.rider = [];
+      this.foundRiders=[];
       for(var i=0; i<this.locationData$$.length; i++){
         this.userService.getUsername(this.locationData$$[i].riderid).subscribe(rider=>{
           this.rider.push({
+            riderId: rider._id,
+            riderUsername: rider.username
+          });
+          this.foundRiders.push({
             riderId: rider._id,
             riderUsername: rider.username
           });
@@ -83,6 +89,7 @@ export class EventTrackingComponent implements OnInit {
         });
       }
     });
+
   }
 
   ngOnDestroy(): void {
