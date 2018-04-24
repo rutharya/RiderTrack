@@ -6,6 +6,8 @@ import {Observable} from "rxjs/Rx";
 import {EventsService} from "../../../shared/services/events.service";
 import {RiderDataDmass} from "../../../shared/models/riderDataDmass.model";
 import {StatisticsService} from "../../../shared/services";
+import {UserService} from "../../../shared/services/user.service";
+
 
 
 @Component({
@@ -26,17 +28,20 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public eventLocation: string;
   private alive: boolean = true;
   public averagespeed: string;
-  public lastspeed: string;
   public currentelevation: string;
   public elapsedtime: string;
   public totaldistance: string;
+  public riderUsername: string;
+  public updatedat;
 
   riderData$: RiderData[];
   riderData$$: RiderDataDmass;
 
   constructor(private route: ActivatedRoute,
               private riderLocationsService: RiderLocationsService,
-              private eventsService: EventsService, private statsService: StatisticsService) {}
+              private eventsService: EventsService,
+              private userService: UserService,
+              private statsService: StatisticsService) {}
 
   ngOnInit() {
     console.log('rider tracking component initialized');
@@ -54,13 +59,19 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
         this.eventStartTime = eventsData.startTime;
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
+        this.riderLocationsService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.trackFile);
       });
 
-      this.riderLocationsService.loadMap();
+      this.userService.getUsername(this.riderId).subscribe(rider=> {
+        this.riderUsername = rider.username;
+      });
+      //this.riderLocationsService.loadMap(this.startLocationLat,this.startLocationLng);
       this.getRiderLocation(this.eventId, this.riderId);
       this.getLatestStats(this.eventId, this.riderId);
-      Observable.interval(1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
+      Observable.interval(0.1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
+        this.updatedat = new Date();
+        console.log("In individual tracking"+this.updatedat);
         this.getLatestStats(this.eventId,this.riderId);
       });
     });
@@ -72,6 +83,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       // this.riderData$ = riderData;
       this.riderData$$ = riderData;
       this.riderLocationsService.plot(this.riderData$$.gps_stats);
+      if(this.riderData$$.completed == true)
+        this.alive = false;
     })
   }
 
@@ -81,12 +94,11 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
     this.statsService.getEventStats(eventId, riderId).subscribe(res=> {
       console.log("The latest stats returned is "+res);
       const stats = res['statistics'];
-      this.lastspeed =stats.lastspeed;
       this.averagespeed = stats.averagespeed;
       this.currentelevation = stats.currentelevation;
       this.totaldistance = stats.totaldistance;
       this.elapsedtime = stats.elapsedtime;
-      console.log("Event stats called"+this.lastspeed+" and "+this.currentelevation+" and "+this.averagespeed+" and "+this.totaldistance+" and "+this.elapsedtime);
+      console.log("Event stats called"+ " and "+this.currentelevation+" and "+this.averagespeed+" and "+this.totaldistance+" and "+this.elapsedtime);
     });
   }
 

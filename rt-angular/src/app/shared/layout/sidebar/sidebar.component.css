@@ -128,3 +128,35 @@
     margin-left: 0;
   }
 }
+.round {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 110px;
+  height: 110px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.round img {
+  display: block;
+  /* Stretch
+        height: 100%;
+        width: 100%; */
+  min-width: 100%;
+  min-height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tmp {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: #b03911;
+}
+
+.tomp {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}

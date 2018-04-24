@@ -24,24 +24,21 @@ export class ForgotPwdComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.page_title="forgot your password?";
+    this.page_title="Forgot Password?";
     // this.authForm.addControl(name:'email', new FormControl(()));
   }
-
 
   submitForm() {
     this.isSubmitting = true;
     this.errors = {errors: {}};
-    console.log("SUBMITTING FORM");
     const credentials = this.forgotPwdForm.value;
     console.log(credentials);
-    //TODO: add success message on angular front end to show that password reset email has been sent.
     this.userService.generate_new_pwd(credentials).subscribe( data => {
       console.log(data);
-      toastr.warning('recovery email sent');
+      toastr.warning('recovery email sent to registered email address');
       //TODO: redirect the user to login component?
     }, err => {
-      toastr.error(`Invalid email address : ${err}`);
+      toastr.error(`ERROR: ${err}`);
     });
   }
 

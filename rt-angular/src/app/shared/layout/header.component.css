@@ -1,0 +1,9 @@
+/* show the collapse when navbar toggle is checked */
+.active {
+  color: #fff;
+}
+.navbar-toggler {
+  border: solid 1px silver;
+  border-radius: 2px;
+  color: #eee;
+}

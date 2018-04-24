@@ -8,6 +8,7 @@ import {matchOtherValidator} from './match-other-validator';
 import * as toastr from 'toastr';
 import {FileUpload} from '../../shared/models/fileupload';
 import {UploadFileService} from '../../shared/services/uploadFile.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-profile',
@@ -17,14 +18,16 @@ import {UploadFileService} from '../../shared/services/uploadFile.service';
 export class ProfileComponent implements OnInit {
   user: User = {} as User;
   profileForm: FormGroup;
-  // isSubmitting = false;
+  isSubmitting = false;
   currentUser: User;
+  timerSubscription: any;
+  profileSubscription: any;
   selectedImageFiles: FileList;
   currentImageFileUpload: FileUpload;
+  progress: {percentage: number} = {percentage: 0};
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private uploadService: UploadFileService) {
     this.profileForm = this.fb.group({
-      username: '',
       bio: '',
       email: '',
       firstName: '',
@@ -33,22 +36,23 @@ export class ProfileComponent implements OnInit {
       weight: '',
       phoneNo: '',
       address: '',
-      image: '',
-      imageDisplay: '',
-      password: '',
-      passwordconf: ''
+      image: ''
     });
   }
 
   ngOnInit() {
-    Object.assign(this.user, this.userService.getCurrentUser());
+    // Object.assign(this.user, this.userService.getCurrentUser());
+    // this.userService.getCurrentUserSub().subscribe(usr => {
+    //   this.currentUser = usr;
+    //   // this.refreshData();
+    // });
+    // // this.EDL = 'Edit';
+    // console.log('value of this .Cuser');
+    // console.log(this.currentUser);
     this.currentUser = this.userService.getCurrentUser();
-    // this.EDL = 'Edit';
-    console.log('value of this .user');
-    console.log(this.user);
-    this.profileForm.patchValue(this.user);
+    console.log(this.currentUser);
+    // this.profileForm.patchValue(this.currentUser);
   }
-
 
   submitForm() {
     console.log('in submit form');
@@ -57,36 +61,71 @@ export class ProfileComponent implements OnInit {
     console.log(this.user);
 
     const profileFormValue = this.profileForm.value;
-    profileFormValue.image = this.currentImageFileUpload.url;
+    if (this.currentImageFileUpload) {
+      profileFormValue.image = this.currentImageFileUpload.url;
+    }
+
     // this.profileForm.image = this.currentImageFileUpload.url;
-    // this.isSubmitting = true;
-    this.userService
-      .update(this.profileForm.value)
-      .subscribe(
-        // updatedUser => this.router.navigateByUrl('/home/profile'),
-        // err => {
-        //   // this.errors = err;
-        //   this.isSubmitting = false;
-        // }
-        data => {
-          console.log(data);
-          this.currentUser = data;
-          this.router.navigateByUrl('/home');
-          toastr.success('Profile updated!');
-        },
-        err => {
-          toastr.error('Cannot Update the profile try again');
-        }
-      );
+    this.isSubmitting = true;
+    // this.userService.getCurrentUserSub().subscribe(usr => {
+    //   this.currentUser = usr;
+    //   // this.refreshData();
+    // });
+
+    this.userService.update(this.profileForm.value)
+      .subscribe(updatedUser => {
+        toastr.success('Profile updated!');
+        console.log('updated user');
+        console.log(updatedUser);
+        history.go(0);
+        // this.currentUser = updatedUser;
+        // this.refreshData();
+      }, err => {
+        console.log(err);
+        toastr.error('Cannot Update the profile try again');
+      });
+
+    // this.userService
+    //   .update(this.profileForm.value)
+    //   .subscribe(
+    //     // updatedUser => this.router.navigateByUrl('/home/profile'),
+    //     // err => {
+    //     //   // this.errors = err;
+    //     //   this.isSubmitting = false;
+    //     // }
+    //     data => {
+    //       console.log(data);
+    //       this.currentUser = data;
+    //       this.router.navigateByUrl('/home');
+    //       toastr.success('Profile updated!');
+    //     },
+    //     err => {
+    //       toastr.error('Cannot Update the profile try again');
+    //     }
+    //   );
 
   }
+
+  // private refreshData(): void {
+  //   this.profileSubscription = this.userService.getCurrentUserSub().subscribe(data => {
+  //       this.currentUser = data;
+  //       this.subscribeToData();
+  //   });
+  // }
+  //
+  // private subscribeToData(): void {
+  //   this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.refreshData());
+  // }
+
+
   selectImageFile(event) {
     this.selectedImageFiles = event.target.files;
   }
   uploadImage() {
     const file = this.selectedImageFiles.item(0);
     this.currentImageFileUpload = new FileUpload(file);
-    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload);
+    this.currentImageFileUpload.url = this.uploadService.pushProfileImageFileToStorage(this.currentImageFileUpload, this.progress);
+
     // console.log('Upload');
     // console.log(this.currentFileUpload.url);
   }

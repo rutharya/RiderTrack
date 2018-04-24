@@ -8,7 +8,7 @@
   <!--<app-list-errors [errors]="errors"></app-list-errors>-->
 
   <form class="form-group" [formGroup]="profileForm" >
-    <!--<fieldset [disabled]="isSubmitting">-->
+    <fieldset [disabled]="isSubmitting">
     <div class="container">
 
 
@@ -21,6 +21,17 @@
                   onError="this.src='../../assets/Image/profile1.jpg';"  alt="..." height="200" width="220"/>
 
             <br>
+            <br>
+            <div class="tmp">
+              <div *ngIf="currentImageFileUpload" class="progress col-md-12 ">
+                <div class="progress-bar progress-bar-info progress-bar-striped"
+                     role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                     aria-valuemin="0" aria-valuemax="100"
+                     [ngStyle]="{width:progress.percentage+'%'}">
+                  {{progress.percentage}}%
+                </div>
+              </div>
+            </div>
             <br>
             <fieldset class="form-group">
               <input formControlName="image" type="file" class="form-control" id="image" accept="image/*"
@@ -136,14 +147,14 @@
 
             <button (click)="submitForm()" class="btn btn-lg btn-primary pull-xs-right"
                     type="submit" style="margin-left: 40%">
-              Update Settings
+              Update Profile
             </button>
           </div>
 
         </div>
       </div>
     </div>
-    <!--</fieldset>-->
+    </fieldset>
   </form>
 
   <!--<p>Form value: {{ profileForm.value | json }}</p>-->

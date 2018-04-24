@@ -10,137 +10,110 @@ var Activity = require('../models/activity');
 
 
 
-// Method to get event stats for a rider
+
+/*
+* Route to get event specific stats
+* Input params: Rider id, and event id as riderid and eventid
+* Output: Event_Stats
+* */
+
 router.get('/getEventStats',function(req, res, next){
     console.log("Inside get event stats");
     var riderid, eventid, selectedactivity;
-
     console.log(req.query.riderid+" and "+req.query.eventid)
 
-
-     if(!req.query.eventid){
-        return res.render('error',{message:'Missing parameter eventid'});
+    if(!req.query.eventid || req.query.eventid === ""){
+        return res.status(422).json({result: false, status: {msg: 'eventId is missing'}});
     }
-    else if(req.query.eventid === ""){
-       return res.render('error',{message:'Event id is blank'});
+    else if(!req.query.riderid || req.query.riderid === ""){
+        return res.status(422).json({result: false, status: {msg: 'riderid is missing'}});
     }
-    else if(!req.query.riderid){
-        return res.render('error', {message: 'Missing rider id params'});
-    }
-    else if(req.query.riderid === ""){
-        return res.render('error', {message: 'rider id params is blamk'});
-    }
-
     User.findById(req.query.riderid).then(function(user){
         if(!user){ return res.sendStatus(401); }
         console.log("Rider selected:"+user._id);
         riderid = user._id;
-
         Event.findById(req.query.eventid).then(function(events){
-            if(!events) {return res.sendStatus(401);}
-            if(events === null) {return res.sendStatus(401);}
+            if(!events || events === null) {return res.sendStatus(401);}
             eventid = events._id;
             console.log("event selected:"+events._id);
 
             Activity.findOne({"riderid": riderid, "eventid":eventid}).then(function(activity){
-                if(!activity) {
-                    return res.sendStatus(401);
+                if(!activity || activity === null) {
+                    return res.status(422).json({
+                        result: false,
+                        status: {msg: "no activity in the event for this rider"}
+                    });
                 }
-                else if(activity === null) return res.send([]);
                 selectedactivity = activity;
-                console.log(activity);
-
-                // Event stats are not calculated, hence calculate them.
-                var stats = null;
-                console.log("calculating statistics");
-                //var stats = calculateStats(activity._id);
-                calculateStats(activity._id, function(result){
-                    console.log("Result of calculate stats for event is"+result);
-                    if(result === "Error" || result == "Error"){
-                        console.log("No activity for the user");
-                        return res.send([]);
-                    }
-                    for (var prop in result) {
-                        console.log(prop + " = " + result[prop]);
-                    }
-
-                    stats =  {
-                        maxspeed: result['maxspeed'],
-                        averagespeed: result['averagespeed'],
-                        lastspeed: result['lastspeed'],
-                        totaldistance: result['totaldistance'],
-                        elapsedtime: result['elapsedtime'],
-                        currentelevation: result['currentelevation'],
-                        maxelevation: result['maxelevation'],
-                        averageelevation: result['averageelevation']
-                    }
-                    activity.racestats = stats;
-                    Activity.update(
-                        { "_id": activity._id },
-                        { "$set": { "racestats": stats} },
-                        { "multi": false },
-                        function(err,numAffected) {
-                            if (err) {console.log("update failed:"+err); return res.send([]);}
-                            console.log("Inserted succesfully to activity with id:"+activity._id );
-                            return res.json({statistics: activity.racestats});
-                        }
-                    );
-                });
+                console.log("Acitivty selected"+activity);
+                console.log("Result is:"+selectedactivity.racestats);
+                return res.json({statistics: activity.racestats});
             });
         }).catch(next);
     }).catch(next);
 });
 
 
-router.get('/eventplotpoints',auth.required,function(req,res,next){
-    var riderid, eventid;
-    if(!req.payload){
-        res.render('error',{message:'invalid headers'});
-    }
-    else if(!req.query.eventid){
-        res.render('error',{message:'Missing parameter eventid'});
-    }
-    else if(req.query.eventid === ""){
-        res.render('error',{message:'Event id is blank'});
-    }
 
-    User.findById(req.payload.id).then(function(user){
-        if(!user){ return res.sendStatus(401); }
-        riderid = user._id;
-        console.log("rider selected"+riderid);
-
-        Event.findById(req.query.eventid).then(function (events) {
-            if(!events) {return res.send([]);}
-            else if(events === null) {
-                console.log("'No event found");
-                res.send([]);
-            }
-            eventid = events._id;
-            console.log("event selected:"+eventid);
-            Activity.aggregate([
-                {$match: {eventid: eventid, riderid: riderid}},
-                { "$unwind": "$gps_stats" },
-                { "$group": { "_id": null, speed:{$push:"$gps_stats.speed"}, distance:{$push: "$gps_stats.distLeft"}, altitude:{$push: "$gps_stats.altitude"} } },
-                { "$project":{speed:true,distance:true, altitude:true,_id:false}}
-            ], function (err, result) {
-                if(err) res.send(err);
-                else {
-                    if(result === null){
-                        console.log("No activity found");
-                        res.send([]);
-                    }
-                    console.log(result);
-                    res.send(result);
-                }
-
+function calculateEventStats(activityid){
+    Activity.findOne({_id:activityid}).then(function(activity){
+        if(!activity || activity === null) {
+            return res.status(422).json({
+                result: false,
+                status: {msg: "no activity in the event for this rider"}
             });
-        });
+        }
+        else{
+            var stats = null;
+            calculateStats(activity._id, function(result){
+                console.log("Result of calculate stats for event is"+result);
+                        if(result === "Error"){
+                            console.log("No activity for the user");
+                            return res.status(422).json({
+                                result: false,
+                                status: {msg: "no activity in the event for this rider"}
+                            });
+                        }
 
 
-    }).catch(next);
-})
+                        // Assigning the result of stats calculation
+                        stats =  {
+                            maxspeed: result['maxspeed'],
+                            averagespeed: result['averagespeed'],
+                            lastspeed: result['lastspeed'],
+                            totaldistance: result['totaldistance'],
+                            elapsedtime: result['elapsedtime'],
+                            currentelevation: result['currentelevation'],
+                            maxelevation: result['maxelevation'],
+                            averageelevation: result['averageelevation']
 
+                        }
 
+                        activity.racestats = stats;
+
+                        Activity.update(
+                            { "_id": activity._id },
+                            { "$set": { "racestats": stats} },
+                            { "multi": false },
+                            function(err) {
+
+                                if(err){
+                                    console.log("Error storing stats");
+                                    return res.status(500).json({
+                                        result: false,
+                                        status: {msg: "failed to calculate stats"}
+                                    });
+                                }
+                                else{
+                                    console.log("Saved to db for activity"+activityid);
+                                }
+                            });
+            });
+
+        }
+    });
+
+}
 
 // Function to calculate Event stats including: average speed, current elevation, distance from start, and elapsed time in terms of milliseconds
 // Output: Average Speed, Current Distance from starting point of race, current altitude, and elapsed time.

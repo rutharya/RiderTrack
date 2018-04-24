@@ -6,7 +6,7 @@ const apiToken = environment.MAPBOX_API_KEY;
 declare var omnivore: any;
 declare var L: any;
 
-const defaultCoords: number[] = [40, -80];
+const defaultCoords: number[] = [33, -111];
 const defaultZoom = 8;
 
 @Injectable()
@@ -28,7 +28,7 @@ export class MapService {
 
     L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
+      maxZoom: 50,
       id: 'mapbox.streets',
       accessToken: apiToken,
     }).addTo(map);
@@ -37,7 +37,7 @@ export class MapService {
       style: myStyle
     });
 
-    const gpxLayer = omnivore.gpx('../../../assets/gpx/1.gpx', null, customLayer)
+    const gpxLayer = omnivore.gpx('../../../assets/gpx/mesa.gpx', null, customLayer)
       .on('ready', function() {
         map.fitBounds(gpxLayer.getBounds());
       }).addTo(map);

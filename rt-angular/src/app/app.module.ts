@@ -7,7 +7,8 @@ import {LoginModule} from './login/login.module';
 import { HomeModule } from './home/home.module';
 import {Validators, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+// import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   ApiService,
@@ -72,7 +73,10 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    NgbModule.forRoot()
+    // CollapseModule.forRoot(),
+    // BsDropdownModule.forRoot()
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
     ApiService,

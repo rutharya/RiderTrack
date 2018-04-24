@@ -1,0 +1,588 @@
+swagger: "2.0"
+info:
+  description: "This is the documentation of the APIs we used in our RiderTrack Application.  You can find out more about    RiderTrack at [ https://athlete-tracker.herokuapp.com/]( https://athlete-tracker.herokuapp.com/)."
+  version: "1.0.0"
+  title: "Swagger RiderTrack"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "ridertrackproject@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "athlete-tracker-preprod.herokuapp.com"
+tags:
+- name: "Event"
+  description: "All the routes dealing with events"
+- name: "Rider"
+  description: "Operations about user"
+- name: "Activity"
+  description: "Events Stats, Event plots, Save Activity"
+- name: "AthleteTracking"
+  description: "find rider in event, get last location, get rider location"
+  
+schemes:
+- "http"
+
+paths:
+
+  /api/events/save/:
+    post:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Save an event to database"
+      description: "Save an event to database"
+      operationId: "save"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Event"
+        description: "Event that needs to be added to the db"
+        required: true
+        schema:
+          $ref: "#/definitions/Events"
+      responses:
+        200:
+          description: "successful operation"
+  
+  /api/events/register/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Gets all registered events for that user"
+      description: "gives all events in the form of an array"
+      operationId: "registerEvent"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "id of event"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Events"
+    
+  /api/events/register_events/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Gets all registered events for that user"
+      description: "gives all events in the form of an array"
+      operationId: "registered_events"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "id of event"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Events"
+              
+  /api/events/unregister/:
+    post:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Event"
+      summary: "Unregisted from Events"
+      description: "Have to be logged in to unregister"
+      operationId: "unregister"
+      responses:
+        200:
+          description: "successfully unregistered from event"
+          schema:
+            $ref: "#/definitions/Result"
+  
+  /api/events/{eventID}:
+    get:
+      tags:
+      - "Event"
+      summary: "Find event by ID"
+      description: "Returns a single event"
+      operationId: "getEventbyID"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "eventID"
+        in: "path"
+        description: "ID of event to return"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Events"
+        404:
+          description: "event not found"
+          
+  /api/events/:
+    get:
+      tags:
+      - "Event"
+      summary: "Get all events"
+      description: "Return all  events"
+      operationId: "getEvent"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Events"
+            
+  /api/users/forgotpwd/:
+    post:
+      tags:
+      - "Rider"
+      summary: "Forgot Password route"
+      description: "Sends a password reset link to the user's email id"
+      operationId: "forgotPass"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successfully sent email"
+          schema:
+            $ref: "#/definitions/Result"
+  
+  /api/users/getEventStats/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Rider"
+      summary: "Get user statistics"
+      description: "Shows stats suchs as max speed average speed etc"
+      operationId: "showStats"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Retrieved stats successfully"
+          schema:
+            $ref: "#/definitions/RaceStats"
+            
+  /api/users/eventplotpoints/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags:
+      - "Rider"
+      summary: "Get points for the graphs"
+      description: "Gets the points for the graph to show on the user dashboard"
+      operationId: "eventPlot"
+      produces: 
+      - "application/json"
+      responses:
+        200:
+          description: "Retrieved stat plots successfully"
+          
+          
+  /api/users/:
+    post:
+      tags: 
+      - "Rider"
+      summary: "Register new user"
+      description: "Provide username, pass and email id"
+      operationId: "registerRider"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - name: "credentials"
+        in: "body"
+        description: "username, pass, email"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateUserCredentials"
+      responses:
+        200:
+          description: "User successfully registered"
+    
+  
+  
+  /api/users/login/:
+    post:
+      tags:
+      - "Rider"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "credentials"
+        in: "body"
+        description: "The user name for login"
+        required: true
+        schema:
+          $ref: "#/definitions/LoginCredentials"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Events"
+        422:
+          description: "Unprocessable Entity"
+          
+  /api/tracking/saveloc/:
+    post:
+      security:
+        - bearerAuth:[]
+      tags: 
+      - "AthleteTracking"
+      summary: "Post athlete location"
+      description: "Send athlete's location via Apple Watch"
+      operationId: "saveLoc"
+      consumes: 
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "gpsStats"
+        in: "body"
+        description: "racing stats sent"
+        required: true
+        schema:
+          $ref: "#/definitions/RaceStats"
+      responses:
+        200:
+          description: OK
+  
+  /api/tracking/getLoc/:
+    get:
+      security:
+        - bearerAuth:[]
+      tags: 
+      - "AthleteTracking"
+      summary: "Get athlete's location"
+      description: "Get's athlete's location and displays it on dashboard"
+      operationId: "getLoc"
+      produces: 
+      - "application/json"
+      parameters: 
+      - name: "eventId"
+        in: "path"
+        description: "eventId of the event the user is participating in"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Fetched the location"
+          schema:
+            $ref: "#/definitions/RaceStats"
+    
+    
+        
+securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+
+    
+    
+definitions:
+  Events:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      image:
+        type: "string"
+      description:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      location:
+        type: "string"
+      startTime:
+        type: "string"
+        format: "date-time"
+      endTime:
+        type: "string"
+        format: "date-time"
+      trackFile:
+        type: "string"
+      track:
+        type: "object"
+        properties:
+          elevation: 
+            type: "number"
+          lenght:
+            type: "number"
+          difficulty:
+            type: "string"
+      eventRiders:
+            type: "array"
+            items:
+              $ref: "#/definitions/Rider"
+      raceWinners:
+            type: "array"
+            items:
+              $ref: "#/definitions/Rider"
+      statusOfRace:
+            type: "string"
+      startLocation:
+            type: "object"
+            properties:
+              lat:
+                type: "number"
+              long:
+                type: "number"
+      endLocation:
+            type: "object"
+            properties:
+              lat:
+                type: "number"
+              long:
+                type: "number"
+    required:
+      - name
+      - description
+      - date
+      - location
+      - startTime
+      - endTime
+  
+    xml:
+      name: "Events"
+      
+  Rider:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        pattern: '^[a-z0-9._%+-]+@[a-z0-9._]+\.[a-z]+$'
+        uniqueItems: true
+      username:
+        type: "string"
+        pattern: '^[a-zA-Z0-9]+$'
+        uniqueItems: true
+      firstName :
+        type: "string"
+      lastName:
+        type: "string"
+      height: 
+        type: "number"
+      weight:
+        type: "number"
+      gender:
+        type: "string"
+      bio:
+        type: "string"
+      phoneNo:
+        type: "string"
+      address:
+        type: "string"
+      image: 
+        type: "string"
+      following:
+        type: "array"
+        items:
+          $ref: 
+            "#/definitions/Rider"
+      registeredEvents:
+        type: "array"
+        items:
+          $ref: 
+            "#/definitions/Events"
+      activities:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            eventId:
+              type: "string"
+            activityId:
+              type: "string"
+      statistics:
+        type: "object"
+        properties:
+          participantioncount:
+            type: "number"
+          avgspeed:
+            type: "number"
+          maxspeed:
+            type: "number"
+          totaldistance:
+            type: "number"
+            minimum: 0
+          longestdistance:
+            type: "number"
+            minimum: 0
+          maxelevation:
+            type: "number"
+            minimum: 0
+          averageelevation:
+            type: "number"
+            minimum: 0
+          wincount:
+            type: "number"
+            minimum: 0
+          totalmovingtime:
+            type: "number"
+          longestmovingtime:
+            type: "number"
+      admin: 
+        type: "boolean"
+      hash:
+        type: "string"
+      salt:
+        type: "string"
+      resetPasswordToken:
+        type: "string"
+      resetPasswordExpires:
+        type: "string"
+        
+    required:
+      - email
+      - username
+    xml:
+      name: "Rider"
+  Activity:
+    type: "object"
+    properties:
+      riderid:
+        type: "string"
+      eventid:
+        type: "string"
+      latestcoordinates:
+        type: "object"
+        properties:
+          lat:
+            type: "number"
+          lng:
+            type: "number"
+      gps_stats: 
+        type: "array"
+        items:
+          $ref: 
+            "#/definitions/GPS_Stats"
+      currentRace:
+        type: "array"
+        items:
+          type: "string"
+      completed:
+        type: "boolean"
+        default: false
+      racestats:
+        type: "object"
+        $ref: "#/definitions/RaceStats"
+      
+    required:
+      - riderid
+      - eventid
+    xml:
+      name: "Activity"
+      
+  GPS_Stats:
+    type: "object"
+    properties:
+      timestamp: 
+        type: "string"
+      lat:
+        type: "number"
+      lng:
+        type: "number"
+      speed:
+        type: "number"
+      distLeft: 
+        type: "number"
+      altitude:
+        type: "number"
+        
+        
+  
+  
+  LoginCredentials:
+    type: "object"
+    properties:
+      email: 
+        type: "string"
+      password:
+        type: "string"
+
+  CreateUserCredentials:
+    type: "object"
+    properties:
+      email:
+        type : "string"
+      password: 
+        type : "string"
+      username:
+        type : "string"
+      admin:
+        type : "boolean"
+      
+        
+  RaceStats:
+    type: "object"
+    properties:
+        averagespeed: 
+          type: "number"
+          minimum: 0
+          maximum: 100
+        maxspeed:
+          type: "number"
+          minimum: 0
+          maximum: 100
+        lastspeed:
+          type: "number"
+          minimum: 0
+          maximum: 100
+        totaldistance:
+          type: "number"
+        currentelevation:
+          type: "number"
+        maxelevation:
+          type: "number"
+        averageelevation:
+          type: "number"
+        elapsedtime:
+          type: "number"
+          
+  Result:
+    type: "object"
+    properties:
+      result: 
+        type: "boolean"
+      status:
+        type: "object"
+        properties:
+          msg: 
+            type: "string"

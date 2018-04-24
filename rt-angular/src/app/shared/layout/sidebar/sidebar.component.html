@@ -2,33 +2,49 @@
   <div class="sidebar bg-dark">
     <ul class="list-unstyled">
       <div fxShow="true" fxHide.lt-md="true">
-      <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
-      <br>
-      <li><a [routerLink]="['./dashboard']"(click)="toDashboard($event)"><b class="fa fa-fw fa-link">Dashboard</b></a></li>
-      <hr>
-      <li><a [routerLink]="['./myEvents']"><b class="fa fa-fw fa-angle-right">My Events</b></a></li>
-      <hr>
-      <li><a [routerLink]="['./riderEvents']"><b class="fa fa-fw fa-link">Events Registration</b></a></li>
-      <hr>
-      <li><a [routerLink]="['./adminEvents']"><b class="fa fa-fw fa-link">Create Event</b></a></li>
-      <hr>
-      <!--<li>-->
+        <!--<li><a  [routerLink]="['/home']" (click)="toDashboard()"><i class="fa fa-fw fa-link"></i>Dashboard</a></li>-->
+        <br>
+        <li>
+          <div class="round">
+            <img src="{{ currentUser.image }}"
+                 onError="this.src='../assets/Image/profile1.jpg';" alt="Person"
+                 style="width:100px;height:100px; align-self: center">
+          </div>
+        </li>
+        <br>
+        <li>
+          <div class="tmp" align="center"><h3><b>{{currentUser.username}}</b></h3></div>
+        </li>
+        <li>
+          <div class="tomp" align="center"><h6>{{currentUser.email}}</h6></div>
+        </li>
+        <hr>
+        <li><a [routerLink]="['./dashboard']" (click)="toDashboard($event)"><b
+          class="fa fa-fw fa-link">Dashboard</b></a></li>
+        <hr>
+        <li><a [routerLink]="['./myEvents']"><b class="fa fa-fw fa-angle-right">My Events</b></a></li>
+        <hr>
+        <li><a [routerLink]="['./riderEvents']"><b class="fa fa-fw fa-link">Events Registration</b></a></li>
+        <hr>
+        <li *ngIf="currentUser.admin"><a [routerLink]="['./adminEvents']"><b class="fa fa-fw fa-link">Create Event</b></a></li>
+        <hr>
+        <!--<li>-->
         <!--<a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>-->
         <!--TOOD: implement submenu system?-->
         <!--<ul id="submenu1" class="list-unstyled collapse">-->
-          <!--<li><a href="#">Dashboard</a></li>-->
-          <!--<li><a href="#">Last Run</a></li>-->
-          <!--<li><a href="#">Summary</a></li>-->
+        <!--<li><a href="#">Dashboard</a></li>-->
+        <!--<li><a href="#">Last Run</a></li>-->
+        <!--<li><a href="#">Summary</a></li>-->
         <!--</ul>-->
-      <!--</li>-->
-      <!--<li>-->
+        <!--</li>-->
+        <!--<li>-->
         <!--<a (click)="onToggleSubmenu($event)" [class.selected]="wasClicked">Last Run</a>-->
-      <!--</li>-->
+        <!--</li>-->
 
-      <li><a [routerLink]="['./profile']"><b class="fa fa-fw fa-link">Profile</b></a></li>
-      <hr>
+        <li><a [routerLink]="['./profile']"><b class="fa fa-fw fa-link">Profile</b></a></li>
+        <hr>
       </div>
     </ul>
 
   </div>
-  </div>
+</div>

@@ -7,17 +7,18 @@ import {TrackingDataDmass} from '../models/trackingDataDmass';
 import {environment} from "../../../environments/environment";
 import {ApiService} from "./api.service";
 
-
 declare var omnivore: any;
 declare var L: any;
+var Lmap;
 
 @Injectable()
 export class LatestLocationService {
   apiAddress: string;
   apiToken: any;
-  map:any;
+  markersLayer: any;
 
-  constructor(private http: HttpClient,private apiService: ApiService) {
+  constructor(private http: HttpClient,
+              private apiService: ApiService) {
     // this.apiAddress = environment.api_url+'/test/getLastLocation?_id=';
     this.apiAddress = environment.api_url+'/test/getLastLocation?_id=';
     this.apiToken = environment.MAPBOX_API_KEY;
@@ -31,47 +32,67 @@ export class LatestLocationService {
     return this.http.get<Array<TrackingData>>(this.apiAddress+eventId);
   }
 
-  loadMap(){
-    this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
+  loadMap(initCoordsLat, initCoordsLng, trackFile){
+    //Lmap = L.map('map').setView([33.42192543, -111.92350757], 11);
+    Lmap = L.map('map').setView([initCoordsLat,initCoordsLng], 11);
+    Lmap.maxZoom = 100;
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
       ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
+      maxZoom: 50,
       id: 'mapbox.streets',
       accessToken: this.apiToken
-    }).addTo(this.map);
-  }
+    }).addTo(Lmap);
 
-  plot(locationData: any): void{
     const myStyle = {
       'color': '#3949AB',
       'weight': 5,
       'opacity': 0.95
     };
-    /*var map = L.map('map').setView([33.42192543, -111.92350757], 11);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,' +
-      ' <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox.streets',
-      accessToken: this.apiToken
-    }).addTo(map);*/
+
+    const customLayer = L.geoJson(null, {
+      style: myStyle
+    });
+
+    const gpxLayer = omnivore.gpx(trackFile, null, customLayer)
+      .on('ready', function() {
+        Lmap.fitBounds(gpxLayer.getBounds());
+      }).addTo(Lmap);
+
+    this.markersLayer = new L.LayerGroup();
+    this.markersLayer.addTo(Lmap);
+  }
+
+  plot(locationData: any, riderNames:any): void{
+    this.markersLayer.clearLayers();
+    const myStyle = {
+      'color': '#3949AB',
+      'weight': 5,
+      'opacity': 0.95
+    };
 
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
       iconSize: [30, 55],
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
+      iconAnchor: [15, 55],
+      popupAnchor: [0, -46],
       shadowSize: [68, 95],
       shadowAnchor: [22, 94]
     });
-
+    var i=0;
     for (var data of locationData) {
       console.log(data.latestcoordinates.lat);
-      var marker = L.marker([data.latestcoordinates.lat, data.latestcoordinates.lng],{icon: myIcon}).addTo(this.map);
-      marker.bindPopup('<b>'+ data.riderid +'</b><br>' + 'Lat: '+ data.latestcoordinates.lat + 'Lng: '+ data.latestcoordinates.lng).openPopup();
+      var marker = L.marker([data.latestcoordinates.lat, data.latestcoordinates.lng],{icon: myIcon});
+      marker.bindPopup('<b>'+ riderNames[i].riderUsername +'</b><br>' + 'Lat: '+ data.latestcoordinates.lat + ' Lng: '+ data.latestcoordinates.lng);
+      this.markersLayer.addLayer(marker);
+      i++;
+      marker.on('mouseover', function(e) {
+        this.openPopup();
+      });
+      marker.on('mouseout', function(e) {
+        this.closePopup();
+      });
     }
   }
 }
