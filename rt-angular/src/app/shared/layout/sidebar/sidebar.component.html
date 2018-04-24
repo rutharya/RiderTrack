@@ -26,7 +26,7 @@
         <hr>
         <li><a [routerLink]="['./riderEvents']"><b class="fa fa-fw fa-link">Events Registration</b></a></li>
         <hr>
-        <li><a [routerLink]="['./adminEvents']"><b class="fa fa-fw fa-link">Create Event</b></a></li>
+        <li *ngIf="currentUser.admin"><a [routerLink]="['./adminEvents']"><b class="fa fa-fw fa-link">Create Event</b></a></li>
         <hr>
         <!--<li>-->
         <!--<a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>-->
