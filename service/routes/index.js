@@ -75,7 +75,11 @@ router.get('/createevent', function (req, res, next) {
 
 })
 
-
+/*
+* Function to calculate and return user level stats on user dashboard
+* Requires user payload for JWT token.
+* Returns User level stats
+* */
 
 router.get('/userstatistics',auth.required, function(req, res, next){
     console.log("Inside get user stats");
@@ -93,13 +97,14 @@ router.get('/userstatistics',auth.required, function(req, res, next){
         calculateUserStats(user._id, function (result) {
 
             console.log("Result is:"+result);
-            if(result == "Error" || result === "Error" || result == undefined){
-                return res.send([]);
+            if(result === "Error" || result == undefined){
+                return res.status(422).json({
+                    result: false,
+                    status: {msg: "Unable to calculate reace stats"}
+                });
             }
-            for (var prop in result) {
-                console.log(prop + " = " + result[prop]);
-            }
-            stats =  {
+
+            user.statistics =  {
                 avgspeed: result['avgspeed'],
                 maxspeed: result['maxspeed'],
                 totaldistance: result['totaldistance'],
@@ -109,11 +114,10 @@ router.get('/userstatistics',auth.required, function(req, res, next){
                 totalmovingtime: result['totalmovingtime'],
                 longestmovingtime: result['longestmovingtime'],
                 participationcount: result['participationcount'],
-                wincount: user.statistics.wincount
+                wincount: user.statistics.wincount,
 
             }
 
-            user.statistics = stats;
             User.update(
                 { "_id": riderid },
                 { "$set": {"statistics": stats} },
@@ -133,12 +137,17 @@ router.get('/userstatistics',auth.required, function(req, res, next){
 
 
 
-// Router method to get latest activity for a rider.
+
+
+/*
+* Router method to fetch the latest activity of the rider
+* Params required auth token
+* */
 router.get('/getLatestEvent', auth.required, function (req, res, next) {
     console.log("Inside get last event");
     var riderid, activityselected, eventid,result;
     if(!req.payload){
-        res.render('error',{message:'invalid headers'});
+        return res.send('error',{message:'invalid headers'});
     }
     User.findById(req.payload.id).then(function (user) {
         if(!user){ return res.sendStatus(401); }
@@ -183,9 +192,10 @@ router.get('/getLatestEvent', auth.required, function (req, res, next) {
     }).catch(next);
 });
 
-
-
-// Route to get user data points for plotting. Return average speed, distance and altitude arrays for plotting
+/*
+* Router method to get datapoints to plot in user dashboard charts
+* Params required auth token
+* */
 router.get('/userdatapoints',auth.required,function(req,res,next){
     console.log("Inside userdatapoints");
     var riderid;
@@ -238,7 +248,7 @@ function calculateUserStats(riderid, fn){
     // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
 
     Activity.aggregate([
-        {$match: {riderid: riderid}},
+        {$match: {riderid: riderid,completed:true}},
         {$group:
                 {
                     _id:null, totaldistance: {$sum: "$racestats.totaldistance"}, longestdistance: {$max: "$racestats.totaldistance"},
