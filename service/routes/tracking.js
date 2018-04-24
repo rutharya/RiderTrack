@@ -129,7 +129,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                   currentRace:null
                 });
                 console.log(user_activiy);
-                if (typeof req.body.completed !== 'undefined') {
+                if ((typeof req.body.completed !== 'undefined') && (!(req.body.completed === ''))) {
                   user_activiy.completed = true;
               }
                 user_activiy.save(function(err,result){
