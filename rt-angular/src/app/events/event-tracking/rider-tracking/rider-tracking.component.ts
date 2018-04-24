@@ -71,6 +71,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       Observable.interval(0.1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
         this.updatedat = new Date();
+        console.log("In individual tracking"+this.updatedat);
         this.getLatestStats(this.eventId,this.riderId);
       });
     });
