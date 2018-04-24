@@ -48,66 +48,72 @@ router.get('/getEventStats',function(req, res, next){
                 console.log("Acitivty selected"+activity);
                 console.log("Result is:"+selectedactivity.racestats);
                 return res.json({statistics: activity.racestats});
-                // if(selectedactivity.racestats['currentspeed'] ){
-                //     console.log("stats already calculated");
-                //     return res.json({statistics: activity.racestats});
-                //
-                // }
-                // else{
-                //     // Event stats are not calculated, hence calculate them.
-                //     var stats = null;
-                //     console.log("calculating statistics");
-                //     calculateStats(activity._id, function(result){
-                //         console.log("Result of calculate stats for event is"+result);
-                //         if(result === "Error"){
-                //             console.log("No activity for the user");
-                //             return res.status(422).json({
-                //                 result: false,
-                //                 status: {msg: "no activity in the event for this rider"}
-                //             });
-                //         }
-                //
-                //
-                //         // Assigning the result of stats calculation
-                //         stats =  {
-                //
-                //             maxspeed: result['maxspeed'],
-                //             averagespeed: result['averagespeed'],
-                //             lastspeed: result['lastspeed'],
-                //             totaldistance: result['totaldistance'],
-                //             elapsedtime: result['elapsedtime'],
-                //             currentelevation: result['currentelevation'],
-                //             maxelevation: result['maxelevation'],
-                //             averageelevation: result['averageelevation']
-                //
-                //
-                //
-                //         }
-                //         activity.racestats = stats;
-                //
-                //         Activity.update(
-                //             { "_id": activity._id },
-                //             { "$set": { "racestats": stats} },
-                //             { "multi": false },
-                //             function(err) {
-                //                 if (err) {
-                //                     console.log("update failed:"+err);
-                //                     return res.status(500).json({
-                //                         result: false,
-                //                         status: {msg: "failed to calculate stats"}
-                //                     });;}
-                //                 console.log("Inserted succesfully to activity with id:"+activity._id );
-                //                 return res.json({statistics: activity.racestats});
-                //             }
-                //         );
-                //     });}
-
-
             });
         }).catch(next);
     }).catch(next);
 });
 
+
+
+function calculateEventStats(activityid){
+    Activity.findOne({_id:activityid}).then(function(activity){
+        if(!activity || activity === null) {
+            return res.status(422).json({
+                result: false,
+                status: {msg: "no activity in the event for this rider"}
+            });
+        }
+        else{
+            var stats = null;
+            calculateStats(activity._id, function(result){
+                console.log("Result of calculate stats for event is"+result);
+                        if(result === "Error"){
+                            console.log("No activity for the user");
+                            return res.status(422).json({
+                                result: false,
+                                status: {msg: "no activity in the event for this rider"}
+                            });
+                        }
+
+
+                        // Assigning the result of stats calculation
+                        stats =  {
+                            maxspeed: result['maxspeed'],
+                            averagespeed: result['averagespeed'],
+                            lastspeed: result['lastspeed'],
+                            totaldistance: result['totaldistance'],
+                            elapsedtime: result['elapsedtime'],
+                            currentelevation: result['currentelevation'],
+                            maxelevation: result['maxelevation'],
+                            averageelevation: result['averageelevation']
+
+                        }
+
+                        activity.racestats = stats;
+
+                        Activity.update(
+                            { "_id": activity._id },
+                            { "$set": { "racestats": stats} },
+                            { "multi": false },
+                            function(err) {
+
+                                if(err){
+                                    console.log("Error storing stats");
+                                    return res.status(500).json({
+                                        result: false,
+                                        status: {msg: "failed to calculate stats"}
+                                    });
+                                }
+                                else{
+                                    console.log("Saved to db for activity"+activityid);
+                                }
+                            });
+            });
+
+        }
+    });
+
+}
 
 // Function to calculate Event stats including: average speed, current elevation, distance from start, and elapsed time in terms of milliseconds
 // Output: Average Speed, Current Distance from starting point of race, current altitude, and elapsed time.
