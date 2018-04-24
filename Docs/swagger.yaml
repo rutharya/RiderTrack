@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "This is the documentation of the apis we used in our web application RiderTrack.  You can find out more about    RiderTrack at [ https://athlete-tracker.herokuapp.com/]( https://athlete-tracker.herokuapp.com/)."
+  description: "This is the documentation of the APIs we used in our RiderTrack Application.  You can find out more about    RiderTrack at [ https://athlete-tracker.herokuapp.com/]( https://athlete-tracker.herokuapp.com/)."
   version: "1.0.0"
   title: "Swagger RiderTrack"
   termsOfService: "http://swagger.io/terms/"
@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "athlete-tracker.herokuapp.com"
+host: "athlete-tracker-preprod.herokuapp.com"
 tags:
 - name: "Event"
   description: "All the routes dealing with events"

@@ -28,11 +28,11 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public eventLocation: string;
   private alive: boolean = true;
   public averagespeed: string;
-  public lastspeed: string;
   public currentelevation: string;
   public elapsedtime: string;
   public totaldistance: string;
   public riderUsername: string;
+  public updatedat;
 
   riderData$: RiderData[];
   riderData$$: RiderDataDmass;
@@ -70,6 +70,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       this.getLatestStats(this.eventId, this.riderId);
       Observable.interval(0.1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getRiderLocation(this.eventId,this.riderId);
+        this.updatedat = new Date();
         this.getLatestStats(this.eventId,this.riderId);
       });
     });
@@ -81,6 +82,8 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       // this.riderData$ = riderData;
       this.riderData$$ = riderData;
       this.riderLocationsService.plot(this.riderData$$.gps_stats);
+      if(this.riderData$$.completed == true)
+        this.alive = false;
     })
   }
 
@@ -90,12 +93,11 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
     this.statsService.getEventStats(eventId, riderId).subscribe(res=> {
       console.log("The latest stats returned is "+res);
       const stats = res['statistics'];
-      this.lastspeed =stats.lastspeed;
       this.averagespeed = stats.averagespeed;
       this.currentelevation = stats.currentelevation;
       this.totaldistance = stats.totaldistance;
       this.elapsedtime = stats.elapsedtime;
-      console.log("Event stats called"+this.lastspeed+" and "+this.currentelevation+" and "+this.averagespeed+" and "+this.totaldistance+" and "+this.elapsedtime);
+      console.log("Event stats called"+ " and "+this.currentelevation+" and "+this.averagespeed+" and "+this.totaldistance+" and "+this.elapsedtime);
     });
   }
 

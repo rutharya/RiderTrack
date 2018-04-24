@@ -6,7 +6,7 @@
     <h5><i>Time: </i>{{eventStartTime |date: 'hh:mm'}} - {{eventEndTime|date: 'hh:mm'}} UTC</h5>
     <h5><i>Location: </i>{{eventLocation}}</h5>
   </div>
-  
+
 
   <div class="row">
     <div class="column left1">
@@ -20,23 +20,19 @@
           <ul>
             <li>
               <i>Average Speed:</i>
-              <b><h3>{{averagespeed | number: '1.1-2'}}</h3></b>
-            </li>
-            <li>
-              <i>Current Speed:</i>
-              <b><h3>{{lastspeed |  number: '1.1-2'}}</h3></b>
+              <b><h3>{{averagespeed | number: '1.1-2'}}&nbsp;MPH</h3></b>
             </li>
             <li>
               <i>Distance Covered:</i>
-              <b><h3>{{totaldistance | number: '1.1-2'}}</h3></b>
+              <b><h3>{{totaldistance | number: '1.1-2'}}&nbsp;miles</h3></b>
             </li>
             <li>
-              <i>Time Elapsed:</i>
-              <b><h3>{{elapsedtime / 60000 |  number: '1.1-2'}}</h3></b>
+              <i>Duration:</i>
+              <b><h3>{{elapsedtime / 60000 |  number: '1.1-2'}}&nbsp;minutes</h3></b>
             </li>
             <li>
-              <i>Current Elevation</i>
-              <b><h3>{{currentelevation|  number: '1.1-2'}}</h3></b>
+              <i>Elevation</i>
+              <b><h3>{{currentelevation|  number: '1.1-2'}}&nbsp;feet</h3></b>
             </li>
           </ul>
         </div>
@@ -52,18 +48,9 @@
 
           </div>
         </div>
-        <div class="card-footer small text-muted"></div>
+        <div class="card-footer small text-muted">Updated yesterday at {{updatedat | date:"h:mm:ss a"}}</div>
       </div>
     </div>
-  </div>
-  <div class="card mb-3">
-    <div class="card-header">
-      <i class="fa fa-area-chart"></i> Track Rider
-    </div>
-    <div class="card-body">
-
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at --:-- PM</div>
   </div>
 </div>
 <br>
