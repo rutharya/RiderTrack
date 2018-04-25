@@ -60,6 +60,10 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
         this.riderLocationsService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long, eventsData.endLocation.lat, eventsData.endLocation.long, eventsData.trackFile);
+        this.averagespeed = "0.0";
+        this.totaldistance = "0.0";
+        this.elapsedtime = "0";
+        this.currentelevation = "0";
       });
 
       this.userService.getUsername(this.riderId).subscribe(rider=> {
