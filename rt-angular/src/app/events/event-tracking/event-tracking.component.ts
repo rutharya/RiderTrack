@@ -47,7 +47,7 @@ export class EventTrackingComponent implements OnInit {
         this.eventStartTime = eventsData.startTime;
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
-        this.latestLocationService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.trackFile);
+        this.latestLocationService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.endLocation.lat,eventsData.endLocation.long,eventsData.trackFile);
       });
 
       //this.latestLocationService.loadMap();

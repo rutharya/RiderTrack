@@ -32,7 +32,7 @@ export class LatestLocationService {
     return this.http.get<Array<TrackingData>>(this.apiAddress+eventId);
   }
 
-  loadMap(initCoordsLat, initCoordsLng, trackFile){
+  loadMap(initCoordsLat, initCoordsLng, endCoordsLat, endCoordsLng, trackFile){
     //Lmap = L.map('map').setView([33.42192543, -111.92350757], 11);
     Lmap = L.map('map').setView([initCoordsLat,initCoordsLng], 11);
     Lmap.maxZoom = 100;
@@ -60,17 +60,33 @@ export class LatestLocationService {
         Lmap.fitBounds(gpxLayer.getBounds());
       }).addTo(Lmap);
 
+    var startIcon = L.icon({
+        iconUrl: '../../assets/Image/start-icon.png',
+        iconSize: [30, 55],
+        iconAnchor: [15, 55],
+        popupAnchor: [0, -46],
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94]
+      });
+    L.marker([initCoordsLat, initCoordsLng],{icon: startIcon}).addTo(Lmap);
+
+    var endIcon = L.icon({
+      iconUrl: '../../assets/Image/end-icon.png',
+      iconSize: [30, 55],
+      iconAnchor: [2, 55],
+      popupAnchor: [0, -46],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
+    L.marker([endCoordsLat, endCoordsLng],{icon: endIcon}).addTo(Lmap);
+
+
     this.markersLayer = new L.LayerGroup();
     this.markersLayer.addTo(Lmap);
   }
 
   plot(locationData: any, riderNames:any): void{
     this.markersLayer.clearLayers();
-    const myStyle = {
-      'color': '#3949AB',
-      'weight': 5,
-      'opacity': 0.95
-    };
 
     var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
