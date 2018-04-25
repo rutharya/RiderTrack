@@ -195,7 +195,7 @@ router.post('/sendinvite', auth.required, function (req,res,next) {
         <p>Use this Link below to access the event your friend invited you to .</p>
         <p style="color:blue">${process.env.HOST}/eventTracking/${event._id}</p>
         <br/>
-        <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
+        <p style="color:red">This is an automatically generated mail from Ridertrack. Please do not reply</p>
         </body>
         </html>`];
 
