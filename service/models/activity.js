@@ -36,21 +36,9 @@ var activitySchema = new Schema({
 
     // Race Statistics compiled after race completion
     racestats:{
-        averagespeed: {
-            type: Number,
-            min:0,
-            max: 100
-        },
-        maxspeed: {
-            type: Number,
-            min:0,
-            max: 100
-        },
-        lastspeed:{
-          type: Number,
-          min:0,
-          max: 100
-        },
+        averagespeed: Number,
+        maxspeed: Number,
+        lastspeed:Number,
         totaldistance: Number,
         currentelevation: Number,
         maxelevation: Number,
