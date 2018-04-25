@@ -47,7 +47,59 @@ router.get('/getEventStats',function(req, res, next){
                 selectedactivity = activity;
                 console.log("Acitivty selected"+activity);
                 console.log("Result is:"+selectedactivity.racestats);
-                return res.json({statistics: activity.racestats});
+                if(selectedactivity.racestats['maxspeed'] != null || selectedactivity.racestats['maxspeed'] != undefined){
+
+                    console.log("already calculated");
+                    return res.json({statistics: activity.racestats});
+                }
+                else {
+                        console.log("Calculating stats");
+                    calculateStats(activity._id, function(result){
+                        console.log("Result of calculate stats for event is"+result);
+                        if(result === "Error"){
+                            console.log("No activity for the user");
+                            return res.status(422).json({
+                                result: false,
+                                status: {msg: "no activity in the event for this rider"}
+                            });
+                        }
+
+
+                        // Assigning the result of stats calculation
+                        stats =  {
+                            maxspeed: result['maxspeed'],
+                            averagespeed: result['averagespeed'],
+                            lastspeed: result['lastspeed'],
+                            totaldistance: result['totaldistance'],
+                            elapsedtime: result['elapsedtime'],
+                            currentelevation: result['currentelevation'],
+                            maxelevation: result['maxelevation'],
+                            averageelevation: result['averageelevation']
+
+                        }
+
+                        activity.racestats = stats;
+
+                        Activity.update(
+                            { "_id": activity._id },
+                            { "$set": { "racestats": stats} },
+                            { "multi": false },
+                            function(err) {
+
+                                if(err){
+                                    console.log("Error storing stats");
+                                    return res.status(500).json({
+                                        result: false,
+                                        status: {msg: "failed to calculate stats"}
+                                    });
+                                }
+                                else{
+                                    return res.json({statistics:activity.racestats});
+                                }
+                            });
+                    });
+
+                }
             });
         }).catch(next);
     }).catch(next);
