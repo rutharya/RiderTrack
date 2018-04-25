@@ -202,6 +202,60 @@ router.post('/saveloc',auth.required,function(req,res,next){
 })
 
 
+/*
+* Function to calculate event stats on marking of activity flag complete
+* */
+
+function calculateEventStats(activityid){
+    Activity.findOne({_id:activityid}).then(function(activity){
+        if(!activity || activity === null) {
+        }
+        else{
+            var stats = null;
+            calculateStats(activity._id, function(result){
+                console.log("Result of calculate stats for event is"+result);
+                if(result === "Error"){
+                    console.log("No activity for the user");
+
+                }
+
+
+                // Assigning the result of stats calculation
+                stats =  {
+                    maxspeed: result['maxspeed'],
+                    averagespeed: result['averagespeed'],
+                    lastspeed: result['lastspeed'],
+                    totaldistance: result['totaldistance'],
+                    elapsedtime: result['elapsedtime'],
+                    currentelevation: result['currentelevation'],
+                    maxelevation: result['maxelevation'],
+                    averageelevation: result['averageelevation']
+
+                }
+
+                activity.racestats = stats;
+
+                Activity.update(
+                    { "_id": activity._id },
+                    { "$set": { "racestats": stats} },
+                    { "multi": false },
+                    function(err) {
+
+                        if(err){
+                            console.log("Error storing stats");
+                        }
+                        else{
+                            console.log("Saved to db for activity"+activityid);
+                        }
+                    });
+            });
+
+        }
+    });
+
+}
+
+
 
 
 module.exports = router;

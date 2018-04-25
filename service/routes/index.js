@@ -210,7 +210,7 @@ router.get('/userdatapoints',auth.required,function(req,res,next){
 
         Activity.aggregate([
 
-            {$match: {riderid: riderid}},
+            {$match: {riderid: riderid,completed:true}},
             { "$group": { "_id": null, distance:{$push:"$racestats.totaldistance"}, speed:{$push: "$racestats.averagespeed"}, altitude:{$push: "$racestats.averageelevation"} } },
             { "$project":{speed:true,distance:true, altitude:true,_id:false}}
         ] ,function (err,result){
