@@ -32,7 +32,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public elapsedtime: string;
   public totaldistance: string;
   public riderUsername: string;
-  public updatedat;
+  public updatedat: any;
 
   riderData$: RiderData[];
   riderData$$: RiderDataDmass;
@@ -83,6 +83,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       // this.riderData$ = riderData;
       this.riderData$$ = riderData;
       this.riderLocationsService.plot(this.riderData$$.gps_stats);
+      this.updatedat = new Date(this.riderData$$.gps_stats[this.riderData$$.gps_stats.length -1].timestamp);
       if(this.riderData$$.completed == true)
         this.alive = false;
     })

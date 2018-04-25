@@ -52,7 +52,7 @@ export class EventTrackingComponent implements OnInit {
 
       //this.latestLocationService.loadMap();
       this.getLatestLocation(this.eventId);
-      Observable.interval(0.5 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
+      Observable.interval(1 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getLatestLocation(this.eventId);
       });
     });
