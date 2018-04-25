@@ -45,15 +45,7 @@ router.get('/getEventStats',function(req, res, next){
                     });
                 }
                 selectedactivity = activity;
-                console.log("Acitivty selected"+activity);
-                console.log("Result is:"+selectedactivity.racestats);
-                if(selectedactivity.racestats['maxspeed'] != null || selectedactivity.racestats['maxspeed'] != undefined){
-
-                    console.log("already calculated");
-                    return res.json({statistics: activity.racestats});
-                }
-                else {
-                        console.log("Calculating stats");
+                console.log("Calculating stats");
                     calculateStats(activity._id, function(result){
                         console.log("Result of calculate stats for event is"+result);
                         if(result === "Error"){
@@ -99,7 +91,7 @@ router.get('/getEventStats',function(req, res, next){
                             });
                     });
 
-                }
+
             });
         }).catch(next);
     }).catch(next);
