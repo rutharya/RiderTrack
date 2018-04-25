@@ -18,16 +18,17 @@
         <li>
           <div class="tomp" align="center"><h6>{{currentUser.email}}</h6></div>
         </li>
-        <hr>
+       <hr>
         <li><a [routerLink]="['./dashboard']" (click)="toDashboard($event)"><b
           class="fa fa-fw fa-link">Dashboard</b></a></li>
-        <hr>
+
         <li><a [routerLink]="['./myEvents']"><b class="fa fa-fw fa-angle-right">My Events</b></a></li>
-        <hr>
         <li><a [routerLink]="['./riderEvents']"><b class="fa fa-fw fa-link">Events Registration</b></a></li>
-        <hr>
+
+
         <li *ngIf="currentUser.admin"><a [routerLink]="['./adminEvents']"><b class="fa fa-fw fa-link">Create Event</b></a></li>
-        <hr>
+
+
         <!--<li>-->
         <!--<a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i>Dashboard</a>-->
         <!--TOOD: implement submenu system?-->
@@ -42,7 +43,7 @@
         <!--</li>-->
 
         <li><a [routerLink]="['./profile']"><b class="fa fa-fw fa-link">Profile</b></a></li>
-        <hr>
+
       </div>
     </ul>
 
