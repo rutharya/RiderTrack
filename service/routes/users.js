@@ -58,11 +58,8 @@ router.post('/', function (req, res, next) {
    }
    //calling mongoose setPassword method -> generates salt and hashes the pwd and stores in db.
     user.setPassword(req.body.password);
-    console.log('here');
     // TODO: (ruthar) check the response (do we really need to send back so much info about user from just login?)
     user.save().then(function (usr) {
-        console.log(chalk.red('here'));
-        console.log(usr);
         return res.json({
             user: user.toAuthJSON()
         });
@@ -108,7 +105,12 @@ router.put('/', auth.required, function (req, res, next) {
     console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
     User.findById(req.payload.id).then(function (user) {
         if (!user) {
-            return res.sendStatus(401);
+            return res.status(401).json({
+                result: false,
+                status: {
+                    msg: 'authentication failed'
+                }
+            });
         }
         // only update fields that were actually passed...
         //username shouldnt be passed??
@@ -123,6 +125,9 @@ router.put('/', auth.required, function (req, res, next) {
         }
         if ((typeof req.body.email !== 'undefined') && (!(req.body.email === ''))) {
             user.email = req.body.email;
+        }
+        if ((typeof req.body.age !== 'undefined') && (!(req.body.age === ''))) {
+            user.age = req.body.age;
         }
         if ((typeof req.body.height !== 'undefined') && (!(req.body.height === ''))) {
             user.height = req.body.height;
@@ -145,12 +150,12 @@ router.put('/', auth.required, function (req, res, next) {
         if ((typeof req.body.image !== 'undefined') && (!(req.body.image === ''))) {
             user.image = req.body.image;
         }
-        console.log('user ??');
-        console.log(user);
         return user.save().then(function () {
             return res.json({user: user.toAuthJSON()});
         });
-    }).catch(next);
+    }).catch(next => {
+        console.log(next);
+    });
 });
 
 
@@ -196,7 +201,6 @@ router.post('/login', function (req, res, next) {
 router.post('/forgotpwd', function (req, res, next) {
     console.log(chalk.green('Forgot Password Request Recieved: <POST> /USERS/forgotpwd:'));
     console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
-    console.log(req.body);
     //TODO: do we addd email validators here?
     if (!req.body.email || req.body.email === '' || req.body.email=== ' ') {
         return res.status(422).json({result: false, status: {msg: 'email is missing'}});
@@ -239,6 +243,9 @@ router.post('/forgotpwd', function (req, res, next) {
         mailer(user.email, data);
         console.log(chalk.yellow('EMAIL SENT to user.'));
         // console.log('GO TO : ' + process.env.HOST + '/users/' + user.resetPasswordToken);
+    }).catch(next => {
+        //couldnt find email id? or any other error.
+        return res.status(404).json({result: false, status: {msg: next.message}});
     });
 })
 
@@ -254,10 +261,8 @@ router.get('/:token', function (req, res) {
         if (!user) {
             return res.status(422).json({result:false,status: {msg: "user not found"}});
         }
-        //found --
-        console.log('user successfully found -> render the proper form to reset password');
-        // return res.json({result: "OK", status:{msg:"can post to this route to change password."}});
-        return res.render('reset_pwd', {user: user});
+        //found
+        return res.render('reset_pwd');
     });
 });
 
@@ -270,6 +275,9 @@ router.get('/:token', function (req, res) {
 router.post('/:token', function (req, res) {
     console.log(chalk.green('Password Reset Data sent to Dynamic route: <POST> /USERS/<<TOKEN>>'));
     console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
+    if (!req.body.password || req.body.password === '') {
+        return res.status(422).json({result: false, status: {msg: 'password is missing'}});
+    }
     User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function (err, user) {
         if (!user) {
             return res.status(422).json({errors: {user: "user not found"}});
@@ -285,6 +293,8 @@ router.post('/:token', function (req, res) {
             //option 3 -> redirect to /login and let angular take care of the rest when the express server is configured.
             // return res.json({result: true, status: {msg: "user password written to db"}})
         });
+    }).catch(next => {
+        return res.status(500).json({result:false, status: { msg: next}});
     });
 });
 
