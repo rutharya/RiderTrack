@@ -1,6 +1,6 @@
 {
-  "name": "service",
-  "version": "0.0.0",
+  "name": "ridertrack",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "prestart": "node ./service/scripts/startMessage.js",
