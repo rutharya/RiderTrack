@@ -17,8 +17,8 @@
         </div>
         <div class="card-body">
           <form>
-            <input [(ngModel)]="riderSearchTerm" type="text" name="riderSearchTerm" placeholder="Search..">
-            <button class="btn btn-primary" name="searchBtn" (click)="searchRiders(riderSearchTerm)">search</button>
+            <input [(ngModel)]="riderSearchTerm" type="text" name="riderSearchTerm" placeholder="Search.." (keyup)="searchRiders(riderSearchTerm)">
+            <!--<button class="btn btn-primary" name="searchBtn" (click)="searchRiders(riderSearchTerm)">search</button>-->
           </form>
           <br/>
           <ul>
