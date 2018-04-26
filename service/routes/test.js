@@ -196,5 +196,95 @@ router.get('/getRiderLocation',function(req,res){
     });
 });
 
+router.post('/saveActivity',function (req,res) {
+    console.log(" In Save Activity");
+    console.log(req.body);
+    https.get(req.body.trackFile, function(response) {
+        var response_data = '';
+        response.setEncoding('utf8');
+        response.on('data', function(chunk) {
+            response_data += chunk;
+        });
+        response.on('end', function() {
+            parser.parseString(response_data, function(err, result) {
+                if (err) {
+                    console.log('Got error: ' + err.message);
+                } else {
+                    console.log('Start Lat: '+result.gpx.trk[0].trkseg[0].trkpt[0].$.lat);
+                    console.log('Start Lng: '+result.gpx.trk[0].trkseg[0].trkpt[0].$.lon);
+                    var len = result.gpx.trk[0].trkseg[0].trkpt.length;
+                    console.log(len);
+                    console.log('End Lat: '+result.gpx.trk[0].trkseg[0].trkpt[len-1].$.lat);
+                    console.log('End Lng: '+result.gpx.trk[0].trkseg[0].trkpt[len-1].$.lon);
+                    var event = new Events({
+                        name: req.body.name,
+                        description: req.body.description,
+                        image: req.body.image,
+                        date: Date.now(),
+                        location: req.body.location,
+                        startTime: Date.now(),
+                        endTime: Date.now(),
+                        trackFile: req.body.trackFile,
+                        track: {
+                            elevation: req.body.elevation,
+                            length: req.body.length,
+                            difficulty: req.body.difficulty
+                        },
+                        startLocation:{
+                            lat:result.gpx.trk[0].trkseg[0].trkpt[0].$.lat,
+                            long:result.gpx.trk[0].trkseg[0].trkpt[0].$.lon
+                        },
+                        endLocation:{
+                            lat:result.gpx.trk[0].trkseg[0].trkpt[len-1].$.lat,
+                            long:result.gpx.trk[0].trkseg[0].trkpt[len-1].$.lon
+                        },
+                    });
+                    console.log(event);
+                    event.save(function(err,result){
+                        console.log(err);
+                        console.log(result);
+                        if(err) return res.status(422).json({errors: {event: "Events not found"}});
+                        return res.send({"Saved Event ID": result._id})
+                    });
+                    //console.log('Done.');
+                }
+            });
+        });
+        response.on('error', function(err) {
+            console.log('Got error: ' + err.message);
+        });
+    });
+    /*var user_activiy = new Activity({
+        eventid: new mongoose.Types.ObjectId(req.body.eventid.toString()),
+        riderid: new mongoose.Types.ObjectId(req.body.riderid.toString()),
+        lastestcoordinates:{
+            lat: req.body.lat,
+            lng: req.body.lng
+        },
+        gps_stats:[{
+            timestamp: Date.now(),
+            lat: req.body.lat,
+            lng: req.body.lng,
+            speed: 0,
+            distLeft: 123,
+            altitude: 234
+        },
+        {
+            timestamp: Date.now(),
+            lat: req.body.lat1,
+            lng: req.body.lng1,
+            speed: 0,
+            distLeft: 123,
+            altitude: 234
+        }
+        ],
+        completed: false
+    });
+    user_activiy.save(function (err){
+        if(err) res.send("Error!!!")
+        res.send("ok");
+    })*/
+    //res.send("ok")
+})
 
 module.exports = router;
