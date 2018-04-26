@@ -2,14 +2,27 @@ var express = require('express');
 var router = express.Router();
 var auth = require('../config/auth');
 var passport = require('passport');
-
+var chalk = require('chalk');
 var User = require('../models/rider');
 var Event = require('../models/events');
 var Activity = require('../models/activity');
 
 
 
-
+/**
+ * GET /activities/id/:ID -> get event by id
+ * @method GET
+ * @param activityId required as url parameter /activity/<<ACTIVITY_ID>>
+ * @returns Activity.toJSON()
+ */
+ router.get('/id/:activityId',auth.required,function(req,res,next){
+    console.log(chalk.green('Get Activity By ID Request Recieved: <GET> /Activities/<ACTIVITY_ID>:'));
+    console.log(chalk.yellow('ACTIVITY_ID: ', JSON.stringify(req.params.activityId)));
+    Activity.findOne({_id:req.params.activityId}).then(function(activity){
+        if(!activity) res.status(404).json({result:false,status: { msg: "activity not found"}});
+        res.send(activity);
+    }).catch(next);
+ })
 
 /*
 * Route to get event specific stats
