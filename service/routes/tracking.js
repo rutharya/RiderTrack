@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
-
+var chalk = require('chalk');
 var auth = require('../config/auth');
 var bodyParser = require('body-parser');
 var mailer = require('../../tools/sendInvites');
@@ -61,7 +61,16 @@ router.get('/rider/:eventid',function(req,res,next){
     }).catch(next);
   });
 
+  /**
+   * @method POST
+   * @param eventId required as req.body.eventId
+   * @param lat required as req.body.lat
+   * @param lng required as req.body.lng
+   * @returns 
+   */
 router.post('/saveloc',auth.required,function(req,res,next){
+  console.log(chalk.green('Request Recieved: <POST> /tracking/saveloc:\n'));
+  console.log(chalk.yellow('Body: ', JSON.stringify(req.body)));
     var appuser;
     var now = Date.now();
     var event_id = new mongoose.Types.ObjectId(req.body.eventid);
@@ -94,7 +103,9 @@ router.post('/saveloc',auth.required,function(req,res,next){
               status: {msg: 'activity is already marked completed'}
           });
           }
-          if(err){res.render('error',{message:err});}
+          if(err){
+            return res.status(500).json({result: false, status: {msg: err}});
+          }
           //1. user activity does not exist.
           var user_gps_data = {
             timestamp: Date.now(),
@@ -129,10 +140,29 @@ router.post('/saveloc',auth.required,function(req,res,next){
                   currentRace:null
                 });
                 console.log(user_activiy);
+                console.log('checking for req.body.completed');
+                console.log(req.body.completed);
                 if ((typeof req.body.completed !== 'undefined') && (!(req.body.completed === ''))) {
                   user_activiy.completed = true;
                   console.log('trigger calculate stats here');
-              }
+                  calculateEventStats(user_activiy._id);
+                  user_activiy.save(function(err,result){
+                    if(err) { return res.status(501).json({
+                      result:false,
+                      status: {
+                        msg: 'error saving activity'
+                      }
+                    })}
+
+                    console.log(chalk.blue('saved activity.'))
+                    //id?
+                    console.log(result._id);
+                    return res.status(200).json({result:true, data:result});
+                    // calculateEventStats(result._id);
+                  })
+              }else{
+                //completed not set.
+                console.log('before save');
                 user_activiy.save(function(err,result){
                   if(err){return res.status(422).json({
                     result: false,
@@ -140,6 +170,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
                 });}
                   return res.send({result:true,data:result})
                 });
+              }
           }
           else{
             //activity already exists.
@@ -147,7 +178,33 @@ router.post('/saveloc',auth.required,function(req,res,next){
             cache.get(req.payload.id,function(err,athlete_gps_data){
               if(athlete_gps_data !== null){
                 console.log('cache hit!!');
-                //gps data found in cache ->
+                console.log('checking for req.body.completed');
+                console.log(req.body.completed);
+                if ((typeof req.body.completed !== 'undefined') && (!(req.body.completed === ''))) {
+                  activity.completed = true;
+                  //purge cache and save it to db and send data back.
+                  var ath_gps_cache2 = JSON.parse(athlete_gps_data);
+                  ath_gps_cache2.push(user_gps_data);
+                  activity.set({latestcoordinates:{
+                    lat: req.body.lat,
+                    lng:req.body.lng
+                  }});
+                  activity.set({gps_stats:ath_gps_cache2});
+                  cache.del(req.payload.id);
+                  activity.save(function(err, updatedData){
+                    if (err) return res.status(422).json({
+                      result: false,
+                      status: {msg: err}
+                  });
+                    console.log('updatedData -' + updatedData);
+                    console.log('flushing data to db from cache.')
+                      return res.send({result:true,status:{msg: "saved to db"},data:activity})
+                  });
+                  console.log('trigger calculate stats here');
+
+              }
+              else{
+                   //gps data found in cache ->
                 //TODO: what should be returned ??
                 var ath_gps_cache = JSON.parse(athlete_gps_data);
                 if(ath_gps_cache.length < CACHE_MAX){
@@ -177,23 +234,40 @@ router.post('/saveloc',auth.required,function(req,res,next){
                           return res.send({result:true,status:{msg: "saved to db"},data:activity})
                           })
                       }
+              }
               }else{
                 //data not found in cache but useractivity exists.
                 console.log('data not found in cache, but activity log for event exists in activities collection');
-                //var gps_data = activity.gps_stats;
-                if(activity.gps_stats.length < CACHE_MAX){
-                activity.gps_stats.push(user_gps_data);
-                }
-                else{
-                  // activity.gps_stats =[];
+                if ((typeof req.body.completed !== 'undefined') && (!(req.body.completed === ''))) {
+                  activity.completed = true;
+                  //cache redundant at this point... just append gps to activity and save it. 
                   activity.gps_stats.push(user_gps_data);
+                  activity.save(function (err, updatedData) {
+                    if (err) return res.status(422).json({
+                      result: false,
+                      status: {msg: err}
+                  });
+                    console.log('updatedData -' + updatedData);
+                    // TODO: respond with activity completed?
+                      return res.send({result:true,status:{msg: "saved to db"},data:activity})
+                      })
                 }
-                // gps_data.push(user_gps_data);
-                cache.set(req.payload.id,JSON.stringify(activity.gps_stats),function(){
-                  //cache has been set
-                  console.log('cache set ');
-                  res.json({result:true,status:{msg: "returning from cache"},data:activity}); //response data sent back
-                })
+                else {
+                   //var gps_data = activity.gps_stats;
+                if(activity.gps_stats.length < CACHE_MAX){
+                  activity.gps_stats.push(user_gps_data);
+                  }
+                  else{
+                    // activity.gps_stats =[];
+                    activity.gps_stats.push(user_gps_data);
+                  }
+                  // gps_data.push(user_gps_data);
+                  cache.set(req.payload.id,JSON.stringify(activity.gps_stats),function(){
+                    //cache has been set
+                    console.log('cache set ');
+                    res.json({result:true,status:{msg: "returning from cache"},data:activity}); //response data sent back
+                  })
+                }
               }
             })
           }//end of else
@@ -208,6 +282,7 @@ router.post('/saveloc',auth.required,function(req,res,next){
 
 function calculateEventStats(activityid){
     Activity.findOne({_id:activityid}).then(function(activity){
+        console.log("Calling stats after finish for activity:"+activityid);
         if(!activity || activity === null) {
         }
         else{
@@ -256,6 +331,41 @@ function calculateEventStats(activityid){
 }
 
 
+// Function to calculate Event stats including: average speed, current elevation, distance from start, and elapsed time in terms of milliseconds
+// Output: Average Speed, Current Distance from starting point of race, current altitude, and elapsed time.
 
+function calculateStats(activityid, fn){
+
+    console.log("Inside calculate stats function");
+    // Added query to calculate average speed and elevationgain. Yet to caclulate distance and eventduration.
+
+    Activity.aggregate([ { $match: { _id:activityid }}, {$unwind: "$gps_stats"},
+        { $group: { _id: null, averagespeed: { $avg: "$gps_stats.speed" }, maxspeed: {$max: "$gps_stats.speed"}, maxelevation: {$max: "$gps_stats.altitude"},
+                averageelevation: {$avg:"$gps_stats.altitude"},
+                first: { $first: "$gps_stats" },
+                last: { $last: "$gps_stats" },
+            }},
+        { $project: {
+                elapsedtime: {
+                    $subtract: [ "$last.timestamp", "$first.timestamp"]
+                },
+                averagespeed:1, maxspeed:1, averageelevation:1, maxelevation:1, totaldistance: {$subtract: ["$last.distLeft",0]}, lastspeed:{$subtract: ["$last.speed",0]}, currentelevation: { $subtract: [ "$last.altitude", 0 ]}
+            }}
+    ], function (err,result){
+        if (err) {
+            console.log(err);
+            fn("Error");
+        }
+        else {
+            if(result === null){
+                console.log("Error");
+                fn("Error");
+            }
+            console.log(result[0]);
+            fn(result[0]);
+        }
+
+    });
+}
 
 module.exports = router;
