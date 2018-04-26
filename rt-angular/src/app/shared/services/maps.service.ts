@@ -50,7 +50,7 @@ export class MapService {
     const myStyle = {
       'color': '#3949AB',
       'weight': 5,
-      'opacity': 0.95
+      'opacity': 0.95,
     };
 
 
@@ -64,7 +64,10 @@ export class MapService {
       accessToken: apiToken,
     }).addTo(map);
 
-
+    $(window).on('resize', function() {
+      $('#map').height($(window).height()).width($(window).width());
+      map.invalidateSize();
+    }).trigger('resize');
 
     const latlngs = [];
 
