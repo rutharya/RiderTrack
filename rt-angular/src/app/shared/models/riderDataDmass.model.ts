@@ -14,5 +14,6 @@ export interface GPS_Stats {
   lng: number,
   speed?:number,
   distanceleft?:number,
-  altitude?:number
+  altitude?:number,
+  timestamp?:any
 }

@@ -36,7 +36,7 @@ export class RiderLocationsService {
     return this.http.get<Array<RiderData>>(this.apiAddress+"eventid="+eventId+"&riderid="+riderId);
   }
 
-  loadMap(initCoordsLat, initCoordsLng, trackFile){
+  loadMap(initCoordsLat, initCoordsLng, endCoordsLat, endCoordsLng,trackFile){
     //this.map = L.map('map').setView([33.42192543, -111.92350757], 11);
     console.log("In loadmap function");
     //console.log("XXX"+initCoordsLat);
@@ -63,8 +63,6 @@ export class RiderLocationsService {
       id: 'mapbox.streets',
       accessToken: this.apiToken,
     }).addTo(Lmap);
-    this.markersLayer = new L.LayerGroup();
-    this.markersLayer.addTo(Lmap);
 
     const customLayer = L.geoJson(null, {
       style: myStyle
@@ -74,6 +72,29 @@ export class RiderLocationsService {
       .on('ready', function() {
         Lmap.fitBounds(gpxLayer.getBounds());
       }).addTo(Lmap);
+
+    var startIcon = L.icon({
+      iconUrl: '../../assets/Image/start-icon.png',
+      iconSize: [30, 55],
+      iconAnchor: [15, 55],
+      popupAnchor: [0, -46],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
+    L.marker([initCoordsLat, initCoordsLng],{icon: startIcon}).addTo(Lmap);
+
+    var endIcon = L.icon({
+      iconUrl: '../../assets/Image/end-icon.png',
+      iconSize: [30, 55],
+      iconAnchor: [2, 55],
+      popupAnchor: [0, -46],
+      shadowSize: [68, 95],
+      shadowAnchor: [22, 94]
+    });
+    L.marker([endCoordsLat, endCoordsLng],{icon: endIcon}).addTo(Lmap);
+
+    this.markersLayer = new L.LayerGroup();
+    this.markersLayer.addTo(Lmap);
 
     /*var myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',

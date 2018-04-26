@@ -47,12 +47,12 @@ export class EventTrackingComponent implements OnInit {
         this.eventStartTime = eventsData.startTime;
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
-        this.latestLocationService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.trackFile);
+        this.latestLocationService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.endLocation.lat,eventsData.endLocation.long,eventsData.trackFile);
       });
 
       //this.latestLocationService.loadMap();
       this.getLatestLocation(this.eventId);
-      Observable.interval(0.5 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
+      Observable.interval(0.15 * 60 * 1000).takeWhile(() => this.alive).subscribe(x => {
         this.getLatestLocation(this.eventId);
       });
     });

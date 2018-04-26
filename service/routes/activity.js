@@ -2,14 +2,27 @@ var express = require('express');
 var router = express.Router();
 var auth = require('../config/auth');
 var passport = require('passport');
-
+var chalk = require('chalk');
 var User = require('../models/rider');
 var Event = require('../models/events');
 var Activity = require('../models/activity');
 
 
 
-
+/**
+ * GET /activities/id/:ID -> get event by id
+ * @method GET
+ * @param activityId required as url parameter /activity/<<ACTIVITY_ID>>
+ * @returns Activity.toJSON()
+ */
+ router.get('/id/:activityId',auth.required,function(req,res,next){
+    console.log(chalk.green('Get Activity By ID Request Recieved: <GET> /Activities/<ACTIVITY_ID>:'));
+    console.log(chalk.yellow('ACTIVITY_ID: ', JSON.stringify(req.params.activityId)));
+    Activity.findOne({_id:req.params.activityId}).then(function(activity){
+        if(!activity) res.status(404).json({result:false,status: { msg: "activity not found"}});
+        res.send(activity);
+    }).catch(next);
+ })
 
 /*
 * Route to get event specific stats
@@ -45,9 +58,53 @@ router.get('/getEventStats',function(req, res, next){
                     });
                 }
                 selectedactivity = activity;
-                console.log("Acitivty selected"+activity);
-                console.log("Result is:"+selectedactivity.racestats);
-                return res.json({statistics: activity.racestats});
+                console.log("Calculating stats");
+                    calculateStats(activity._id, function(result){
+                        console.log("Result of calculate stats for event is"+result);
+                        if(result === "Error"){
+                            console.log("No activity for the user");
+                            return res.status(422).json({
+                                result: false,
+                                status: {msg: "no activity in the event for this rider"}
+                            });
+                        }
+
+
+                        // Assigning the result of stats calculation
+                        stats =  {
+                            maxspeed: result['maxspeed'],
+                            averagespeed: result['averagespeed'],
+                            lastspeed: result['lastspeed'],
+                            totaldistance: result['totaldistance'],
+                            elapsedtime: result['elapsedtime'],
+                            currentelevation: result['currentelevation'],
+                            maxelevation: result['maxelevation'],
+                            averageelevation: result['averageelevation']
+
+                        }
+
+                        activity.racestats = stats;
+
+                        Activity.update(
+                            { "_id": activity._id },
+                            { "$set": { "racestats": stats} },
+                            { "multi": false },
+                            function(err) {
+
+                                if(err){
+                                    console.log("Error storing stats");
+                                    return res.status(500).json({
+                                        result: false,
+                                        status: {msg: "failed to calculate stats"}
+                                    });
+                                }
+                                else{
+                                    return res.json({statistics:activity.racestats});
+                                }
+                            });
+                    });
+
+
             });
         }).catch(next);
     }).catch(next);

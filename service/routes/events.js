@@ -80,10 +80,13 @@ router.post('/save', function (req, res) {
  * @returns USER_REGISTERED_EventIDS[]
  */
 router.get('/register', auth.required, function (req, res,next) {
+    console.log(chalk.green('Get Registered EventIds Request Recieved: <GET> /EVENTS/register'));
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
         return res.json(user.getRegisteredEvents());
-      }).catch(next);
+      }).catch(next => {
+        return res.status(404).json({result: false, status: {msg: next.message}});
+      });
 });
 
 /**
@@ -93,6 +96,7 @@ router.get('/register', auth.required, function (req, res,next) {
  * @returns USER_REGISTERED_Events[]
  */
 router.get('/registered_events',auth.required,function(req,res,next){
+    console.log(chalk.green('Get Registered Events Request Recieved: <GET> /EVENTS/registered_events'));
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
         var response = [];
@@ -102,8 +106,14 @@ router.get('/registered_events',auth.required,function(req,res,next){
               return;
             }
             return res.send(events);
+        }).catch(next => {
+            //couldnt find event.
+            return res.status(404).json({result: false, status: {msg: next.message}});
         });
-      }).catch(next);
+      }).catch(next => {
+          //couldnt find user.
+        return res.status(404).json({result: false, status: {msg: next.message}});
+      });
 })
 
 /**
@@ -118,7 +128,6 @@ router.post('/unregister',auth.required,function(req,res,next){
     if(!req.body.eventId || req.body.eventId === ""){
         return res.status(422).json({result: false, status: {msg: 'eventId is missing'}});
     }
-    console.log('DELETE /events/register');
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
         if(user.isParticipant(req.body.eventId)){
@@ -152,9 +161,14 @@ router.post('/unregister',auth.required,function(req,res,next){
                     return res.json({result: true, status:{msg:"Successfully un-registered from event"}});
                   });
             })
+        }).catch(next => {
+            //couldnt find event.
+            return res.status(404).json({result: false, status: {msg: next.message}});
         })
-        // return res.json(user.getRegisteredEvents());
-      }).catch(next);
+      }).catch(next => {
+          //couldnt find user.
+        return res.status(404).json({result: false, status: {msg: next.message}});
+      });
 
 })
 
@@ -195,7 +209,6 @@ router.post('/sendinvite', auth.required, function (req,res,next) {
         <p>Use this Link below to access the event your friend invited you to .</p>
         <p style="color:blue">${process.env.HOST}/eventTracking/${event._id}</p>
         <br/>
-        <p style="color:red">This is an automatically generated mail from Ridertrack. Please ignore if you have not opted to reset your password</p>
         </body>
         </html>`];
 
@@ -223,8 +236,6 @@ router.post('/register',auth.required,function(req,res,next){
     Rider.findById(req.payload.id).then(function(user){
         if(!user){ return res.sendStatus(401); }
         //1. if already registered
-        console.log(chalk.red('is participant?'));
-        console.log(chalk.green(user.isParticipant(req.body.eventId)));
         if(user.isParticipant(req.body.eventId)){
             return res.status(200).json({result:false, status: {msg: "already registered to event!!"}});
         }
@@ -247,8 +258,14 @@ router.post('/register',auth.required,function(req,res,next){
                     return res.json({result: true, status:{msg:"Successfully registered to event."}});
                   });
             })
+        }).catch(next => {
+            //couldnt find event.
+            return res.status(404).json({result: false, status: {msg: next.message}});
         })
-    }).catch(next);
+    }).catch(next => {
+        //couldnt find rider.
+        return res.status(404).json({result: false, status: {msg: next.message}});
+    });
 });
 
 /**
@@ -258,7 +275,7 @@ router.post('/register',auth.required,function(req,res,next){
  * @returns Event.toJSON()
  */
 router.get('/:eventId',function(req,res,next){
-    console.log(chalk.green('Login Request Recieved: <POST> /USERS/LOGIN:'));
+    console.log(chalk.green('Get Event By ID Request Recieved: <GET> /Events/<EVENTID>:'));
     console.log(chalk.yellow('EVENT_ID: ', JSON.stringify(req.params.eventId)));
     Event.findOne({_id:req.params.eventId}).then(function(event){
         if(!event) res.status(404).json({result:false,status: { msg: "event not found"}});

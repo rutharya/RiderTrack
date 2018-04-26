@@ -46,11 +46,11 @@ export class MapService {
 
   plotRecentActivity(locationData: any) {
 
-    console.log("Plotting most recent activity");
+    console.log('Plotting most recent activity');
     const myStyle = {
       'color': '#3949AB',
       'weight': 5,
-      'opacity': 0.95
+      'opacity': 0.95,
     };
 
 
@@ -65,11 +65,10 @@ export class MapService {
     }).addTo(map);
 
 
+    const latlngs = [];
 
-    var latlngs = [];
 
-
-    var myIcon = L.icon({
+    const myIcon = L.icon({
       iconUrl: '../../assets/Image/marker-icon.png',
       iconSize: [30, 55],
       iconAnchor: [22, 94],
@@ -80,16 +79,16 @@ export class MapService {
 
 
 
-    console.log("The data received is:"+locationData);
-    for(var data of locationData){
-      console.log(data.lat+" and " +data.lng);
+    console.log('The data received is:' + locationData);
+    for (const data of locationData) {
+      console.log(data.lat + ' and ' + data.lng);
           latlngs.push([data.lat, data.lng]);
 
     }
 
 
 
-    var polyline = L.polyline(latlngs, {color: '#ffa500',weight: 10,lineCap: 'round', stroke:true}).addTo(map);
+    const polyline = L.polyline(latlngs, {color: '#ffa500', weight: 10, lineCap: 'round', stroke: true}).addTo(map);
 // zoom the map to the polyline
     map.fitBounds(polyline.getBounds());
 

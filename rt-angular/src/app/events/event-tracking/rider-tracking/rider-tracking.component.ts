@@ -32,7 +32,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
   public elapsedtime: string;
   public totaldistance: string;
   public riderUsername: string;
-  public updatedat;
+  public updatedat: any;
 
   riderData$: RiderData[];
   riderData$$: RiderDataDmass;
@@ -59,7 +59,11 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
         this.eventStartTime = eventsData.startTime;
         this.eventEndTime = eventsData.endTime;
         this.eventLocation = eventsData.location;
-        this.riderLocationsService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long,eventsData.trackFile);
+        this.riderLocationsService.loadMap(eventsData.startLocation.lat,eventsData.startLocation.long, eventsData.endLocation.lat, eventsData.endLocation.long, eventsData.trackFile);
+        this.averagespeed = "0.0";
+        this.totaldistance = "0.0";
+        this.elapsedtime = "0";
+        this.currentelevation = "0";
       });
 
       this.userService.getUsername(this.riderId).subscribe(rider=> {
@@ -83,6 +87,7 @@ export class RiderTrackingComponent implements OnInit, OnDestroy {
       // this.riderData$ = riderData;
       this.riderData$$ = riderData;
       this.riderLocationsService.plot(this.riderData$$.gps_stats);
+      this.updatedat = new Date(this.riderData$$.gps_stats[this.riderData$$.gps_stats.length -1].timestamp);
       if(this.riderData$$.completed == true)
         this.alive = false;
     })
