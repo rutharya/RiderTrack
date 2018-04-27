@@ -1,9 +1,9 @@
 # RiderTrack
 
 
-prod env -  https://athlete-tracker.herokuapp.com/
+prod env -  https://ridertrack-app.herokuapp.com
 
-preprod env -https://athlete-tracker-preprod.herokuapp.com/
+preprod env - https://ridertrack-preprod.herokuapp.com/
 
 
 LOGIN to the APP:
