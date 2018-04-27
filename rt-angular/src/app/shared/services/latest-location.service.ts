@@ -96,7 +96,7 @@ export class LatestLocationService {
       shadowSize: [68, 95],
       shadowAnchor: [22, 94]
     });
-    var i=0;
+    /*var i=0;
     for (var data of locationData) {
       console.log(data.latestcoordinates.lat);
       var marker = L.marker([data.latestcoordinates.lat, data.latestcoordinates.lng],{icon: myIcon});
@@ -109,6 +109,25 @@ export class LatestLocationService {
       marker.on('mouseout', function(e) {
         this.closePopup();
       });
+    }*/
+
+    for (var data of locationData) {
+      for(var i=0; i<riderNames.length; i++){
+        if(riderNames[i].riderId == data.riderid){
+          console.log(data.latestcoordinates.lat);
+          var marker = L.marker([data.latestcoordinates.lat, data.latestcoordinates.lng],{icon: myIcon});
+          marker.bindPopup('<b>'+ riderNames[i].riderUsername +'</b><br>' + 'Lat: '+ data.latestcoordinates.lat + ' Lng: '+ data.latestcoordinates.lng);
+          this.markersLayer.addLayer(marker);
+          i++;
+          marker.on('mouseover', function(e) {
+            this.openPopup();
+          });
+          marker.on('mouseout', function(e) {
+            this.closePopup();
+          });
+          break;
+        }
+      }
     }
   }
 }
