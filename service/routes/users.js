@@ -84,7 +84,10 @@ router.get('/username/:riderId',function(req,res,next){
     console.log(req.params.riderId);
     User.findOne({_id:req.params.riderId}).then(function(rider){
         if(!rider) res.status(404).json({result:false,status: { msg: "rider not found"}});
-        res.send(rider);
+        res.send({
+            username: rider.username,
+            _id: rider._id
+        });
     }).catch(next => {
         if(next.errors){
             return res.status(500).json({result:false, status: { msg: next.errors}});
